@@ -18,7 +18,7 @@
     .res-hero {
       background: var(--ocean-bg);
       color: #fff;
-      padding: clamp(4rem,10vw,7rem) 0 3rem;
+      padding: 2rem 0 1.5rem; /* compact — tab selector stays near the top */
       position: relative;
       overflow: hidden;
     }
@@ -45,9 +45,17 @@
       display: flex; gap: 0;
       background: var(--white);
       border-bottom: 1px solid var(--gray-200);
-      position: relative;
+      /* Fixed under the nav — always visible at top */
+      position: fixed;
       top: calc(var(--bar-h) + var(--nav-h));
-      z-index: 90;
+      left: 0; right: 0;
+      z-index: 89;
+      box-shadow: 0 2px 16px rgba(0,0,0,0.07);
+    }
+    /* Spacer so content doesn't hide under the fixed tabs */
+    .res-tabs-spacer {
+      height: 54px; /* approximate tab bar height */
+      flex-shrink: 0;
     }
     .res-tab {
       flex: 1; padding: 1.1rem 1rem;
@@ -68,24 +76,33 @@
       flex: 1; display: flex; flex-direction: column; align-items: center; gap: .35rem;
     }
     .step-item__dot {
-      width: 30px; height: 30px; border-radius: 50%;
+      width: 36px; height: 36px; border-radius: 50%;
       display: flex; align-items: center; justify-content: center;
-      font-size: .72rem; font-weight: 600;
-      background: var(--gray-200); color: var(--gray-400);
-      transition: background .3s, color .3s;
+      font-size: .75rem; font-weight: 700;
+      background: var(--gray-100); color: var(--gray-400);
+      border: 2px solid var(--gray-200);
+      transition: background .3s, color .3s, border-color .3s;
     }
-    .step-item.done .step-item__dot { background: var(--ocean); color: #fff; }
-    .step-item.active .step-item__dot { background: var(--black); color: #fff; }
+    .step-item.done .step-item__dot {
+      background: var(--ocean); color: #fff; border-color: var(--ocean);
+      /* Show a tick for completed steps */
+      font-size: 1rem;
+    }
+    .step-item.active .step-item__dot { background: var(--black); color: #fff; border-color: var(--black); }
     .step-item__label {
       font-size: .58rem; letter-spacing: .12em; text-transform: uppercase;
       color: var(--gray-400); text-align: center;
       transition: color .2s;
     }
-    .step-item.active .step-item__label { color: var(--black); }
+    .step-item.done .step-item__label { color: #00a0c8; }
+    .step-item.active .step-item__label { color: var(--black); font-weight: 600; }
     .step-connector {
-      flex: 1; height: 1px; background: var(--gray-200);
-      margin-bottom: 1rem;
+      flex: 1; height: 2px;
+      background: var(--gray-200);
+      margin-bottom: 1.5rem;
+      transition: background .3s;
     }
+    .step-item.done + .step-connector { background: var(--ocean); }
 
     /* ── Step panels ─────────────────────────────────────────── */
     .step-panel { display: none; }
@@ -319,8 +336,8 @@
     </div>
   </div>
 
-  <!-- Tabs -->
-  <div class="res-tabs">
+  <!-- Tabs — fixed under nav -->
+  <div class="res-tabs" id="res-tabs">
     <button class="res-tab active" onclick="switchTab('aquarium',this)">
       🎟 Billets Aquarium
     </button>
@@ -328,6 +345,8 @@
       🍽 Restaurant Ocean Kitchen
     </button>
   </div>
+  <!-- Spacer pushes content below the fixed tab bar -->
+  <div class="res-tabs-spacer"></div>
 
   <!-- ═══════════════════ AQUARIUM FLOW ═══════════════════════ -->
   <div id="tab-aquarium" class="res-page">
@@ -815,10 +834,16 @@ function aqGoStep(n) {
     if (!document.getElementById('aq-card').value) { showToast('Veuillez saisir votre numéro de carte.'); return; }
   }
 
-  // Update progress bar
+  // Update progress bar — show ✓ on completed dots
   document.querySelectorAll('#aq-step-bar .step-item').forEach((el, i) => {
     el.classList.remove('active','done');
-    if (i+1 < n) el.classList.add('done');
+    const dot = el.querySelector('.step-item__dot');
+    if (i+1 < n) {
+      el.classList.add('done');
+      if (dot) dot.textContent = '✓';
+    } else {
+      if (dot) dot.textContent = String(i+1); // restore number
+    }
     if (i+1 === n) el.classList.add('active');
   });
 

@@ -28,7 +28,7 @@
     /* ── Hero ── */
     .map-hero {
       background: linear-gradient(135deg, #060604 0%, #0f0d0a 50%, #0a0800 100%);
-      padding: 3rem var(--pad-x) 3.5rem;
+      padding: 1.5rem var(--pad-x) 1.25rem; /* compact — filter bar should sit close to nav */
       position: relative;
       overflow: hidden;
     }
@@ -86,11 +86,9 @@
     /* ── Sticky controls ── */
     .map-controls {
       position: relative;
-      top: calc(var(--bar-h) + var(--nav-h));
       z-index: 200;
       background: var(--white);
       border-bottom: 1px solid var(--gray-200);
-      box-shadow: 0 2px 16px rgba(0,0,0,0.06);
     }
     .map-controls__inner {
       max-width: var(--max-w);

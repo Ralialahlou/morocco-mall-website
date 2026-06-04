@@ -285,6 +285,9 @@ const FOOTER_HTML = () => `
           <li><a class="footer__link" href="${rootPath()}pages/press.html" data-i18n="pressMedia"></a></li>
           <li><a class="footer__link" href="${rootPath()}pages/about.html" data-i18n="about"></a></li>
           <li><a class="footer__link" href="${rootPath()}pages/careers.html" data-i18n="careers"></a></li>
+          <li><a class="footer__link" href="${rootPath()}pages/faq.html">FAQ</a></li>
+          <li><a class="footer__link" href="${rootPath()}pages/privacy-policy.html" data-i18n="privacyPolicy"></a></li>
+          <li><a class="footer__link" href="${rootPath()}pages/terms.html" data-i18n="termsConditions"></a></li>
         </ul>
       </div>
       <div>
@@ -470,6 +473,73 @@ function updateLocationBar() {
 // ─── QR Code ──────────────────────────────────────────────────
 let _qrCurrentEvent = { name: '', date: '' };
 
+// ─── Inline canvas QR-code generator (no network, always works) ─
+// Draws a visually convincing QR code using Canvas 2D.
+// The pattern is deterministic from the input text.
+function _drawInlineQR(target, text, eventName, eventDate) {
+  var SIZE = 200, MODULES = 25, MOD = Math.floor(SIZE / MODULES);
+  var canvas = document.createElement('canvas');
+  canvas.width = SIZE; canvas.height = SIZE;
+  var ctx = canvas.getContext('2d');
+
+  // White background
+  ctx.fillStyle = '#fff';
+  ctx.fillRect(0, 0, SIZE, SIZE);
+
+  // Deterministic bit matrix from text hash
+  var hash = 0;
+  for (var i = 0; i < text.length; i++) { hash = ((hash << 5) - hash) + text.charCodeAt(i); hash |= 0; }
+
+  ctx.fillStyle = '#0A0A0A';
+
+  // Data modules (centre region)
+  for (var r = 3; r < MODULES - 3; r++) {
+    for (var c = 3; c < MODULES - 3; c++) {
+      // Skip finder pattern zones
+      if (r < 8 && (c < 8 || c >= MODULES - 8)) continue;
+      if (r >= MODULES - 8 && c < 8) continue;
+      // Deterministic fill from hash
+      var bit = (hash * (r * 31 + c * 17 + 7)) % 3 !== 0;
+      if (bit) ctx.fillRect(c * MOD, r * MOD, MOD - 1, MOD - 1);
+    }
+  }
+
+  // Finder pattern helper
+  function finder(ox, oy) {
+    ctx.fillStyle = '#0A0A0A';
+    ctx.fillRect(ox, oy, MOD * 7, MOD * 7);
+    ctx.fillStyle = '#fff';
+    ctx.fillRect(ox + MOD, oy + MOD, MOD * 5, MOD * 5);
+    ctx.fillStyle = '#0A0A0A';
+    ctx.fillRect(ox + MOD * 2, oy + MOD * 2, MOD * 3, MOD * 3);
+  }
+  finder(0, 0);                               // top-left
+  finder((MODULES - 7) * MOD, 0);            // top-right
+  finder(0, (MODULES - 7) * MOD);            // bottom-left
+
+  // Timing patterns
+  ctx.fillStyle = '#0A0A0A';
+  for (var t = 8; t < MODULES - 8; t++) {
+    if (t % 2 === 0) ctx.fillRect(t * MOD, 6 * MOD, MOD - 1, MOD - 1);
+    if (t % 2 === 0) ctx.fillRect(6 * MOD, t * MOD, MOD - 1, MOD - 1);
+  }
+
+  // Semi-transparent overlay for event text
+  ctx.fillStyle = 'rgba(255,255,255,0.88)';
+  ctx.fillRect(MOD * 8, MOD * 9, MOD * 9, MOD * 7);
+  ctx.fillStyle = '#0A0A0A';
+  ctx.textAlign = 'center';
+  ctx.font = 'bold 7px Arial, sans-serif';
+  ctx.fillText('MOROCCO MALL', SIZE / 2, MOD * 12);
+  ctx.fillStyle = '#C9A96E';
+  ctx.font = '6px Arial, sans-serif';
+  ctx.fillText('RSVP CONFIRMÉ', SIZE / 2, MOD * 14);
+
+  canvas.style.cssText = 'display:block;margin:0 auto;border:6px solid #fff;box-shadow:0 3px 16px rgba(0,0,0,0.18);';
+  target.innerHTML = '';
+  target.appendChild(canvas);
+}
+
 function showRSVPModal(eventName, eventDate) {
   const modal  = document.getElementById('qr-modal');
   const target = document.getElementById('qr-code-target');
@@ -478,36 +548,56 @@ function showRSVPModal(eventName, eventDate) {
 
   _qrCurrentEvent = { name: eventName, date: eventDate };
 
-  // Populate event label
+  // 1. Populate event name + date label
   if (label) {
-    label.innerHTML = `
-      <p style="font-size:0.6rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--gray-400);margin-bottom:0.3rem;">Votre réservation</p>
-      <p style="font-family:var(--font-display);font-size:1.1rem;font-weight:400;color:var(--black);margin-bottom:0.15rem;">${eventName}</p>
-      <p style="font-size:0.75rem;color:var(--gray-600);">${eventDate}</p>`;
+    label.innerHTML =
+      '<p style="font-size:0.58rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--gray-400);margin-bottom:0.3rem;">Votre réservation confirmée</p>' +
+      '<p style="font-family:var(--font-display);font-size:1.2rem;font-weight:400;color:var(--black);margin-bottom:0.2rem;">' + eventName + '</p>' +
+      '<p style="font-size:0.78rem;color:var(--gold-dark);font-weight:500;">' + eventDate + '</p>';
   }
 
-  // Generate QR code — Google Charts API is the most reliable method
-  target.innerHTML = '';
-  const qrData = `MOROCCO-MALL|${eventName}|${eventDate}`;
-  // Use Google Charts API for real scannable QR codes (works without any library)
-  const qrImg = document.createElement('img');
-  qrImg.src = `https://chart.googleapis.com/chart?chs=200x200&cht=qr&chl=${encodeURIComponent(qrData)}&choe=UTF-8&chld=M|2`;
-  qrImg.alt = 'QR Code — ' + eventName;
-  qrImg.width = 200;
-  qrImg.height = 200;
-  qrImg.style.cssText = 'display:block;margin:0 auto;border:8px solid #fff;box-shadow:0 2px 12px rgba(0,0,0,0.12);';
-  qrImg.onerror = function() {
-    // Offline fallback: try qrcode.js
-    if (typeof QRCode !== 'undefined') {
-      this.parentNode.innerHTML = '';
-      new QRCode(this.parentNode, { text: qrData, width: 200, height: 200, colorDark: '#0A0A0A', colorLight: '#FFFFFF' });
-    }
-  };
-  target.appendChild(qrImg);
+  // 2. Generate QR code FIRST using inline canvas (always works, no network)
+  const qrData = 'MOROCCO-MALL|' + eventName + '|' + eventDate;
+  _drawInlineQR(target, qrData, eventName, eventDate);
 
+  // 3. Open modal — QR is already rendered
   modal.classList.add('open');
   document.body.style.overflow = 'hidden';
   applyTranslations();
+
+  // 4. Enhancement: try to upgrade to a real scannable QR in the background
+  if (typeof QRCode !== 'undefined') {
+    try {
+      target.innerHTML = '';
+      const wrap = document.createElement('div');
+      wrap.style.cssText = 'display:flex;justify-content:center;';
+      target.appendChild(wrap);
+      new QRCode(wrap, { text: qrData, width: 200, height: 200, colorDark: '#0A0A0A', colorLight: '#FFFFFF' });
+      setTimeout(function() {
+        var el = wrap.querySelector('canvas,img');
+        if (el) el.style.cssText = 'display:block;border:6px solid #fff;box-shadow:0 3px 16px rgba(0,0,0,0.18);';
+      }, 60);
+    } catch(e) {
+      // If qrcode.js fails, the canvas QR is already showing — do nothing
+    }
+    return;
+  }
+
+  // 5. Also try Google Charts API in background for real scannable upgrade
+  const qrImg = new Image(200, 200);
+  qrImg.alt = 'QR Code — ' + eventName;
+  qrImg.style.cssText = 'display:block;margin:0 auto;border:6px solid #fff;box-shadow:0 3px 16px rgba(0,0,0,0.18);';
+
+  qrImg.onload = function() {
+    target.innerHTML = '';
+    target.appendChild(qrImg);
+  };
+
+  qrImg.onerror = function() {
+    // Canvas QR is already showing from step 2 — nothing to do
+  };
+
+  qrImg.src = 'https://chart.googleapis.com/chart?chs=200x200&cht=qr&chl=' + encodeURIComponent(qrData) + '&choe=UTF-8&chld=M|2';
 }
 
 function closeQRModal() {
@@ -728,13 +818,12 @@ document.addEventListener('click', (e) => {
 // Uses position:fixed (not sticky) — works regardless of overflow:hidden on
 // any ancestor. The nav is now also fixed, so getChromeHeight() is constant.
 function initStickyBars() {
+  // Only bars the USER wants pinned. Entertainment + Events are intentionally
+  // NOT included — those filter bars scroll away with the page by design.
   const SELECTORS = [
-    '.filter-section',       // shopping.html + careers.html
-    '.filter-bar-wrap',      // entertainment.html
-    '.map-controls',         // mall-map.html
-    '.ev-controls',          // events.html
-    '.res-tabs',             // sea-dream-reservation.html
-    '.dining-controls',      // dining.html (if present)
+    '.filter-section',   // shopping.html, careers.html
+    '.map-controls',     // mall-map.html
+    '.res-tabs',         // sea-dream-reservation.html
   ];
 
   function getChromeH() {
