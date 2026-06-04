@@ -710,6 +710,85 @@ document.addEventListener('click', (e) => {
   if (e.target.id === 'qr-modal') closeQRModal();
 });
 
+// ─── Sticky filter bars ───────────────────────────────────────
+// Works around position:sticky failures caused by overflow:hidden
+// on ancestor elements or stacking-context quirks in agent-generated pages.
+function initStickyBars() {
+  // Selectors for every filter/control bar across the site
+  const SELECTORS = [
+    '.filter-section',     // shopping.html
+    '.filter-bar-wrap',    // entertainment.html
+    '.map-controls',       // mall-map.html
+    '.ev-controls',        // events.html
+    '.dining-controls',    // dining.html (if present)
+  ];
+
+  function getChromeHeight() {
+    const bar = document.querySelector('.location-bar');
+    const nav = document.querySelector('.nav');
+    return (bar ? bar.offsetHeight : 0) + (nav ? nav.offsetHeight : 0);
+  }
+
+  SELECTORS.forEach(sel => {
+    const el = document.querySelector(sel);
+    if (!el) return;
+
+    // Measure natural position once chrome is in place
+    let naturalTop = null;
+    let placeholder = null;
+    let isStuck = false;
+    let chromeH = 0;
+
+    function measure() {
+      chromeH = getChromeHeight();
+      // el must NOT be fixed when we measure its natural top
+      if (isStuck) return;
+      const rect = el.getBoundingClientRect();
+      naturalTop = rect.top + window.scrollY - chromeH;
+    }
+
+    function applySticky() {
+      if (naturalTop === null) return;
+      const stuck = window.scrollY >= naturalTop;
+
+      if (stuck && !isStuck) {
+        // Freeze dimensions before removing from flow
+        const h = el.offsetHeight;
+        const w = el.offsetWidth;
+        // Insert spacer so content below doesn't jump
+        placeholder = document.createElement('div');
+        placeholder.style.height = h + 'px';
+        placeholder.style.pointerEvents = 'none';
+        el.parentNode.insertBefore(placeholder, el.nextSibling);
+        // Fix it to viewport
+        el.style.cssText += ';position:fixed!important;top:' + chromeH + 'px!important;left:0!important;right:0!important;width:100%!important;z-index:90!important;box-shadow:0 2px 16px rgba(0,0,0,0.08)!important;';
+        isStuck = true;
+      } else if (!stuck && isStuck) {
+        el.style.cssText = el.style.cssText
+          .replace(/position:[^;]+;?/gi,'')
+          .replace(/top:[^;]+;?/gi,'')
+          .replace(/left:[^;]+;?/gi,'')
+          .replace(/right:[^;]+;?/gi,'')
+          .replace(/width:[^;]+;?/gi,'')
+          .replace(/z-index:[^;]+;?/gi,'')
+          .replace(/box-shadow:[^;]+;?/gi,'');
+        if (placeholder && placeholder.parentNode) placeholder.parentNode.removeChild(placeholder);
+        placeholder = null;
+        isStuck = false;
+      }
+    }
+
+    // Initial measurement after chrome renders
+    setTimeout(() => {
+      measure();
+      applySticky();
+    }, 120);
+
+    window.addEventListener('scroll', applySticky, { passive: true });
+    window.addEventListener('resize', () => { isStuck = false; measure(); applySticky(); });
+  });
+}
+
 // ─── Init ─────────────────────────────────────────────────────
 function initApp() {
   MM.t = TRANSLATIONS[MM.lang] || TRANSLATIONS.fr;
@@ -717,6 +796,7 @@ function initApp() {
   initRevealAnimations();
   initHeroSlider();
   initCategoryFilter();
+  initStickyBars();
   // Show mall selector on first visit
   if (!localStorage.getItem('mm_visited')) {
     setTimeout(() => {
