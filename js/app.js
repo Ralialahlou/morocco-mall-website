@@ -356,6 +356,8 @@ function renderChrome() {
 
   const chrome = document.createElement('div');
   chrome.id = 'mm-chrome';
+  // Height = bar + nav so this div acts as a spacer pushing <main> below the fixed bars
+  chrome.style.cssText = 'height:calc(var(--bar-h) + var(--nav-h));flex-shrink:0;';
   chrome.innerHTML = LOCATION_BAR_HTML() + NAV_HTML() + MOBILE_MENU_HTML() + SEARCH_OVERLAY_HTML() + MALL_MODAL_HTML() + QR_MODAL_HTML() + TOAST_CONTAINER_HTML;
 
   document.body.insertBefore(chrome, document.body.firstChild);
@@ -484,15 +486,24 @@ function showRSVPModal(eventName, eventDate) {
       <p style="font-size:0.75rem;color:var(--gray-600);">${eventDate}</p>`;
   }
 
-  // Generate QR code
+  // Generate QR code — Google Charts API is the most reliable method
   target.innerHTML = '';
   const qrData = `MOROCCO-MALL|${eventName}|${eventDate}`;
-  if (typeof QRCode !== 'undefined') {
-    new QRCode(target, { text: qrData, width: 200, height: 200, colorDark: '#0A0A0A', colorLight: '#FFFFFF' });
-  } else {
-    // Fallback placeholder styled like a QR
-    target.innerHTML = `<div style="width:200px;height:200px;background:repeating-conic-gradient(#0A0A0A 0% 25%,#FFFFFF 0% 50%) 0 0/20px 20px;border:3px solid #0A0A0A;position:relative;margin:0 auto;"><div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,0.92);"><div style="text-align:center;"><div style="font-size:0.6rem;letter-spacing:0.12em;text-transform:uppercase;color:#4B5563;">Morocco Mall</div><div style="font-family:Georgia,serif;font-size:0.85rem;margin-top:0.25rem;color:#0A0A0A;">${eventName}</div><div style="font-size:0.65rem;color:#9CA3AF;margin-top:0.2rem;">${eventDate}</div></div></div></div>`;
-  }
+  // Use Google Charts API for real scannable QR codes (works without any library)
+  const qrImg = document.createElement('img');
+  qrImg.src = `https://chart.googleapis.com/chart?chs=200x200&cht=qr&chl=${encodeURIComponent(qrData)}&choe=UTF-8&chld=M|2`;
+  qrImg.alt = 'QR Code — ' + eventName;
+  qrImg.width = 200;
+  qrImg.height = 200;
+  qrImg.style.cssText = 'display:block;margin:0 auto;border:8px solid #fff;box-shadow:0 2px 12px rgba(0,0,0,0.12);';
+  qrImg.onerror = function() {
+    // Offline fallback: try qrcode.js
+    if (typeof QRCode !== 'undefined') {
+      this.parentNode.innerHTML = '';
+      new QRCode(this.parentNode, { text: qrData, width: 200, height: 200, colorDark: '#0A0A0A', colorLight: '#FFFFFF' });
+    }
+  };
+  target.appendChild(qrImg);
 
   modal.classList.add('open');
   document.body.style.overflow = 'hidden';
@@ -506,8 +517,10 @@ function closeQRModal() {
 }
 
 function downloadQR() {
+  // Try canvas first (qrcode.js), then draw from img (Google Charts)
   const canvas = document.querySelector('#qr-code-target canvas');
-  if (canvas) {
+  const qrImgEl = document.querySelector('#qr-code-target img');
+  if (canvas || qrImgEl) {
     // Draw a branded ticket image with event info onto a new canvas
     const out = document.createElement('canvas');
     out.width = 400; out.height = 500;
@@ -533,8 +546,9 @@ function downloadQR() {
     // Divider
     ctx.strokeStyle = '#E5E5E5'; ctx.lineWidth = 1;
     ctx.beginPath(); ctx.moveTo(40, 165); ctx.lineTo(360, 165); ctx.stroke();
-    // QR code centered
-    ctx.drawImage(canvas, 100, 180, 200, 200);
+    // QR code centered (canvas or img)
+    const qrSource = canvas || qrImgEl;
+    if (qrSource) { try { ctx.drawImage(qrSource, 100, 180, 200, 200); } catch(e) {} }
     // Footer
     ctx.fillStyle = '#9CA3AF'; ctx.font = '10px Arial';
     ctx.fillText('Présentez ce QR code à l\'entrée de l\'événement', 200, 420);
@@ -711,81 +725,87 @@ document.addEventListener('click', (e) => {
 });
 
 // ─── Sticky filter bars ───────────────────────────────────────
-// Works around position:sticky failures caused by overflow:hidden
-// on ancestor elements or stacking-context quirks in agent-generated pages.
+// Uses position:fixed (not sticky) — works regardless of overflow:hidden on
+// any ancestor. The nav is now also fixed, so getChromeHeight() is constant.
 function initStickyBars() {
-  // Selectors for every filter/control bar across the site
   const SELECTORS = [
-    '.filter-section',     // shopping.html
-    '.filter-bar-wrap',    // entertainment.html
-    '.map-controls',       // mall-map.html
-    '.ev-controls',        // events.html
-    '.dining-controls',    // dining.html (if present)
+    '.filter-section',       // shopping.html + careers.html
+    '.filter-bar-wrap',      // entertainment.html
+    '.map-controls',         // mall-map.html
+    '.ev-controls',          // events.html
+    '.res-tabs',             // sea-dream-reservation.html
+    '.dining-controls',      // dining.html (if present)
   ];
 
-  function getChromeHeight() {
-    const bar = document.querySelector('.location-bar');
-    const nav = document.querySelector('.nav');
-    return (bar ? bar.offsetHeight : 0) + (nav ? nav.offsetHeight : 0);
+  function getChromeH() {
+    // The chrome is now position:fixed — its height is always the same
+    const el = document.getElementById('mm-chrome');
+    if (el) return el.offsetHeight || 112;
+    return 112; // fallback
   }
 
-  SELECTORS.forEach(sel => {
-    const el = document.querySelector(sel);
+  SELECTORS.forEach(function(sel) {
+    var el = document.querySelector(sel);
     if (!el) return;
 
-    // Measure natural position once chrome is in place
-    let naturalTop = null;
-    let placeholder = null;
-    let isStuck = false;
-    let chromeH = 0;
+    var chromeH = 0;
+    var naturalTop = null;
+    var placeholder = null;
+    var stuck = false;
 
     function measure() {
-      chromeH = getChromeHeight();
-      // el must NOT be fixed when we measure its natural top
-      if (isStuck) return;
-      const rect = el.getBoundingClientRect();
-      naturalTop = rect.top + window.scrollY - chromeH;
+      if (stuck) return;
+      chromeH = getChromeH();
+      var rect = el.getBoundingClientRect();
+      // naturalTop = scroll position at which this bar reaches the bottom of the chrome
+      naturalTop = rect.top + window.pageYOffset - chromeH;
+      if (naturalTop < 0) naturalTop = 0;
     }
 
-    function applySticky() {
-      if (naturalTop === null) return;
-      const stuck = window.scrollY >= naturalTop;
+    function pin() {
+      if (naturalTop === null) measure();
+      var shouldStick = window.pageYOffset >= naturalTop;
 
-      if (stuck && !isStuck) {
-        // Freeze dimensions before removing from flow
-        const h = el.offsetHeight;
-        const w = el.offsetWidth;
-        // Insert spacer so content below doesn't jump
+      if (shouldStick && !stuck) {
+        var h = el.getBoundingClientRect().height;
+        // Spacer prevents content jump
         placeholder = document.createElement('div');
-        placeholder.style.height = h + 'px';
-        placeholder.style.pointerEvents = 'none';
+        placeholder.style.cssText = 'height:' + h + 'px;pointer-events:none;';
         el.parentNode.insertBefore(placeholder, el.nextSibling);
-        // Fix it to viewport
-        el.style.cssText += ';position:fixed!important;top:' + chromeH + 'px!important;left:0!important;right:0!important;width:100%!important;z-index:90!important;box-shadow:0 2px 16px rgba(0,0,0,0.08)!important;';
-        isStuck = true;
-      } else if (!stuck && isStuck) {
-        el.style.cssText = el.style.cssText
-          .replace(/position:[^;]+;?/gi,'')
-          .replace(/top:[^;]+;?/gi,'')
-          .replace(/left:[^;]+;?/gi,'')
-          .replace(/right:[^;]+;?/gi,'')
-          .replace(/width:[^;]+;?/gi,'')
-          .replace(/z-index:[^;]+;?/gi,'')
-          .replace(/box-shadow:[^;]+;?/gi,'');
-        if (placeholder && placeholder.parentNode) placeholder.parentNode.removeChild(placeholder);
+        el.style.setProperty('position', 'fixed', 'important');
+        el.style.setProperty('top', chromeH + 'px', 'important');
+        el.style.setProperty('left', '0', 'important');
+        el.style.setProperty('right', '0', 'important');
+        el.style.setProperty('width', '100%', 'important');
+        el.style.setProperty('z-index', '89', 'important');
+        el.style.setProperty('box-shadow', '0 2px 20px rgba(0,0,0,0.1)', 'important');
+        stuck = true;
+      } else if (!shouldStick && stuck) {
+        el.style.removeProperty('position');
+        el.style.removeProperty('top');
+        el.style.removeProperty('left');
+        el.style.removeProperty('right');
+        el.style.removeProperty('width');
+        el.style.removeProperty('z-index');
+        el.style.removeProperty('box-shadow');
+        if (placeholder && placeholder.parentNode) {
+          placeholder.parentNode.removeChild(placeholder);
+        }
         placeholder = null;
-        isStuck = false;
+        stuck = false;
       }
     }
 
-    // Initial measurement after chrome renders
-    setTimeout(() => {
-      measure();
-      applySticky();
-    }, 120);
-
-    window.addEventListener('scroll', applySticky, { passive: true });
-    window.addEventListener('resize', () => { isStuck = false; measure(); applySticky(); });
+    // Measure after full layout is available
+    setTimeout(function() { measure(); pin(); }, 300);
+    window.addEventListener('load', function() { measure(); pin(); });
+    window.addEventListener('scroll', pin, { passive: true });
+    window.addEventListener('resize', function() {
+      stuck = false;
+      if (placeholder && placeholder.parentNode) placeholder.parentNode.removeChild(placeholder);
+      placeholder = null;
+      setTimeout(function() { measure(); pin(); }, 50);
+    });
   });
 }
 

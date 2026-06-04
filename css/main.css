@@ -199,8 +199,10 @@ ul { list-style: none; }
   align-items: center;
   justify-content: space-between;
   padding: 0 var(--pad-x);
-  position: sticky;
+  position: fixed;   /* fixed — not sticky; #mm-chrome acts as spacer */
   top: 0;
+  left: 0;
+  right: 0;
   z-index: 300;
 }
 .location-bar__left {
@@ -260,8 +262,10 @@ ul { list-style: none; }
   height: var(--nav-h);
   background: var(--white);
   border-bottom: 1px solid var(--gray-200);
-  position: sticky;
+  position: fixed;   /* fixed — stays at top always */
   top: var(--bar-h);
+  left: 0;
+  right: 0;
   z-index: 200;
   transition: box-shadow 0.3s var(--ease), background 0.3s var(--ease);
 }
