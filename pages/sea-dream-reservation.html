@@ -1,0 +1,1014 @@
+<!DOCTYPE html>
+<html lang="fr" dir="ltr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Réservation — Sea Dream Aquarium</title>
+  <link rel="icon" href="../assets/logo.png" type="image/png" />
+  <link rel="stylesheet" href="../css/main.css" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+  <style>
+    :root { --ocean: #00b4d8; --ocean-dark: #0077a8; --ocean-bg: #010d1a; }
+
+    /* ── Layout ──────────────────────────────────────────────── */
+    body { background: #f4f6f8; }
+    .res-page { max-width: 740px; margin: 0 auto; padding: 2rem var(--pad-x) 5rem; }
+
+    /* ── Page hero strip ─────────────────────────────────────── */
+    .res-hero {
+      background: var(--ocean-bg);
+      color: #fff;
+      padding: clamp(4rem,10vw,7rem) 0 3rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .res-hero::after {
+      content: '';
+      position: absolute; inset: 0;
+      background: url('../assets/aquarium-1.jpg') center/cover no-repeat;
+      opacity: 0.18;
+    }
+    .res-hero__inner { position: relative; z-index: 1; }
+    .res-hero__back {
+      display: inline-flex; align-items: center; gap: .4rem;
+      font-size: .62rem; letter-spacing: .15em; text-transform: uppercase;
+      color: rgba(255,255,255,.45); text-decoration: none;
+      margin-bottom: 1.5rem; transition: color .2s;
+    }
+    .res-hero__back:hover { color: var(--ocean); }
+    .res-hero__eyebrow { font-size: .62rem; letter-spacing: .2em; text-transform: uppercase; color: var(--ocean); margin-bottom: .75rem; }
+    .res-hero__title { font-family: var(--font-display); font-size: clamp(2rem,5vw,3.5rem); font-weight: 300; line-height: 1; margin-bottom: .5rem; }
+    .res-hero__sub { font-size: .85rem; color: rgba(255,255,255,.45); }
+
+    /* ── Tabs ────────────────────────────────────────────────── */
+    .res-tabs {
+      display: flex; gap: 0;
+      background: var(--white);
+      border-bottom: 1px solid var(--gray-200);
+      position: sticky;
+      top: calc(var(--bar-h) + var(--nav-h));
+      z-index: 90;
+    }
+    .res-tab {
+      flex: 1; padding: 1.1rem 1rem;
+      font-family: var(--font-body); font-size: .68rem;
+      font-weight: 500; letter-spacing: .16em; text-transform: uppercase;
+      color: var(--gray-400);
+      background: none; border: none; border-bottom: 2px solid transparent;
+      cursor: pointer; transition: color .2s, border-color .2s;
+    }
+    .res-tab.active { color: var(--black); border-bottom-color: var(--ocean); }
+
+    /* ── Step progress bar ───────────────────────────────────── */
+    .step-bar {
+      display: flex; align-items: center; gap: 0;
+      margin-bottom: 2.5rem;
+    }
+    .step-item {
+      flex: 1; display: flex; flex-direction: column; align-items: center; gap: .35rem;
+    }
+    .step-item__dot {
+      width: 30px; height: 30px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: .72rem; font-weight: 600;
+      background: var(--gray-200); color: var(--gray-400);
+      transition: background .3s, color .3s;
+    }
+    .step-item.done .step-item__dot { background: var(--ocean); color: #fff; }
+    .step-item.active .step-item__dot { background: var(--black); color: #fff; }
+    .step-item__label {
+      font-size: .58rem; letter-spacing: .12em; text-transform: uppercase;
+      color: var(--gray-400); text-align: center;
+      transition: color .2s;
+    }
+    .step-item.active .step-item__label { color: var(--black); }
+    .step-connector {
+      flex: 1; height: 1px; background: var(--gray-200);
+      margin-bottom: 1rem;
+    }
+
+    /* ── Step panels ─────────────────────────────────────────── */
+    .step-panel { display: none; }
+    .step-panel.active { display: block; animation: fadeSlide .25s ease; }
+    @keyframes fadeSlide { from { opacity:0; transform:translateY(8px); } to { opacity:1; transform:translateY(0); } }
+
+    /* ── Date + Time ─────────────────────────────────────────── */
+    .date-input {
+      width: 100%;
+      padding: .9rem 1rem;
+      font-family: var(--font-body); font-size: .95rem;
+      border: 1px solid var(--gray-200); background: var(--white);
+      color: var(--black); outline: none;
+      transition: border-color .2s;
+    }
+    .date-input:focus { border-color: var(--ocean); }
+
+    .time-grid {
+      display: grid; grid-template-columns: repeat(4, 1fr); gap: .6rem;
+      margin-top: 1.25rem;
+    }
+    @media (max-width: 500px) { .time-grid { grid-template-columns: repeat(3, 1fr); } }
+    .time-slot {
+      padding: .65rem .5rem;
+      font-family: var(--font-body); font-size: .72rem;
+      font-weight: 500; letter-spacing: .08em;
+      border: 1px solid var(--gray-200); background: var(--white); color: var(--gray-600);
+      cursor: pointer; text-align: center;
+      transition: all .2s; border-radius: 2px;
+    }
+    .time-slot:hover { border-color: var(--ocean); color: var(--ocean); }
+    .time-slot.selected { background: var(--ocean); color: #fff; border-color: var(--ocean); }
+    .time-slot.full { opacity: .4; cursor: not-allowed; text-decoration: line-through; }
+
+    /* ── Ticket counter rows ─────────────────────────────────── */
+    .ticket-row {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1.1rem 0; border-bottom: 1px solid var(--gray-100);
+      gap: 1rem;
+    }
+    .ticket-row:last-child { border-bottom: none; }
+    .ticket-row__info {}
+    .ticket-row__name { font-size: .88rem; font-weight: 500; color: var(--black); }
+    .ticket-row__detail { font-size: .72rem; color: var(--gray-400); margin-top: .15rem; }
+    .ticket-row__price { font-size: .88rem; font-weight: 600; color: var(--black); white-space: nowrap; }
+    .counter {
+      display: flex; align-items: center; gap: 0;
+      border: 1px solid var(--gray-200); border-radius: 2px;
+      overflow: hidden;
+    }
+    .counter__btn {
+      width: 36px; height: 36px;
+      display: flex; align-items: center; justify-content: center;
+      background: var(--gray-100); color: var(--black);
+      font-size: 1.1rem; font-weight: 300;
+      cursor: pointer; border: none; font-family: inherit;
+      transition: background .15s;
+    }
+    .counter__btn:hover { background: var(--gray-200); }
+    .counter__val {
+      width: 40px; text-align: center;
+      font-size: .88rem; font-weight: 600;
+      color: var(--black);
+    }
+    .total-bar {
+      margin-top: 1.5rem; padding: 1.1rem 1.25rem;
+      background: var(--ocean-bg); color: #fff;
+      display: flex; align-items: center; justify-content: space-between;
+      border-radius: 2px;
+    }
+    .total-bar__label { font-size: .68rem; letter-spacing: .15em; text-transform: uppercase; color: rgba(255,255,255,.5); }
+    .total-bar__price { font-family: var(--font-display); font-size: 1.8rem; font-weight: 300; color: var(--ocean); }
+
+    /* ── Payment / contact form ──────────────────────────────── */
+    .payment-section { margin-top: 1.75rem; }
+    .payment-title {
+      font-size: .62rem; letter-spacing: .18em; text-transform: uppercase;
+      color: var(--gray-400); margin-bottom: 1rem; padding-bottom: .5rem;
+      border-bottom: 1px solid var(--gray-200);
+    }
+    .card-field-row { display: grid; grid-template-columns: 1fr 1fr; gap: .75rem; }
+    .card-icons { display: flex; gap: .5rem; margin-bottom: .75rem; }
+    .card-icon {
+      padding: .25rem .6rem; background: var(--gray-100);
+      border: 1px solid var(--gray-200); border-radius: 3px;
+      font-size: .62rem; font-weight: 600; color: var(--gray-600);
+    }
+
+    /* ── Confirmation ────────────────────────────────────────── */
+    .confirm-banner {
+      background: linear-gradient(135deg, var(--ocean-bg), #002a40);
+      color: #fff; padding: 2.5rem 2rem;
+      text-align: center; border-radius: 4px; margin-bottom: 2rem;
+    }
+    .confirm-banner__icon { font-size: 3rem; margin-bottom: 1rem; }
+    .confirm-banner__title {
+      font-family: var(--font-display); font-size: 1.8rem; font-weight: 300;
+      margin-bottom: .5rem; color: var(--ocean);
+    }
+    .confirm-banner__ref { font-size: .72rem; letter-spacing: .2em; text-transform: uppercase; color: rgba(255,255,255,.45); }
+
+    /* ── Printable Ticket ────────────────────────────────────── */
+    .ticket-wrapper {
+      background: var(--white); border: 1px solid var(--gray-200);
+      border-radius: 4px; overflow: hidden;
+    }
+    #ticket-print {
+      font-family: var(--font-body);
+    }
+    .ticket-header {
+      background: var(--ocean-bg);
+      color: #fff; padding: 1.5rem 2rem;
+      display: flex; align-items: center; justify-content: space-between;
+      flex-wrap: wrap; gap: 1rem;
+    }
+    .ticket-header__logo-text {
+      font-family: var(--font-display); font-size: 1.4rem; font-weight: 300;
+    }
+    .ticket-header__logo-sub { font-size: .6rem; letter-spacing: .15em; text-transform: uppercase; color: var(--ocean); }
+    .ticket-body {
+      padding: 1.75rem 2rem; display: grid;
+      grid-template-columns: 1fr auto; gap: 1.5rem 2rem; align-items: start;
+    }
+    .ticket-field { margin-bottom: 1rem; }
+    .ticket-field__label {
+      font-size: .58rem; letter-spacing: .15em; text-transform: uppercase;
+      color: var(--gray-400); margin-bottom: .2rem;
+    }
+    .ticket-field__value { font-size: .9rem; font-weight: 500; color: var(--black); }
+    .ticket-items { border-top: 1px solid var(--gray-100); padding-top: 1rem; margin-top: .5rem; }
+    .ticket-item-row {
+      display: flex; justify-content: space-between;
+      font-size: .82rem; padding: .3rem 0;
+      border-bottom: 1px solid var(--gray-100);
+    }
+    .ticket-item-row:last-child { border-bottom: none; }
+    .ticket-total {
+      display: flex; justify-content: space-between;
+      font-weight: 700; font-size: .9rem;
+      padding-top: .75rem; border-top: 2px solid var(--black);
+      margin-top: .5rem;
+    }
+    .ticket-qr { display: flex; flex-direction: column; align-items: center; gap: .5rem; }
+    .ticket-qr__label { font-size: .58rem; letter-spacing: .12em; text-transform: uppercase; color: var(--gray-400); }
+    .ticket-footer {
+      background: var(--ocean-bg); color: rgba(255,255,255,.4);
+      padding: .85rem 2rem;
+      display: flex; align-items: center; justify-content: space-between;
+      flex-wrap: wrap; gap: .5rem;
+      font-size: .65rem; letter-spacing: .08em;
+    }
+    .ticket-barcode {
+      height: 32px; width: 160px;
+      background: repeating-linear-gradient(90deg,#fff 0,#fff 2px,transparent 2px,transparent 4px),
+                  repeating-linear-gradient(90deg,#fff 0,#fff 1px,transparent 1px,transparent 3px);
+      background-color: #000;
+    }
+
+    /* ── Restaurant flow ─────────────────────────────────────── */
+    .guest-select {
+      display: grid; grid-template-columns: repeat(5,1fr); gap: .5rem;
+    }
+    @media (max-width:480px) { .guest-select { grid-template-columns: repeat(4,1fr); } }
+    .guest-btn {
+      padding: .6rem .4rem; text-align: center;
+      font-family: var(--font-body); font-size: .75rem; font-weight: 600;
+      border: 1px solid var(--gray-200); background: var(--white); color: var(--gray-600);
+      cursor: pointer; border-radius: 2px; transition: all .2s;
+    }
+    .guest-btn:hover { border-color: var(--ocean); color: var(--ocean); }
+    .guest-btn.selected { background: var(--ocean); color: #fff; border-color: var(--ocean); }
+
+    /* ── Confirmation toast ──────────────────────────────────── */
+    .res-confirm-modal {
+      display: none; position: fixed; inset: 0;
+      background: rgba(0,0,0,.7); backdrop-filter: blur(4px);
+      z-index: 800;
+      align-items: center; justify-content: center;
+    }
+    .res-confirm-panel {
+      background: var(--white); padding: 2.5rem 2rem;
+      max-width: 420px; width: 92%; text-align: center; border-radius: 4px;
+    }
+    .res-confirm-panel__icon { font-size: 3rem; margin-bottom: 1rem; }
+    .res-confirm-panel h3 { font-family: var(--font-display); font-size: 1.7rem; font-weight: 300; margin-bottom: .5rem; }
+    .res-confirm-panel p { font-size: .82rem; color: var(--gray-600); line-height: 1.7; }
+
+    /* ── @media print ────────────────────────────────────────── */
+    @media print {
+      body * { visibility: hidden !important; }
+      #ticket-print, #ticket-print * { visibility: visible !important; }
+      #ticket-print {
+        position: fixed !important; inset: 0 !important;
+        width: 100% !important; max-width: none !important;
+        padding: 0 !important; margin: 0 !important;
+      }
+      .ticket-wrapper { border: none !important; box-shadow: none !important; }
+    }
+
+    /* ── Utility ─────────────────────────────────────────────── */
+    .section-card {
+      background: var(--white); border: 1px solid var(--gray-200);
+      padding: 2rem; margin-bottom: 1.5rem;
+    }
+    .section-card h3 {
+      font-family: var(--font-display); font-size: 1.25rem; font-weight: 400;
+      margin-bottom: 1.25rem; padding-bottom: .75rem;
+      border-bottom: 1px solid var(--gray-100);
+    }
+    .nav-btns { display: flex; gap: .75rem; margin-top: 2rem; flex-wrap: wrap; }
+    .availability-note {
+      margin-top: .75rem; font-size: .72rem; color: var(--gray-400);
+      display: flex; align-items: center; gap: .4rem;
+    }
+    .dot-avail { width: 8px; height: 8px; border-radius: 50%; }
+  </style>
+</head>
+<body>
+<main id="main-content">
+
+  <!-- Hero -->
+  <div class="res-hero">
+    <div class="container res-hero__inner">
+      <a class="res-hero__back" href="sea-dream.html">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px;"><polyline points="15 18 9 12 15 6"/></svg>
+        Sea Dream Aquarium
+      </a>
+      <p class="res-hero__eyebrow">Réservation en ligne</p>
+      <h1 class="res-hero__title">Sea Dream<br>Aquarium</h1>
+      <p class="res-hero__sub">Billets &amp; Restaurant · Casablanca Bay · Niveau 0</p>
+    </div>
+  </div>
+
+  <!-- Tabs -->
+  <div class="res-tabs">
+    <button class="res-tab active" onclick="switchTab('aquarium',this)">
+      🎟 Billets Aquarium
+    </button>
+    <button class="res-tab" onclick="switchTab('restaurant',this)">
+      🍽 Restaurant Ocean Kitchen
+    </button>
+  </div>
+
+  <!-- ═══════════════════ AQUARIUM FLOW ═══════════════════════ -->
+  <div id="tab-aquarium" class="res-page">
+
+    <!-- Step progress -->
+    <div class="step-bar" id="aq-step-bar">
+      <div class="step-item active" data-step="1">
+        <div class="step-item__dot">1</div>
+        <span class="step-item__label">Date &amp; Heure</span>
+      </div>
+      <div class="step-connector"></div>
+      <div class="step-item" data-step="2">
+        <div class="step-item__dot">2</div>
+        <span class="step-item__label">Billets</span>
+      </div>
+      <div class="step-connector"></div>
+      <div class="step-item" data-step="3">
+        <div class="step-item__dot">3</div>
+        <span class="step-item__label">Paiement</span>
+      </div>
+      <div class="step-connector"></div>
+      <div class="step-item" data-step="4">
+        <div class="step-item__dot">✓</div>
+        <span class="step-item__label">Confirmation</span>
+      </div>
+    </div>
+
+    <!-- ── STEP 1: Date & Time ── -->
+    <div class="step-panel active" id="aq-step-1">
+      <div class="section-card">
+        <h3>Choisissez votre date</h3>
+        <input class="date-input" type="date" id="aq-date"
+          min="" placeholder="Sélectionner une date" />
+
+        <h3 style="margin-top:1.75rem;">Choisissez un horaire</h3>
+        <div class="time-grid" id="aq-time-grid">
+          <button class="time-slot" data-time="10:00">10:00</button>
+          <button class="time-slot" data-time="11:00">11:00</button>
+          <button class="time-slot" data-time="12:00">12:00</button>
+          <button class="time-slot" data-time="13:00">13:00</button>
+          <button class="time-slot" data-time="14:00">14:00</button>
+          <button class="time-slot" data-time="15:00">15:00</button>
+          <button class="time-slot" data-time="16:00">16:00</button>
+          <button class="time-slot" data-time="17:00">17:00</button>
+          <button class="time-slot" data-time="18:00">18:00</button>
+          <button class="time-slot full" data-time="19:00">19:00 — Complet</button>
+          <button class="time-slot" data-time="20:00">20:00</button>
+          <button class="time-slot" data-time="21:00">21:00</button>
+        </div>
+        <div class="availability-note">
+          <div class="dot-avail" style="background:var(--ocean);"></div> Disponible
+          <div class="dot-avail" style="background:var(--gray-200);margin-left:.5rem;"></div> Complet
+        </div>
+      </div>
+      <div class="nav-btns">
+        <button class="btn btn--dark btn--lg" onclick="aqGoStep(2)">Continuer — Choisir les billets</button>
+      </div>
+    </div>
+
+    <!-- ── STEP 2: Tickets ── -->
+    <div class="step-panel" id="aq-step-2">
+      <div class="section-card">
+        <h3>Sélectionnez vos billets</h3>
+        <div id="aq-selected-summary" style="font-size:.78rem;color:var(--gray-400);margin-bottom:1.25rem;padding:.6rem .9rem;background:var(--cream);border-left:3px solid var(--ocean);"></div>
+
+        <!-- Adult -->
+        <div class="ticket-row">
+          <div class="ticket-row__info">
+            <div class="ticket-row__name">Adulte</div>
+            <div class="ticket-row__detail">13 ans et plus</div>
+          </div>
+          <div style="display:flex;align-items:center;gap:1.5rem;">
+            <div class="ticket-row__price">150 MAD</div>
+            <div class="counter">
+              <button class="counter__btn" onclick="changeQty('adult',-1)">−</button>
+              <span class="counter__val" id="q-adult">0</span>
+              <button class="counter__btn" onclick="changeQty('adult',1)">+</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Child -->
+        <div class="ticket-row">
+          <div class="ticket-row__info">
+            <div class="ticket-row__name">Enfant</div>
+            <div class="ticket-row__detail">3 – 12 ans</div>
+          </div>
+          <div style="display:flex;align-items:center;gap:1.5rem;">
+            <div class="ticket-row__price">100 MAD</div>
+            <div class="counter">
+              <button class="counter__btn" onclick="changeQty('child',-1)">−</button>
+              <span class="counter__val" id="q-child">0</span>
+              <button class="counter__btn" onclick="changeQty('child',1)">+</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Student -->
+        <div class="ticket-row">
+          <div class="ticket-row__info">
+            <div class="ticket-row__name">Étudiant</div>
+            <div class="ticket-row__detail">Carte étudiant requise</div>
+          </div>
+          <div style="display:flex;align-items:center;gap:1.5rem;">
+            <div class="ticket-row__price">120 MAD</div>
+            <div class="counter">
+              <button class="counter__btn" onclick="changeQty('student',-1)">−</button>
+              <span class="counter__val" id="q-student">0</span>
+              <button class="counter__btn" onclick="changeQty('student',1)">+</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Infant -->
+        <div class="ticket-row">
+          <div class="ticket-row__info">
+            <div class="ticket-row__name">Moins de 3 ans</div>
+            <div class="ticket-row__detail">Accompagné d'un adulte</div>
+          </div>
+          <div style="display:flex;align-items:center;gap:1.5rem;">
+            <div class="ticket-row__price" style="color:var(--ocean);">Gratuit</div>
+            <div class="counter">
+              <button class="counter__btn" onclick="changeQty('infant',-1)">−</button>
+              <span class="counter__val" id="q-infant">0</span>
+              <button class="counter__btn" onclick="changeQty('infant',1)">+</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Family pack -->
+        <div class="ticket-row" style="background:rgba(0,180,216,0.04);border:1px solid rgba(0,180,216,0.2);padding:1rem;border-radius:2px;margin-top:.75rem;">
+          <div class="ticket-row__info">
+            <div class="ticket-row__name" style="color:var(--ocean);">Pack Famille</div>
+            <div class="ticket-row__detail">2 Adultes + 2 Enfants · Économisez 50 MAD</div>
+          </div>
+          <div style="display:flex;align-items:center;gap:1.5rem;">
+            <div class="ticket-row__price">450 MAD</div>
+            <div class="counter">
+              <button class="counter__btn" onclick="changeQty('family',-1)">−</button>
+              <span class="counter__val" id="q-family">0</span>
+              <button class="counter__btn" onclick="changeQty('family',1)">+</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="total-bar">
+          <div>
+            <div class="total-bar__label">Total à payer</div>
+            <div style="font-size:.68rem;color:rgba(255,255,255,.3);margin-top:.2rem;" id="total-detail">0 billet</div>
+          </div>
+          <div class="total-bar__price" id="total-price">0 MAD</div>
+        </div>
+      </div>
+      <div class="nav-btns">
+        <button class="btn btn--outline" onclick="aqGoStep(1)">← Retour</button>
+        <button class="btn btn--dark btn--lg" onclick="aqGoStep(3)">Continuer — Paiement</button>
+      </div>
+    </div>
+
+    <!-- ── STEP 3: Contact + Payment ── -->
+    <div class="step-panel" id="aq-step-3">
+      <div class="section-card">
+        <h3>Vos coordonnées</h3>
+        <div class="form-group">
+          <label class="form-label">Prénom et Nom *</label>
+          <input class="form-input" type="text" id="aq-name" placeholder="Mohammed Al-Fassi" required />
+        </div>
+        <div class="form-group">
+          <label class="form-label">Adresse email *</label>
+          <input class="form-input" type="email" id="aq-email" placeholder="email@exemple.com" required />
+          <p style="font-size:.7rem;color:var(--gray-400);margin-top:.4rem;">Votre billet sera envoyé à cette adresse</p>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Téléphone</label>
+          <input class="form-input" type="tel" id="aq-phone" placeholder="+212 6XX XXX XXX" />
+        </div>
+      </div>
+
+      <div class="section-card">
+        <h3>Paiement sécurisé</h3>
+        <div class="card-icons">
+          <span class="card-icon">VISA</span>
+          <span class="card-icon">MC</span>
+          <span class="card-icon">CMI</span>
+          <span class="card-icon">PayPal</span>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Numéro de carte *</label>
+          <input class="form-input" type="text" id="aq-card"
+            placeholder="1234 5678 9012 3456" maxlength="19"
+            oninput="formatCard(this)" />
+        </div>
+        <div class="card-field-row">
+          <div class="form-group">
+            <label class="form-label">Date d'expiration *</label>
+            <input class="form-input" type="text" id="aq-expiry"
+              placeholder="MM/AA" maxlength="5"
+              oninput="formatExpiry(this)" />
+          </div>
+          <div class="form-group">
+            <label class="form-label">CVV *</label>
+            <input class="form-input" type="password" id="aq-cvv"
+              placeholder="•••" maxlength="4" />
+          </div>
+        </div>
+        <p style="font-size:.7rem;color:var(--gray-400);display:flex;align-items:center;gap:.4rem;">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="width:13px;height:13px;"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+          Paiement sécurisé SSL · Vos données sont protégées
+        </p>
+
+        <!-- Order summary -->
+        <div style="margin-top:1.5rem;padding:1rem;background:var(--cream);border-radius:2px;">
+          <p style="font-size:.62rem;letter-spacing:.15em;text-transform:uppercase;color:var(--gray-400);margin-bottom:.75rem;">Récapitulatif</p>
+          <div id="aq-order-summary" style="font-size:.82rem;color:var(--gray-600);line-height:1.8;"></div>
+          <div style="display:flex;justify-content:space-between;font-weight:600;font-size:.9rem;margin-top:.75rem;padding-top:.75rem;border-top:1px solid var(--gray-200);">
+            <span>Total</span><span id="aq-summary-total" style="color:var(--ocean);">0 MAD</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="nav-btns">
+        <button class="btn btn--outline" onclick="aqGoStep(2)">← Retour</button>
+        <button class="btn btn--dark btn--lg" style="background:var(--ocean);border-color:var(--ocean);" onclick="confirmAquarium()">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px;"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+          Confirmer &amp; Payer — <span id="btn-total">0 MAD</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- ── STEP 4: Confirmation + Ticket ── -->
+    <div class="step-panel" id="aq-step-4">
+      <div class="confirm-banner">
+        <div class="confirm-banner__icon">✓</div>
+        <div class="confirm-banner__title">Réservation confirmée !</div>
+        <p style="font-size:.82rem;color:rgba(255,255,255,.5);margin:.5rem 0 1rem;">
+          Un email de confirmation a été envoyé à <strong id="confirm-email" style="color:var(--ocean);"></strong>
+        </p>
+        <div class="confirm-banner__ref">Référence : <strong id="confirm-ref" style="color:#fff;letter-spacing:.05em;"></strong></div>
+      </div>
+
+      <!-- Printable ticket -->
+      <div class="ticket-wrapper" id="ticket-print">
+        <div class="ticket-header">
+          <div>
+            <div class="ticket-header__logo-text">Sea Dream Aquarium</div>
+            <div class="ticket-header__logo-sub">Morocco Mall · Casablanca Bay</div>
+          </div>
+          <img src="../assets/logo.png" alt="Morocco Mall" style="height:36px;filter:invert(1);opacity:.7;" />
+        </div>
+        <div class="ticket-body">
+          <div>
+            <div class="ticket-field">
+              <div class="ticket-field__label">Titulaire</div>
+              <div class="ticket-field__value" id="tkt-name">—</div>
+            </div>
+            <div class="ticket-field">
+              <div class="ticket-field__label">Date d'entrée</div>
+              <div class="ticket-field__value" id="tkt-date">—</div>
+            </div>
+            <div class="ticket-field">
+              <div class="ticket-field__label">Horaire</div>
+              <div class="ticket-field__value" id="tkt-time">—</div>
+            </div>
+            <div class="ticket-field">
+              <div class="ticket-field__label">Référence</div>
+              <div class="ticket-field__value" id="tkt-ref">—</div>
+            </div>
+            <div class="ticket-items">
+              <div class="ticket-field__label" style="margin-bottom:.5rem;">Billets</div>
+              <div id="tkt-items">—</div>
+              <div class="ticket-total">
+                <span>Total payé</span>
+                <span id="tkt-total">—</span>
+              </div>
+            </div>
+          </div>
+          <!-- QR code -->
+          <div class="ticket-qr">
+            <div id="tkt-qr"></div>
+            <div class="ticket-qr__label">Scanner à l'entrée</div>
+            <div class="ticket-barcode"></div>
+          </div>
+        </div>
+        <div class="ticket-footer">
+          <span>Valable uniquement à la date et l'heure indiquées · Non remboursable</span>
+          <span>moroccomall.ma / sea-dream</span>
+        </div>
+      </div>
+
+      <div class="nav-btns" style="justify-content:center;margin-top:1.5rem;">
+        <button class="btn btn--dark btn--lg" onclick="printTicket()">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px;"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 01-2-2v-5a2 2 0 012-2h16a2 2 0 012 2v5a2 2 0 01-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+          Télécharger le billet (PDF)
+        </button>
+        <a class="btn btn--outline" href="sea-dream.html">Retour à l'aquarium</a>
+      </div>
+    </div>
+
+  </div><!-- /tab-aquarium -->
+
+  <!-- ═══════════════════ RESTAURANT FLOW ═══════════════════ -->
+  <div id="tab-restaurant" class="res-page" style="display:none;">
+
+    <div style="background:var(--white);border:1px solid var(--gray-200);overflow:hidden;margin-bottom:1.5rem;">
+      <img src="../assets/aquarium-2.jpg" alt="The Ocean Kitchen"
+        style="width:100%;height:220px;object-fit:cover;object-position:center top;" />
+      <div style="padding:1.5rem 2rem;">
+        <p style="font-size:.62rem;letter-spacing:.18em;text-transform:uppercase;color:var(--ocean);margin-bottom:.4rem;">Restaurant</p>
+        <h2 style="font-family:var(--font-display);font-size:1.6rem;font-weight:300;margin-bottom:.5rem;">The Ocean Kitchen</h2>
+        <p style="font-size:.82rem;color:var(--gray-600);line-height:1.7;max-width:520px;">
+          Dînez au cœur de l'aquarium avec une vue panoramique sur les requins et les récifs. Fruits de mer frais, poissons du jour, menu méditerranéen.
+        </p>
+        <p style="font-size:.72rem;color:var(--gray-400);margin-top:.75rem;">
+          🕐 Déjeuner 12:00–15:30 &nbsp;·&nbsp; Dîner 19:00–23:00 &nbsp;·&nbsp; Fermé le mardi
+        </p>
+      </div>
+    </div>
+
+    <div class="section-card">
+      <h3>Choisissez votre service</h3>
+
+      <div class="form-group">
+        <label class="form-label">Date *</label>
+        <input class="date-input" type="date" id="rst-date" min="" />
+      </div>
+
+      <div class="form-group" style="margin-top:1.25rem;">
+        <label class="form-label">Service</label>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:.75rem;margin-top:.5rem;">
+          <button class="time-slot" id="svc-lunch" data-svc="lunch" onclick="selectService(this,'lunch')">
+            🌞 Déjeuner<br><small style="font-size:.62rem;opacity:.7;">12:00 – 15:30</small>
+          </button>
+          <button class="time-slot" id="svc-dinner" data-svc="dinner" onclick="selectService(this,'dinner')">
+            🌙 Dîner<br><small style="font-size:.62rem;opacity:.7;">19:00 – 23:00</small>
+          </button>
+        </div>
+      </div>
+
+      <div class="form-group" style="margin-top:1.25rem;" id="lunch-times" style="display:none;">
+        <label class="form-label">Heure d'arrivée</label>
+        <div class="time-grid">
+          <button class="time-slot" data-time="12:00" onclick="selectRstTime(this)">12:00</button>
+          <button class="time-slot" data-time="12:30" onclick="selectRstTime(this)">12:30</button>
+          <button class="time-slot" data-time="13:00" onclick="selectRstTime(this)">13:00</button>
+          <button class="time-slot" data-time="13:30" onclick="selectRstTime(this)">13:30</button>
+          <button class="time-slot" data-time="14:00" onclick="selectRstTime(this)">14:00</button>
+          <button class="time-slot" data-time="14:30" onclick="selectRstTime(this)">14:30</button>
+        </div>
+      </div>
+
+      <div class="form-group" style="margin-top:1.25rem;" id="dinner-times" style="display:none;">
+        <label class="form-label">Heure d'arrivée</label>
+        <div class="time-grid">
+          <button class="time-slot" data-time="19:00" onclick="selectRstTime(this)">19:00</button>
+          <button class="time-slot" data-time="19:30" onclick="selectRstTime(this)">19:30</button>
+          <button class="time-slot" data-time="20:00" onclick="selectRstTime(this)">20:00</button>
+          <button class="time-slot" data-time="20:30" onclick="selectRstTime(this)">20:30</button>
+          <button class="time-slot" data-time="21:00" onclick="selectRstTime(this)">21:00</button>
+          <button class="time-slot full">21:30 — Complet</button>
+          <button class="time-slot" data-time="22:00" onclick="selectRstTime(this)">22:00</button>
+        </div>
+      </div>
+
+      <div class="form-group" style="margin-top:1.5rem;">
+        <label class="form-label">Nombre de personnes *</label>
+        <div class="guest-select" id="rst-guests">
+          <button class="guest-btn" data-n="1" onclick="selectGuests(this)">1</button>
+          <button class="guest-btn" data-n="2" onclick="selectGuests(this)">2</button>
+          <button class="guest-btn" data-n="3" onclick="selectGuests(this)">3</button>
+          <button class="guest-btn" data-n="4" onclick="selectGuests(this)">4</button>
+          <button class="guest-btn" data-n="5" onclick="selectGuests(this)">5</button>
+          <button class="guest-btn" data-n="6" onclick="selectGuests(this)">6</button>
+          <button class="guest-btn" data-n="7" onclick="selectGuests(this)">7</button>
+          <button class="guest-btn" data-n="8" onclick="selectGuests(this)">8</button>
+          <button class="guest-btn" data-n="10" onclick="selectGuests(this)">10</button>
+          <button class="guest-btn" data-n="12+" onclick="selectGuests(this)">12+</button>
+        </div>
+        <p style="font-size:.7rem;color:var(--gray-400);margin-top:.5rem;">Pour plus de 10 personnes, notre équipe vous contactera pour organiser votre événement.</p>
+      </div>
+    </div>
+
+    <div class="section-card">
+      <h3>Vos coordonnées</h3>
+      <div class="form-group">
+        <label class="form-label">Prénom et Nom *</label>
+        <input class="form-input" type="text" id="rst-name" placeholder="Mohammed Al-Fassi" required />
+      </div>
+      <div class="form-group">
+        <label class="form-label">Email *</label>
+        <input class="form-input" type="email" id="rst-email" placeholder="email@exemple.com" required />
+      </div>
+      <div class="form-group">
+        <label class="form-label">Téléphone *</label>
+        <input class="form-input" type="tel" id="rst-phone" placeholder="+212 6XX XXX XXX" required />
+      </div>
+      <div class="form-group">
+        <label class="form-label">Demandes spéciales</label>
+        <textarea class="form-textarea" id="rst-requests" placeholder="Allergies, occasion spéciale, chaise haute, vue sur le requin…"></textarea>
+      </div>
+    </div>
+
+    <div class="nav-btns">
+      <button class="btn btn--dark btn--lg" style="background:var(--ocean);border-color:var(--ocean);" onclick="confirmRestaurant()">
+        Confirmer la réservation
+      </button>
+    </div>
+
+  </div><!-- /tab-restaurant -->
+
+</main>
+
+<!-- Restaurant confirmation modal -->
+<div id="rst-confirm-modal" class="res-confirm-modal">
+  <div class="res-confirm-panel">
+    <button onclick="document.getElementById('rst-confirm-modal').style.display='none'"
+      style="position:absolute;top:1rem;right:1rem;background:none;border:none;cursor:pointer;font-size:1.2rem;color:var(--gray-400);">&#215;</button>
+    <div class="res-confirm-panel__icon">🌊</div>
+    <h3>Réservation confirmée !</h3>
+    <p id="rst-confirm-msg">Votre table est réservée.</p>
+    <div style="margin-top:1.5rem;padding:1rem;background:var(--cream);border-radius:2px;font-size:.82rem;">
+      <div id="rst-confirm-details" style="color:var(--gray-600);line-height:1.9;"></div>
+    </div>
+    <p style="font-size:.72rem;color:var(--gray-400);margin-top:1rem;">
+      Un email de confirmation a été envoyé à votre adresse.<br>
+      Questions ? <a href="mailto:restaurant@seadream.ma" style="color:var(--ocean);">restaurant@seadream.ma</a>
+    </p>
+    <div style="margin-top:1.5rem;">
+      <button class="btn btn--dark" style="width:100%" onclick="document.getElementById('rst-confirm-modal').style.display='none'">Fermer</button>
+    </div>
+  </div>
+</div>
+
+<script src="../js/seo.js"></script>
+<script src="../js/translations.js"></script>
+<script src="../js/app.js"></script>
+<script>
+/* ============================================================
+   State
+   ============================================================ */
+const AQ = {
+  date: '', time: '',
+  adult:0, child:0, student:0, infant:0, family:0,
+  name:'', email:'', phone:'',
+  ref: ''
+};
+const RST = { date:'', time:'', guests:0, svc:'' };
+const PRICES = { adult:150, child:100, student:120, infant:0, family:450 };
+
+/* Set min date = today */
+(function(){
+  var today = new Date().toISOString().split('T')[0];
+  document.getElementById('aq-date').min = today;
+  document.getElementById('rst-date').min = today;
+})();
+
+/* ── Tabs ─────────────────────────────────────────────────── */
+function switchTab(tab, btn) {
+  ['aquarium','restaurant'].forEach(t => {
+    document.getElementById('tab-'+t).style.display = (t===tab) ? 'block' : 'none';
+  });
+  document.querySelectorAll('.res-tab').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+}
+
+/* ── Step navigation ──────────────────────────────────────── */
+function aqGoStep(n) {
+  // Validate before advancing
+  if (n > 1) { // leaving step 1
+    AQ.date = document.getElementById('aq-date').value;
+    if (!AQ.date) { showToast('Veuillez sélectionner une date.'); return; }
+    if (!AQ.time) { showToast('Veuillez choisir un horaire.'); return; }
+  }
+  if (n > 2) { // leaving step 2
+    var total = calcTotal();
+    if (total === 0 && !document.getElementById('q-infant').textContent > 0) {
+      showToast('Veuillez sélectionner au moins un billet.'); return;
+    }
+    updateOrderSummary();
+  }
+  if (n > 3) { // leaving step 3
+    AQ.name  = document.getElementById('aq-name').value.trim();
+    AQ.email = document.getElementById('aq-email').value.trim();
+    if (!AQ.name)  { showToast('Veuillez saisir votre nom.'); return; }
+    if (!AQ.email) { showToast('Veuillez saisir votre email.'); return; }
+    if (!document.getElementById('aq-card').value) { showToast('Veuillez saisir votre numéro de carte.'); return; }
+  }
+
+  // Update progress bar
+  document.querySelectorAll('#aq-step-bar .step-item').forEach((el, i) => {
+    el.classList.remove('active','done');
+    if (i+1 < n) el.classList.add('done');
+    if (i+1 === n) el.classList.add('active');
+  });
+
+  // Show/hide panels
+  for (var i=1; i<=4; i++) {
+    var el = document.getElementById('aq-step-'+i);
+    if (el) el.classList.toggle('active', i===n);
+  }
+
+  // Populate confirmation step
+  if (n === 4) populateTicket();
+
+  window.scrollTo({ top: document.getElementById('tab-aquarium').getBoundingClientRect().top + window.scrollY - 120, behavior: 'smooth' });
+}
+
+/* ── Time slots ───────────────────────────────────────────── */
+document.getElementById('aq-time-grid').addEventListener('click', function(e){
+  var btn = e.target.closest('.time-slot');
+  if (!btn || btn.classList.contains('full')) return;
+  document.querySelectorAll('#aq-time-grid .time-slot').forEach(b => b.classList.remove('selected'));
+  btn.classList.add('selected');
+  AQ.time = btn.dataset.time;
+  updateStep1Summary();
+});
+
+function updateStep1Summary() {
+  var d = document.getElementById('aq-date').value;
+  var s = document.getElementById('aq-selected-summary');
+  if (d && AQ.time) {
+    var df = new Date(d).toLocaleDateString('fr-FR',{weekday:'long',year:'numeric',month:'long',day:'numeric'});
+    s.textContent = '📅 ' + df + ' · ⏰ ' + AQ.time;
+  }
+}
+document.getElementById('aq-date').addEventListener('change', function(){
+  AQ.date = this.value;
+  updateStep1Summary();
+  // Update step 2 summary too
+  var s = document.getElementById('aq-selected-summary');
+  if (s && AQ.time) updateStep1Summary();
+});
+
+/* ── Ticket counter ───────────────────────────────────────── */
+function changeQty(type, delta) {
+  AQ[type] = Math.max(0, (AQ[type]||0) + delta);
+  document.getElementById('q-'+type).textContent = AQ[type];
+  var total = calcTotal();
+  var count = AQ.adult+AQ.child+AQ.student+AQ.infant+(AQ.family*4);
+  document.getElementById('total-price').textContent = total + ' MAD';
+  document.getElementById('total-detail').textContent = count + ' billet' + (count>1?'s':'');
+  document.getElementById('btn-total').textContent = total + ' MAD';
+}
+
+function calcTotal() {
+  return AQ.adult*PRICES.adult + AQ.child*PRICES.child + AQ.student*PRICES.student + AQ.family*PRICES.family;
+}
+
+/* ── Order summary ────────────────────────────────────────── */
+function updateOrderSummary() {
+  var df = new Date(AQ.date).toLocaleDateString('fr-FR',{weekday:'short',year:'numeric',month:'long',day:'numeric'});
+  var lines = [df + ' · ' + AQ.time + '<br>'];
+  if (AQ.adult)   lines.push('Adulte ×'+AQ.adult+' — '+(AQ.adult*PRICES.adult)+' MAD');
+  if (AQ.child)   lines.push('Enfant ×'+AQ.child+' — '+(AQ.child*PRICES.child)+' MAD');
+  if (AQ.student) lines.push('Étudiant ×'+AQ.student+' — '+(AQ.student*PRICES.student)+' MAD');
+  if (AQ.infant)  lines.push('Moins 3 ans ×'+AQ.infant+' — Gratuit');
+  if (AQ.family)  lines.push('Pack Famille ×'+AQ.family+' — '+(AQ.family*PRICES.family)+' MAD');
+  document.getElementById('aq-order-summary').innerHTML = lines.join('<br>');
+  document.getElementById('aq-summary-total').textContent = calcTotal() + ' MAD';
+}
+
+/* ── Card formatting helpers ──────────────────────────────── */
+function formatCard(el) {
+  el.value = el.value.replace(/\D/g,'').replace(/(.{4})/g,'$1 ').trim().slice(0,19);
+}
+function formatExpiry(el) {
+  var v = el.value.replace(/\D/g,'');
+  if (v.length >= 2) v = v.slice(0,2)+'/'+v.slice(2,4);
+  el.value = v;
+}
+
+/* ── Confirm & generate ticket ────────────────────────────── */
+function confirmAquarium() {
+  AQ.name  = document.getElementById('aq-name').value.trim();
+  AQ.email = document.getElementById('aq-email').value.trim();
+  AQ.phone = document.getElementById('aq-phone').value.trim();
+  if (!AQ.name || !AQ.email) { showToast('Veuillez remplir les champs obligatoires.'); return; }
+  if (!document.getElementById('aq-card').value) { showToast('Veuillez saisir votre numéro de carte.'); return; }
+
+  // Simulate payment processing
+  var btn = document.querySelector('#aq-step-3 .btn--dark.btn--lg');
+  var orig = btn.innerHTML;
+  btn.disabled = true;
+  btn.innerHTML = '⏳ Traitement en cours…';
+
+  setTimeout(function(){
+    btn.disabled = false;
+    btn.innerHTML = orig;
+    AQ.ref = 'SD-' + Math.random().toString(36).substr(2,8).toUpperCase();
+    aqGoStep(4);
+  }, 1800);
+}
+
+function populateTicket() {
+  var df = new Date(AQ.date).toLocaleDateString('fr-FR',{weekday:'long',year:'numeric',month:'long',day:'numeric'});
+
+  document.getElementById('confirm-email').textContent = AQ.email;
+  document.getElementById('confirm-ref').textContent   = AQ.ref;
+  document.getElementById('tkt-name').textContent  = AQ.name;
+  document.getElementById('tkt-date').textContent  = df;
+  document.getElementById('tkt-time').textContent  = AQ.time;
+  document.getElementById('tkt-ref').textContent   = AQ.ref;
+  document.getElementById('tkt-total').textContent = calcTotal() + ' MAD';
+
+  // Ticket items
+  var rows = [];
+  if (AQ.adult)   rows.push('<div class="ticket-item-row"><span>Adulte ×'+AQ.adult+'</span><span>'+(AQ.adult*PRICES.adult)+' MAD</span></div>');
+  if (AQ.child)   rows.push('<div class="ticket-item-row"><span>Enfant ×'+AQ.child+'</span><span>'+(AQ.child*PRICES.child)+' MAD</span></div>');
+  if (AQ.student) rows.push('<div class="ticket-item-row"><span>Étudiant ×'+AQ.student+'</span><span>'+(AQ.student*PRICES.student)+' MAD</span></div>');
+  if (AQ.infant)  rows.push('<div class="ticket-item-row"><span>Moins 3 ans ×'+AQ.infant+'</span><span>Gratuit</span></div>');
+  if (AQ.family)  rows.push('<div class="ticket-item-row"><span>Pack Famille ×'+AQ.family+'</span><span>'+(AQ.family*PRICES.family)+' MAD</span></div>');
+  document.getElementById('tkt-items').innerHTML = rows.join('');
+
+  // QR code
+  var qrTarget = document.getElementById('tkt-qr');
+  qrTarget.innerHTML = '';
+  if (typeof QRCode !== 'undefined') {
+    new QRCode(qrTarget, {
+      text: 'SEADREAM|' + AQ.ref + '|' + AQ.date + '|' + AQ.time + '|' + AQ.name,
+      width: 100, height: 100,
+      colorDark: '#000000', colorLight: '#ffffff'
+    });
+  }
+}
+
+function printTicket() {
+  window.print();
+}
+
+/* ── Restaurant flow ──────────────────────────────────────── */
+var rstTime = '', rstSvc = '';
+
+function selectService(btn, svc) {
+  document.querySelectorAll('.time-slot[data-svc]').forEach(b => b.classList.remove('selected'));
+  btn.classList.add('selected');
+  rstSvc = svc;
+  document.getElementById('lunch-times').style.display  = svc==='lunch'  ? 'block' : 'none';
+  document.getElementById('dinner-times').style.display = svc==='dinner' ? 'block' : 'none';
+  rstTime = ''; // reset time when service changes
+  document.querySelectorAll('#lunch-times .time-slot, #dinner-times .time-slot').forEach(b => b.classList.remove('selected'));
+}
+
+function selectRstTime(btn) {
+  document.querySelectorAll('#lunch-times .time-slot, #dinner-times .time-slot').forEach(b => b.classList.remove('selected'));
+  btn.classList.add('selected');
+  rstTime = btn.dataset.time;
+}
+
+function selectGuests(btn) {
+  document.querySelectorAll('.guest-btn').forEach(b => b.classList.remove('selected'));
+  btn.classList.add('selected');
+  RST.guests = btn.dataset.n;
+}
+
+function confirmRestaurant() {
+  var date  = document.getElementById('rst-date').value;
+  var name  = document.getElementById('rst-name').value.trim();
+  var email = document.getElementById('rst-email').value.trim();
+  var phone = document.getElementById('rst-phone').value.trim();
+
+  if (!date)    { showToast('Veuillez choisir une date.'); return; }
+  if (!rstSvc)  { showToast('Veuillez choisir un service (déjeuner ou dîner).'); return; }
+  if (!rstTime) { showToast('Veuillez choisir un horaire.'); return; }
+  if (!RST.guests) { showToast('Veuillez indiquer le nombre de personnes.'); return; }
+  if (!name)    { showToast('Veuillez saisir votre nom.'); return; }
+  if (!email)   { showToast('Veuillez saisir votre email.'); return; }
+  if (!phone)   { showToast('Veuillez saisir votre téléphone.'); return; }
+
+  var df = new Date(date).toLocaleDateString('fr-FR',{weekday:'long',year:'numeric',month:'long',day:'numeric'});
+  var ref = 'OCK-' + Math.random().toString(36).substr(2,8).toUpperCase();
+
+  document.getElementById('rst-confirm-msg').innerHTML =
+    'Votre table pour ' + RST.guests + ' personne(s) est confirmée.<br>Un email a été envoyé à <strong style="color:var(--ocean);">' + email + '</strong>';
+
+  document.getElementById('rst-confirm-details').innerHTML =
+    '📅 ' + df + '<br>' +
+    '⏰ ' + rstTime + ' (' + (rstSvc==='lunch'?'Déjeuner':'Dîner') + ')<br>' +
+    '👥 ' + RST.guests + ' personne(s)<br>' +
+    '📋 Référence : <strong>' + ref + '</strong>';
+
+  document.getElementById('rst-confirm-modal').style.display = 'flex';
+}
+</script>
+</body>
+</html>

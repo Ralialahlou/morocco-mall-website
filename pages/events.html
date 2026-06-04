@@ -1,0 +1,796 @@
+<!DOCTYPE html>
+<html lang="fr" dir="ltr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Morocco Mall Events — Upcoming events, seasonal celebrations, and exclusive experiences." />
+  <title>Événements — Morocco Mall</title>
+  <link rel="icon" href="../assets/logo.png" type="image/png" />
+  <link rel="stylesheet" href="../css/main.css" />
+  <!-- QR Code library -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+  <style>
+    /* ── Page Hero ─────────────────────────────────────────────── */
+    .ev-hero {
+      background: var(--black);
+      padding: clamp(5rem,14vw,10rem) 0 clamp(3rem,6vw,5rem);
+      position: relative;
+      overflow: hidden;
+      color: var(--white);
+    }
+    .ev-hero::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 70% 60% at 80% 50%, rgba(201,169,110,0.07) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .ev-hero__content { position: relative; z-index: 1; }
+    .ev-hero__eyebrow {
+      font-size: 0.65rem;
+      font-weight: 500;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 1rem;
+    }
+    .ev-hero__title {
+      font-family: var(--font-display);
+      font-size: clamp(3rem, 7vw, 6rem);
+      font-weight: 300;
+      line-height: 0.97;
+      margin-bottom: 1.25rem;
+      max-width: 700px;
+    }
+    .ev-hero__title em { font-style: italic; color: var(--gold-light); }
+    .ev-hero__sub {
+      font-size: 0.9rem;
+      color: rgba(255,255,255,0.5);
+      max-width: 520px;
+      line-height: 1.75;
+    }
+
+    /* ── Sticky search + filters ───────────────────────────────── */
+    .ev-controls {
+      position: sticky;
+      top: calc(var(--bar-h) + var(--nav-h));
+      z-index: 100;
+      background: var(--white);
+      border-bottom: 1px solid var(--gray-200);
+      box-shadow: 0 2px 16px rgba(0,0,0,0.06);
+    }
+    .ev-controls__inner {
+      max-width: var(--max-w);
+      margin: 0 auto;
+      padding: 0 var(--pad-x);
+    }
+
+    /* Search bar */
+    .ev-search-row {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 0.85rem 0;
+      border-bottom: 1px solid var(--gray-100);
+    }
+    .ev-search-wrap {
+      position: relative;
+      flex: 1;
+      max-width: 480px;
+    }
+    .ev-search-wrap__icon {
+      position: absolute;
+      left: 0.9rem;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 16px; height: 16px;
+      color: var(--gray-400);
+      pointer-events: none;
+    }
+    .ev-search-input {
+      width: 100%;
+      padding: 0.6rem 0.9rem 0.6rem 2.5rem;
+      border: 1px solid var(--gray-200);
+      background: var(--gray-100);
+      font-family: var(--font-body);
+      font-size: 0.82rem;
+      color: var(--black);
+      outline: none;
+      border-radius: 2px;
+      transition: border-color 0.2s, background 0.2s;
+    }
+    .ev-search-input::placeholder { color: var(--gray-400); }
+    .ev-search-input:focus { border-color: var(--black); background: var(--white); }
+    .ev-results-count {
+      font-size: 0.7rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--gray-400);
+      white-space: nowrap;
+    }
+
+    /* Type filter row */
+    .ev-type-row {
+      display: flex;
+      align-items: center;
+      gap: 0;
+      overflow-x: auto;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+    }
+    .ev-type-row::-webkit-scrollbar { display: none; }
+    .ev-type-btn {
+      flex-shrink: 0;
+      font-family: var(--font-body);
+      font-size: 0.62rem;
+      font-weight: 500;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--gray-400);
+      padding: 0.85rem 1rem;
+      border: none;
+      border-bottom: 2px solid transparent;
+      background: none;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: color 0.2s, border-color 0.2s;
+    }
+    .ev-type-btn:hover { color: var(--black); }
+    .ev-type-btn.active {
+      color: var(--black);
+      border-bottom-color: var(--gold);
+    }
+
+    /* Month filter row */
+    .ev-month-row {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.6rem 0;
+      overflow-x: auto;
+      scrollbar-width: none;
+      border-top: 1px solid var(--gray-100);
+    }
+    .ev-month-row::-webkit-scrollbar { display: none; }
+    .ev-month-btn {
+      flex-shrink: 0;
+      font-family: var(--font-body);
+      font-size: 0.6rem;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 0.35rem 0.85rem;
+      border: 1px solid var(--gray-200);
+      border-radius: 2px;
+      background: none;
+      color: var(--gray-600);
+      cursor: pointer;
+      white-space: nowrap;
+      transition: all 0.2s;
+    }
+    .ev-month-btn:hover { border-color: var(--black); color: var(--black); }
+    .ev-month-btn.active { background: var(--black); color: var(--white); border-color: var(--black); }
+
+    /* ── Featured Event ────────────────────────────────────────── */
+    .ev-featured {
+      position: relative;
+      overflow: hidden;
+      min-height: 420px;
+      display: flex;
+      align-items: flex-end;
+      color: var(--white);
+    }
+    .ev-featured__bg {
+      position: absolute;
+      inset: 0;
+      width: 100%; height: 100%;
+      object-fit: cover;
+      transition: transform 0.6s var(--ease);
+    }
+    .ev-featured:hover .ev-featured__bg { transform: scale(1.03); }
+    .ev-featured__overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.2) 60%, transparent 100%);
+    }
+    .ev-featured__content {
+      position: relative;
+      z-index: 2;
+      padding: 2.5rem;
+      width: 100%;
+    }
+    .ev-featured__badge {
+      display: inline-block;
+      font-size: 0.58rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      background: var(--gold);
+      color: var(--black);
+      padding: 0.3rem 0.8rem;
+      margin-bottom: 1rem;
+      font-weight: 600;
+    }
+    .ev-featured__date {
+      font-size: 0.65rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.55);
+      margin-bottom: 0.5rem;
+    }
+    .ev-featured__title {
+      font-family: var(--font-display);
+      font-size: clamp(1.8rem, 4vw, 3rem);
+      font-weight: 300;
+      line-height: 1.05;
+      margin-bottom: 0.75rem;
+    }
+    .ev-featured__meta {
+      font-size: 0.75rem;
+      color: rgba(255,255,255,0.55);
+      margin-bottom: 1.5rem;
+    }
+
+    /* ── Event Cards ───────────────────────────────────────────── */
+    .ev-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0;
+    }
+    @media (min-width: 768px) { .ev-grid { grid-template-columns: 1fr 1fr; } }
+    @media (min-width: 1200px) { .ev-grid { grid-template-columns: 1fr 1fr 1fr; } }
+
+    .ev-card {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      cursor: pointer;
+      border-bottom: 1px solid var(--gray-200);
+      transition: background 0.2s;
+      overflow: hidden;
+    }
+    .ev-card:hover { background: var(--cream); }
+    @media (min-width: 768px) {
+      .ev-card { border-right: 1px solid var(--gray-200); }
+      .ev-card:nth-child(2n) { border-right: none; }
+    }
+    @media (min-width: 1200px) {
+      .ev-card:nth-child(2n) { border-right: 1px solid var(--gray-200); }
+      .ev-card:nth-child(3n) { border-right: none; }
+    }
+    .ev-card__img-wrap {
+      aspect-ratio: 16/9;
+      overflow: hidden;
+      position: relative;
+    }
+    .ev-card__img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      transition: transform 0.55s var(--ease);
+    }
+    .ev-card:hover .ev-card__img { transform: scale(1.04); }
+    .ev-card__cat-badge {
+      position: absolute;
+      top: 0.75rem;
+      left: 0.75rem;
+      font-size: 0.55rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      font-weight: 600;
+      padding: 0.25rem 0.65rem;
+      background: var(--black);
+      color: var(--white);
+    }
+    .ev-card__body { padding: 1.25rem 1.5rem 1.5rem; flex: 1; display: flex; flex-direction: column; }
+    .ev-card__date {
+      font-size: 0.62rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--gray-400);
+      margin-bottom: 0.4rem;
+    }
+    .ev-card__title {
+      font-family: var(--font-display);
+      font-size: 1.25rem;
+      font-weight: 400;
+      line-height: 1.2;
+      color: var(--black);
+      margin-bottom: 0.5rem;
+    }
+    .ev-card__meta { font-size: 0.75rem; color: var(--gray-400); margin-bottom: 0.75rem; }
+    .ev-card__desc { font-size: 0.8rem; color: var(--gray-600); line-height: 1.65; flex: 1; }
+    .ev-card__footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 1.25rem;
+      padding-top: 1rem;
+      border-top: 1px solid var(--gray-100);
+    }
+
+    /* ── RSVP / Ticket CTA styles ──────────────────────────────── */
+    .ev-cta-rsvp {
+      font-family: var(--font-body);
+      font-size: 0.6rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      font-weight: 600;
+      padding: 0.45rem 1rem;
+      background: var(--black);
+      color: var(--white);
+      border: none;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .ev-cta-rsvp:hover { background: var(--gray-800); }
+    .ev-cta-external {
+      font-family: var(--font-body);
+      font-size: 0.6rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      font-weight: 500;
+      padding: 0.45rem 1rem;
+      background: none;
+      color: var(--black);
+      border: 1px solid var(--black);
+      cursor: pointer;
+      text-decoration: none;
+      transition: background 0.2s, color 0.2s;
+    }
+    .ev-cta-external:hover { background: var(--black); color: var(--white); }
+    .ev-card__arrow {
+      width: 28px; height: 28px;
+      display: flex; align-items: center; justify-content: center;
+      border: 1px solid var(--gray-200);
+      border-radius: 50%;
+      color: var(--gray-400);
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .ev-card:hover .ev-card__arrow { border-color: var(--black); color: var(--black); }
+
+    /* ── RSVP name modal ───────────────────────────────────────── */
+    #rsvp-name-modal {
+      display: none;
+      position: fixed; inset: 0;
+      background: rgba(0,0,0,0.7);
+      backdrop-filter: blur(4px);
+      z-index: 900;
+      align-items: center;
+      justify-content: center;
+    }
+    .rsvp-form-panel {
+      background: var(--white);
+      padding: 2.5rem 2rem;
+      max-width: 420px;
+      width: 92%;
+      border-radius: 4px;
+      position: relative;
+    }
+    .rsvp-form-panel h3 {
+      font-family: var(--font-display);
+      font-size: 1.7rem;
+      font-weight: 300;
+      margin-bottom: 0.4rem;
+    }
+    .rsvp-form-panel p {
+      font-size: 0.82rem;
+      color: var(--gray-600);
+      margin-bottom: 1.75rem;
+      line-height: 1.6;
+    }
+
+    /* No results message */
+    .ev-no-results {
+      grid-column: 1/-1;
+      text-align: center;
+      padding: 4rem 2rem;
+      color: var(--gray-400);
+    }
+    .ev-no-results__icon { font-size: 2.5rem; margin-bottom: 1rem; opacity: 0.4; }
+    .ev-no-results__text { font-family: var(--font-display); font-size: 1.4rem; font-weight: 300; }
+  </style>
+</head>
+<body>
+<main id="main-content">
+
+  <!-- Hero -->
+  <div class="ev-hero">
+    <div class="container ev-hero__content">
+      <nav style="display:flex;align-items:center;gap:0.5rem;font-size:0.65rem;letter-spacing:0.15em;text-transform:uppercase;color:rgba(255,255,255,0.35);margin-bottom:2rem;">
+        <a href="../index.html" style="color:rgba(255,255,255,0.35);">Morocco Mall</a>
+        <span>›</span>
+        <span style="color:var(--gold);">Événements</span>
+      </nav>
+      <h1 class="ev-hero__title">Moments<br><em>Worth Sharing</em></h1>
+      <p class="ev-hero__sub">Défilés, festivals gastronomiques, ouvertures exclusives et expériences inoubliables.</p>
+    </div>
+  </div>
+
+  <!-- ── STICKY CONTROLS ─────────────────────────────────────── -->
+  <div class="ev-controls" id="ev-controls">
+    <div class="ev-controls__inner">
+
+      <!-- Search row -->
+      <div class="ev-search-row">
+        <div class="ev-search-wrap">
+          <svg class="ev-search-wrap__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/>
+          </svg>
+          <input class="ev-search-input" type="search" id="ev-search"
+            placeholder="Rechercher un événement…"
+            oninput="filterEvents()" />
+        </div>
+        <span class="ev-results-count" id="ev-count"></span>
+      </div>
+
+      <!-- Type filter tabs -->
+      <div class="ev-type-row" role="tablist" aria-label="Type d'événement">
+        <button class="ev-type-btn active" data-type="all" onclick="setType(this)" role="tab" aria-selected="true">Tous</button>
+        <button class="ev-type-btn" data-type="fashion" onclick="setType(this)" role="tab">Fashion</button>
+        <button class="ev-type-btn" data-type="food" onclick="setType(this)" role="tab">Gastronomie</button>
+        <button class="ev-type-btn" data-type="kids" onclick="setType(this)" role="tab">Famille</button>
+        <button class="ev-type-btn" data-type="culture" onclick="setType(this)" role="tab">Culture</button>
+        <button class="ev-type-btn" data-type="opening" onclick="setType(this)" role="tab">Ouvertures</button>
+        <button class="ev-type-btn" data-type="music" onclick="setType(this)" role="tab">Musique</button>
+        <button class="ev-type-btn" data-type="seasonal" onclick="setType(this)" role="tab">Saisonnier</button>
+      </div>
+
+      <!-- Month filter chips -->
+      <div class="ev-month-row" role="group" aria-label="Filtrer par mois">
+        <button class="ev-month-btn active" data-month="all" onclick="setMonth(this)">Tous les mois</button>
+        <button class="ev-month-btn" data-month="6" onclick="setMonth(this)">Juin</button>
+        <button class="ev-month-btn" data-month="7" onclick="setMonth(this)">Juillet</button>
+        <button class="ev-month-btn" data-month="8" onclick="setMonth(this)">Août</button>
+        <button class="ev-month-btn" data-month="9" onclick="setMonth(this)">Septembre</button>
+        <button class="ev-month-btn" data-month="10" onclick="setMonth(this)">Octobre</button>
+        <button class="ev-month-btn" data-month="11" onclick="setMonth(this)">Novembre</button>
+        <button class="ev-month-btn" data-month="12" onclick="setMonth(this)">Décembre</button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ── FEATURED EVENT ──────────────────────────────────────── -->
+  <section class="section" style="padding-top:0;padding-bottom:0;" id="event-1">
+    <div class="ev-featured reveal"
+      data-type="fashion" data-month="6"
+      data-title="Summer Style Week 2026"
+      data-name="Summer Style Week 2026">
+      <img class="ev-featured__bg"
+        src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1400&h=500&fit=crop&q=80"
+        alt="Summer Style Week 2026" loading="lazy" />
+      <div class="ev-featured__overlay"></div>
+      <div class="ev-featured__content container">
+        <div class="ev-featured__badge">Événement Vedette</div>
+        <p class="ev-featured__date">14 Juin 2026 · 18:00 – 22:00</p>
+        <h2 class="ev-featured__title">Summer Style Week 2026</h2>
+        <p class="ev-featured__meta">Casablanca Bay · Entrée libre sur RSVP</p>
+        <div style="display:flex;gap:0.75rem;flex-wrap:wrap;">
+          <button class="ev-cta-rsvp" onclick="openRSVP('Summer Style Week 2026','14 Juin 2026 · 18:00')">RSVP Maintenant</button>
+          <a class="ev-cta-external" href="#event-1-detail">En savoir plus</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── EVENT GRID ──────────────────────────────────────────── -->
+  <section class="section" style="padding-top:clamp(2rem,4vw,3rem);">
+    <div class="container">
+
+      <div class="section__header reveal" style="margin-bottom:2rem;">
+        <div>
+          <p class="section__eyebrow">Agenda</p>
+          <h2 class="section__title">Événements à Venir</h2>
+        </div>
+      </div>
+
+      <div class="ev-grid" id="ev-grid">
+
+        <!-- Event 2 -->
+        <div class="ev-card reveal" id="event-2"
+          data-type="kids" data-month="6"
+          data-title="Kids Day Fête de la Musique">
+          <div class="ev-card__img-wrap">
+            <img class="ev-card__img"
+              src="https://images.unsplash.com/photo-1566041510394-cf7c1b1b14e7?w=600&h=340&fit=crop&q=80"
+              alt="Kids Day" loading="lazy" />
+            <span class="ev-card__cat-badge">Famille</span>
+          </div>
+          <div class="ev-card__body">
+            <p class="ev-card__date">21 Juin 2026</p>
+            <h3 class="ev-card__title">Kids Day — Fête de la Musique</h3>
+            <p class="ev-card__meta">Tous les malls · 14:00 – 20:00</p>
+            <p class="ev-card__desc">Animations musicales, ateliers créatifs et spectacles. Une journée dédiée aux familles.</p>
+            <div class="ev-card__footer">
+              <button class="ev-cta-rsvp" onclick="openRSVP('Kids Day — Fête de la Musique','21 Juin 2026 · 14:00')">RSVP</button>
+              <div class="ev-card__arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px;"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Event 3 -->
+        <div class="ev-card reveal reveal-delay-1" id="event-3"
+          data-type="food" data-month="7"
+          data-title="Morocco Food Festival">
+          <div class="ev-card__img-wrap">
+            <img class="ev-card__img"
+              src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=600&h=340&fit=crop&q=80"
+              alt="Morocco Food Festival" loading="lazy" />
+            <span class="ev-card__cat-badge">Gastronomie</span>
+          </div>
+          <div class="ev-card__body">
+            <p class="ev-card__date">5 Juillet 2026</p>
+            <h3 class="ev-card__title">Morocco Food Festival</h3>
+            <p class="ev-card__meta">Marrakech Garden · 12:00 – 23:00</p>
+            <p class="ev-card__desc">Chefs invités, street food internationale et démonstrations culinaires toute la journée.</p>
+            <div class="ev-card__footer">
+              <button class="ev-cta-rsvp" onclick="openRSVP('Morocco Food Festival','5 Juillet 2026 · 12:00')">RSVP</button>
+              <div class="ev-card__arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px;"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Event 4 -->
+        <div class="ev-card reveal reveal-delay-2" id="event-4"
+          data-type="opening" data-month="8"
+          data-title="Chanel Opening Rose Boulevard">
+          <div class="ev-card__img-wrap">
+            <img class="ev-card__img"
+              src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=600&h=340&fit=crop&q=80"
+              alt="Chanel Opening" loading="lazy" />
+            <span class="ev-card__cat-badge" style="background:var(--gold);color:var(--black);">Ouverture</span>
+          </div>
+          <div class="ev-card__body">
+            <p class="ev-card__date">19 Août 2026</p>
+            <h3 class="ev-card__title">Chanel Opening — Rose Boulevard</h3>
+            <p class="ev-card__meta">Casablanca Bay · Rose Boulevard · Sur invitation</p>
+            <p class="ev-card__desc">Soirée inaugurale de la boutique Chanel au cœur de Rose Boulevard. Expérience sur invitation.</p>
+            <div class="ev-card__footer">
+              <a class="ev-cta-external" href="https://www.chanel.com" target="_blank" rel="noopener">Ticketmaster</a>
+              <div class="ev-card__arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px;"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Event 5 -->
+        <div class="ev-card reveal"
+          data-type="seasonal" data-month="9"
+          data-title="Back to School Festival">
+          <div class="ev-card__img-wrap">
+            <img class="ev-card__img"
+              src="https://images.unsplash.com/photo-1524985069026-dd778a71c7b4?w=600&h=340&fit=crop&q=80"
+              alt="Back to School Festival" loading="lazy" />
+            <span class="ev-card__cat-badge">Saisonnier</span>
+          </div>
+          <div class="ev-card__body">
+            <p class="ev-card__date">Tout Septembre 2026</p>
+            <h3 class="ev-card__title">Back to School Festival</h3>
+            <p class="ev-card__meta">Tous les malls · Tout le mois</p>
+            <p class="ev-card__desc">Promotions exceptionnelles et animations pour célébrer la rentrée scolaire.</p>
+            <div class="ev-card__footer">
+              <button class="ev-cta-rsvp" onclick="openRSVP('Back to School Festival','Septembre 2026')">RSVP</button>
+              <div class="ev-card__arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px;"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Event 6 -->
+        <div class="ev-card reveal reveal-delay-1"
+          data-type="culture" data-month="9"
+          data-title="Exposition Photo Morocco Through the Lens">
+          <div class="ev-card__img-wrap">
+            <img class="ev-card__img"
+              src="https://images.unsplash.com/photo-1567401893414-76b7b1e5a7a5?w=600&h=340&fit=crop&q=80"
+              alt="Exposition Photo" loading="lazy" />
+            <span class="ev-card__cat-badge">Culture</span>
+          </div>
+          <div class="ev-card__body">
+            <p class="ev-card__date">15 Septembre 2026</p>
+            <h3 class="ev-card__title">Exposition Photo — Morocco Through the Lens</h3>
+            <p class="ev-card__meta">Rabat Valley · Galerie centrale · Entrée libre</p>
+            <p class="ev-card__desc">Photographes marocains talentueux capturent la beauté des quatre villes qui accueillent Morocco Mall.</p>
+            <div class="ev-card__footer">
+              <button class="ev-cta-rsvp" onclick="openRSVP('Exposition Photo','15 Septembre 2026')">RSVP</button>
+              <div class="ev-card__arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px;"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Event 7 -->
+        <div class="ev-card reveal reveal-delay-2"
+          data-type="music" data-month="10"
+          data-title="Concert Jazz Morocco">
+          <div class="ev-card__img-wrap">
+            <img class="ev-card__img"
+              src="https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?w=600&h=340&fit=crop&q=80"
+              alt="Concert Jazz" loading="lazy" />
+            <span class="ev-card__cat-badge">Musique</span>
+          </div>
+          <div class="ev-card__body">
+            <p class="ev-card__date">12 Octobre 2026</p>
+            <h3 class="ev-card__title">Concert Jazz Morocco</h3>
+            <p class="ev-card__meta">Casablanca Bay · Place centrale · 20:00</p>
+            <p class="ev-card__desc">Une soirée jazz intime avec des artistes marocains et internationaux dans l'atrium central du mall.</p>
+            <div class="ev-card__footer">
+              <button class="ev-cta-rsvp" onclick="openRSVP('Concert Jazz Morocco','12 Octobre 2026 · 20:00')">RSVP</button>
+              <div class="ev-card__arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px;"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Event 8 -->
+        <div class="ev-card reveal"
+          data-type="fashion" data-month="10"
+          data-title="Autumn Winter 2026 Fashion Show">
+          <div class="ev-card__img-wrap">
+            <img class="ev-card__img"
+              src="https://images.unsplash.com/photo-1483985988355-763728e1935b?w=600&h=340&fit=crop&q=80"
+              alt="Fashion Show" loading="lazy" />
+            <span class="ev-card__cat-badge">Fashion</span>
+          </div>
+          <div class="ev-card__body">
+            <p class="ev-card__date">25 Octobre 2026</p>
+            <h3 class="ev-card__title">Autumn/Winter Fashion Show</h3>
+            <p class="ev-card__meta">Marrakech Garden · 19:00 · RSVP requis</p>
+            <p class="ev-card__desc">Défilé des nouvelles collections automne-hiver 2026 par les grandes enseignes présentes dans nos malls.</p>
+            <div class="ev-card__footer">
+              <button class="ev-cta-rsvp" onclick="openRSVP('Autumn/Winter Fashion Show','25 Octobre 2026 · 19:00')">RSVP</button>
+              <div class="ev-card__arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px;"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Event 9 -->
+        <div class="ev-card reveal reveal-delay-1"
+          data-type="seasonal" data-month="12"
+          data-title="Fêtes de Fin d'Année Morocco Mall">
+          <div class="ev-card__img-wrap">
+            <img class="ev-card__img"
+              src="https://images.unsplash.com/photo-1519167758481-83f550bb49b3?w=600&h=340&fit=crop&q=80"
+              alt="Fêtes de fin d'année" loading="lazy" />
+            <span class="ev-card__cat-badge">Saisonnier</span>
+          </div>
+          <div class="ev-card__body">
+            <p class="ev-card__date">Décembre 2026</p>
+            <h3 class="ev-card__title">Fêtes de Fin d'Année</h3>
+            <p class="ev-card__meta">Tous les malls · Tout le mois</p>
+            <p class="ev-card__desc">Illuminations, animations et surprises pour célébrer la fin d'année avec famille et amis dans tous nos malls.</p>
+            <div class="ev-card__footer">
+              <button class="ev-cta-rsvp" onclick="openRSVP('Fêtes de Fin d\'Année','Décembre 2026')">RSVP</button>
+              <div class="ev-card__arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px;"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- No results placeholder (hidden by default) -->
+        <div class="ev-no-results" id="ev-no-results" style="display:none;">
+          <div class="ev-no-results__icon">🗓</div>
+          <p class="ev-no-results__text">Aucun événement trouvé</p>
+          <p style="font-size:0.8rem;color:var(--gray-400);margin-top:0.5rem;">Essayez d'autres filtres ou revenez bientôt.</p>
+        </div>
+
+      </div><!-- /ev-grid -->
+    </div>
+  </section>
+
+  <!-- Newsletter CTA -->
+  <section class="newsletter-section">
+    <div class="container">
+      <div class="reveal">
+        <p class="heading-sm" style="color:var(--gray-400);margin-bottom:0.75rem;">Ne manquez rien</p>
+        <h2 class="display-md" style="max-width:500px;margin:0 auto 0.75rem;">Restez informé des événements</h2>
+        <form class="newsletter-form" onsubmit="handleNewsletter(event)">
+          <input class="newsletter-input" type="email" required placeholder="Votre adresse email" />
+          <button class="newsletter-btn" type="submit">S'inscrire</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- RSVP name form modal -->
+<div id="rsvp-name-modal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.7);backdrop-filter:blur(4px);z-index:900;align-items:center;justify-content:center;">
+  <div class="rsvp-form-panel">
+    <button onclick="document.getElementById('rsvp-name-modal').style.display='none'"
+      style="position:absolute;top:1rem;right:1rem;background:none;border:none;cursor:pointer;font-size:1.2rem;color:var(--gray-400);">&#215;</button>
+    <h3>Confirmer votre présence</h3>
+    <p>Entrez vos coordonnées pour recevoir votre QR code d'entrée pour <strong id="rsvp-event-label-text"></strong>.</p>
+    <div class="form-group">
+      <label class="form-label">Prénom et Nom</label>
+      <input type="text" class="form-input" id="rsvp-name-field" placeholder="Mohammed Al-Fassi" required />
+    </div>
+    <div class="form-group">
+      <label class="form-label">Email</label>
+      <input type="email" class="form-input" id="rsvp-email-field" placeholder="email@exemple.com" required />
+    </div>
+    <button class="btn btn--dark" style="width:100%" onclick="confirmRSVP()">Confirmer et recevoir mon QR Code</button>
+  </div>
+</div>
+
+<script src="../js/seo.js"></script>
+<script src="../js/translations.js"></script>
+<script src="../js/app.js"></script>
+<script>
+var activeType  = 'all';
+var activeMonth = 'all';
+var searchQuery = '';
+var pendingEvent = null;
+
+function setType(btn) {
+  document.querySelectorAll('.ev-type-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  activeType = btn.dataset.type;
+  filterEvents();
+}
+
+function setMonth(btn) {
+  document.querySelectorAll('.ev-month-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  activeMonth = btn.dataset.month;
+  filterEvents();
+}
+
+function filterEvents() {
+  searchQuery = (document.getElementById('ev-search').value || '').toLowerCase().trim();
+  var cards = document.querySelectorAll('.ev-grid .ev-card, .ev-grid .ev-featured');
+  var visible = 0;
+
+  cards.forEach(function(card) {
+    var typeMatch  = (activeType === 'all')  || (card.dataset.type  === activeType);
+    var monthMatch = (activeMonth === 'all') || (card.dataset.month === activeMonth);
+    var title = (card.dataset.title || card.querySelector('.ev-card__title,h2,h3')?.textContent || '').toLowerCase();
+    var searchMatch = !searchQuery || title.includes(searchQuery);
+
+    if (typeMatch && monthMatch && searchMatch) {
+      card.style.display = '';
+      visible++;
+    } else {
+      card.style.display = 'none';
+    }
+  });
+
+  // Also filter the featured section
+  var featured = document.querySelector('.ev-featured');
+  if (featured) {
+    var fType  = (activeType === 'all')  || (featured.dataset.type  === activeType);
+    var fMonth = (activeMonth === 'all') || (featured.dataset.month === activeMonth);
+    var fTitle = (featured.dataset.title || '').toLowerCase();
+    var fSearch = !searchQuery || fTitle.includes(searchQuery);
+    featured.closest('section').style.display = (fType && fMonth && fSearch) ? '' : 'none';
+    if (fType && fMonth && fSearch) visible++;
+  }
+
+  // Count
+  var count = document.getElementById('ev-count');
+  if (count) count.textContent = visible > 0 ? visible + ' événement' + (visible > 1 ? 's' : '') : '';
+
+  // No results
+  var noResults = document.getElementById('ev-no-results');
+  if (noResults) noResults.style.display = visible === 0 ? 'block' : 'none';
+}
+
+function openRSVP(eventName, eventDate) {
+  pendingEvent = { name: eventName, date: eventDate };
+  document.getElementById('rsvp-event-label-text').textContent = eventName;
+  var modal = document.getElementById('rsvp-name-modal');
+  modal.style.display = 'flex';
+  document.getElementById('rsvp-name-field').value = '';
+  document.getElementById('rsvp-email-field').value = '';
+}
+
+function confirmRSVP() {
+  var name  = document.getElementById('rsvp-name-field').value.trim();
+  var email = document.getElementById('rsvp-email-field').value.trim();
+  if (!name || !email) { showToast('Veuillez remplir tous les champs.'); return; }
+  document.getElementById('rsvp-name-modal').style.display = 'none';
+  showRSVPModal(pendingEvent.name, pendingEvent.date);
+  pendingEvent = null;
+}
+
+// Init count
+document.addEventListener('DOMContentLoaded', function() {
+  filterEvents();
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,1266 @@
+<!DOCTYPE html>
+<html lang="fr" dir="ltr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Cinéma Morocco Mall — 14 salles IMAX, 3D, 4DX et Dolby Atmos. Vivez une expérience cinématographique d'exception au cœur du plus grand mall d'Afrique." />
+  <title>Cinéma — Morocco Mall</title>
+  <link rel="icon" href="../assets/logo.png" type="image/png" />
+  <link rel="stylesheet" href="../css/main.css" />
+  <style>
+    /* ============================================================
+       CINEMA PAGE — Scoped Styles
+       ============================================================ */
+
+    /* ---------- HERO ---------- */
+    .cin-hero {
+      position: relative;
+      height: 100vh;
+      min-height: 640px;
+      display: flex;
+      align-items: flex-end;
+      overflow: hidden;
+    }
+    .cin-hero__bg {
+      position: absolute;
+      inset: 0;
+      background-image: url('https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?w=1920&h=1080&fit=crop');
+      background-size: cover;
+      background-position: center;
+      transform: scale(1.06);
+      transition: transform 9s ease-out;
+    }
+    .cin-hero__bg.loaded { transform: scale(1); }
+    .cin-hero__overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        to top,
+        rgba(8, 5, 20, 0.92) 0%,
+        rgba(15, 10, 40, 0.65) 45%,
+        rgba(10, 5, 30, 0.35) 100%
+      );
+    }
+    .cin-hero__content {
+      position: relative;
+      z-index: 2;
+      padding-bottom: clamp(3.5rem, 8vh, 6rem);
+      color: var(--white);
+    }
+    .cin-hero__breadcrumb {
+      font-family: var(--font-body);
+      font-size: 0.62rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.4);
+      margin-bottom: 2rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .cin-hero__breadcrumb a {
+      color: rgba(255, 255, 255, 0.4);
+      transition: color 0.2s;
+    }
+    .cin-hero__breadcrumb a:hover { color: var(--gold-light); }
+    .cin-hero__breadcrumb span { color: rgba(255, 255, 255, 0.22); }
+    .cin-hero__eyebrow {
+      font-family: var(--font-body);
+      font-size: 0.62rem;
+      font-weight: 500;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 1.25rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    .cin-hero__eyebrow::before {
+      content: '';
+      display: block;
+      width: 2rem;
+      height: 1px;
+      background: var(--gold);
+    }
+    .cin-hero__title {
+      font-family: var(--font-display);
+      font-size: clamp(3rem, 8vw, 6.5rem);
+      font-weight: 300;
+      line-height: 1;
+      letter-spacing: -0.01em;
+      margin-bottom: 1.25rem;
+    }
+    .cin-hero__title em {
+      font-style: italic;
+      color: var(--gold-light);
+    }
+    .cin-hero__subtitle {
+      font-size: clamp(0.9rem, 1.4vw, 1.05rem);
+      line-height: 1.75;
+      color: rgba(255, 255, 255, 0.65);
+      max-width: 460px;
+      margin-bottom: 2.5rem;
+    }
+    .cin-hero__cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.75rem;
+      font-family: var(--font-body);
+      font-size: 0.65rem;
+      font-weight: 500;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--white);
+      background: var(--gold);
+      padding: 1rem 2rem;
+      transition: background 0.3s, color 0.3s;
+    }
+    .cin-hero__cta:hover {
+      background: var(--gold-dark);
+    }
+    .cin-hero__cta svg {
+      width: 14px;
+      height: 14px;
+      flex-shrink: 0;
+    }
+
+    /* ---------- KEY INFO GRID ---------- */
+    .info-strip {
+      background: #0f0a28;
+      border-bottom: 1px solid rgba(201, 169, 110, 0.2);
+    }
+    .info-strip__grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 0;
+    }
+    @media (min-width: 700px) {
+      .info-strip__grid { grid-template-columns: repeat(4, 1fr); }
+    }
+    .info-card {
+      padding: 2.25rem 2rem;
+      border-right: 1px solid rgba(255, 255, 255, 0.07);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+      transition: background 0.3s;
+    }
+    .info-card:last-child { border-right: none; }
+    @media (min-width: 700px) {
+      .info-card { border-bottom: none; }
+    }
+    .info-card:hover { background: rgba(201, 169, 110, 0.06); }
+    .info-card__icon {
+      width: 36px;
+      height: 36px;
+      background: rgba(201, 169, 110, 0.12);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 1rem;
+    }
+    .info-card__icon svg {
+      width: 16px;
+      height: 16px;
+      color: var(--gold);
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 1.8;
+    }
+    .info-card__label {
+      font-family: var(--font-body);
+      font-size: 0.6rem;
+      font-weight: 500;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 0.5rem;
+    }
+    .info-card__value {
+      font-family: var(--font-display);
+      font-size: 1.45rem;
+      font-weight: 400;
+      color: var(--white);
+      line-height: 1.2;
+      margin-bottom: 0.25rem;
+    }
+    .info-card__sub {
+      font-family: var(--font-body);
+      font-size: 0.72rem;
+      color: rgba(255, 255, 255, 0.45);
+      line-height: 1.5;
+    }
+
+    /* ---------- ABOUT SECTION ---------- */
+    .section { padding: clamp(4.5rem, 9vw, 7.5rem) 0; }
+    .section--cream { background: var(--cream); }
+    .section--dark {
+      background: #07050f;
+      color: var(--white);
+    }
+    .section--navy { background: #0c0820; color: var(--white); }
+
+    .section-label {
+      font-family: var(--font-body);
+      font-size: 0.62rem;
+      font-weight: 500;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 0.75rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    .section-label::before {
+      content: '';
+      display: block;
+      width: 2rem;
+      height: 1px;
+      background: var(--gold);
+    }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 3rem;
+      align-items: center;
+    }
+    @media (min-width: 900px) {
+      .about-grid { grid-template-columns: 1fr 1fr; gap: 5rem; }
+    }
+    .about-grid__title {
+      font-family: var(--font-display);
+      font-size: clamp(2.4rem, 5vw, 4rem);
+      font-weight: 300;
+      line-height: 1.05;
+      margin-bottom: 1.75rem;
+      color: var(--black);
+    }
+    .about-grid__title em {
+      font-style: italic;
+      color: var(--gold-dark);
+    }
+    .about-grid__text {
+      font-size: 0.95rem;
+      line-height: 1.85;
+      color: var(--gray-600);
+      margin-bottom: 1.2rem;
+    }
+    .about-grid__image {
+      position: relative;
+      overflow: hidden;
+      border-radius: 2px;
+    }
+    .about-grid__image img {
+      width: 100%;
+      height: 420px;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.7s var(--ease);
+    }
+    @media (min-width: 900px) {
+      .about-grid__image img { height: 500px; }
+    }
+    .about-grid__image:hover img { transform: scale(1.04); }
+    .about-grid__image-badge {
+      position: absolute;
+      bottom: 1.5rem;
+      left: 1.5rem;
+      background: var(--gold);
+      color: var(--white);
+      font-family: var(--font-body);
+      font-size: 0.6rem;
+      font-weight: 500;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      padding: 0.5rem 1rem;
+    }
+
+    /* ---------- WHAT'S ON ---------- */
+    .movies-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.25rem;
+    }
+    @media (min-width: 900px) {
+      .movies-grid { grid-template-columns: repeat(4, 1fr); }
+    }
+    .movie-card {
+      position: relative;
+      border-radius: 3px;
+      overflow: hidden;
+      min-height: 420px;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      transition: transform 0.35s var(--ease);
+    }
+    .movie-card:hover { transform: translateY(-4px); }
+    .movie-card__bg {
+      position: absolute;
+      inset: 0;
+      transition: transform 0.6s var(--ease);
+    }
+    .movie-card:hover .movie-card__bg { transform: scale(1.04); }
+    .movie-card__bg--1 {
+      background: linear-gradient(160deg, #1a0530 0%, #3b0764 40%, #0d0414 100%);
+    }
+    .movie-card__bg--2 {
+      background: linear-gradient(160deg, #00132a 0%, #002a5c 40%, #001020 100%);
+    }
+    .movie-card__bg--3 {
+      background: linear-gradient(160deg, #1a0c00 0%, #3d1f00 40%, #150a00 100%);
+    }
+    .movie-card__bg--4 {
+      background: linear-gradient(160deg, #001a18 0%, #003830 40%, #001210 100%);
+    }
+    .movie-card__deco {
+      position: absolute;
+      inset: 0;
+      opacity: 0.18;
+      background: repeating-linear-gradient(
+        135deg,
+        transparent,
+        transparent 30px,
+        rgba(255,255,255,0.03) 30px,
+        rgba(255,255,255,0.03) 31px
+      );
+    }
+    .movie-card__overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.1) 55%, transparent 100%);
+    }
+    .movie-card__rating {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      background: var(--gold);
+      color: var(--white);
+      font-family: var(--font-body);
+      font-size: 0.7rem;
+      font-weight: 600;
+      padding: 0.3rem 0.6rem;
+      border-radius: 2px;
+      z-index: 2;
+    }
+    .movie-card__body {
+      position: relative;
+      z-index: 2;
+      padding: 1.5rem;
+      color: var(--white);
+    }
+    .movie-card__genre {
+      display: inline-block;
+      font-family: var(--font-body);
+      font-size: 0.58rem;
+      font-weight: 500;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold-light);
+      border: 1px solid rgba(201, 169, 110, 0.4);
+      padding: 0.25rem 0.65rem;
+      margin-bottom: 0.75rem;
+    }
+    .movie-card__title {
+      font-family: var(--font-display);
+      font-size: 1.5rem;
+      font-weight: 400;
+      line-height: 1.15;
+      margin-bottom: 1rem;
+    }
+    .movie-card__showtimes {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      margin-bottom: 1.25rem;
+    }
+    .showtime-pill {
+      font-family: var(--font-body);
+      font-size: 0.65rem;
+      font-weight: 500;
+      color: rgba(255,255,255,0.75);
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.18);
+      padding: 0.25rem 0.55rem;
+      border-radius: 2px;
+      transition: background 0.2s, color 0.2s;
+      cursor: pointer;
+    }
+    .showtime-pill:hover {
+      background: var(--gold);
+      color: var(--white);
+      border-color: var(--gold);
+    }
+    .movie-card__book {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-family: var(--font-body);
+      font-size: 0.62rem;
+      font-weight: 500;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--white);
+      background: var(--gold);
+      padding: 0.65rem 1.25rem;
+      transition: background 0.3s;
+    }
+    .movie-card__book:hover { background: var(--gold-dark); }
+
+    /* ---------- FACILITIES ---------- */
+    .facilities-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1px;
+      background: rgba(255,255,255,0.08);
+    }
+    @media (min-width: 640px) {
+      .facilities-grid { grid-template-columns: repeat(3, 1fr); }
+    }
+    .facility-tile {
+      background: #0f0a28;
+      padding: 2.5rem 2rem;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 1rem;
+      transition: background 0.3s;
+    }
+    .facility-tile:hover { background: #180f3a; }
+    .facility-tile__icon {
+      width: 48px;
+      height: 48px;
+      background: rgba(201, 169, 110, 0.12);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .facility-tile__icon svg {
+      width: 20px;
+      height: 20px;
+      color: var(--gold);
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 1.6;
+    }
+    .facility-tile__name {
+      font-family: var(--font-display);
+      font-size: 1.35rem;
+      font-weight: 400;
+      color: var(--white);
+      line-height: 1.2;
+    }
+    .facility-tile__desc {
+      font-family: var(--font-body);
+      font-size: 0.78rem;
+      color: rgba(255,255,255,0.45);
+      line-height: 1.6;
+    }
+
+    /* ---------- GALLERY ---------- */
+    .gallery-row {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0.75rem;
+    }
+    @media (min-width: 700px) {
+      .gallery-row { grid-template-columns: repeat(3, 1fr); }
+    }
+    .gallery-item {
+      position: relative;
+      overflow: hidden;
+    }
+    .gallery-item img {
+      width: 100%;
+      height: 260px;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.65s var(--ease);
+    }
+    @media (min-width: 700px) {
+      .gallery-item img { height: 320px; }
+    }
+    .gallery-item:hover img { transform: scale(1.06); }
+    .gallery-item__overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(8, 5, 20, 0);
+      transition: background 0.35s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .gallery-item:hover .gallery-item__overlay { background: rgba(8, 5, 20, 0.4); }
+    .gallery-item__zoom {
+      opacity: 0;
+      transform: scale(0.8);
+      transition: opacity 0.3s, transform 0.3s;
+      color: var(--white);
+    }
+    .gallery-item:hover .gallery-item__zoom {
+      opacity: 1;
+      transform: scale(1);
+    }
+    .gallery-item__zoom svg {
+      width: 28px;
+      height: 28px;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 1.6;
+    }
+
+    /* ---------- BOOK TICKETS CTA ---------- */
+    .book-cta {
+      background: linear-gradient(135deg, #0c0820 0%, #1a0a40 50%, #0c0820 100%);
+      position: relative;
+      overflow: hidden;
+      text-align: center;
+      padding: clamp(5rem, 10vw, 8rem) 0;
+    }
+    .book-cta__deco {
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 60% 60% at 20% 50%, rgba(201,169,110,0.08) 0%, transparent 70%),
+        radial-gradient(ellipse 60% 60% at 80% 50%, rgba(100,60,200,0.1) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .book-cta__lines {
+      position: absolute;
+      inset: 0;
+      opacity: 0.04;
+      background: repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 40px,
+        rgba(255,255,255,0.5) 40px,
+        rgba(255,255,255,0.5) 41px
+      );
+      pointer-events: none;
+    }
+    .book-cta__content { position: relative; z-index: 2; color: var(--white); }
+    .book-cta__label {
+      font-family: var(--font-body);
+      font-size: 0.62rem;
+      font-weight: 500;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 1.25rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.75rem;
+    }
+    .book-cta__label::before,
+    .book-cta__label::after {
+      content: '';
+      display: block;
+      width: 2rem;
+      height: 1px;
+      background: var(--gold);
+    }
+    .book-cta__title {
+      font-family: var(--font-display);
+      font-size: clamp(2.5rem, 6vw, 5rem);
+      font-weight: 300;
+      line-height: 1.05;
+      margin-bottom: 1.25rem;
+    }
+    .book-cta__title em { font-style: italic; color: var(--gold-light); }
+    .book-cta__subtitle {
+      font-size: 0.95rem;
+      color: rgba(255,255,255,0.6);
+      line-height: 1.7;
+      max-width: 480px;
+      margin: 0 auto 2.5rem;
+    }
+    .book-cta__btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.75rem;
+      font-family: var(--font-body);
+      font-size: 0.65rem;
+      font-weight: 500;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--black);
+      background: var(--gold);
+      padding: 1.1rem 2.5rem;
+      transition: background 0.3s, transform 0.2s;
+    }
+    .book-cta__btn:hover {
+      background: var(--gold-light);
+      transform: translateY(-2px);
+    }
+    .book-cta__btn svg {
+      width: 14px;
+      height: 14px;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 2;
+    }
+    .book-cta__note {
+      margin-top: 1.5rem;
+      font-family: var(--font-body);
+      font-size: 0.7rem;
+      color: rgba(255,255,255,0.3);
+      letter-spacing: 0.08em;
+    }
+
+    /* ---------- RELATED VENUES ---------- */
+    .related-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1.25rem;
+    }
+    @media (min-width: 640px) { .related-grid { grid-template-columns: repeat(3, 1fr); } }
+
+    .related-card {
+      position: relative;
+      overflow: hidden;
+      display: block;
+      min-height: 320px;
+    }
+    .related-card__img {
+      width: 100%;
+      height: 320px;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.65s var(--ease);
+    }
+    .related-card:hover .related-card__img { transform: scale(1.06); }
+    .related-card__overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(0,0,0,0.82) 0%, rgba(0,0,0,0.15) 55%, transparent 100%);
+    }
+    .related-card__body {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 1.75rem;
+      color: var(--white);
+    }
+    .related-card__cat {
+      font-family: var(--font-body);
+      font-size: 0.58rem;
+      font-weight: 500;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 0.5rem;
+    }
+    .related-card__name {
+      font-family: var(--font-display);
+      font-size: 1.6rem;
+      font-weight: 400;
+      line-height: 1.1;
+      margin-bottom: 0.75rem;
+    }
+    .related-card__arrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-family: var(--font-body);
+      font-size: 0.6rem;
+      font-weight: 500;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.55);
+      transition: color 0.25s, gap 0.25s;
+    }
+    .related-card:hover .related-card__arrow { color: var(--gold); gap: 0.9rem; }
+    .related-card__arrow-line {
+      display: inline-block;
+      width: 1.5rem;
+      height: 1px;
+      background: currentColor;
+      transition: width 0.25s;
+    }
+    .related-card:hover .related-card__arrow-line { width: 2rem; }
+
+    /* Scroll line animation */
+    @keyframes scroll-line {
+      0% { top: -100%; }
+      100% { top: 100%; }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- ============================================================
+       NAVIGATION — loaded by app.js
+       ============================================================ -->
+  <div id="nav-placeholder"></div>
+
+  <main>
+
+    <!-- ============================================================
+         HERO
+         ============================================================ -->
+    <section class="cin-hero" aria-label="Cinéma Morocco Mall — Hero">
+      <div class="cin-hero__bg" id="cinHeroBg"></div>
+      <div class="cin-hero__overlay"></div>
+
+      <div class="container cin-hero__content">
+        <!-- Breadcrumb -->
+        <nav class="cin-hero__breadcrumb" aria-label="Fil d'Ariane">
+          <a href="../index.html">Morocco Mall</a>
+          <span>›</span>
+          <a href="entertainment.html">Entertainment</a>
+          <span>›</span>
+          <span style="color: rgba(255,255,255,0.7);">Cinéma</span>
+        </nav>
+
+        <!-- Eyebrow -->
+        <p class="cin-hero__eyebrow">Experience</p>
+
+        <!-- Title -->
+        <h1 class="cin-hero__title">
+          Cinéma<br>
+          <em>Morocco Mall</em>
+        </h1>
+
+        <!-- Subtitle -->
+        <p class="cin-hero__subtitle">
+          The ultimate cinematic experience in Morocco.
+        </p>
+
+        <!-- CTA -->
+        <a
+          href="https://www.cineatlasmaroc.com"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="cin-hero__cta"
+          aria-label="Réserver vos places en ligne"
+        >
+          Réserver maintenant
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <path d="M5 12h14M12 5l7 7-7 7"/>
+          </svg>
+        </a>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         KEY INFO GRID
+         ============================================================ -->
+    <section class="info-strip" aria-label="Informations pratiques">
+      <div class="container--wide">
+        <div class="info-strip__grid">
+
+          <!-- Horaires -->
+          <div class="info-card">
+            <div class="info-card__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            </div>
+            <p class="info-card__label">Horaires</p>
+            <p class="info-card__value">10:00 – 01:00</p>
+            <p class="info-card__sub">Tous les jours</p>
+          </div>
+
+          <!-- Localisation -->
+          <div class="info-card">
+            <div class="info-card__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            </div>
+            <p class="info-card__label">Localisation</p>
+            <p class="info-card__value">Niveau 3</p>
+            <p class="info-card__sub">Tous les malls</p>
+          </div>
+
+          <!-- Salles -->
+          <div class="info-card">
+            <div class="info-card__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+            </div>
+            <p class="info-card__label">Salles</p>
+            <p class="info-card__value">14 Salles</p>
+            <p class="info-card__sub">Grande capacité</p>
+          </div>
+
+          <!-- Formats -->
+          <div class="info-card" style="border-right: none;">
+            <div class="info-card__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2"/></svg>
+            </div>
+            <p class="info-card__label">Formats</p>
+            <p class="info-card__value">IMAX · 3D</p>
+            <p class="info-card__sub">4DX · Dolby</p>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         ABOUT SECTION
+         ============================================================ -->
+    <section class="section section--cream" aria-label="À propos du cinéma">
+      <div class="container">
+        <div class="about-grid">
+
+          <!-- Left: Text -->
+          <div class="about-grid__text-col">
+            <p class="section-label">À Propos</p>
+            <h2 class="about-grid__title">
+              Vivez le<br>
+              <em>Grand Écran</em>
+            </h2>
+            <p class="about-grid__text">
+              Le Cinéma Morocco Mall redéfinit l'expérience cinématographique au Maroc. Avec ses 14 salles
+              ultra-modernes, il propose une programmation internationale et locale dans les formats les plus
+              avancés : IMAX, 3D, 4DX et Dolby Atmos. Chaque séance devient un voyage sensoriel complet,
+              où le son enveloppe, l'image captive et les sièges répondent à l'action à l'écran.
+            </p>
+            <p class="about-grid__text">
+              Niché au niveau 3 de Morocco Mall — le plus grand centre commercial d'Afrique — notre cinéma
+              accueille chaque année des millions de spectateurs venus découvrir les dernières productions
+              hollywoodiennes et les pépites du cinéma mondial, dans un cadre premium alliant confort,
+              technologie et service exceptionnel.
+            </p>
+          </div>
+
+          <!-- Right: Image -->
+          <div class="about-grid__image">
+            <img
+              src="https://images.unsplash.com/photo-1524985069026-dd778a71c7b4?w=700&h=500&fit=crop"
+              alt="Salle de cinéma Morocco Mall — intérieur luxueux"
+              loading="lazy"
+            />
+            <span class="about-grid__image-badge">Expérience Premium</span>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         WHAT'S ON
+         ============================================================ -->
+    <section class="section section--dark" aria-label="Films à l'affiche">
+      <div class="container">
+        <div style="text-align: center; margin-bottom: 3rem;">
+          <p class="section-label" style="justify-content: center;">À l'Affiche</p>
+          <h2 style="font-family: var(--font-display); font-size: clamp(2rem, 4.5vw, 3.5rem); font-weight: 300; color: var(--white); line-height: 1.1;">
+            Programmes<em style="font-style: italic; color: var(--gold-light);"> du Moment</em>
+          </h2>
+        </div>
+
+        <div class="movies-grid">
+
+          <!-- Film 1 -->
+          <article class="movie-card" aria-label="Film — Écho de l'Infini">
+            <div class="movie-card__bg movie-card__bg--1"></div>
+            <div class="movie-card__deco"></div>
+            <div class="movie-card__overlay"></div>
+            <span class="movie-card__rating" aria-label="Note: 8.4">8.4</span>
+            <div class="movie-card__body">
+              <span class="movie-card__genre">Science-Fiction</span>
+              <h3 class="movie-card__title">Écho de<br>l'Infini</h3>
+              <div class="movie-card__showtimes" aria-label="Séances disponibles">
+                <span class="showtime-pill">14:00</span>
+                <span class="showtime-pill">16:30</span>
+                <span class="showtime-pill">19:00</span>
+                <span class="showtime-pill">21:30</span>
+              </div>
+              <a
+                href="https://www.cineatlasmaroc.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="movie-card__book"
+              >
+                Réserver
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+              </a>
+            </div>
+          </article>
+
+          <!-- Film 2 -->
+          <article class="movie-card" aria-label="Film — Les Ombres de Casablanca">
+            <div class="movie-card__bg movie-card__bg--2"></div>
+            <div class="movie-card__deco"></div>
+            <div class="movie-card__overlay"></div>
+            <span class="movie-card__rating" aria-label="Note: 7.9">7.9</span>
+            <div class="movie-card__body">
+              <span class="movie-card__genre">Thriller</span>
+              <h3 class="movie-card__title">Les Ombres<br>de Casablanca</h3>
+              <div class="movie-card__showtimes" aria-label="Séances disponibles">
+                <span class="showtime-pill">14:00</span>
+                <span class="showtime-pill">16:30</span>
+                <span class="showtime-pill">19:00</span>
+                <span class="showtime-pill">21:30</span>
+              </div>
+              <a
+                href="https://www.cineatlasmaroc.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="movie-card__book"
+              >
+                Réserver
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+              </a>
+            </div>
+          </article>
+
+          <!-- Film 3 -->
+          <article class="movie-card" aria-label="Film — Tempête sur l'Atlas">
+            <div class="movie-card__bg movie-card__bg--3"></div>
+            <div class="movie-card__deco"></div>
+            <div class="movie-card__overlay"></div>
+            <span class="movie-card__rating" aria-label="Note: 8.1">8.1</span>
+            <div class="movie-card__body">
+              <span class="movie-card__genre">Action · Aventure</span>
+              <h3 class="movie-card__title">Tempête<br>sur l'Atlas</h3>
+              <div class="movie-card__showtimes" aria-label="Séances disponibles">
+                <span class="showtime-pill">14:00</span>
+                <span class="showtime-pill">16:30</span>
+                <span class="showtime-pill">19:00</span>
+                <span class="showtime-pill">21:30</span>
+              </div>
+              <a
+                href="https://www.cineatlasmaroc.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="movie-card__book"
+              >
+                Réserver
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+              </a>
+            </div>
+          </article>
+
+          <!-- Film 4 -->
+          <article class="movie-card" aria-label="Film — Jardins du Paradis">
+            <div class="movie-card__bg movie-card__bg--4"></div>
+            <div class="movie-card__deco"></div>
+            <div class="movie-card__overlay"></div>
+            <span class="movie-card__rating" aria-label="Note: 9.0">9.0</span>
+            <div class="movie-card__body">
+              <span class="movie-card__genre">Drame · Romance</span>
+              <h3 class="movie-card__title">Jardins<br>du Paradis</h3>
+              <div class="movie-card__showtimes" aria-label="Séances disponibles">
+                <span class="showtime-pill">14:00</span>
+                <span class="showtime-pill">16:30</span>
+                <span class="showtime-pill">19:00</span>
+                <span class="showtime-pill">21:30</span>
+              </div>
+              <a
+                href="https://www.cineatlasmaroc.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="movie-card__book"
+              >
+                Réserver
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+              </a>
+            </div>
+          </article>
+
+        </div>
+
+        <!-- View all link -->
+        <div style="text-align: center; margin-top: 3rem;">
+          <a
+            href="https://www.cineatlasmaroc.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            style="display: inline-flex; align-items: center; gap: 0.75rem; font-family: var(--font-body); font-size: 0.62rem; font-weight: 500; letter-spacing: 0.22em; text-transform: uppercase; color: var(--gold); border: 1px solid rgba(201,169,110,0.4); padding: 0.9rem 2rem; transition: border-color 0.3s, color 0.3s;"
+            onmouseover="this.style.borderColor='var(--gold)'; this.style.color='var(--white)';"
+            onmouseout="this.style.borderColor='rgba(201,169,110,0.4)'; this.style.color='var(--gold)';"
+          >
+            Voir toute la programmation
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         FACILITIES
+         ============================================================ -->
+    <section class="section section--navy" aria-label="Équipements et services">
+      <div class="container">
+        <div style="text-align: center; margin-bottom: 3.5rem;">
+          <p class="section-label" style="justify-content: center;">Nos Équipements</p>
+          <h2 style="font-family: var(--font-display); font-size: clamp(2rem, 4.5vw, 3.5rem); font-weight: 300; color: var(--white); line-height: 1.1;">
+            Technologie &amp; <em style="font-style: italic; color: var(--gold-light);">Confort</em>
+          </h2>
+        </div>
+
+        <div class="facilities-grid">
+
+          <!-- Sièges Premium -->
+          <div class="facility-tile">
+            <div class="facility-tile__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M20 7H4a2 2 0 00-2 2v9a2 2 0 002 2h16a2 2 0 002-2V9a2 2 0 00-2-2z"/><path d="M8 7V5a2 2 0 014 0v2"/></svg>
+            </div>
+            <h3 class="facility-tile__name">Sièges Premium</h3>
+            <p class="facility-tile__desc">Fauteuils inclinables ultra-confortables avec accoudoirs larges et espace pour les jambes.</p>
+          </div>
+
+          <!-- Dolby Atmos -->
+          <div class="facility-tile">
+            <div class="facility-tile__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 010 7.07"/><path d="M19.07 4.93a10 10 0 010 14.14"/></svg>
+            </div>
+            <h3 class="facility-tile__name">Dolby Atmos</h3>
+            <p class="facility-tile__desc">Son tridimensionnel immersif pour une expérience audio sans précédent dans chaque salle.</p>
+          </div>
+
+          <!-- 4DX Motion -->
+          <div class="facility-tile">
+            <div class="facility-tile__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+            </div>
+            <h3 class="facility-tile__name">4DX Motion</h3>
+            <p class="facility-tile__desc">Sièges synchronisés aux effets spéciaux : vibrations, vent, eau, arômes et lumières.</p>
+          </div>
+
+          <!-- VIP Lounge -->
+          <div class="facility-tile">
+            <div class="facility-tile__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            </div>
+            <h3 class="facility-tile__name">VIP Lounge</h3>
+            <p class="facility-tile__desc">Espace exclusif avec service en salle, boissons premium et accueil personnalisé avant votre séance.</p>
+          </div>
+
+          <!-- Réservation en ligne -->
+          <div class="facility-tile">
+            <div class="facility-tile__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12" y2="18" stroke-linecap="round" stroke-width="2"/></svg>
+            </div>
+            <h3 class="facility-tile__name">Réservation en ligne</h3>
+            <p class="facility-tile__desc">Choisissez vos places et achetez vos billets facilement sur cineatlasmaroc.com ou via l'appli.</p>
+          </div>
+
+          <!-- Parking Direct -->
+          <div class="facility-tile">
+            <div class="facility-tile__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><rect x="1" y="3" width="15" height="13" rx="2"/><path d="M16 8h4l3 3v5h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+            </div>
+            <h3 class="facility-tile__name">Parking Direct</h3>
+            <p class="facility-tile__desc">Accès direct depuis le parking souterrain de Morocco Mall avec tarifs préférentiels pour les cinéphiles.</p>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         GALLERY
+         ============================================================ -->
+    <section class="section" aria-label="Galerie photos">
+      <div class="container">
+        <div style="text-align: center; margin-bottom: 3rem;">
+          <p class="section-label" style="justify-content: center;">Galerie</p>
+          <h2 style="font-family: var(--font-display); font-size: clamp(2rem, 4.5vw, 3.5rem); font-weight: 300; line-height: 1.1;">
+            L'<em style="font-style: italic; color: var(--gold-dark);">Ambiance</em> en Images
+          </h2>
+        </div>
+
+        <div class="gallery-row">
+
+          <div class="gallery-item">
+            <img
+              src="https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?w=500&h=350&fit=crop"
+              alt="Salle de cinéma pleine — ambiance immersive"
+              loading="lazy"
+            />
+            <div class="gallery-item__overlay">
+              <span class="gallery-item__zoom" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg>
+              </span>
+            </div>
+          </div>
+
+          <div class="gallery-item">
+            <img
+              src="https://images.unsplash.com/photo-1517604931442-7e0c8ed2963c?w=500&h=350&fit=crop"
+              alt="Écran IMAX — projection grand format"
+              loading="lazy"
+            />
+            <div class="gallery-item__overlay">
+              <span class="gallery-item__zoom" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg>
+              </span>
+            </div>
+          </div>
+
+          <div class="gallery-item">
+            <img
+              src="https://images.unsplash.com/photo-1440404653325-ab127d49abc1?w=500&h=350&fit=crop"
+              alt="Lobby cinéma — espace d'accueil moderne"
+              loading="lazy"
+            />
+            <div class="gallery-item__overlay">
+              <span class="gallery-item__zoom" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg>
+              </span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         BOOK TICKETS CTA
+         ============================================================ -->
+    <section class="book-cta" aria-label="Réserver vos billets">
+      <div class="book-cta__deco"></div>
+      <div class="book-cta__lines"></div>
+      <div class="container book-cta__content">
+        <p class="book-cta__label">Réservation</p>
+        <h2 class="book-cta__title">
+          Réservez vos<br>
+          <em>Places Maintenant</em>
+        </h2>
+        <p class="book-cta__subtitle">
+          Choisissez votre film, sélectionnez vos sièges et profitez d'une expérience unique
+          au Cinéma Morocco Mall. Billetterie en ligne disponible 24h/24.
+        </p>
+        <a
+          href="https://www.cineatlasmaroc.com"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="book-cta__btn"
+          aria-label="Acheter des billets sur cineatlasmaroc.com"
+        >
+          Acheter des billets
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+        <p class="book-cta__note">cineatlasmaroc.com · Paiement sécurisé · E-tickets disponibles</p>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         RELATED VENUES
+         ============================================================ -->
+    <section class="section section--cream" aria-label="Autres expériences">
+      <div class="container">
+        <div style="margin-bottom: 3rem;">
+          <p class="section-label">À Découvrir Aussi</p>
+          <h2 style="font-family: var(--font-display); font-size: clamp(2rem, 4.5vw, 3.5rem); font-weight: 300; line-height: 1.1;">
+            Autres <em style="font-style: italic; color: var(--gold-dark);">Expériences</em>
+          </h2>
+        </div>
+
+        <div class="related-grid">
+
+          <!-- Sea Dream -->
+          <a
+            href="sea-dream.html"
+            class="related-card"
+            aria-label="Sea Dream Aquarium — découvrir"
+          >
+            <img
+              class="related-card__img"
+              src="https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=600&h=700&fit=crop"
+              alt="Sea Dream Aquarium — tunnel sous-marin"
+              loading="lazy"
+            />
+            <div class="related-card__overlay"></div>
+            <div class="related-card__body">
+              <p class="related-card__cat">Aquarium</p>
+              <h3 class="related-card__name">Sea Dream<br>Aquarium</h3>
+              <span class="related-card__arrow">
+                <span class="related-card__arrow-line"></span>
+                Découvrir
+              </span>
+            </div>
+          </a>
+
+          <!-- Hello Park -->
+          <a
+            href="hello-park.html"
+            class="related-card"
+            aria-label="Hello Park — découvrir"
+          >
+            <img
+              class="related-card__img"
+              src="https://images.unsplash.com/photo-1566041510394-cf7c1b1b14e7?w=600&h=700&fit=crop"
+              alt="Hello Park — espace de jeux pour enfants"
+              loading="lazy"
+            />
+            <div class="related-card__overlay"></div>
+            <div class="related-card__body">
+              <p class="related-card__cat">Enfants</p>
+              <h3 class="related-card__name">Hello<br>Park</h3>
+              <span class="related-card__arrow">
+                <span class="related-card__arrow-line"></span>
+                Découvrir
+              </span>
+            </div>
+          </a>
+
+          <!-- Fontaine Musicale -->
+          <a
+            href="fontaine-musicale.html"
+            class="related-card"
+            aria-label="Fontaine Musicale — découvrir"
+          >
+            <img
+              class="related-card__img"
+              src="https://images.unsplash.com/photo-1534430480872-3498386e7856?w=600&h=700&fit=crop"
+              alt="Fontaine Musicale — spectacle son et lumière"
+              loading="lazy"
+            />
+            <div class="related-card__overlay"></div>
+            <div class="related-card__body">
+              <p class="related-card__cat">Expérience</p>
+              <h3 class="related-card__name">Fontaine<br>Musicale</h3>
+              <span class="related-card__arrow">
+                <span class="related-card__arrow-line"></span>
+                Découvrir
+              </span>
+            </div>
+          </a>
+
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ============================================================
+       FOOTER — loaded by app.js
+       ============================================================ -->
+  <div id="footer-placeholder"></div>
+
+  <!-- ============================================================
+       SCRIPTS
+       ============================================================ -->
+  <script src="../js/seo.js"></script>
+<script src="../js/translations.js"></script>
+  <script src="../js/app.js"></script>
+  <script>
+    // Hero background parallax trigger
+    (function () {
+      var bg = document.getElementById('cinHeroBg');
+      if (!bg) return;
+      window.addEventListener('load', function () {
+        bg.classList.add('loaded');
+      });
+
+      // Subtle parallax on scroll
+      var hero = bg.closest('.cin-hero');
+      if (hero) {
+        window.addEventListener('scroll', function () {
+          var scrolled = window.pageYOffset;
+          if (scrolled < hero.offsetHeight) {
+            bg.style.transform = 'scale(1) translateY(' + (scrolled * 0.25) + 'px)';
+          }
+        }, { passive: true });
+      }
+    })();
+  </script>
+</body>
+</html>

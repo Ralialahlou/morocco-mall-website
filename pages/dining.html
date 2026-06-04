@@ -1,0 +1,1034 @@
+<!DOCTYPE html>
+<html lang="fr" dir="ltr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Morocco Mall Dining — Restaurants, cafés, fine dining, et le Bay Food Hall. Goûtez chaque moment." />
+  <title>Restauration — Morocco Mall</title>
+  <link rel="icon" href="../assets/logo.png" type="image/png" />
+  <link rel="stylesheet" href="../css/main.css" />
+  <style>
+    /* ── Hero ── */
+    .dining-hero {
+      position: relative;
+      height: 560px;
+      display: flex;
+      align-items: flex-end;
+      background-color: #1a0e00;
+      background-image: url('https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=1920&h=800&fit=crop');
+      background-size: cover;
+      background-position: center;
+      overflow: hidden;
+    }
+    .dining-hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(26,14,0,0.88) 0%, rgba(26,14,0,0.45) 55%, rgba(26,14,0,0.25) 100%);
+    }
+    .dining-hero__content {
+      position: relative;
+      z-index: 1;
+      padding-bottom: 3rem;
+    }
+    .dining-hero__breadcrumb {
+      display: flex;
+      gap: .5rem;
+      align-items: center;
+      font-size: .8rem;
+      color: rgba(255,255,255,.65);
+      margin-bottom: 1rem;
+    }
+    .dining-hero__breadcrumb a {
+      color: rgba(255,255,255,.65);
+      text-decoration: none;
+      transition: color .2s;
+    }
+    .dining-hero__breadcrumb a:hover { color: #fff; }
+    .dining-hero__title {
+      font-size: clamp(2.4rem, 6vw, 4.5rem);
+      font-weight: 800;
+      color: #fff;
+      line-height: 1.1;
+      margin: 0 0 .9rem;
+      letter-spacing: -.02em;
+    }
+    .dining-hero__title em {
+      font-style: italic;
+      color: #f5c842;
+    }
+    .dining-hero__subtitle {
+      font-size: 1.1rem;
+      color: rgba(255,255,255,.8);
+      max-width: 540px;
+      line-height: 1.6;
+      margin: 0;
+    }
+
+    /* ── Search bar ── */
+    .dining-search-wrap {
+      background: #fff;
+      padding: 1.6rem 0;
+      border-bottom: 1px solid #ede8e0;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 2px 12px rgba(0,0,0,.07);
+    }
+    .dining-search-inner {
+      display: flex;
+      gap: 0;
+      max-width: 820px;
+      margin: 0 auto;
+      background: #f7f3ed;
+      border: 2px solid #e8dfd0;
+      border-radius: 999px;
+      overflow: hidden;
+      transition: border-color .2s, box-shadow .2s;
+    }
+    .dining-search-inner:focus-within {
+      border-color: #c8a06b;
+      box-shadow: 0 0 0 4px rgba(200,160,107,.15);
+    }
+    .dining-search-inner input {
+      flex: 1;
+      padding: .9rem 1.4rem;
+      font-size: 1rem;
+      border: none;
+      background: transparent;
+      color: #2d1f0e;
+      outline: none;
+    }
+    .dining-search-inner input::placeholder { color: #a0907a; }
+    .dining-search-btn {
+      padding: .75rem 1.4rem;
+      background: #c8a06b;
+      border: none;
+      cursor: pointer;
+      color: #fff;
+      font-size: 1.2rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background .2s;
+      border-radius: 0 999px 999px 0;
+    }
+    .dining-search-btn:hover { background: #a87e45; }
+
+    /* ── Category pills ── */
+    .dining-categories {
+      background: #faf6f0;
+      border-bottom: 1px solid #ede8e0;
+      padding: .9rem 0;
+    }
+    .dining-cat-list {
+      display: flex;
+      gap: .55rem;
+      overflow-x: auto;
+      padding-bottom: .2rem;
+      scrollbar-width: none;
+    }
+    .dining-cat-list::-webkit-scrollbar { display: none; }
+    .cat-pill {
+      flex-shrink: 0;
+      padding: .45rem 1.15rem;
+      border-radius: 999px;
+      font-size: .85rem;
+      font-weight: 600;
+      cursor: pointer;
+      border: 1.5px solid #d9cec0;
+      background: #fff;
+      color: #4a3728;
+      transition: background .2s, color .2s, border-color .2s;
+      white-space: nowrap;
+    }
+    .cat-pill:hover { border-color: #c8a06b; color: #a87e45; }
+    .cat-pill.active {
+      background: #1a0e00;
+      color: #f5c842;
+      border-color: #1a0e00;
+    }
+
+    /* ── Section heading ── */
+    .section-heading {
+      text-align: center;
+      margin-bottom: 2.4rem;
+    }
+    .section-heading .overline {
+      font-size: .75rem;
+      font-weight: 700;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: #c8a06b;
+      margin-bottom: .5rem;
+    }
+    .section-heading h2 {
+      font-size: clamp(1.7rem, 3.5vw, 2.4rem);
+      font-weight: 800;
+      color: #1a0e00;
+      margin: 0;
+    }
+
+    /* ── Featured zones ── */
+    .dining-zones {
+      padding: 4rem 0;
+      background: #fff;
+    }
+    .zones-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.6rem;
+    }
+    @media (max-width: 700px) { .zones-grid { grid-template-columns: 1fr; } }
+    .zone-card {
+      position: relative;
+      height: 360px;
+      border-radius: 18px;
+      overflow: hidden;
+      cursor: pointer;
+    }
+    .zone-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform .5s ease;
+    }
+    .zone-card:hover img { transform: scale(1.05); }
+    .zone-card__overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(20,10,0,.85) 0%, rgba(20,10,0,.2) 60%, transparent 100%);
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 2rem;
+    }
+    .zone-card__tag {
+      display: inline-block;
+      font-size: .72rem;
+      font-weight: 700;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      background: #f5c842;
+      color: #1a0e00;
+      padding: .28rem .75rem;
+      border-radius: 999px;
+      margin-bottom: .75rem;
+      width: fit-content;
+    }
+    .zone-card h3 {
+      font-size: 1.75rem;
+      font-weight: 800;
+      color: #fff;
+      margin: 0 0 .5rem;
+    }
+    .zone-card p {
+      font-size: .9rem;
+      color: rgba(255,255,255,.78);
+      margin: 0 0 1.1rem;
+      line-height: 1.55;
+    }
+    .zone-card__link {
+      display: inline-flex;
+      align-items: center;
+      gap: .45rem;
+      font-size: .85rem;
+      font-weight: 700;
+      color: #f5c842;
+      text-decoration: none;
+      letter-spacing: .03em;
+    }
+    .zone-card__link svg { transition: transform .2s; }
+    .zone-card__link:hover svg { transform: translateX(4px); }
+
+    /* ── Restaurant listing ── */
+    .dining-listing {
+      padding: 4rem 0 5rem;
+      background: #faf6f0;
+    }
+    .restaurant-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.6rem;
+    }
+    @media (max-width: 1000px) { .restaurant-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 600px)  { .restaurant-grid { grid-template-columns: 1fr; } }
+
+    .restaurant-card {
+      background: #fff;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 2px 12px rgba(26,14,0,.07);
+      display: flex;
+      flex-direction: column;
+      transition: transform .25s, box-shadow .25s;
+    }
+    .restaurant-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 32px rgba(26,14,0,.13);
+    }
+    .restaurant-card.hidden { display: none; }
+
+    .restaurant-card__img {
+      position: relative;
+      height: 200px;
+      overflow: hidden;
+    }
+    .restaurant-card__img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform .4s ease;
+    }
+    .restaurant-card:hover .restaurant-card__img img { transform: scale(1.06); }
+
+    .restaurant-card__body {
+      padding: 1.2rem 1.3rem 1.4rem;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+    .restaurant-card__top {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: .5rem;
+      margin-bottom: .6rem;
+    }
+    .restaurant-card__name {
+      font-size: 1.1rem;
+      font-weight: 800;
+      color: #1a0e00;
+      line-height: 1.25;
+      flex: 1;
+    }
+
+    /* cuisine badges */
+    .badge {
+      font-size: .7rem;
+      font-weight: 700;
+      padding: .22rem .6rem;
+      border-radius: 999px;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+    .badge-fine   { background: #fff0d9; color: #a05800; }
+    .badge-casual { background: #e9f5ea; color: #2a7a35; }
+    .badge-cafe   { background: #fde8f0; color: #a0265a; }
+    .badge-fast   { background: #ffeaea; color: #c02a2a; }
+    .badge-maroc  { background: #fff5e0; color: #8a5c00; }
+    .badge-intl   { background: #e8eeff; color: #2040a8; }
+    .badge-famille{ background: #f0e8ff; color: #5a20a8; }
+
+    .restaurant-card__meta {
+      font-size: .8rem;
+      color: #7a6555;
+      display: flex;
+      flex-direction: column;
+      gap: .25rem;
+      margin-bottom: auto;
+      padding-bottom: .9rem;
+    }
+    .restaurant-card__meta span {
+      display: flex;
+      align-items: center;
+      gap: .4rem;
+    }
+    .restaurant-card__meta svg {
+      flex-shrink: 0;
+      opacity: .6;
+    }
+
+    .restaurant-card__cta {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: .4rem;
+      margin-top: .4rem;
+      padding: .65rem 1rem;
+      border-radius: 999px;
+      font-size: .85rem;
+      font-weight: 700;
+      text-decoration: none;
+      border: 2px solid #1a0e00;
+      color: #1a0e00;
+      background: transparent;
+      transition: background .2s, color .2s;
+    }
+    .restaurant-card__cta:hover {
+      background: #1a0e00;
+      color: #f5c842;
+    }
+    .restaurant-card__cta.reserve {
+      background: #1a0e00;
+      color: #f5c842;
+      border-color: #1a0e00;
+    }
+    .restaurant-card__cta.reserve:hover {
+      background: #3a2010;
+    }
+
+    /* no-results */
+    .no-results {
+      grid-column: 1 / -1;
+      text-align: center;
+      padding: 4rem 1rem;
+      color: #7a6555;
+      font-size: 1.1rem;
+      display: none;
+    }
+    .no-results.visible { display: block; }
+
+    /* container utility */
+    .container {
+      max-width: 1240px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+  </style>
+</head>
+<body>
+
+<main id="main-content">
+
+  <!-- ══════════════════════════════
+       HERO
+  ══════════════════════════════ -->
+  <section class="dining-hero">
+    <div class="container dining-hero__content">
+      <nav class="dining-hero__breadcrumb" aria-label="Fil d'Ariane">
+        <a href="../index.html">Morocco Mall</a>
+        <span aria-hidden="true">›</span>
+        <span>Restauration</span>
+      </nav>
+      <h1 class="dining-hero__title">Taste Every<br><em>Moment</em></h1>
+      <p class="dining-hero__subtitle">
+        Des saveurs marocaines aux cuisines du monde entier — plus de 30 restaurants, cafés et espaces de restauration vous attendent pour chaque occasion.
+      </p>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════
+       SEARCH BAR
+  ══════════════════════════════ -->
+  <div class="dining-search-wrap" role="search">
+    <div class="container">
+      <div class="dining-search-inner">
+        <input
+          type="search"
+          id="dining-search"
+          placeholder="Rechercher un restaurant, une cuisine..."
+          aria-label="Rechercher un restaurant ou une cuisine"
+          autocomplete="off"
+        />
+        <button class="dining-search-btn" aria-label="Lancer la recherche">
+          <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+            <circle cx="11" cy="11" r="7"/><path d="M21 21l-4.35-4.35"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════
+       CATEGORY FILTER PILLS
+  ══════════════════════════════ -->
+  <div class="dining-categories">
+    <div class="container">
+      <div class="dining-cat-list" role="group" aria-label="Filtrer par catégorie">
+        <button class="cat-pill active" data-cat="all">Tout</button>
+        <button class="cat-pill" data-cat="fine-dining">Fine Dining</button>
+        <button class="cat-pill" data-cat="casual">Casual</button>
+        <button class="cat-pill" data-cat="cafe">Café &amp; Pâtisserie</button>
+        <button class="cat-pill" data-cat="fast-food">Fast Food</button>
+        <button class="cat-pill" data-cat="marocain">Marocain</button>
+        <button class="cat-pill" data-cat="international">International</button>
+        <button class="cat-pill" data-cat="famille">Famille</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════
+       FEATURED ZONES
+  ══════════════════════════════ -->
+  <section class="dining-zones">
+    <div class="container">
+      <div class="section-heading">
+        <p class="overline">Espaces Signature</p>
+        <h2>Nos Zones de Restauration</h2>
+      </div>
+      <div class="zones-grid">
+
+        <!-- Bay Food Hall -->
+        <article class="zone-card">
+          <img
+            src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=900&h=600&fit=crop"
+            alt="Bay Food Hall — Morocco Mall"
+            loading="lazy"
+          />
+          <div class="zone-card__overlay">
+            <span class="zone-card__tag">Niveau 1 · Aile Baie</span>
+            <h3>Bay Food Hall</h3>
+            <p>Un marché culinaire ouvert rassemblant cuisines du monde, comptoirs de street food et épiceries fines dans un cadre lumineux face à la baie.</p>
+            <a href="#restaurant-listing" class="zone-card__link">
+              Explorer les enseignes
+              <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </a>
+          </div>
+        </article>
+
+        <!-- Seaview Dining -->
+        <article class="zone-card">
+          <img
+            src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=900&h=600&fit=crop"
+            alt="Seaview Dining — Morocco Mall"
+            loading="lazy"
+          />
+          <div class="zone-card__overlay">
+            <span class="zone-card__tag">Niveau 2 · Vue Mer</span>
+            <h3>Seaview Dining</h3>
+            <p>Une sélection de restaurants gastronomiques et de tables d'exception avec vue panoramique sur l'Atlantique — l'idéal pour un dîner inoubliable.</p>
+            <a href="#restaurant-listing" class="zone-card__link">
+              Découvrir les tables
+              <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </a>
+          </div>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════
+       RESTAURANT LISTING
+  ══════════════════════════════ -->
+  <section class="dining-listing" id="restaurant-listing">
+    <div class="container">
+      <div class="section-heading">
+        <p class="overline">Nos Tables</p>
+        <h2>Tous les Restaurants</h2>
+      </div>
+
+      <div class="restaurant-grid" id="restaurant-grid">
+
+        <!-- 1 -->
+        <article class="restaurant-card" data-category="fine-dining" data-name="La Table du Détroit">
+          <div class="restaurant-card__img">
+            <img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=400&h=280&fit=crop" alt="La Table du Détroit" loading="lazy"/>
+          </div>
+          <div class="restaurant-card__body">
+            <div class="restaurant-card__top">
+              <h3 class="restaurant-card__name">La Table du Détroit</h3>
+              <span class="badge badge-fine">Fine Dining</span>
+            </div>
+            <div class="restaurant-card__meta">
+              <span>
+                <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M17.657 16.657L13.414 20.9a2 2 0 01-2.828 0l-4.243-4.243a8 8 0 1111.314 0z"/><circle cx="12" cy="11" r="3"/></svg>
+                Niveau 2 · Seaview Dining
+              </span>
+              <span>
+                <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+                12h00 – 23h30
+              </span>
+            </div>
+            <a href="#" class="restaurant-card__cta reserve">Réserver</a>
+          </div>
+        </article>
+
+        <!-- 2 -->
+        <article class="restaurant-card" data-category="marocain" data-name="Riad des Saveurs">
+          <div class="restaurant-card__img">
+            <img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=400&h=280&fit=crop" alt="Riad des Saveurs" loading="lazy"/>
+          </div>
+          <div class="restaurant-card__body">
+            <div class="restaurant-card__top">
+              <h3 class="restaurant-card__name">Riad des Saveurs</h3>
+              <span class="badge badge-maroc">Marocain</span>
+            </div>
+            <div class="restaurant-card__meta">
+              <span>
+                <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M17.657 16.657L13.414 20.9a2 2 0 01-2.828 0l-4.243-4.243a8 8 0 1111.314 0z"/><circle cx="12" cy="11" r="3"/></svg>
+                Niveau 1 · Allée Centrale
+              </span>
+              <span>
+                <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+                11h30 – 23h00
+              </span>
+            </div>
+            <a href="#" class="restaurant-card__cta reserve">Réserver</a>
+          </div>
+        </article>
+
+        <!-- 3 -->
+        <article class="restaurant-card" data-category="international" data-name="Fuego Steakhouse">
+          <div class="restaurant-card__img">
+            <img src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=400&h=280&fit=crop" alt="Fuego Steakhouse" loading="lazy"/>
+          </div>
+          <div class="restaurant-card__body">
+            <div class="restaurant-card__top">
+              <h3 class="restaurant-card__name">Fuego Steakhouse</h3>
+              <span class="badge badge-intl">International</span>
+            </div>
+            <div class="restaurant-card__meta">
+              <span>
+                <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M17.657 16.657L13.414 20.9a2 2 0 01-2.828 0l-4.243-4.243a8 8 0 1111.314 0z"/><circle cx="12" cy="11" r="3"/></svg>
+                Niveau 2 · Aile Est
+              </span>
+              <span>
+                <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+                12h30 – 00h00
+              </span>
+            </div>
+            <a href="#" class="restaurant-card__cta reserve">Réserver</a>
+          </div>
+        </article>
+
+        <!-- 4 -->
+        <article class="restaurant-card" data-category="cafe" data-name="Café Zafrane">
+          <div class="restaurant-card__img">
+            <img src="https://images.unsplash.com/photo-1467003909585-2f8a72700288?w=400&h=280&fit=crop" alt="Café Zafrane" loading="lazy"/>
+          </div>
+          <div class="restaurant-card__body">
+            <div class="restaurant-card__top">
+              <h3 class="restaurant-card__name">Café Zafrane</h3>
+              <span class="badge badge-cafe">Café &amp; Pâtisserie</span>
+            </div>
+            <div class="restaurant-card__meta">
+              <span>
+                <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M17.657 16.657L13.414 20.9a2 2 0 01-2.828 0l-4.243-4.243a8 8 0 1111.314 0z"/><circle cx="12" cy="11" r="3"/></svg>
+                Niveau 0 · Entrée Principale
+              </span>
+              <span>
+                <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+                08h00 – 22h00
+              </span>
+            </div>
+            <a href="#" class="restaurant-card__cta">Voir le menu</a>
+          </div>
+        </article>
+
+        <!-- 5 -->
+        <article class="restaurant-card" data-category="famille" data-name="Pizza Oceano">
+          <div class="restaurant-card__img">
+            <img src="https://images.unsplash.com/photo-1476224203421-9ac39bcb3327?w=400&h=280&fit=crop" alt="Pizza Oceano" loading="lazy"/>
+          </div>
+          <div class="restaurant-card__body">
+            <div class="restaurant-card__top">
+              <h3 class="restaurant-card__name">Pizza Oceano</h3>
+              <span class="badge badge-famille">Famille</span>
+            </div>
+            <div class="restaurant-card__meta">
+              <span>
+                <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M17.657 16.657L13.414 20.9a2 2 0 01-2.828 0l-4.243-4.243a8 8 0 1111.314 0z"/><circle cx="12" cy="11" r="3"/></svg>
+                Niveau 1 · Bay Food Hall
+              </span>
+              <span>
+                <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+                11h00 – 22h30
+              </span>
+            </div>
+            <a href="#" class="restaurant-card__cta">Voir le menu</a>
+          </div>
+        </article>
+
+        <!-- 6 -->
+        <article class="restaurant-card" data-category="casual" data-name="Brunch & Co">
+          <div class="restaurant-card__img">
+            <img src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400&h=280&fit=crop" alt="Brunch & Co" loading="lazy"/>
+          </div>
+          <div class="restaurant-card__body">
+            <div class="restaurant-card__top">
+              <h3 class="restaurant-card__name">Brunch &amp; Co</h3>
+              <span class="badge badge-casual">Casual</span>
+            </div>
+            <div class="restaurant-card__meta">
+              <span>
+                <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M17.657 16.657L13.414 20.9a2 2 0 01-2.828 0l-4.243-4.243a8 8 0 1111.314 0z"/><circle cx="12" cy="11" r="3"/></svg>
+                Niveau 1 · Allée Centrale
+              </span>
+              <span>
+                <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+                09h00 – 21h00
+              </span>
+            </div>
+            <a href="#" class="restaurant-card__cta">Voir le menu</a>
+          </div>
+        </article>
+
+        <!-- 7 -->
+        <article class="restaurant-card" data-category="fast-food" data-name="Burger Souk">
+          <div class="restaurant-card__img">
+            <img src="https://images.unsplash.com/photo-1565299585323-38d6b0865b47?w=400&h=280&fit=crop" alt="Burger Souk" loading="lazy"/>
+          </div>
+          <div class="restaurant-card__body">
+            <div class="restaurant-card__top">
+              <h3 class="restaurant-card__name">Burger Souk</h3>
+              <span class="badge badge-fast">Fast Food</span>
+            </div>
+            <div class="restaurant-card__meta">
+              <span>
+                <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M17.657 16.657L13.414 20.9a2 2 0 01-2.828 0l-4.243-4.243a8 8 0 1111.314 0z"/><circle cx="12" cy="11" r="3"/></svg>
+                Niveau 0 · Bay Food Hall
+              </span>
+              <span>
+                <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+                10h00 – 23h00
+              </span>
+            </div>
+            <a href="#" class="restaurant-card__cta">Voir le menu</a>
+          </div>
+        </article>
+
+        <!-- 8 -->
+        <article class="restaurant-card" data-category="international" data-name="Sushi Atlante">
+          <div class="restaurant-card__img">
+            <img src="https://images.unsplash.com/photo-1559339352-11d035aa65de?w=400&h=280&fit=crop" alt="Sushi Atlante" loading="lazy"/>
+          </div>
+          <div class="restaurant-card__body">
+            <div class="restaurant-card__top">
+              <h3 class="restaurant-card__name">Sushi Atlante</h3>
+              <span class="badge badge-intl">International</span>
+            </div>
+            <div class="restaurant-card__meta">
+              <span>
+                <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M17.657 16.657L13.414 20.9a2 2 0 01-2.828 0l-4.243-4.243a8 8 0 1111.314 0z"/><circle cx="12" cy="11" r="3"/></svg>
+                Niveau 2 · Seaview Dining
+              </span>
+              <span>
+                <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+                12h00 – 23h00
+              </span>
+            </div>
+            <a href="#" class="restaurant-card__cta reserve">Réserver</a>
+          </div>
+        </article>
+
+        <!-- 9 -->
+        <article class="restaurant-card" data-category="marocain" data-name="Dar Tajine">
+          <div class="restaurant-card__img">
+            <img src="https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?w=400&h=280&fit=crop" alt="Dar Tajine" loading="lazy"/>
+          </div>
+          <div class="restaurant-card__body">
+            <div class="restaurant-card__top">
+              <h3 class="restaurant-card__name">Dar Tajine</h3>
+              <span class="badge badge-maroc">Marocain</span>
+            </div>
+            <div class="restaurant-card__meta">
+              <span>
+                <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M17.657 16.657L13.414 20.9a2 2 0 01-2.828 0l-4.243-4.243a8 8 0 1111.314 0z"/><circle cx="12" cy="11" r="3"/></svg>
+                Niveau 1 · Aile Baie
+              </span>
+              <span>
+                <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+                11h30 – 23h30
+              </span>
+            </div>
+            <a href="#" class="restaurant-card__cta reserve">Réserver</a>
+          </div>
+        </article>
+
+        <!-- 10 -->
+        <article class="restaurant-card" data-category="cafe" data-name="Paul Boulangerie">
+          <div class="restaurant-card__img">
+            <img src="https://images.unsplash.com/photo-1490645935967-10de6ba17061?w=400&h=280&fit=crop" alt="Paul Boulangerie" loading="lazy"/>
+          </div>
+          <div class="restaurant-card__body">
+            <div class="restaurant-card__top">
+              <h3 class="restaurant-card__name">Paul Boulangerie</h3>
+              <span class="badge badge-cafe">Café &amp; Pâtisserie</span>
+            </div>
+            <div class="restaurant-card__meta">
+              <span>
+                <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M17.657 16.657L13.414 20.9a2 2 0 01-2.828 0l-4.243-4.243a8 8 0 1111.314 0z"/><circle cx="12" cy="11" r="3"/></svg>
+                Niveau 0 · Allée Nord
+              </span>
+              <span>
+                <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+                07h30 – 21h30
+              </span>
+            </div>
+            <a href="#" class="restaurant-card__cta">Voir le menu</a>
+          </div>
+        </article>
+
+        <!-- 11 -->
+        <article class="restaurant-card" data-category="famille" data-name="Casa Grill Family">
+          <div class="restaurant-card__img">
+            <img src="https://images.unsplash.com/photo-1424847651672-bf20a4b0982b?w=400&h=280&fit=crop" alt="Casa Grill Family" loading="lazy"/>
+          </div>
+          <div class="restaurant-card__body">
+            <div class="restaurant-card__top">
+              <h3 class="restaurant-card__name">Casa Grill Family</h3>
+              <span class="badge badge-famille">Famille</span>
+            </div>
+            <div class="restaurant-card__meta">
+              <span>
+                <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M17.657 16.657L13.414 20.9a2 2 0 01-2.828 0l-4.243-4.243a8 8 0 1111.314 0z"/><circle cx="12" cy="11" r="3"/></svg>
+                Niveau 1 · Aile Famille
+              </span>
+              <span>
+                <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+                11h00 – 22h00
+              </span>
+            </div>
+            <a href="#" class="restaurant-card__cta">Voir le menu</a>
+          </div>
+        </article>
+
+        <!-- 12 -->
+        <article class="restaurant-card" data-category="fine-dining" data-name="L'Horizon Bleu">
+          <div class="restaurant-card__img">
+            <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=400&h=280&fit=crop" alt="L'Horizon Bleu" loading="lazy"/>
+          </div>
+          <div class="restaurant-card__body">
+            <div class="restaurant-card__top">
+              <h3 class="restaurant-card__name">L'Horizon Bleu</h3>
+              <span class="badge badge-fine">Fine Dining</span>
+            </div>
+            <div class="restaurant-card__meta">
+              <span>
+                <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M17.657 16.657L13.414 20.9a2 2 0 01-2.828 0l-4.243-4.243a8 8 0 1111.314 0z"/><circle cx="12" cy="11" r="3"/></svg>
+                Niveau 2 · Seaview Dining
+              </span>
+              <span>
+                <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+                13h00 – 00h00
+              </span>
+            </div>
+            <a href="#" class="restaurant-card__cta reserve">Réserver</a>
+          </div>
+        </article>
+
+        <!-- 13 -->
+        <article class="restaurant-card" data-category="fast-food" data-name="WrapCity">
+          <div class="restaurant-card__img">
+            <img src="https://images.unsplash.com/photo-1565299585323-38d6b0865b47?w=400&h=280&fit=crop" alt="WrapCity" loading="lazy"/>
+          </div>
+          <div class="restaurant-card__body">
+            <div class="restaurant-card__top">
+              <h3 class="restaurant-card__name">WrapCity</h3>
+              <span class="badge badge-fast">Fast Food</span>
+            </div>
+            <div class="restaurant-card__meta">
+              <span>
+                <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M17.657 16.657L13.414 20.9a2 2 0 01-2.828 0l-4.243-4.243a8 8 0 1111.314 0z"/><circle cx="12" cy="11" r="3"/></svg>
+                Niveau 0 · Bay Food Hall
+              </span>
+              <span>
+                <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+                10h00 – 23h00
+              </span>
+            </div>
+            <a href="#" class="restaurant-card__cta">Voir le menu</a>
+          </div>
+        </article>
+
+        <!-- 14 -->
+        <article class="restaurant-card" data-category="casual" data-name="Maré Pasta Bar">
+          <div class="restaurant-card__img">
+            <img src="https://images.unsplash.com/photo-1476224203421-9ac39bcb3327?w=400&h=280&fit=crop" alt="Maré Pasta Bar" loading="lazy"/>
+          </div>
+          <div class="restaurant-card__body">
+            <div class="restaurant-card__top">
+              <h3 class="restaurant-card__name">Maré Pasta Bar</h3>
+              <span class="badge badge-casual">Casual</span>
+            </div>
+            <div class="restaurant-card__meta">
+              <span>
+                <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M17.657 16.657L13.414 20.9a2 2 0 01-2.828 0l-4.243-4.243a8 8 0 1111.314 0z"/><circle cx="12" cy="11" r="3"/></svg>
+                Niveau 1 · Allée Centrale
+              </span>
+              <span>
+                <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+                11h30 – 22h30
+              </span>
+            </div>
+            <a href="#" class="restaurant-card__cta">Voir le menu</a>
+          </div>
+        </article>
+
+        <!-- 15 -->
+        <article class="restaurant-card" data-category="marocain" data-name="Mechoui Andalous">
+          <div class="restaurant-card__img">
+            <img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=400&h=280&fit=crop" alt="Mechoui Andalous" loading="lazy"/>
+          </div>
+          <div class="restaurant-card__body">
+            <div class="restaurant-card__top">
+              <h3 class="restaurant-card__name">Mechoui Andalous</h3>
+              <span class="badge badge-maroc">Marocain</span>
+            </div>
+            <div class="restaurant-card__meta">
+              <span>
+                <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M17.657 16.657L13.414 20.9a2 2 0 01-2.828 0l-4.243-4.243a8 8 0 1111.314 0z"/><circle cx="12" cy="11" r="3"/></svg>
+                Niveau 2 · Aile Ouest
+              </span>
+              <span>
+                <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+                12h00 – 23h00
+              </span>
+            </div>
+            <a href="#" class="restaurant-card__cta reserve">Réserver</a>
+          </div>
+        </article>
+
+        <!-- 16 -->
+        <article class="restaurant-card" data-category="cafe" data-name="Moka & Miel">
+          <div class="restaurant-card__img">
+            <img src="https://images.unsplash.com/photo-1467003909585-2f8a72700288?w=400&h=280&fit=crop" alt="Moka & Miel" loading="lazy"/>
+          </div>
+          <div class="restaurant-card__body">
+            <div class="restaurant-card__top">
+              <h3 class="restaurant-card__name">Moka &amp; Miel</h3>
+              <span class="badge badge-cafe">Café &amp; Pâtisserie</span>
+            </div>
+            <div class="restaurant-card__meta">
+              <span>
+                <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M17.657 16.657L13.414 20.9a2 2 0 01-2.828 0l-4.243-4.243a8 8 0 1111.314 0z"/><circle cx="12" cy="11" r="3"/></svg>
+                Niveau 1 · Terrasse Baie
+              </span>
+              <span>
+                <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+                08h00 – 22h00
+              </span>
+            </div>
+            <a href="#" class="restaurant-card__cta">Voir le menu</a>
+          </div>
+        </article>
+
+        <!-- 17 -->
+        <article class="restaurant-card" data-category="international" data-name="Thaï Blossom">
+          <div class="restaurant-card__img">
+            <img src="https://images.unsplash.com/photo-1559339352-11d035aa65de?w=400&h=280&fit=crop" alt="Thaï Blossom" loading="lazy"/>
+          </div>
+          <div class="restaurant-card__body">
+            <div class="restaurant-card__top">
+              <h3 class="restaurant-card__name">Thaï Blossom</h3>
+              <span class="badge badge-intl">International</span>
+            </div>
+            <div class="restaurant-card__meta">
+              <span>
+                <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M17.657 16.657L13.414 20.9a2 2 0 01-2.828 0l-4.243-4.243a8 8 0 1111.314 0z"/><circle cx="12" cy="11" r="3"/></svg>
+                Niveau 1 · Aile Est
+              </span>
+              <span>
+                <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+                12h00 – 22h30
+              </span>
+            </div>
+            <a href="#" class="restaurant-card__cta">Voir le menu</a>
+          </div>
+        </article>
+
+        <!-- 18 -->
+        <article class="restaurant-card" data-category="famille" data-name="Le Jardin des Kids">
+          <div class="restaurant-card__img">
+            <img src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400&h=280&fit=crop" alt="Le Jardin des Kids" loading="lazy"/>
+          </div>
+          <div class="restaurant-card__body">
+            <div class="restaurant-card__top">
+              <h3 class="restaurant-card__name">Le Jardin des Kids</h3>
+              <span class="badge badge-famille">Famille</span>
+            </div>
+            <div class="restaurant-card__meta">
+              <span>
+                <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M17.657 16.657L13.414 20.9a2 2 0 01-2.828 0l-4.243-4.243a8 8 0 1111.314 0z"/><circle cx="12" cy="11" r="3"/></svg>
+                Niveau 0 · Zone Enfants
+              </span>
+              <span>
+                <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+                10h00 – 21h00
+              </span>
+            </div>
+            <a href="#" class="restaurant-card__cta">Voir le menu</a>
+          </div>
+        </article>
+
+        <!-- no results message -->
+        <div class="no-results" id="no-results" role="status" aria-live="polite">
+          Aucun restaurant ne correspond à votre recherche. Essayez un autre terme.
+        </div>
+
+      </div><!-- /restaurant-grid -->
+    </div>
+  </section>
+
+</main>
+
+<script src="../js/seo.js"></script>
+<script src="../js/translations.js"></script>
+<script src="../js/app.js"></script>
+<script>
+  (function () {
+    'use strict';
+
+    var searchInput  = document.getElementById('dining-search');
+    var grid         = document.getElementById('restaurant-grid');
+    var noResults    = document.getElementById('no-results');
+    var cards        = Array.from(grid.querySelectorAll('.restaurant-card'));
+    var catPills     = Array.from(document.querySelectorAll('.cat-pill'));
+
+    var activeCategory = 'all';
+    var searchQuery    = '';
+
+    function normalize(str) {
+      return str
+        .toLowerCase()
+        .normalize('NFD')
+        .replace(/[̀-ͯ]/g, '');
+    }
+
+    function applyFilters() {
+      var q = normalize(searchQuery.trim());
+      var visibleCount = 0;
+
+      cards.forEach(function (card) {
+        var name = normalize(card.getAttribute('data-name') || '');
+        var cat  = (card.getAttribute('data-category') || '').toLowerCase();
+
+        var matchesSearch   = q === '' || name.indexOf(q) !== -1;
+        var matchesCategory = activeCategory === 'all' || cat === activeCategory;
+
+        if (matchesSearch && matchesCategory) {
+          card.classList.remove('hidden');
+          visibleCount++;
+        } else {
+          card.classList.add('hidden');
+        }
+      });
+
+      if (visibleCount === 0) {
+        noResults.classList.add('visible');
+      } else {
+        noResults.classList.remove('visible');
+      }
+    }
+
+    /* Search input handler */
+    searchInput.addEventListener('input', function () {
+      searchQuery = searchInput.value;
+      applyFilters();
+    });
+
+    /* Category pill handler */
+    catPills.forEach(function (pill) {
+      pill.addEventListener('click', function () {
+        catPills.forEach(function (p) { p.classList.remove('active'); });
+        pill.classList.add('active');
+        activeCategory = pill.getAttribute('data-cat');
+        applyFilters();
+      });
+    });
+
+    /* Search button click — just re-apply (input already synced) */
+    var searchBtn = document.querySelector('.dining-search-btn');
+    if (searchBtn) {
+      searchBtn.addEventListener('click', function () {
+        applyFilters();
+      });
+    }
+  })();
+</script>
+</body>
+</html>

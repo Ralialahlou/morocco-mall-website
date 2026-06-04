@@ -1,0 +1,84 @@
+{
+  "_comment": "Image inventory. To replace an image: update 'src' to your new file path. All paths are relative to /website/. External URLs (Unsplash) can be swapped for local files.",
+  "_howToReplace": "1. Copy new image to /website/assets/  2. Update 'src' below  3. Rebuild/refresh",
+  "hero": {
+    "slide1": {
+      "src": "assets/luxury-2.jpg",
+      "alt": "Bottega Veneta Fall 2026 — Hero slide 1",
+      "objectPosition": "center top",
+      "usedIn": ["index.html — Slide 1 poster"]
+    },
+    "slide2": {
+      "src": "assets/luxury-1.jpg",
+      "alt": "Dior boutique interior — Rose Boulevard hero slide",
+      "objectPosition": "center center",
+      "usedIn": ["index.html — Slide 2 Ken Burns image"]
+    },
+    "slide3": {
+      "src": "assets/luxury-4.jpg",
+      "alt": "Fluid Forms fashion editorial — Entertainment hero slide",
+      "objectPosition": "right center",
+      "usedIn": ["index.html — Slide 3 poster"]
+    }
+  },
+  "aquarium": {
+    "hero": {
+      "src": "assets/aquarium-1.jpg",
+      "alt": "Sea Dream Aquarium — Blue neon corridor entrance",
+      "usedIn": ["sea-dream.html — hero background"]
+    },
+    "restaurant": {
+      "src": "assets/aquarium-2.jpg",
+      "alt": "Ocean Kitchen restaurant — underwater arch dining",
+      "usedIn": ["sea-dream.html — restaurant section", "sea-dream-reservation.html — restaurant image"]
+    },
+    "gallery": {
+      "src": "assets/aquarium-3.jpg",
+      "alt": "Sea Dream — shark walkthrough tunnel",
+      "usedIn": ["sea-dream.html — gallery", "index.html — entertainment card", "entertainment.html — sea dream card"]
+    }
+  },
+  "fountain": {
+    "hero": {
+      "src": "assets/fountain-1.jpg",
+      "alt": "Fontaine Musicale — Dubai-style musical fountain at night",
+      "usedIn": ["fontaine-musicale.html — hero + gallery", "index.html — entertainment card", "entertainment.html — fontaine card"]
+    }
+  },
+  "brand_logo": {
+    "src": "assets/logo.png",
+    "alt": "Morocco Mall — MC monogram logo",
+    "usedIn": ["All pages — nav + footer"]
+  },
+  "aksal_black": {
+    "appLogo": {
+      "src": "assets/aksal-black-logo.png",
+      "alt": "Aksal Black app icon",
+      "usedIn": ["index.html — Aksal section", "aksal-black.html — hero"]
+    },
+    "cardGold": {
+      "src": "assets/aksal-card-gold.png",
+      "alt": "Aksal Black Gold tier loyalty card",
+      "usedIn": ["index.html — Aksal cards", "aksal-black.html"]
+    },
+    "cardPlatinum": {
+      "src": "assets/aksal-card-platinum.png",
+      "alt": "Aksal Black Platinum tier loyalty card",
+      "usedIn": ["index.html — Aksal cards", "aksal-black.html"]
+    }
+  },
+  "luxury": {
+    "1": { "src": "assets/luxury-1.jpg", "alt": "Dior boutique interior — cave aesthetic luxury retail" },
+    "2": { "src": "assets/luxury-2.jpg", "alt": "Bottega Veneta Fall 2026 — fashion editorial wide" },
+    "3": { "src": "assets/luxury-3.jpg", "alt": "Ounass Stage — immersive brand activation space" },
+    "4": { "src": "assets/luxury-4.jpg", "alt": "Fluid Forms — fashion editorial wide shot" }
+  },
+  "_pendingImages": [
+    "Hero videos (to replace Mixkit CDN sources in index.html)",
+    "Individual brand logos for store-card grid on shopping.html",
+    "Morocco Mall interior photography for about.html",
+    "Staff/team photos for careers.html",
+    "Rose Boulevard lounge interior for rose-boulevard-lounge.html",
+    "Aksal Black app screenshots for aksal-black.html"
+  ]
+}

@@ -1,0 +1,868 @@
+<!DOCTYPE html>
+<html lang="fr" dir="ltr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Morocco Mall Entertainment — Cinéma, Sea Dream Aquarium, Hello Park, Adventure Land, Fontaine Musicale. Des expériences inoubliables pour toute la famille." />
+  <title>Entertainment & Experiences — Morocco Mall</title>
+  <link rel="icon" href="../assets/logo.png" type="image/png" />
+  <link rel="stylesheet" href="../css/main.css" />
+  <style>
+    /* ============================================================
+       ENTERTAINMENT PAGE — Scoped Styles
+       ============================================================ */
+
+    /* Hero */
+    .ent-hero {
+      position: relative;
+      height: 100vh;
+      min-height: 600px;
+      display: flex;
+      align-items: flex-end;
+      overflow: hidden;
+    }
+    .ent-hero__bg {
+      position: absolute;
+      inset: 0;
+      background-image: url('https://images.unsplash.com/photo-1524985069026-dd778a71c7b4?w=1920&h=900&fit=crop');
+      background-size: cover;
+      background-position: center;
+      transform: scale(1.05);
+      transition: transform 8s ease-out;
+    }
+    .ent-hero__bg.loaded { transform: scale(1); }
+    .ent-hero__overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        to top,
+        rgba(0, 0, 0, 0.85) 0%,
+        rgba(0, 0, 0, 0.45) 50%,
+        rgba(0, 0, 0, 0.15) 100%
+      );
+    }
+    .ent-hero__content {
+      position: relative;
+      z-index: 2;
+      padding-bottom: clamp(3rem, 8vh, 6rem);
+      color: var(--white);
+    }
+    .ent-hero__eyebrow {
+      font-family: var(--font-body);
+      font-size: 0.65rem;
+      font-weight: 500;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 1.25rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    .ent-hero__eyebrow::before {
+      content: '';
+      display: block;
+      width: 2rem;
+      height: 1px;
+      background: var(--gold);
+    }
+    .ent-hero__title {
+      font-family: var(--font-display);
+      font-size: clamp(3rem, 8vw, 6.5rem);
+      font-weight: 300;
+      line-height: 1;
+      letter-spacing: -0.01em;
+      margin-bottom: 1.25rem;
+    }
+    .ent-hero__title em {
+      font-style: italic;
+      color: var(--gold-light);
+    }
+    .ent-hero__subtitle {
+      font-size: clamp(0.9rem, 1.5vw, 1.1rem);
+      line-height: 1.7;
+      color: rgba(255, 255, 255, 0.7);
+      max-width: 500px;
+      margin-bottom: 2.5rem;
+    }
+    .ent-hero__scroll {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      font-family: var(--font-body);
+      font-size: 0.65rem;
+      font-weight: 500;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.5);
+    }
+    .ent-hero__scroll-line {
+      width: 1px;
+      height: 3rem;
+      background: rgba(255, 255, 255, 0.3);
+      position: relative;
+      overflow: hidden;
+    }
+    .ent-hero__scroll-line::after {
+      content: '';
+      position: absolute;
+      top: -100%;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: var(--gold);
+      animation: scroll-line 2s ease-in-out infinite;
+    }
+    @keyframes scroll-line {
+      0% { top: -100%; }
+      100% { top: 100%; }
+    }
+    .ent-hero__breadcrumb {
+      font-family: var(--font-body);
+      font-size: 0.65rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.45);
+      margin-bottom: 2rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .ent-hero__breadcrumb a {
+      color: rgba(255, 255, 255, 0.45);
+      transition: color 0.2s;
+    }
+    .ent-hero__breadcrumb a:hover { color: var(--white); }
+
+    /* Filter Bar */
+    .filter-bar-wrap {
+      position: sticky;
+      top: calc(var(--bar-h) + var(--nav-h));
+      z-index: 100;
+      background: var(--white);
+      border-bottom: 1px solid var(--gray-200);
+      box-shadow: 0 2px 16px rgba(0,0,0,0.06);
+    }
+    .filter-bar {
+      display: flex;
+      align-items: center;
+      gap: 0;
+      overflow-x: auto;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+    }
+    .filter-bar::-webkit-scrollbar { display: none; }
+    .filter-btn {
+      font-family: var(--font-body);
+      font-size: 0.65rem;
+      font-weight: 500;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--gray-400);
+      padding: 1.25rem 1.5rem;
+      white-space: nowrap;
+      background: none;
+      border: none;
+      border-bottom: 2px solid transparent;
+      cursor: pointer;
+      transition: color 0.25s, border-color 0.25s;
+    }
+    .filter-btn:hover { color: var(--black); background: transparent; border-color: transparent; }
+    .filter-btn.active {
+      color: var(--black) !important;
+      background: transparent !important;
+      border-color: transparent !important;
+      border-bottom-color: var(--gold) !important;
+    }
+
+    /* Section layout helpers */
+    .section { padding: clamp(4rem, 8vw, 7rem) 0; }
+    .section--cream { background: var(--cream); }
+    .section--dark { background: var(--black); color: var(--white); }
+
+    /* Section label */
+    .section-label {
+      font-family: var(--font-body);
+      font-size: 0.65rem;
+      font-weight: 500;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 0.75rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    .section-label::before {
+      content: '';
+      display: block;
+      width: 2rem;
+      height: 1px;
+      background: var(--gold);
+    }
+
+    /* ============================================================
+       SEA DREAM FEATURED — editorial 2-col
+       ============================================================ */
+    .featured-editorial {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0;
+      overflow: hidden;
+    }
+    @media (min-width: 900px) {
+      .featured-editorial {
+        grid-template-columns: 5fr 7fr;
+        min-height: 680px;
+      }
+    }
+    .featured-editorial__image {
+      position: relative;
+      overflow: hidden;
+      min-height: 420px;
+    }
+    @media (min-width: 900px) {
+      .featured-editorial__image { min-height: 0; }
+    }
+    .featured-editorial__image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.7s var(--ease);
+    }
+    .featured-editorial:hover .featured-editorial__image img {
+      transform: scale(1.04);
+    }
+    .featured-editorial__image-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to right, transparent 60%, rgba(0,0,0,0.2));
+    }
+    .featured-editorial__body {
+      background: var(--cream);
+      padding: clamp(2.5rem, 6vw, 5rem);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .featured-editorial__tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-family: var(--font-body);
+      font-size: 0.6rem;
+      font-weight: 500;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold);
+      border: 1px solid var(--gold);
+      padding: 0.35rem 0.9rem;
+      margin-bottom: 1.75rem;
+      width: fit-content;
+    }
+    .featured-editorial__title {
+      font-family: var(--font-display);
+      font-size: clamp(2.5rem, 5vw, 4rem);
+      font-weight: 300;
+      line-height: 1.05;
+      margin-bottom: 1.25rem;
+      letter-spacing: -0.01em;
+    }
+    .featured-editorial__desc {
+      font-size: 0.95rem;
+      line-height: 1.75;
+      color: var(--gray-600);
+      margin-bottom: 2.5rem;
+      max-width: 480px;
+    }
+    .featured-editorial__facts {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+      margin-bottom: 3rem;
+      padding: 2rem 0;
+      border-top: 1px solid var(--gray-200);
+      border-bottom: 1px solid var(--gray-200);
+    }
+    .featured-editorial__fact-value {
+      font-family: var(--font-display);
+      font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+      font-weight: 300;
+      color: var(--black);
+      line-height: 1;
+      margin-bottom: 0.35rem;
+    }
+    .featured-editorial__fact-label {
+      font-family: var(--font-body);
+      font-size: 0.65rem;
+      font-weight: 500;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--gray-400);
+    }
+    .featured-editorial__ctas {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    /* ============================================================
+       VENUE CARDS GRID — tall image cards with overlay
+       ============================================================ */
+    .venue-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1.5px;
+    }
+    @media (min-width: 640px) {
+      .venue-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (min-width: 1024px) {
+      .venue-grid { grid-template-columns: repeat(3, 1fr); }
+    }
+    .venue-card {
+      position: relative;
+      overflow: hidden;
+      aspect-ratio: 3 / 4;
+      display: block;
+      cursor: pointer;
+    }
+    .venue-card__img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.7s var(--ease);
+    }
+    .venue-card:hover .venue-card__img { transform: scale(1.07); }
+    .venue-card__overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        to top,
+        rgba(0, 0, 0, 0.85) 0%,
+        rgba(0, 0, 0, 0.3) 50%,
+        rgba(0, 0, 0, 0.05) 100%
+      );
+      transition: background 0.4s var(--ease);
+    }
+    .venue-card:hover .venue-card__overlay {
+      background: linear-gradient(
+        to top,
+        rgba(0, 0, 0, 0.9) 0%,
+        rgba(0, 0, 0, 0.4) 55%,
+        rgba(0, 0, 0, 0.1) 100%
+      );
+    }
+    .venue-card__body {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 2.5rem 2rem;
+      color: var(--white);
+      transform: translateY(0);
+      transition: transform 0.4s var(--ease);
+    }
+    .venue-card__cat {
+      font-family: var(--font-body);
+      font-size: 0.6rem;
+      font-weight: 500;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 0.6rem;
+    }
+    .venue-card__name {
+      font-family: var(--font-display);
+      font-size: clamp(1.6rem, 3vw, 2.4rem);
+      font-weight: 300;
+      line-height: 1.1;
+      margin-bottom: 0.75rem;
+    }
+    .venue-card__detail {
+      font-size: 0.78rem;
+      color: rgba(255,255,255,0.6);
+      line-height: 1.5;
+      margin-bottom: 1.25rem;
+      opacity: 0;
+      transform: translateY(8px);
+      transition: opacity 0.3s var(--ease) 0.05s, transform 0.3s var(--ease) 0.05s;
+    }
+    .venue-card:hover .venue-card__detail {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .venue-card__arrow {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-family: var(--font-body);
+      font-size: 0.65rem;
+      font-weight: 500;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.5);
+      transition: color 0.25s, gap 0.25s;
+    }
+    .venue-card:hover .venue-card__arrow {
+      color: var(--white);
+      gap: 0.9rem;
+    }
+    .venue-card__arrow-line {
+      width: 1.5rem;
+      height: 1px;
+      background: currentColor;
+      flex-shrink: 0;
+      transition: width 0.25s;
+    }
+    .venue-card:hover .venue-card__arrow-line { width: 2rem; }
+
+    /* ============================================================
+       FAMILY ZONE BANNER
+       ============================================================ */
+    .family-zone {
+      position: relative;
+      overflow: hidden;
+      min-height: 600px;
+      display: flex;
+      align-items: center;
+    }
+    .family-zone__bg {
+      position: absolute;
+      inset: 0;
+      background-image: url('https://images.unsplash.com/photo-1566041510394-cf7c1b1b14e7?w=1920&h=800&fit=crop');
+      background-size: cover;
+      background-position: center;
+    }
+    .family-zone__overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        135deg,
+        rgba(0, 0, 0, 0.88) 0%,
+        rgba(0, 0, 0, 0.6) 60%,
+        rgba(0, 0, 0, 0.3) 100%
+      );
+    }
+    .family-zone__content {
+      position: relative;
+      z-index: 2;
+      color: var(--white);
+      padding: clamp(3rem, 8vw, 6rem) 0;
+      max-width: 700px;
+    }
+    .family-zone__title {
+      font-family: var(--font-display);
+      font-size: clamp(2.8rem, 6vw, 5rem);
+      font-weight: 300;
+      line-height: 1;
+      margin-bottom: 1.25rem;
+      letter-spacing: -0.01em;
+    }
+    .family-zone__title em { font-style: italic; color: var(--gold-light); }
+    .family-zone__desc {
+      font-size: 0.95rem;
+      line-height: 1.75;
+      color: rgba(255,255,255,0.65);
+      margin-bottom: 2.5rem;
+      max-width: 480px;
+    }
+    .family-zone__highlights {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      margin-bottom: 3rem;
+    }
+    @media (min-width: 640px) {
+      .family-zone__highlights { flex-direction: row; gap: 1.5rem; }
+    }
+    .family-zone__highlight {
+      background: rgba(255, 255, 255, 0.07);
+      border: 1px solid rgba(255,255,255,0.12);
+      padding: 1.5rem 2rem;
+      backdrop-filter: blur(8px);
+      flex: 1;
+      transition: background 0.3s, border-color 0.3s;
+    }
+    .family-zone__highlight:hover {
+      background: rgba(201, 169, 110, 0.15);
+      border-color: rgba(201, 169, 110, 0.4);
+    }
+    .family-zone__highlight-name {
+      font-family: var(--font-display);
+      font-size: 1.4rem;
+      font-weight: 300;
+      margin-bottom: 0.35rem;
+    }
+    .family-zone__highlight-sub {
+      font-size: 0.7rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.45);
+    }
+
+    /* ============================================================
+       REVEAL ANIMATIONS
+       ============================================================ */
+    .reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.7s var(--ease-out), transform 0.7s var(--ease-out);
+    }
+    .reveal.in-view { opacity: 1; transform: translateY(0); }
+    .reveal-delay-1 { transition-delay: 0.12s; }
+    .reveal-delay-2 { transition-delay: 0.24s; }
+    .reveal-delay-3 { transition-delay: 0.36s; }
+    .reveal-delay-4 { transition-delay: 0.48s; }
+
+    /* Section divider */
+    .section-divider {
+      width: 3rem;
+      height: 1px;
+      background: var(--gold);
+      margin: 0 auto 4rem;
+    }
+  </style>
+</head>
+<body>
+
+<main id="main-content">
+
+  <!-- ============================================================
+       HERO — full-screen
+       ============================================================ -->
+  <section class="ent-hero" aria-label="Entertainment hero">
+    <div class="ent-hero__bg" id="heroBg"></div>
+    <div class="ent-hero__overlay"></div>
+    <div class="container ent-hero__content">
+      <nav class="ent-hero__breadcrumb" aria-label="Fil d'Ariane">
+        <a href="../index.html">Morocco Mall</a>
+        <span aria-hidden="true">›</span>
+        <span>Entertainment</span>
+      </nav>
+      <p class="ent-hero__eyebrow">Le meilleur du divertissement</p>
+      <h1 class="ent-hero__title">
+        Entertainment<br><em>&amp; Experiences</em>
+      </h1>
+      <p class="ent-hero__subtitle">
+        Des aventures sous-marines aux projections cinématographiques, en passant par des espaces ludiques et des spectacles époustouflants — Morocco Mall vous offre une destination de divertissement complète.
+      </p>
+      <div class="ent-hero__scroll" aria-hidden="true">
+        <div class="ent-hero__scroll-line"></div>
+        Découvrir
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       FILTER BAR
+       ============================================================ -->
+  <div class="filter-bar-wrap" role="navigation" aria-label="Filtres entertainment">
+    <div class="container">
+      <div class="filter-bar" role="list">
+        <button class="filter-btn active" data-filter="all" role="listitem">Tout</button>
+        <button class="filter-btn" data-filter="cinema" role="listitem">Cinéma</button>
+        <button class="filter-btn" data-filter="aquarium" role="listitem">Aquarium</button>
+        <button class="filter-btn" data-filter="kids" role="listitem">Enfants</button>
+        <button class="filter-btn" data-filter="experience" role="listitem">Expériences</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       SEA DREAM — Featured Editorial Section
+       ============================================================ -->
+  <section class="section" id="sea-dream-featured" aria-label="Sea Dream Aquarium">
+    <div class="container">
+      <p class="section-label reveal">Attraction Signature</p>
+      <div class="featured-editorial reveal reveal-delay-1" data-category="aquarium">
+        <div class="featured-editorial__image">
+          <img
+            src="../assets/aquarium-3.jpg"
+            alt="Sea Dream Aquarium — plongée dans un monde sous-marin"
+            loading="lazy"
+          />
+          <div class="featured-editorial__image-overlay"></div>
+        </div>
+        <div class="featured-editorial__body">
+          <span class="featured-editorial__tag">Attraction Principale</span>
+          <h2 class="featured-editorial__title">
+            Sea Dream<br>Aquarium
+          </h2>
+          <p class="featured-editorial__desc">
+            Plongez dans la magie des océans avec le plus grand aquarium du Maroc. Situé au cœur de Morocco Mall, Sea Dream vous transporte dans un univers sous-marin fascinant à travers huit écosystèmes distincts — des récifs coralliens tropicaux aux abysses mystérieuses. Une expérience immersive et éducative pour toute la famille.
+          </p>
+          <div class="featured-editorial__facts">
+            <div>
+              <div class="featured-editorial__fact-value">3 000+</div>
+              <div class="featured-editorial__fact-label">Espèces marines</div>
+            </div>
+            <div>
+              <div class="featured-editorial__fact-value">5M</div>
+              <div class="featured-editorial__fact-label">Litres d'eau</div>
+            </div>
+            <div>
+              <div class="featured-editorial__fact-value">8</div>
+              <div class="featured-editorial__fact-label">Écosystèmes</div>
+            </div>
+          </div>
+          <div class="featured-editorial__ctas">
+            <a class="btn btn--gold btn--lg" href="sea-dream.html">Billets</a>
+            <a class="btn btn--outline btn--lg" href="sea-dream.html">En savoir plus</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       VENUES GRID — 5 cards, 3 columns
+       ============================================================ -->
+  <section class="section section--cream" aria-label="Toutes les attractions">
+    <div class="container">
+      <p class="section-label reveal">Nos espaces</p>
+      <h2 class="display-md reveal reveal-delay-1" style="margin-bottom:3rem;">
+        Toutes les<br><em style="font-style:italic;color:var(--gold);">Attractions</em>
+      </h2>
+    </div>
+    <div class="venue-grid reveal reveal-delay-2" id="venueGrid">
+
+      <!-- 1. Cinéma -->
+      <a
+        href="cinema.html"
+        class="venue-card"
+        data-category="cinema"
+        aria-label="Cinéma — en savoir plus"
+      >
+        <img
+          class="venue-card__img"
+          src="https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?w=600&h=700&fit=crop"
+          alt="Cinéma Morocco Mall"
+          loading="lazy"
+        />
+        <div class="venue-card__overlay"></div>
+        <div class="venue-card__body">
+          <p class="venue-card__cat">Cinéma</p>
+          <h3 class="venue-card__name">Cinéma</h3>
+          <p class="venue-card__detail">IMAX · 3D · 4DX<br>Niveau 3 · Tous les jours</p>
+          <span class="venue-card__arrow">
+            <span class="venue-card__arrow-line"></span>
+            Découvrir
+          </span>
+        </div>
+      </a>
+
+      <!-- 2. Sea Dream Aquarium -->
+      <a
+        href="sea-dream.html"
+        class="venue-card"
+        data-category="aquarium"
+        aria-label="Sea Dream Aquarium — en savoir plus"
+      >
+        <img
+          class="venue-card__img"
+          src="../assets/aquarium-3.jpg"
+          alt="Sea Dream Aquarium"
+          loading="lazy"
+        />
+        <div class="venue-card__overlay"></div>
+        <div class="venue-card__body">
+          <p class="venue-card__cat">Aquarium</p>
+          <h3 class="venue-card__name">Sea Dream<br>Aquarium</h3>
+          <p class="venue-card__detail">3 000+ espèces · 5M litres<br>Niveau 0 · 10h – 22h</p>
+          <span class="venue-card__arrow">
+            <span class="venue-card__arrow-line"></span>
+            Découvrir
+          </span>
+        </div>
+      </a>
+
+      <!-- 3. Hello Park -->
+      <a
+        href="hello-park.html"
+        class="venue-card"
+        data-category="kids"
+        aria-label="Hello Park — en savoir plus"
+      >
+        <img
+          class="venue-card__img"
+          src="https://images.unsplash.com/photo-1566041510394-cf7c1b1b14e7?w=600&h=700&fit=crop"
+          alt="Hello Park — aire de jeux pour enfants"
+          loading="lazy"
+        />
+        <div class="venue-card__overlay"></div>
+        <div class="venue-card__body">
+          <p class="venue-card__cat">Enfants</p>
+          <h3 class="venue-card__name">Hello Park</h3>
+          <p class="venue-card__detail">Jeux · Créativité · Apprentissage<br>Niveau 2 · 10h – 21h</p>
+          <span class="venue-card__arrow">
+            <span class="venue-card__arrow-line"></span>
+            Découvrir
+          </span>
+        </div>
+      </a>
+
+      <!-- 4. Adventure Land -->
+      <a
+        href="adventure-land.html"
+        class="venue-card"
+        data-category="kids"
+        aria-label="Adventure Land — en savoir plus"
+      >
+        <img
+          class="venue-card__img"
+          src="https://images.unsplash.com/photo-1556740738-b6a63e27c4df?w=600&h=700&fit=crop"
+          alt="Adventure Land — parc d'attractions"
+          loading="lazy"
+        />
+        <div class="venue-card__overlay"></div>
+        <div class="venue-card__body">
+          <p class="venue-card__cat">Enfants</p>
+          <h3 class="venue-card__name">Adventure<br>Land</h3>
+          <p class="venue-card__detail">Manèges · Jeux interactifs<br>Niveau 2 · 10h – 22h</p>
+          <span class="venue-card__arrow">
+            <span class="venue-card__arrow-line"></span>
+            Découvrir
+          </span>
+        </div>
+      </a>
+
+      <!-- 5. Fontaine Musicale -->
+      <a
+        href="fontaine-musicale.html"
+        class="venue-card"
+        data-category="experience"
+        aria-label="Fontaine Musicale — en savoir plus"
+      >
+        <img
+          class="venue-card__img"
+          src="../assets/fountain-1.jpg"
+          alt="Fontaine Musicale — spectacle son et lumière"
+          loading="lazy"
+        />
+        <div class="venue-card__overlay"></div>
+        <div class="venue-card__body">
+          <p class="venue-card__cat">Expérience</p>
+          <h3 class="venue-card__name">Fontaine<br>Musicale</h3>
+          <p class="venue-card__detail">Spectacle gratuit · Eau &amp; Lumière<br>Place Centrale · Plusieurs fois/jour</p>
+          <span class="venue-card__arrow">
+            <span class="venue-card__arrow-line"></span>
+            Découvrir
+          </span>
+        </div>
+      </a>
+
+    </div>
+  </section>
+
+  <!-- ============================================================
+       FAMILY ZONE — Editorial Banner
+       ============================================================ -->
+  <section class="family-zone" aria-label="Zone Famille">
+    <div class="family-zone__bg"></div>
+    <div class="family-zone__overlay"></div>
+    <div class="container family-zone__content">
+      <p class="section-label reveal" style="color:var(--gold);">Pour toute la famille</p>
+      <h2 class="family-zone__title reveal reveal-delay-1">
+        Zone<br><em>Famille</em>
+      </h2>
+      <p class="family-zone__desc reveal reveal-delay-2">
+        Morocco Mall a conçu des espaces dédiés aux familles avec enfants. Hello Park et Adventure Land offrent des heures d'amusement et d'aventures en toute sécurité, dans un environnement moderne et stimulant.
+      </p>
+      <div class="family-zone__highlights reveal reveal-delay-3">
+        <div class="family-zone__highlight">
+          <a href="hello-park.html" style="color:inherit;display:block;">
+            <div class="family-zone__highlight-name">Hello Park</div>
+            <div class="family-zone__highlight-sub">Jeux &amp; Créativité · Niveau 2</div>
+          </a>
+        </div>
+        <div class="family-zone__highlight">
+          <a href="adventure-land.html" style="color:inherit;display:block;">
+            <div class="family-zone__highlight-name">Adventure Land</div>
+            <div class="family-zone__highlight-sub">Manèges &amp; Aventures · Niveau 2</div>
+          </a>
+        </div>
+      </div>
+      <div class="reveal reveal-delay-4">
+        <a class="btn btn--outline-white btn--lg" href="hello-park.html">
+          Explorer la Zone Famille
+        </a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- ============================================================
+     SCRIPTS
+     ============================================================ -->
+<script src="../js/seo.js"></script>
+<script src="../js/translations.js"></script>
+<script src="../js/app.js"></script>
+<script>
+  (function () {
+
+    /* --- Hero image reveal --- */
+    var heroBg = document.getElementById('heroBg');
+    if (heroBg) {
+      requestAnimationFrame(function () {
+        heroBg.classList.add('loaded');
+      });
+    }
+
+    /* --- Filter bar --- */
+    var filterBtns = document.querySelectorAll('.filter-btn');
+    var venueCards = document.querySelectorAll('.venue-card[data-category]');
+    var featuredSection = document.getElementById('sea-dream-featured');
+
+    filterBtns.forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        filterBtns.forEach(function (b) { b.classList.remove('active'); });
+        btn.classList.add('active');
+
+        var filter = btn.getAttribute('data-filter');
+
+        venueCards.forEach(function (card) {
+          var cat = card.getAttribute('data-category');
+          var show = filter === 'all' || cat === filter;
+          card.style.display = show ? 'block' : 'none';
+        });
+
+        /* Show/hide Sea Dream featured section */
+        if (featuredSection) {
+          featuredSection.style.display =
+            (filter === 'all' || filter === 'aquarium') ? '' : 'none';
+        }
+      });
+    });
+
+    /* --- Intersection Observer for reveal animations --- */
+    if ('IntersectionObserver' in window) {
+      var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('in-view');
+            io.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.1, rootMargin: '0px 0px -48px 0px' });
+
+      document.querySelectorAll('.reveal').forEach(function (el) {
+        io.observe(el);
+      });
+    } else {
+      /* Fallback: show all immediately */
+      document.querySelectorAll('.reveal').forEach(function (el) {
+        el.classList.add('in-view');
+      });
+    }
+
+  }());
+</script>
+
+</body>
+</html>

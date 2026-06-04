@@ -1,0 +1,801 @@
+<!DOCTYPE html>
+<html lang="fr" dir="ltr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Sea Dream Aquarium — Plongez dans le monde sous-marin le plus spectaculaire du Maroc, au Morocco Mall de Casablanca." />
+  <title>Sea Dream Aquarium — Morocco Mall</title>
+  <link rel="icon" href="../assets/logo.png" type="image/png" />
+  <link rel="stylesheet" href="../css/main.css" />
+  <style>
+    /* ── Base ── */
+    body { background: #030d1a; color: #fff; }
+
+    /* ── Hero ── */
+    .sd-hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 0 var(--pad-x) clamp(3rem, 8vw, 6rem);
+      position: relative;
+      overflow: hidden;
+    }
+    .sd-hero__bg {
+      position: absolute;
+      inset: 0;
+      background-image: url('../assets/aquarium-1.jpg');
+      background-size: cover;
+      background-position: center;
+      z-index: 0;
+    }
+    .sd-hero__overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        to bottom,
+        rgba(0, 10, 40, 0.72) 0%,
+        rgba(0, 20, 60, 0.88) 60%,
+        rgba(0, 10, 30, 0.97) 100%
+      );
+      z-index: 1;
+    }
+    .sd-hero__content {
+      position: relative;
+      z-index: 2;
+      max-width: var(--max-w);
+      margin: 0 auto;
+      width: 100%;
+    }
+
+    /* ── Key Info Cards ── */
+    .sd-info-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1px;
+      background: rgba(0, 120, 200, 0.15);
+    }
+    @media (min-width: 640px)  { .sd-info-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (min-width: 1024px) { .sd-info-grid { grid-template-columns: repeat(4, 1fr); } }
+    .sd-info-card {
+      background: #030d1a;
+      padding: 2rem;
+      transition: background 0.3s;
+    }
+    .sd-info-card:hover { background: rgba(0, 100, 180, 0.12); }
+    .sd-info-card__icon {
+      font-size: 1.6rem;
+      margin-bottom: 1rem;
+    }
+    .sd-info-card__label {
+      font-size: 0.6rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: rgba(100, 200, 255, 0.5);
+      margin-bottom: 0.4rem;
+    }
+    .sd-info-card__value {
+      font-family: var(--font-display);
+      font-size: 1.15rem;
+      font-weight: 300;
+      color: #a8d8f0;
+      line-height: 1.4;
+    }
+
+    /* ── Counter Section ── */
+    .sd-counter-section {
+      background: linear-gradient(
+        135deg,
+        #010a1e 0%,
+        #02163a 25%,
+        #011428 50%,
+        #021020 75%,
+        #010a18 100%
+      );
+      position: relative;
+      overflow: hidden;
+      padding: clamp(5rem, 10vw, 9rem) 0;
+    }
+    .sd-counter-section::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: url('../assets/aquarium-2.jpg');
+      background-size: cover;
+      background-position: center;
+      opacity: 0.18;
+      pointer-events: none;
+    }
+    .sd-counter-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 3rem;
+      position: relative;
+      z-index: 1;
+    }
+    @media (min-width: 768px) { .sd-counter-grid { grid-template-columns: repeat(3, 1fr); } }
+    .sd-counter-item { text-align: center; }
+    .sd-counter-item__number {
+      font-family: var(--font-display);
+      font-size: clamp(3.5rem, 8vw, 6rem);
+      font-weight: 300;
+      color: #5bc8f5;
+      line-height: 1;
+      margin-bottom: 0.75rem;
+      letter-spacing: -0.02em;
+    }
+    .sd-counter-item__label {
+      font-size: 0.7rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: rgba(100, 200, 255, 0.6);
+    }
+    .sd-counter-editorial {
+      text-align: center;
+      margin-top: 3.5rem;
+      position: relative;
+      z-index: 1;
+    }
+    .sd-counter-editorial p {
+      font-family: var(--font-display);
+      font-size: clamp(1rem, 2.5vw, 1.4rem);
+      font-style: italic;
+      color: rgba(168, 216, 240, 0.45);
+      max-width: 600px;
+      margin: 0 auto;
+      line-height: 1.7;
+    }
+
+    /* ── Experiences ── */
+    .sd-exp-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+    }
+    @media (min-width: 640px)  { .sd-exp-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (min-width: 1200px) { .sd-exp-grid { grid-template-columns: repeat(4, 1fr); } }
+    .sd-exp-card {
+      background: linear-gradient(160deg, #01193e 0%, #00111f 100%);
+      border: 1px solid rgba(0, 120, 200, 0.2);
+      border-radius: 4px;
+      padding: 2rem 1.75rem;
+      transition: transform 0.3s var(--ease), border-color 0.3s;
+      cursor: default;
+    }
+    .sd-exp-card:hover {
+      transform: translateY(-4px);
+      border-color: rgba(0, 160, 240, 0.4);
+    }
+    .sd-exp-card__icon {
+      font-size: 2rem;
+      margin-bottom: 1.25rem;
+    }
+    .sd-exp-card__title {
+      font-family: var(--font-display);
+      font-size: 1.25rem;
+      font-weight: 300;
+      color: #a8d8f0;
+      margin-bottom: 0.75rem;
+    }
+    .sd-exp-card__desc {
+      font-size: 0.78rem;
+      color: rgba(255, 255, 255, 0.4);
+      line-height: 1.75;
+      margin-bottom: 1.25rem;
+    }
+    .sd-exp-card__time {
+      font-size: 0.6rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: rgba(0, 180, 255, 0.55);
+      border-top: 1px solid rgba(0, 120, 200, 0.2);
+      padding-top: 1rem;
+    }
+
+    /* ── Tickets Table ── */
+    .sd-tickets-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    .sd-tickets-table th,
+    .sd-tickets-table td {
+      padding: 1rem 1.25rem;
+      text-align: left;
+      border-bottom: 1px solid rgba(0, 120, 200, 0.15);
+      font-size: 0.85rem;
+    }
+    .sd-tickets-table th {
+      font-size: 0.6rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: rgba(100, 200, 255, 0.5);
+      font-weight: 400;
+    }
+    .sd-tickets-table td:first-child { color: rgba(255, 255, 255, 0.85); }
+    .sd-tickets-table td:last-child {
+      font-family: var(--font-display);
+      font-size: 1.1rem;
+      font-weight: 300;
+      color: #5bc8f5;
+    }
+    .sd-tickets-table tr:last-child td { border-bottom: none; }
+    .sd-tickets-table tr:hover td { background: rgba(0, 100, 180, 0.07); }
+    .sd-discount-badge {
+      display: inline-block;
+      background: rgba(0, 150, 220, 0.15);
+      border: 1px solid rgba(0, 150, 220, 0.3);
+      color: #5bc8f5;
+      font-size: 0.6rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 0.3rem 0.7rem;
+      border-radius: 2px;
+      margin-left: 0.5rem;
+      vertical-align: middle;
+    }
+
+    /* ── Gallery ── */
+    .sd-gallery-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1rem;
+    }
+    @media (min-width: 640px) { .sd-gallery-grid { grid-template-columns: repeat(3, 1fr); } }
+    .sd-gallery-item {
+      overflow: hidden;
+      border-radius: 4px;
+      aspect-ratio: 500 / 350;
+      position: relative;
+    }
+    .sd-gallery-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.6s var(--ease);
+    }
+    .sd-gallery-item:hover img { transform: scale(1.06); }
+
+    /* ── Practical Info ── */
+    .sd-practical-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+    }
+    @media (min-width: 640px)  { .sd-practical-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (min-width: 1024px) { .sd-practical-grid { grid-template-columns: repeat(4, 1fr); } }
+    .sd-practical-card {
+      padding: 1.75rem;
+      border: 1px solid rgba(0, 120, 200, 0.15);
+      border-radius: 4px;
+      transition: border-color 0.3s;
+    }
+    .sd-practical-card:hover { border-color: rgba(0, 160, 240, 0.3); }
+    .sd-practical-card__icon { font-size: 1.5rem; margin-bottom: 1rem; }
+    .sd-practical-card__title {
+      font-family: var(--font-display);
+      font-size: 1.05rem;
+      font-weight: 300;
+      color: #a8d8f0;
+      margin-bottom: 0.6rem;
+    }
+    .sd-practical-card__text {
+      font-size: 0.76rem;
+      color: rgba(255, 255, 255, 0.38);
+      line-height: 1.75;
+    }
+
+    /* ── Related Venues ── */
+    .sd-related-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1px;
+      background: rgba(0, 120, 200, 0.12);
+    }
+    @media (min-width: 640px) { .sd-related-grid { grid-template-columns: repeat(3, 1fr); } }
+    .sd-related-card {
+      background: #030d1a;
+      padding: 2rem;
+      text-decoration: none;
+      display: block;
+      transition: background 0.3s;
+    }
+    .sd-related-card:hover { background: rgba(0, 100, 180, 0.1); }
+    .sd-related-card__cat {
+      font-size: 0.58rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: rgba(100, 200, 255, 0.4);
+      margin-bottom: 0.5rem;
+    }
+    .sd-related-card__name {
+      font-family: var(--font-display);
+      font-size: 1.2rem;
+      font-weight: 300;
+      color: #a8d8f0;
+      margin-bottom: 0.4rem;
+    }
+    .sd-related-card__arrow {
+      font-size: 0.7rem;
+      color: rgba(91, 200, 245, 0.5);
+      margin-top: 0.75rem;
+    }
+
+    /* ── Section helpers ── */
+    .sd-section { padding: clamp(4rem, 8vw, 7rem) 0; }
+    .sd-section--dark { background: #020b18; }
+    .sd-section-header { margin-bottom: 3rem; }
+    .sd-eyebrow {
+      font-size: 0.6rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: rgba(0, 180, 255, 0.6);
+      margin-bottom: 0.75rem;
+    }
+    .sd-title {
+      font-family: var(--font-display);
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      font-weight: 300;
+      color: #a8d8f0;
+      line-height: 1.1;
+    }
+    .sd-divider {
+      width: 48px;
+      height: 1px;
+      background: rgba(0, 160, 255, 0.3);
+      margin: 1.5rem 0;
+    }
+  </style>
+</head>
+<body>
+<main id="main-content">
+
+  <!-- ============================================================
+       HERO
+  ============================================================ -->
+  <section class="sd-hero">
+    <div class="sd-hero__bg"></div>
+    <div class="sd-hero__overlay"></div>
+    <div class="sd-hero__content">
+      <nav style="display:flex;align-items:center;gap:0.5rem;font-size:0.65rem;letter-spacing:0.15em;text-transform:uppercase;color:rgba(255,255,255,0.3);margin-bottom:2.5rem;">
+        <a href="../index.html" style="color:rgba(255,255,255,0.3);">Morocco Mall</a>
+        <span>›</span>
+        <a href="entertainment.html" style="color:rgba(255,255,255,0.3);">Divertissement</a>
+        <span>›</span>
+        <span style="color:rgba(91,200,245,0.8);">Sea Dream Aquarium</span>
+      </nav>
+      <p class="reveal" style="font-size:0.6rem;letter-spacing:0.22em;text-transform:uppercase;color:rgba(0,180,255,0.65);margin-bottom:1.5rem;">Attraction Exclusive</p>
+      <h1 class="reveal reveal-delay-1" style="font-family:var(--font-display);font-size:clamp(3rem,8vw,6.5rem);font-weight:300;color:#a8d8f0;line-height:0.9;max-width:860px;letter-spacing:-0.01em;">
+        Sea Dream<br><em style="color:#5bc8f5;">Aquarium</em>
+      </h1>
+      <p class="reveal reveal-delay-2" style="color:rgba(255,255,255,0.45);font-size:clamp(0.9rem,2vw,1.15rem);max-width:480px;margin-top:1.75rem;line-height:1.7;">
+        Dive into Morocco's most spectacular underwater world.
+      </p>
+      <div class="reveal reveal-delay-3" style="margin-top:2.5rem;display:flex;gap:1rem;flex-wrap:wrap;">
+        <a href="sea-dream-reservation.html" class="btn btn--lg" style="background:#5bc8f5;color:#010d20;font-size:0.7rem;letter-spacing:0.12em;text-transform:uppercase;padding:1rem 2.2rem;display:inline-block;font-family:var(--font-body);">Acheter un billet</a>
+        <a href="#experiences" class="btn btn--outline-white btn--lg" style="font-size:0.7rem;letter-spacing:0.12em;text-transform:uppercase;padding:1rem 2.2rem;display:inline-block;border:1px solid rgba(255,255,255,0.25);color:rgba(255,255,255,0.7);">Découvrir</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       KEY INFO CARDS
+  ============================================================ -->
+  <section>
+    <div class="sd-info-grid">
+      <div class="sd-info-card reveal">
+        <div class="sd-info-card__icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" style="width:36px;height:36px;">
+            <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
+          </svg>
+        </div>
+        <div class="sd-info-card__label">Horaires</div>
+        <div class="sd-info-card__value">10:00 – 22:00<br><span style="font-size:0.85rem;color:rgba(168,216,240,0.55);">7j / 7</span></div>
+      </div>
+      <div class="sd-info-card reveal reveal-delay-1">
+        <div class="sd-info-card__icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" style="width:36px;height:36px;">
+            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/>
+          </svg>
+        </div>
+        <div class="sd-info-card__label">Localisation</div>
+        <div class="sd-info-card__value">Niveau 0<br><span style="font-size:0.85rem;color:rgba(168,216,240,0.55);">Casablanca Bay</span></div>
+      </div>
+      <div class="sd-info-card reveal reveal-delay-2">
+        <div class="sd-info-card__icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" style="width:36px;height:36px;">
+            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+          </svg>
+        </div>
+        <div class="sd-info-card__label">Visiteurs</div>
+        <div class="sd-info-card__value">+500 000<br><span style="font-size:0.85rem;color:rgba(168,216,240,0.55);">par an</span></div>
+      </div>
+      <div class="sd-info-card reveal reveal-delay-3">
+        <div class="sd-info-card__icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" style="width:36px;height:36px;">
+            <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/>
+          </svg>
+        </div>
+        <div class="sd-info-card__label">Espèces</div>
+        <div class="sd-info-card__value">+3 000<br><span style="font-size:0.85rem;color:rgba(168,216,240,0.55);">espèces marines</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       IMMERSIVE COUNTER SECTION
+  ============================================================ -->
+  <section class="sd-counter-section">
+    <div class="container">
+      <div class="sd-counter-grid reveal">
+        <div class="sd-counter-item">
+          <div class="sd-counter-item__number" data-target="3000">3 000<span style="font-size:0.55em;vertical-align:super;">+</span></div>
+          <div class="sd-counter-item__label">Espèces Marines</div>
+        </div>
+        <div class="sd-counter-item">
+          <div class="sd-counter-item__number" data-target="5000000">5 000 000</div>
+          <div class="sd-counter-item__label">L d'eau</div>
+        </div>
+        <div class="sd-counter-item">
+          <div class="sd-counter-item__number" data-target="8">8</div>
+          <div class="sd-counter-item__label">Écosystèmes</div>
+        </div>
+      </div>
+      <div class="sd-counter-editorial reveal reveal-delay-2">
+        <p>
+          "Chaque bassin raconte une histoire —<br>
+          du récif corallien de la Méditerranée aux profondeurs de l'Atlantique."
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       EXPERIENCES
+  ============================================================ -->
+  <section class="sd-section sd-section--dark" id="experiences">
+    <div class="container">
+      <div class="sd-section-header reveal">
+        <p class="sd-eyebrow">Nos Attractions</p>
+        <h2 class="sd-title">Expériences Immersives</h2>
+        <div class="sd-divider"></div>
+        <p style="color:rgba(255,255,255,0.35);font-size:0.85rem;max-width:520px;line-height:1.75;">
+          Des plongées sensorielles dans des univers sous-marins uniques, pensés pour petits et grands explorateurs.
+        </p>
+      </div>
+      <div class="sd-exp-grid">
+        <!-- Tunnel -->
+        <div class="sd-exp-card reveal">
+          <div class="sd-exp-card__icon">🚇</div>
+          <div class="sd-exp-card__title">Le Tunnel Sous-Marin</div>
+          <div class="sd-exp-card__desc">
+            Marchez au cœur de l'océan grâce à notre tunnel panoramique en acrylique de 35 mètres. Raies, requins et bancs de poissons tropicaux évoluent tout autour de vous.
+          </div>
+          <div class="sd-exp-card__time">Accès continu · Inclus dans le billet</div>
+        </div>
+        <!-- Requins -->
+        <div class="sd-exp-card reveal reveal-delay-1">
+          <div class="sd-exp-card__icon">🦈</div>
+          <div class="sd-exp-card__title">Les Requins</div>
+          <div class="sd-exp-card__desc">
+            Le lagon des requins vous confronte face à face avec les seigneurs des mers. Pointes noires, renards et requins-zèbres se partagent ce bassin de 800 000 litres.
+          </div>
+          <div class="sd-exp-card__time">Séances : 11h · 14h · 17h · 20h</div>
+        </div>
+        <!-- Méduses -->
+        <div class="sd-exp-card reveal reveal-delay-2">
+          <div class="sd-exp-card__icon">🪼</div>
+          <div class="sd-exp-card__title">Les Méduses</div>
+          <div class="sd-exp-card__desc">
+            La galerie des méduses vous plonge dans une atmosphère hypnotique. Éclairages chromatiques et colonnes d'eau créent un ballet lumineux inoubliable.
+          </div>
+          <div class="sd-exp-card__time">Accès continu · Galerie principale</div>
+        </div>
+        <!-- Nourrissage -->
+        <div class="sd-exp-card reveal reveal-delay-3">
+          <div class="sd-exp-card__icon">🐡</div>
+          <div class="sd-exp-card__title">Nourrir les Poissons</div>
+          <div class="sd-exp-card__desc">
+            Participez aux séances de nourrissage commentées avec nos soigneurs. Une expérience pédagogique et interactive, idéale en famille ou en groupe scolaire.
+          </div>
+          <div class="sd-exp-card__time">Séances : 12h30 · 16h30 · 19h30</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       TICKETS
+  ============================================================ -->
+  <section class="sd-section" id="tickets">
+    <div class="container">
+      <div style="display:grid;grid-template-columns:1fr;gap:3rem;" class="sd-tickets-layout">
+        <div style="max-width:680px;">
+          <div class="sd-section-header reveal">
+            <p class="sd-eyebrow">Billetterie</p>
+            <h2 class="sd-title">Tarifs &amp; Réservation</h2>
+            <div class="sd-divider"></div>
+          </div>
+
+          <!-- Discount badge -->
+          <div class="reveal" style="margin-bottom:1.5rem;">
+            <span style="display:inline-flex;align-items:center;gap:0.5rem;background:rgba(0,150,220,0.1);border:1px solid rgba(0,150,220,0.25);border-radius:3px;padding:0.6rem 1.1rem;font-size:0.68rem;letter-spacing:0.1em;text-transform:uppercase;color:#5bc8f5;">
+              <span>&#x2605;</span> –10% en ligne sur votre réservation
+            </span>
+          </div>
+
+          <div class="reveal" style="border:1px solid rgba(0,120,200,0.2);border-radius:4px;overflow:hidden;">
+            <table class="sd-tickets-table">
+              <thead>
+                <tr style="background:rgba(0,80,150,0.15);">
+                  <th>Catégorie</th>
+                  <th>Détail</th>
+                  <th>Tarif</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Adulte</td>
+                  <td style="color:rgba(255,255,255,0.35);font-size:0.75rem;">13 ans et plus</td>
+                  <td>150 MAD</td>
+                </tr>
+                <tr>
+                  <td>Enfant</td>
+                  <td style="color:rgba(255,255,255,0.35);font-size:0.75rem;">3 – 12 ans</td>
+                  <td>100 MAD</td>
+                </tr>
+                <tr>
+                  <td>Moins de 3 ans</td>
+                  <td style="color:rgba(255,255,255,0.35);font-size:0.75rem;">Accompagné d'un adulte</td>
+                  <td style="color:#5bc8f5;">Gratuit</td>
+                </tr>
+                <tr>
+                  <td>
+                    Famille
+                    <span class="sd-discount-badge">Promo</span>
+                  </td>
+                  <td style="color:rgba(255,255,255,0.35);font-size:0.75rem;">2 adultes + 2 enfants</td>
+                  <td>450 MAD</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="reveal" style="margin-top:2rem;">
+            <div style="display:flex;gap:0.75rem;flex-wrap:wrap;">
+              <a href="sea-dream-reservation.html" target="_blank" rel="noopener"
+                style="display:inline-flex;align-items:center;gap:0.5rem;padding:1rem 2.5rem;background:#5bc8f5;color:#010d20;font-family:var(--font-body);font-size:0.7rem;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;text-decoration:none;transition:background 0.2s;"
+                onmouseover="this.style.background='#7dd6f7'" onmouseout="this.style.background='#5bc8f5'">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px;"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
+                Acheter en ligne
+              </a>
+              <a href="mailto:booking@seadream.ma"
+                style="display:inline-flex;align-items:center;gap:0.5rem;padding:1rem 1.75rem;background:transparent;color:rgba(255,255,255,0.6);border:1px solid rgba(255,255,255,0.2);font-family:var(--font-body);font-size:0.7rem;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;text-decoration:none;transition:all 0.2s;"
+                onmouseover="this.style.borderColor='rgba(255,255,255,0.6)';this.style.color='#fff'" onmouseout="this.style.borderColor='rgba(255,255,255,0.2)';this.style.color='rgba(255,255,255,0.6)'">
+                Réservation groupe
+              </a>
+            </div>
+            <p style="margin-top:1rem;font-size:0.7rem;color:rgba(255,255,255,0.25);">Paiement sécurisé · Billet électronique · Réservation instantanée · –10% en ligne</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       GALLERY
+  ============================================================ -->
+  <!-- ═══════════════════ RESTAURANT SECTION ════════════════ -->
+  <section style="padding:0;background:var(--black);color:var(--white);">
+    <div style="display:grid;grid-template-columns:1fr;min-height:520px;" id="sd-restaurant-grid">
+      <!-- Image side -->
+      <div style="position:relative;overflow:hidden;min-height:320px;">
+        <img src="../assets/aquarium-2.jpg"
+          alt="Le Restaurant de Sea Dream Aquarium"
+          style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;" />
+        <div style="position:absolute;inset:0;background:linear-gradient(to right,rgba(0,0,0,0) 50%,rgba(0,0,0,0.7) 100%);"></div>
+      </div>
+      <!-- Text side -->
+      <div style="display:flex;flex-direction:column;justify-content:center;padding:clamp(2.5rem,5vw,4rem) clamp(2rem,4vw,3.5rem);background:#0a0a0a;">
+        <p style="font-size:0.62rem;letter-spacing:0.22em;text-transform:uppercase;color:rgba(0,180,220,0.7);margin-bottom:1rem;font-weight:500;">Restauration · Sea Dream</p>
+        <h2 style="font-family:var(--font-display);font-size:clamp(2rem,4vw,3rem);font-weight:300;line-height:1.05;color:var(--white);margin-bottom:1rem;">
+          The Ocean Kitchen<br><em style="font-style:italic;color:rgba(0,180,220,0.8);">Restaurant de l'Aquarium</em>
+        </h2>
+        <p style="font-size:0.88rem;color:rgba(255,255,255,0.55);line-height:1.8;max-width:480px;margin-bottom:0.75rem;">
+          Dînez sous les profondeurs avec une vue panoramique sur les tanks de requins et les récifs coralliens. The Ocean Kitchen propose une carte raffinée de fruits de mer frais, de poissons du jour et de plats méditerranéens, dans un cadre unique au monde.
+        </p>
+        <p style="font-size:0.75rem;color:rgba(255,255,255,0.3);margin-bottom:2rem;line-height:1.6;">
+          📍 Niveau 0 · Casablanca Bay &nbsp;·&nbsp; ⏰ Déjeuner 12:00–15:30 · Dîner 19:00–23:00 &nbsp;·&nbsp; Fermé le mardi
+        </p>
+        <!-- Menu highlights -->
+        <div style="display:flex;gap:1.5rem;margin-bottom:2rem;flex-wrap:wrap;">
+          <div style="text-align:center;">
+            <p style="font-family:var(--font-display);font-size:1.4rem;font-weight:300;color:rgba(0,200,220,0.9);">Fruits de mer</p>
+            <p style="font-size:0.6rem;letter-spacing:0.15em;text-transform:uppercase;color:rgba(255,255,255,0.3);">Spécialité</p>
+          </div>
+          <div style="text-align:center;">
+            <p style="font-family:var(--font-display);font-size:1.4rem;font-weight:300;color:rgba(0,200,220,0.9);">Végétarien</p>
+            <p style="font-size:0.6rem;letter-spacing:0.15em;text-transform:uppercase;color:rgba(255,255,255,0.3);">Options</p>
+          </div>
+          <div style="text-align:center;">
+            <p style="font-family:var(--font-display);font-size:1.4rem;font-weight:300;color:rgba(0,200,220,0.9);">Halal</p>
+            <p style="font-size:0.6rem;letter-spacing:0.15em;text-transform:uppercase;color:rgba(255,255,255,0.3);">Certifié</p>
+          </div>
+        </div>
+        <!-- Booking CTAs -->
+        <div style="display:flex;gap:0.75rem;flex-wrap:wrap;">
+          <a href="sea-dream-reservation.html#restaurant" onclick="event.stopPropagation()"
+            style="display:inline-flex;align-items:center;gap:0.5rem;padding:0.85rem 1.75rem;background:rgba(0,180,220,0.9);color:var(--black);font-family:var(--font-body);font-size:0.65rem;font-weight:600;letter-spacing:0.18em;text-transform:uppercase;text-decoration:none;transition:background 0.2s;"
+            onmouseover="this.style.background='rgba(0,200,240,1)'" onmouseout="this.style.background='rgba(0,180,220,0.9)'">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px;"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            Réserver une table
+          </a>
+          <a href="mailto:restaurant@seadream.ma"
+            style="display:inline-flex;align-items:center;gap:0.5rem;padding:0.85rem 1.75rem;background:transparent;color:rgba(255,255,255,0.7);border:1px solid rgba(255,255,255,0.25);font-family:var(--font-body);font-size:0.65rem;font-weight:500;letter-spacing:0.18em;text-transform:uppercase;text-decoration:none;transition:border-color 0.2s,color 0.2s;"
+            onmouseover="this.style.borderColor='rgba(255,255,255,0.7)';this.style.color='#fff'" onmouseout="this.style.borderColor='rgba(255,255,255,0.25)';this.style.color='rgba(255,255,255,0.7)'">
+            Évènements privés
+          </a>
+        </div>
+      </div>
+    </div>
+    <style>
+      @media (min-width: 900px) {
+        #sd-restaurant-grid { grid-template-columns: 1fr 1fr !important; }
+      }
+    </style>
+  </section>
+
+  <!-- ═══════════════════════ GALLERY ════════════════════════ -->
+  <section class="sd-section sd-section--dark">
+    <div class="container">
+      <div class="sd-section-header reveal">
+        <p class="sd-eyebrow">Galerie</p>
+        <h2 class="sd-title">Aperçu de l'Aquarium</h2>
+        <div class="sd-divider"></div>
+      </div>
+      <div class="sd-gallery-grid reveal">
+        <div class="sd-gallery-item">
+          <img
+            src="../assets/aquarium-3.jpg"
+            alt="Vue du tunnel sous-marin de Sea Dream Aquarium"
+            loading="lazy"
+          />
+        </div>
+        <div class="sd-gallery-item">
+          <img
+            src="../assets/aquarium-1.jpg"
+            alt="Bassin des requins de Sea Dream Aquarium"
+            loading="lazy"
+          />
+        </div>
+        <div class="sd-gallery-item">
+          <img
+            src="../assets/aquarium-2.jpg"
+            alt="Galerie des méduses de Sea Dream Aquarium"
+            loading="lazy"
+          />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       PRACTICAL INFO
+  ============================================================ -->
+  <section class="sd-section">
+    <div class="container">
+      <div class="sd-section-header reveal">
+        <p class="sd-eyebrow">Informations Pratiques</p>
+        <h2 class="sd-title">Préparez votre Visite</h2>
+        <div class="sd-divider"></div>
+      </div>
+      <div class="sd-practical-grid">
+        <div class="sd-practical-card reveal">
+          <div class="sd-practical-card__icon">👥</div>
+          <div class="sd-practical-card__title">Groupes &amp; Entreprises</div>
+          <div class="sd-practical-card__text">
+            Tarifs préférentiels à partir de 15 personnes. Visites privées et animations exclusives disponibles sur devis. Contactez notre équipe groupes au moins 72h à l'avance.
+          </div>
+        </div>
+        <div class="sd-practical-card reveal reveal-delay-1">
+          <div class="sd-practical-card__icon">🏫</div>
+          <div class="sd-practical-card__title">Sorties Scolaires</div>
+          <div class="sd-practical-card__text">
+            Programme pédagogique adapté aux niveaux primaire et collège. Livrets éducatifs fournis. Séances d'animation scientifique de 45 min avec nos aquariologues.
+          </div>
+        </div>
+        <div class="sd-practical-card reveal reveal-delay-2">
+          <div class="sd-practical-card__icon">♿</div>
+          <div class="sd-practical-card__title">Accessibilité</div>
+          <div class="sd-practical-card__text">
+            L'aquarium est entièrement accessible aux personnes à mobilité réduite. Rampes d'accès, ascenseurs et espaces adaptés dans tous les couloirs et galeries.
+          </div>
+        </div>
+        <div class="sd-practical-card reveal reveal-delay-3">
+          <div class="sd-practical-card__icon">🅿️</div>
+          <div class="sd-practical-card__title">Parking</div>
+          <div class="sd-practical-card__text">
+            6 000 places de parking disponibles au Morocco Mall. Accès direct depuis le parking intérieur via Niveau 0. Tarif réduit avec validation en caisse de l'aquarium.
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       RELATED VENUES
+  ============================================================ -->
+  <section style="padding: clamp(3rem, 6vw, 5rem) 0; border-top: 1px solid rgba(0,120,200,0.15);">
+    <div class="container">
+      <div class="reveal" style="margin-bottom:2.5rem;">
+        <p class="sd-eyebrow">À Découvrir Aussi</p>
+        <h2 class="sd-title">Autres Divertissements</h2>
+      </div>
+      <div class="sd-related-grid reveal">
+        <a href="cinema.html" class="sd-related-card">
+          <div class="sd-related-card__cat">Cinéma</div>
+          <div class="sd-related-card__name">Cinéma Morocco Mall</div>
+          <div class="sd-related-card__arrow">Découvrir →</div>
+        </a>
+        <a href="hello-park.html" class="sd-related-card">
+          <div class="sd-related-card__cat">Jeux &amp; Famille</div>
+          <div class="sd-related-card__name">Hello Park</div>
+          <div class="sd-related-card__arrow">Découvrir →</div>
+        </a>
+        <a href="fontaine-musicale.html" class="sd-related-card">
+          <div class="sd-related-card__cat">Spectacle</div>
+          <div class="sd-related-card__name">Fontaine Musicale</div>
+          <div class="sd-related-card__arrow">Découvrir →</div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+</main>
+<script src="../js/seo.js"></script>
+<script src="../js/translations.js"></script>
+<script src="../js/app.js"></script>
+<script>
+  /* Counter animation */
+  (function () {
+    const counters = document.querySelectorAll('.sd-counter-item__number');
+    const ease = t => t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t;
+
+    function animateCounter(el) {
+      const target = parseFloat(el.dataset.target);
+      if (!target) return;
+      const duration = 2000;
+      const start = performance.now();
+      const originalText = el.textContent;
+
+      function update(now) {
+        const elapsed = Math.min((now - start) / duration, 1);
+        const value = Math.floor(ease(elapsed) * target);
+        // Format with spaces as thousands separator
+        el.firstChild.nodeValue = value.toLocaleString('fr-FR').replace(/ /g, ' ');
+        if (elapsed < 1) requestAnimationFrame(update);
+      }
+      requestAnimationFrame(update);
+    }
+
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          animateCounter(entry.target);
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.3 });
+
+    counters.forEach(c => { if (c.dataset.target) observer.observe(c); });
+  })();
+
+  /* Smooth scroll for anchor links */
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      const target = document.querySelector(a.getAttribute('href'));
+      if (target) { e.preventDefault(); target.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+    });
+  });
+</script>
+</body>
+</html>

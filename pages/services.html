@@ -1,0 +1,862 @@
+<!DOCTYPE html>
+<html lang="fr" dir="ltr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Morocco Mall Services — Conciergerie, parking, WiFi, salles de prière, tax-free shopping et bien plus encore." />
+  <title>Services — Morocco Mall</title>
+  <link rel="icon" href="../assets/logo.png" type="image/png" />
+  <link rel="stylesheet" href="../css/main.css" />
+  <style>
+    /* ---- PAGE-LEVEL OVERRIDES ---- */
+
+    /* Hero */
+    .svc-hero {
+      background: var(--black);
+      padding: clamp(6rem, 14vw, 11rem) 0 clamp(4rem, 8vw, 7rem);
+      position: relative;
+      overflow: hidden;
+    }
+    .svc-hero::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 60% 70% at 80% 50%, rgba(201,169,110,0.06) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .svc-hero__eyebrow {
+      font-size: 0.65rem;
+      font-weight: 500;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 1.2rem;
+    }
+    .svc-hero__title {
+      font-family: var(--font-display);
+      font-size: clamp(3.2rem, 8vw, 7rem);
+      font-weight: 300;
+      line-height: 1;
+      color: var(--white);
+      margin-bottom: 1.5rem;
+    }
+    .svc-hero__title em { font-style: italic; color: var(--gold-light); }
+    .svc-hero__sub {
+      font-size: clamp(0.9rem, 1.6vw, 1.05rem);
+      color: rgba(255,255,255,0.45);
+      max-width: 560px;
+      line-height: 1.75;
+    }
+
+    /* Premium top hero cards */
+    .premium-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+    }
+    @media (max-width: 768px) {
+      .premium-grid { grid-template-columns: 1fr; }
+    }
+
+    .premium-card {
+      position: relative;
+      padding: clamp(2.5rem, 5vw, 4rem) clamp(2rem, 4vw, 3.5rem);
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      min-height: 420px;
+      overflow: hidden;
+    }
+    .premium-card--aksal {
+      background: linear-gradient(145deg, #0D0B09 0%, #1C1408 55%, #0D0B09 100%);
+    }
+    .premium-card--concierge {
+      background: linear-gradient(145deg, #101010 0%, #1a1a1a 60%, #0e0e0e 100%);
+      border-left: 1px solid rgba(255,255,255,0.06);
+    }
+    .premium-card__label {
+      font-size: 0.6rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--gold);
+      font-weight: 500;
+      margin-bottom: 0.25rem;
+    }
+    .premium-card__title {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 300;
+      color: var(--white);
+      line-height: 1.05;
+    }
+    .premium-card__title em { font-style: italic; color: var(--gold-light); }
+    .premium-card__desc {
+      font-size: 0.85rem;
+      color: rgba(255,255,255,0.45);
+      line-height: 1.8;
+      max-width: 400px;
+      flex-grow: 1;
+    }
+    .premium-card__detail {
+      font-size: 0.65rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.25);
+      margin-bottom: 0.25rem;
+    }
+    .premium-card__corner-deco {
+      position: absolute;
+      bottom: -30px;
+      right: -30px;
+      width: 180px;
+      height: 180px;
+      border: 1px solid rgba(201,169,110,0.08);
+      border-radius: 50%;
+      pointer-events: none;
+    }
+    .premium-card__corner-deco::before {
+      content: '';
+      position: absolute;
+      inset: 20px;
+      border: 1px solid rgba(201,169,110,0.05);
+      border-radius: 50%;
+    }
+
+    /* Services grid */
+    .svc-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1px;
+      background: var(--gray-200);
+    }
+    @media (max-width: 1100px) { .svc-grid { grid-template-columns: repeat(3, 1fr); } }
+    @media (max-width: 760px)  { .svc-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 440px)  { .svc-grid { grid-template-columns: 1fr; } }
+
+    .svc-card {
+      background: var(--white);
+      padding: 2rem 1.75rem 1.75rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      transition: background 0.25s, border-color 0.25s;
+    }
+    .svc-card:hover { background: var(--cream); }
+    .svc-card__icon {
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      margin-bottom: 0.25rem;
+    }
+    .svc-card__icon svg {
+      width: 36px;
+      height: 36px;
+      stroke: var(--black);
+      stroke-width: 1.4;
+      fill: none;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      transition: stroke 0.25s;
+    }
+    .svc-card:hover .svc-card__icon svg { stroke: var(--gold-dark); }
+    .svc-card__title {
+      font-family: var(--font-display);
+      font-size: 1.25rem;
+      font-weight: 400;
+      line-height: 1.2;
+      color: var(--black);
+    }
+    .svc-card__desc {
+      font-size: 0.79rem;
+      color: var(--gray-600);
+      line-height: 1.75;
+      flex-grow: 1;
+    }
+    .svc-card__cta {
+      margin-top: 0.5rem;
+    }
+    .svc-card__tag {
+      font-size: 0.62rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--gray-400);
+      font-weight: 500;
+    }
+
+    /* Hours table */
+    .hours-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.88rem;
+    }
+    .hours-table th {
+      text-align: left;
+      font-size: 0.62rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--gray-400);
+      font-weight: 500;
+      padding: 0 0 0.75rem;
+      border-bottom: 1px solid var(--gray-200);
+    }
+    .hours-table th:last-child { text-align: right; }
+    .hours-table td {
+      padding: 0.9rem 0;
+      border-bottom: 1px solid var(--gray-200);
+      vertical-align: middle;
+    }
+    .hours-table tr:last-child td { border-bottom: none; }
+    .hours-table td:first-child { color: var(--gray-600); }
+    .hours-table td:last-child { text-align: right; font-weight: 500; color: var(--black); }
+    .hours-table .note {
+      font-size: 0.7rem;
+      color: var(--gray-400);
+      display: block;
+      margin-top: 0.15rem;
+      font-weight: 400;
+    }
+
+    /* Contact row */
+    .contact-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+      padding: 1rem 0;
+      border-bottom: 1px solid var(--gray-200);
+    }
+    .contact-row:last-child { border-bottom: none; }
+    .contact-row__icon {
+      width: 40px;
+      height: 40px;
+      background: var(--white);
+      border: 1px solid var(--gray-200);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .contact-row__icon svg {
+      width: 18px; height: 18px;
+      stroke: var(--black); stroke-width: 1.5;
+      fill: none; stroke-linecap: round; stroke-linejoin: round;
+    }
+    .contact-row__label {
+      font-size: 0.62rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--gray-400);
+      font-weight: 500;
+      margin-bottom: 0.2rem;
+    }
+    .contact-row__value {
+      font-size: 0.88rem;
+      font-weight: 500;
+      color: var(--black);
+    }
+    .contact-row__value a { color: inherit; }
+    .contact-row__value a:hover { color: var(--gold-dark); }
+
+    /* Section header */
+    .svc-section-header {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      margin-bottom: 2.5rem;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+    .svc-eyebrow {
+      font-size: 0.62rem;
+      font-weight: 500;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold-dark);
+      margin-bottom: 0.6rem;
+    }
+    .svc-section-title {
+      font-family: var(--font-display);
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      font-weight: 300;
+      line-height: 1.1;
+    }
+    .svc-section-title em { font-style: italic; }
+
+    /* Btn helpers */
+    .btn--gold-outline {
+      display: inline-block;
+      font-size: 0.65rem;
+      font-weight: 500;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      border: 1px solid var(--gold);
+      color: var(--gold-light);
+      padding: 0.7rem 1.4rem;
+      transition: background 0.25s, color 0.25s;
+    }
+    .btn--gold-outline:hover { background: var(--gold); color: var(--black); }
+    .btn--ghost-dark {
+      display: inline-block;
+      font-size: 0.65rem;
+      font-weight: 500;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      border: 1px solid rgba(255,255,255,0.2);
+      color: rgba(255,255,255,0.7);
+      padding: 0.7rem 1.4rem;
+      transition: border-color 0.25s, color 0.25s;
+    }
+    .btn--ghost-dark:hover { border-color: rgba(255,255,255,0.6); color: var(--white); }
+    .btn--outline-sm {
+      display: inline-block;
+      font-size: 0.62rem;
+      font-weight: 500;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      border: 1px solid var(--gray-200);
+      color: var(--gray-600);
+      padding: 0.55rem 1.1rem;
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .btn--outline-sm:hover { border-color: var(--black); color: var(--black); }
+
+    /* Breadcrumb */
+    .svc-breadcrumb {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.7rem;
+      color: rgba(255,255,255,0.3);
+      margin-bottom: 2.5rem;
+    }
+    .svc-breadcrumb a { color: rgba(255,255,255,0.4); transition: color 0.2s; }
+    .svc-breadcrumb a:hover { color: var(--gold); }
+    .svc-breadcrumb span { color: rgba(255,255,255,0.2); }
+  </style>
+</head>
+<body>
+<main id="main-content">
+
+  <!-- ============================================================
+       PAGE HERO
+       ============================================================ -->
+  <div class="svc-hero">
+    <div class="container">
+      <nav class="svc-breadcrumb">
+        <a href="../index.html">Morocco Mall</a>
+        <span>›</span>
+        <span>Services</span>
+      </nav>
+      <p class="svc-hero__eyebrow">Visitor Services</p>
+      <h1 class="svc-hero__title">
+        Everything<br><em>You Need</em>
+      </h1>
+      <p class="svc-hero__sub">
+        From arrival to departure, Morocco Mall provides world-class services to ensure every visit is seamless, comfortable and memorable.
+      </p>
+    </div>
+  </div>
+
+
+  <!-- ============================================================
+       PREMIUM TOP SERVICES
+       ============================================================ -->
+  <div class="premium-grid reveal">
+
+    <!-- Card 1 — Personal Shopping with Aksal Black -->
+    <div class="premium-card premium-card--aksal">
+      <div class="premium-card__corner-deco"></div>
+      <div>
+        <p class="premium-card__label">Programme VIP</p>
+        <h2 class="premium-card__title">Personal Shopping<br><em>avec Aksal Black</em></h2>
+      </div>
+      <p class="premium-card__desc">
+        Nos membres Aksal Black bénéficient d'un service de personal shopping exclusif : styliste personnel dédié, accès privatif aux boutiques partenaires, et une expérience sur-mesure de bout en bout. Disponible sur rendez-vous dans tous les pôles Morocco Mall.
+      </p>
+      <p class="premium-card__detail">Sur rendez-vous · Membres Aksal Black uniquement</p>
+      <div>
+        <a class="btn--gold-outline" href="aksal-black.html">Réserver avec Aksal Black</a>
+      </div>
+    </div>
+
+    <!-- Card 2 — Conciergerie -->
+    <div class="premium-card premium-card--concierge">
+      <div class="premium-card__corner-deco"></div>
+      <div>
+        <p class="premium-card__label">Assistance Personnalisée</p>
+        <h2 class="premium-card__title">Service<br><em>Conciergerie</em></h2>
+      </div>
+      <p class="premium-card__desc">
+        Notre équipe de conciergerie est à votre disposition 7 jours sur 7 pour toutes vos demandes : recommandations de restaurants, réservations, informations boutiques, assistance pour événements spéciaux et tout ce qui peut rendre votre visite inoubliable.
+      </p>
+      <p class="premium-card__detail">Niveau 1 · Ouvert 7j/7 · 10h00 – 22h00</p>
+      <div>
+        <button class="btn--ghost-dark">Contacter la Conciergerie</button>
+      </div>
+    </div>
+
+  </div>
+
+
+  <!-- ============================================================
+       SERVICES GRID
+       ============================================================ -->
+  <section class="section" style="background:var(--white);">
+    <div class="container">
+      <div class="svc-section-header reveal">
+        <div>
+          <p class="svc-eyebrow">Pour tous les visiteurs</p>
+          <h2 class="svc-section-title">Nos <em>services</em></h2>
+        </div>
+        <p style="font-size:0.82rem;color:var(--gray-400);max-width:340px;line-height:1.7;text-align:right;">
+          Une gamme complète de prestations conçues pour chaque profil de visiteur.
+        </p>
+      </div>
+    </div>
+
+    <div class="container" style="padding-left:0;padding-right:0;">
+      <div class="svc-grid reveal">
+
+        <!-- Parking -->
+        <div class="svc-card">
+          <div class="svc-card__icon">
+            <svg viewBox="0 0 36 36">
+              <rect x="4" y="6" width="28" height="24" rx="2"/>
+              <path d="M13 12h6a4 4 0 0 1 0 8h-6V12z"/>
+              <line x1="13" y1="20" x2="13" y2="28"/>
+            </svg>
+          </div>
+          <h3 class="svc-card__title">Parking</h3>
+          <p class="svc-card__desc">Plus de 3 000 places disponibles, gratuit les 2 premières heures avec validation en boutique. Accès sécurisé 24h/24 sur plusieurs niveaux.</p>
+          <p class="svc-card__tag">Sous-sol & RDC · 24h/24</p>
+        </div>
+
+        <!-- Valet Parking -->
+        <div class="svc-card">
+          <div class="svc-card__icon">
+            <svg viewBox="0 0 36 36">
+              <circle cx="18" cy="18" r="13"/>
+              <circle cx="18" cy="18" r="5"/>
+              <line x1="8" y1="12" x2="12" y2="16"/>
+              <line x1="28" y1="12" x2="24" y2="16"/>
+              <line x1="8" y1="24" x2="12" y2="20"/>
+              <line x1="28" y1="24" x2="24" y2="20"/>
+            </svg>
+          </div>
+          <h3 class="svc-card__title">Valet Parking</h3>
+          <p class="svc-card__desc">Service premium porte-à-porte disponible aux entrées principales. Confiez votre véhicule à nos équipes et profitez pleinement de votre visite.</p>
+          <p class="svc-card__tag">Entrées principales · 10h00 – 23h00</p>
+        </div>
+
+        <!-- EV Charging -->
+        <div class="svc-card">
+          <div class="svc-card__icon">
+            <svg viewBox="0 0 36 36">
+              <rect x="10" y="6" width="16" height="22" rx="2"/>
+              <path d="M15 18l3-6v8l3-2"/>
+              <line x1="14" y1="28" x2="14" y2="32"/>
+              <line x1="22" y1="28" x2="22" y2="32"/>
+              <line x1="26" y1="10" x2="30" y2="10"/>
+              <line x1="26" y1="14" x2="30" y2="14"/>
+            </svg>
+          </div>
+          <h3 class="svc-card__title">Recharge Électrique</h3>
+          <p class="svc-card__desc">Plus de 30 bornes de recharge pour véhicules électriques réparties sur tous les niveaux du parking, compatibles avec les principaux standards.</p>
+          <p class="svc-card__tag">Tous niveaux parking · EV</p>
+        </div>
+
+        <!-- Accessible Parking -->
+        <div class="svc-card">
+          <div class="svc-card__icon">
+            <svg viewBox="0 0 36 36">
+              <circle cx="18" cy="7" r="3"/>
+              <path d="M18 10v10"/>
+              <path d="M12 14h12"/>
+              <path d="M14 20l-3 8h14l-2-5"/>
+              <circle cx="13" cy="30" r="2.5"/>
+              <circle cx="25" cy="30" r="2.5"/>
+            </svg>
+          </div>
+          <h3 class="svc-card__title">Parking PMR</h3>
+          <p class="svc-card__desc">Places dédiées aux personnes à mobilité réduite, situées à proximité immédiate de chaque entrée du mall, avec accès direct aux ascenseurs sécurisés.</p>
+          <p class="svc-card__tag">Proches entrées · Ascenseurs sécurisés</p>
+        </div>
+
+        <!-- Prayer Rooms -->
+        <div class="svc-card">
+          <div class="svc-card__icon">
+            <svg viewBox="0 0 36 36">
+              <path d="M18 5 C12 10, 6 12, 6 18 L6 28 L30 28 L30 18 C30 12, 24 10, 18 5Z"/>
+              <path d="M13 28 L13 22 Q18 18 23 22 L23 28"/>
+              <path d="M6 14 Q18 8 30 14"/>
+            </svg>
+          </div>
+          <h3 class="svc-card__title">Salles de Prière</h3>
+          <p class="svc-card__desc">Espaces calmes séparés pour hommes et femmes disponibles à chaque niveau du mall, climatisés et entièrement accessibles à tous les visiteurs.</p>
+          <p class="svc-card__tag">Niveaux 1, 2 & 3 · Hommes / Femmes</p>
+        </div>
+
+        <!-- Baby Care -->
+        <div class="svc-card">
+          <div class="svc-card__icon">
+            <svg viewBox="0 0 36 36">
+              <ellipse cx="18" cy="20" rx="10" ry="8"/>
+              <circle cx="18" cy="10" r="4"/>
+              <path d="M12 24 Q10 30 8 32"/>
+              <path d="M24 24 Q26 30 28 32"/>
+              <path d="M14 20 Q18 16 22 20"/>
+              <line x1="15" y1="22" x2="15" y2="25"/>
+              <line x1="21" y1="22" x2="21" y2="25"/>
+            </svg>
+          </div>
+          <h3 class="svc-card__title">Espace Bébé</h3>
+          <p class="svc-card__desc">Espaces privés entièrement équipés pour l'allaitement et le change, avec tables à langer, sièges confortables et tout le nécessaire pour les jeunes parents.</p>
+          <p class="svc-card__tag">Niveau 2 · Tous les ailes</p>
+        </div>
+
+        <!-- Free WiFi -->
+        <div class="svc-card">
+          <div class="svc-card__icon">
+            <svg viewBox="0 0 36 36">
+              <path d="M5 16 Q18 5 31 16"/>
+              <path d="M9 20 Q18 12 27 20"/>
+              <path d="M13 24 Q18 19 23 24"/>
+              <circle cx="18" cy="28" r="2"/>
+            </svg>
+          </div>
+          <h3 class="svc-card__title">WiFi Gratuit</h3>
+          <p class="svc-card__desc">Connexion haut débit "MoroccoMall_Free" disponible dans tout le mall, sans limite de temps ni inscription requise. Restez connecté tout au long de votre visite.</p>
+          <p class="svc-card__tag">Partout dans le mall · Illimité</p>
+        </div>
+
+        <!-- Medical Centre -->
+        <div class="svc-card">
+          <div class="svc-card__icon">
+            <svg viewBox="0 0 36 36">
+              <rect x="6" y="6" width="24" height="24" rx="2"/>
+              <line x1="18" y1="12" x2="18" y2="24"/>
+              <line x1="12" y1="18" x2="24" y2="18"/>
+            </svg>
+          </div>
+          <h3 class="svc-card__title">Centre Médical</h3>
+          <p class="svc-card__desc">Centre médical avec personnel qualifié, soins de premiers secours et assistance d'urgence. Ouvert tous les jours pour assurer la sécurité de nos visiteurs.</p>
+          <p class="svc-card__tag">Niveau 1 · Ouvert 9h00 – 23h00</p>
+        </div>
+
+        <!-- Lockers -->
+        <div class="svc-card">
+          <div class="svc-card__icon">
+            <svg viewBox="0 0 36 36">
+              <rect x="5" y="8" width="26" height="22" rx="1"/>
+              <line x1="18" y1="8" x2="18" y2="30"/>
+              <line x1="5" y1="19" x2="31" y2="19"/>
+              <circle cx="13" cy="14" r="1.5"/>
+              <circle cx="23" cy="14" r="1.5"/>
+              <circle cx="13" cy="24" r="1.5"/>
+              <circle cx="23" cy="24" r="1.5"/>
+            </svg>
+          </div>
+          <h3 class="svc-card__title">Consignes</h3>
+          <p class="svc-card__desc">Consignes sécurisées disponibles près des entrées principales, en plusieurs tailles pour répondre à tous vos besoins. Idéal pour voyager léger dans le mall.</p>
+          <p class="svc-card__tag">Près des entrées · Diverses tailles</p>
+        </div>
+
+        <!-- Lost & Found -->
+        <div class="svc-card">
+          <div class="svc-card__icon">
+            <svg viewBox="0 0 36 36">
+              <circle cx="16" cy="15" r="9"/>
+              <line x1="23" y1="22" x2="31" y2="30"/>
+              <line x1="13" y1="15" x2="19" y2="15"/>
+              <line x1="16" y1="12" x2="16" y2="18"/>
+            </svg>
+          </div>
+          <h3 class="svc-card__title">Objets Trouvés</h3>
+          <p class="svc-card__desc">Vous avez perdu ou trouvé un objet ? Signalez-le ou récupérez-le directement au bureau Conciergerie. Traçabilité garantie et suivi personnalisé.</p>
+          <p class="svc-card__tag">Bureau Conciergerie · Niveau 1</p>
+        </div>
+
+        <!-- Gift Cards -->
+        <div class="svc-card">
+          <div class="svc-card__icon">
+            <svg viewBox="0 0 36 36">
+              <rect x="4" y="13" width="28" height="18" rx="2"/>
+              <rect x="4" y="8" width="28" height="7" rx="1"/>
+              <path d="M18 8 C18 8, 14 3, 11 5 S10 10 18 10"/>
+              <path d="M18 8 C18 8, 22 3, 25 5 S26 10 18 10"/>
+              <line x1="18" y1="8" x2="18" y2="31"/>
+            </svg>
+          </div>
+          <h3 class="svc-card__title">Cartes Cadeaux</h3>
+          <p class="svc-card__desc">Cartes cadeaux Morocco Mall disponibles à partir de 100 MAD, valables dans tous les commerces participants. Le cadeau idéal pour toutes les occasions.</p>
+          <div class="svc-card__cta">
+            <button class="btn--outline-sm">Commander une carte</button>
+          </div>
+        </div>
+
+        <!-- Tax-Free -->
+        <div class="svc-card">
+          <div class="svc-card__icon">
+            <svg viewBox="0 0 36 36">
+              <path d="M8 28 L28 8"/>
+              <circle cx="12" cy="12" r="4"/>
+              <circle cx="24" cy="24" r="4"/>
+              <path d="M4 18 L18 4 L32 18 L18 32 Z"/>
+            </svg>
+          </div>
+          <h3 class="svc-card__title">Tax-Free Shopping</h3>
+          <p class="svc-card__desc">Les visiteurs étrangers peuvent bénéficier d'un remboursement de TVA sur leurs achats éligibles. Démarches traitées directement au bureau Conciergerie.</p>
+          <p class="svc-card__tag">Bureau Conciergerie · Passeport requis</p>
+        </div>
+
+        <!-- Exchange & Refund -->
+        <div class="svc-card">
+          <div class="svc-card__icon">
+            <svg viewBox="0 0 36 36">
+              <path d="M8 14 L28 14"/>
+              <path d="M24 10 L28 14 L24 18"/>
+              <path d="M28 22 L8 22"/>
+              <path d="M12 18 L8 22 L12 26"/>
+            </svg>
+          </div>
+          <h3 class="svc-card__title">Échanges & Remboursements</h3>
+          <p class="svc-card__desc">Bureau dédié pour traiter vos échanges et remboursements selon une politique claire et transparente. Notre équipe vous accompagne à chaque étape.</p>
+          <p class="svc-card__tag">Bureau dédié · Niveau 1</p>
+        </div>
+
+        <!-- Digital Mall Guide -->
+        <div class="svc-card">
+          <div class="svc-card__icon">
+            <svg viewBox="0 0 36 36">
+              <rect x="6" y="4" width="24" height="28" rx="2"/>
+              <line x1="12" y1="13" x2="24" y2="13"/>
+              <line x1="12" y1="18" x2="24" y2="18"/>
+              <line x1="12" y1="23" x2="19" y2="23"/>
+              <circle cx="24" cy="27" r="4"/>
+              <line x1="27" y1="30" x2="30" y2="33"/>
+            </svg>
+          </div>
+          <h3 class="svc-card__title">Guide Digital</h3>
+          <p class="svc-card__desc">Bornes interactives tactiles à chaque niveau avec informations boutiques en temps réel, plan du mall, horaires et promotions. Navigation simplifiée.</p>
+          <p class="svc-card__tag">Bornes interactives · Tous les niveaux</p>
+        </div>
+
+        <!-- Careem -->
+        <div class="svc-card">
+          <div class="svc-card__icon">
+            <svg viewBox="0 0 36 36">
+              <path d="M6 26 Q6 20 10 17 L18 10 L26 17 Q30 20 30 26"/>
+              <path d="M6 26 L30 26"/>
+              <path d="M14 26 L14 20 Q18 16 22 20 L22 26"/>
+              <circle cx="11" cy="29" r="2"/>
+              <circle cx="25" cy="29" r="2"/>
+            </svg>
+          </div>
+          <h3 class="svc-card__title">Careem</h3>
+          <p class="svc-card__desc">Partenaire transport officiel de Morocco Mall. Réservez votre trajet au bureau Careem dédié ou directement via l'application. Tarifs préférentiels pour les clients Morocco Mall.</p>
+          <div class="svc-card__cta">
+            <a class="btn--outline-sm" href="https://www.careem.com" target="_blank" rel="noopener">Réserver un trajet</a>
+          </div>
+        </div>
+
+        <!-- Tourist Information -->
+        <div class="svc-card">
+          <div class="svc-card__icon">
+            <svg viewBox="0 0 36 36">
+              <circle cx="18" cy="18" r="14"/>
+              <path d="M4 18 Q10 12 18 15 Q26 18 32 12"/>
+              <path d="M6 11 Q12 15 18 12 Q24 9 30 13"/>
+              <line x1="18" y1="4" x2="18" y2="32"/>
+            </svg>
+          </div>
+          <h3 class="svc-card__title">Information Touristique</h3>
+          <p class="svc-card__desc">Bureau d'information touristique avec cartes de la ville, guides locaux et conseils pratiques disponibles en trois langues : français, arabe et anglais.</p>
+          <p class="svc-card__tag">Niveau 1 · FR / AR / EN</p>
+        </div>
+
+      </div><!-- /svc-grid -->
+    </div>
+  </section>
+
+
+  <!-- ============================================================
+       OPENING HOURS
+       ============================================================ -->
+  <section class="section section--cream">
+    <div class="container">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:clamp(2rem,6vw,6rem);align-items:start;" class="reveal">
+
+        <!-- Hours -->
+        <div>
+          <p class="svc-eyebrow" style="margin-bottom:1.4rem;">Horaires</p>
+          <h2 class="svc-section-title" style="margin-bottom:2rem;">Heures <em>d'ouverture</em></h2>
+          <table class="hours-table">
+            <thead>
+              <tr>
+                <th>Jours</th>
+                <th>Horaires</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>
+                  Lundi – Jeudi
+                  <span class="note">Jours de semaine</span>
+                </td>
+                <td>10h00 – 22h00</td>
+              </tr>
+              <tr>
+                <td>
+                  Vendredi – Samedi
+                  <span class="note">Week-end</span>
+                </td>
+                <td>10h00 – 23h00</td>
+              </tr>
+              <tr>
+                <td>
+                  Dimanche
+                </td>
+                <td>10h00 – 22h00</td>
+              </tr>
+              <tr>
+                <td>
+                  Restauration
+                  <span class="note">Food courts & restaurants</span>
+                </td>
+                <td>10h00 – 23h00</td>
+              </tr>
+              <tr>
+                <td>
+                  Cinéma
+                  <span class="note">Dernière séance</span>
+                </td>
+                <td>Jusqu'à 01h00</td>
+              </tr>
+              <tr>
+                <td>
+                  Conciergerie
+                  <span class="note">Niveau 1 · 7j/7</span>
+                </td>
+                <td>10h00 – 22h00</td>
+              </tr>
+              <tr>
+                <td>
+                  Valet Parking
+                  <span class="note">Entrées principales</span>
+                </td>
+                <td>10h00 – 23h00</td>
+              </tr>
+              <tr>
+                <td>
+                  Parking
+                  <span class="note">Accès véhicules</span>
+                </td>
+                <td>24h/24 – 7j/7</td>
+              </tr>
+            </tbody>
+          </table>
+          <p style="font-size:0.72rem;color:var(--gray-400);margin-top:1.2rem;line-height:1.6;">
+            Les horaires peuvent varier lors des jours fériés et pendant le mois de Ramadan. Consultez notre site ou suivez nos réseaux sociaux pour les mises à jour.
+          </p>
+        </div>
+
+        <!-- Contact -->
+        <div>
+          <p class="svc-eyebrow" style="margin-bottom:1.4rem;">Nous Contacter</p>
+          <h2 class="svc-section-title" style="margin-bottom:2rem;"><em>Contactez-nous</em></h2>
+
+          <div>
+            <div class="contact-row">
+              <div class="contact-row__icon">
+                <svg viewBox="0 0 24 24">
+                  <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.63 3.4 2 2 0 0 1 3.6 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 9.91a16 16 0 0 0 6 6l.91-.91a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/>
+                </svg>
+              </div>
+              <div>
+                <p class="contact-row__label">Téléphone</p>
+                <p class="contact-row__value"><a href="tel:+212522000111">+212 522 000 111</a></p>
+              </div>
+            </div>
+
+            <div class="contact-row">
+              <div class="contact-row__icon">
+                <svg viewBox="0 0 24 24">
+                  <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                  <polyline points="22,6 12,13 2,6"/>
+                </svg>
+              </div>
+              <div>
+                <p class="contact-row__label">Email</p>
+                <p class="contact-row__value"><a href="mailto:contact@moroccomall.ma">contact@moroccomall.ma</a></p>
+              </div>
+            </div>
+
+            <div class="contact-row">
+              <div class="contact-row__icon">
+                <svg viewBox="0 0 24 24">
+                  <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+                  <circle cx="12" cy="10" r="3"/>
+                </svg>
+              </div>
+              <div>
+                <p class="contact-row__label">Adresse</p>
+                <p class="contact-row__value" style="font-weight:400;font-size:0.84rem;color:var(--gray-600);">Boulevard de la Corniche, Casablanca 20050, Maroc</p>
+              </div>
+            </div>
+
+            <div class="contact-row">
+              <div class="contact-row__icon">
+                <svg viewBox="0 0 24 24">
+                  <circle cx="12" cy="12" r="10"/>
+                  <line x1="2" y1="12" x2="22" y2="12"/>
+                  <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+                </svg>
+              </div>
+              <div>
+                <p class="contact-row__label">Site Web</p>
+                <p class="contact-row__value"><a href="https://www.moroccomall.ma">www.moroccomall.ma</a></p>
+              </div>
+            </div>
+
+            <div class="contact-row">
+              <div class="contact-row__icon">
+                <svg viewBox="0 0 24 24">
+                  <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
+                  <line x1="12" y1="8" x2="12" y2="16"/>
+                  <line x1="8" y1="12" x2="16" y2="12"/>
+                </svg>
+              </div>
+              <div>
+                <p class="contact-row__label">Conciergerie sur place</p>
+                <p class="contact-row__value" style="font-weight:400;font-size:0.84rem;color:var(--gray-600);">Bureau Conciergerie · Niveau 1 · Entrée principale Est</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ============================================================
+       CTA STRIP — Aksal Black
+       ============================================================ -->
+  <section style="background:linear-gradient(135deg,#0D0B09 0%,#1C1408 50%,#0D0B09 100%);padding:clamp(3rem,7vw,6rem) 0;">
+    <div class="container reveal" style="text-align:center;">
+      <p style="font-size:0.62rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--gold);margin-bottom:1rem;font-weight:500;">Programme de Fidélité</p>
+      <h2 style="font-family:var(--font-display);font-size:clamp(2rem,5vw,3.5rem);font-weight:300;color:var(--white);margin-bottom:1rem;line-height:1.1;">
+        Devenez membre <em style="font-style:italic;color:var(--gold-light);">Aksal Black</em>
+      </h2>
+      <p style="font-size:0.88rem;color:rgba(255,255,255,0.4);max-width:500px;margin:0 auto 2rem;line-height:1.75;">
+        Accédez à des privilèges exclusifs, au personal shopping, aux invitations privées et bien plus encore. Le programme premium de Morocco Mall.
+      </p>
+      <a class="btn--gold-outline" href="aksal-black.html">Découvrir Aksal Black</a>
+    </div>
+  </section>
+
+</main>
+<script src="../js/seo.js"></script>
+<script src="../js/translations.js"></script>
+<script src="../js/app.js"></script>
+</body>
+</html>

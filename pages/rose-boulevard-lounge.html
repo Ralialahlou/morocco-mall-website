@@ -1,0 +1,1492 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Rose Boulevard Lounge — The ultra-luxury VIP lounge at Morocco Mall, reserved exclusively for Aksal Black members and distinguished guests." />
+  <title>Rose Boulevard Lounge — Morocco Mall</title>
+  <link rel="icon" href="../assets/logo.png" type="image/png" />
+  <link rel="stylesheet" href="../css/main.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Playfair+Display:ital,wght@0,400;0,500;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet" />
+
+  <style>
+    /* =============================================
+       RESET & ROOT
+    ============================================= */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --gold:        #C9A84C;
+      --gold-light:  #E2C27D;
+      --gold-pale:   #F5E9C8;
+      --gold-dim:    rgba(201,168,76,0.18);
+      --dark:        #0D0B09;
+      --dark-2:      #13110D;
+      --dark-3:      #1A1610;
+      --dark-4:      #221E16;
+      --off-white:   #F0EBE0;
+      --text-muted:  rgba(240,235,224,0.55);
+
+      --ff-corm:   'Cormorant Garamond', Georgia, serif;
+      --ff-play:   'Playfair Display', Georgia, serif;
+      --ff-sans:   'Inter', system-ui, sans-serif;
+
+      --pad-x: clamp(1.5rem, 5vw, 6rem);
+      --ease:  cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: #0D0B09;
+      color: #FFFFFF;
+      font-family: var(--ff-sans);
+      font-size: 16px;
+      line-height: 1.6;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    img { display: block; max-width: 100%; }
+    a   { color: inherit; text-decoration: none; }
+
+    /* =============================================
+       UTILITY
+    ============================================= */
+    .gold       { color: var(--gold); }
+    .gold-light { color: var(--gold-light); }
+
+    .tag-label {
+      display: inline-block;
+      font-family: var(--ff-sans);
+      font-size: 0.65rem;
+      font-weight: 500;
+      letter-spacing: 0.24em;
+      text-transform: uppercase;
+      color: var(--gold);
+      border: 1px solid var(--gold);
+      padding: 0.35em 1.1em;
+    }
+
+    .divider-gold {
+      display: block;
+      width: 3rem;
+      height: 1px;
+      background: var(--gold);
+    }
+
+    /* =============================================
+       REVEAL ANIMATIONS
+    ============================================= */
+    .reveal {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.75s ease, transform 0.75s ease;
+    }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    .reveal-left {
+      opacity: 0;
+      transform: translateX(-36px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+    .reveal-left.visible { opacity: 1; transform: translateX(0); }
+
+    .reveal-right {
+      opacity: 0;
+      transform: translateX(36px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+    .reveal-right.visible { opacity: 1; transform: translateX(0); }
+
+    .reveal-scale {
+      opacity: 0;
+      transform: scale(0.95);
+      transition: opacity 0.85s ease, transform 0.85s ease;
+    }
+    .reveal-scale.visible { opacity: 1; transform: scale(1); }
+
+    .d1 { transition-delay: 0.1s; }
+    .d2 { transition-delay: 0.2s; }
+    .d3 { transition-delay: 0.3s; }
+    .d4 { transition-delay: 0.4s; }
+    .d5 { transition-delay: 0.5s; }
+    .d6 { transition-delay: 0.6s; }
+
+    /* =============================================
+       NAVIGATION
+    ============================================= */
+    .rbl-nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 200;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.25rem var(--pad-x);
+      background: linear-gradient(to bottom, rgba(13,11,9,0.9) 0%, transparent 100%);
+      transition: background 0.4s var(--ease), backdrop-filter 0.4s var(--ease);
+    }
+    .rbl-nav.scrolled {
+      background: rgba(13,11,9,0.96);
+      backdrop-filter: blur(14px);
+    }
+
+    .rbl-nav-logo {
+      font-family: var(--ff-corm);
+      font-size: 1rem;
+      font-weight: 400;
+      letter-spacing: 0.14em;
+      color: var(--gold-light);
+      line-height: 1.2;
+    }
+    .rbl-nav-logo span {
+      display: block;
+      font-family: var(--ff-sans);
+      font-size: 0.55rem;
+      letter-spacing: 0.32em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      font-weight: 300;
+    }
+
+    .rbl-nav-back {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-family: var(--ff-sans);
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      transition: color 0.35s var(--ease);
+    }
+    .rbl-nav-back::before {
+      content: '';
+      display: inline-block;
+      width: 1.4rem;
+      height: 1px;
+      background: currentColor;
+      transition: width 0.35s var(--ease);
+    }
+    .rbl-nav-back:hover { color: var(--gold-light); }
+    .rbl-nav-back:hover::before { width: 2.2rem; }
+
+    /* =============================================
+       HERO — 85vh full-bleed
+    ============================================= */
+    .rbl-hero {
+      position: relative;
+      min-height: 85vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-end;
+      padding-bottom: clamp(4rem, 8vw, 7rem);
+      overflow: hidden;
+    }
+
+    .rbl-hero-bg {
+      position: absolute;
+      inset: 0;
+      background-image: url('https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=1920&h=1080&fit=crop&q=85');
+      background-size: cover;
+      background-position: center;
+      transform: scale(1.04);
+      transition: transform 8s ease;
+    }
+    .rbl-hero.loaded .rbl-hero-bg { transform: scale(1); }
+
+    .rbl-hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        to bottom,
+        rgba(13,11,9,0.72) 0%,
+        rgba(13,11,9,0.55) 40%,
+        rgba(13,11,9,0.88) 80%,
+        rgba(13,11,9,0.97) 100%
+      );
+    }
+
+    .rbl-hero-content {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      padding: 0 var(--pad-x);
+      max-width: 900px;
+      width: 100%;
+    }
+
+    .rbl-hero-tag {
+      display: inline-block;
+      font-family: var(--ff-sans);
+      font-size: 0.65rem;
+      font-weight: 500;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: var(--gold);
+      border: 1px solid var(--gold);
+      padding: 0.4em 1.4em;
+      margin-bottom: 2rem;
+    }
+
+    .rbl-hero-title {
+      font-family: var(--ff-corm);
+      font-size: clamp(4rem, 9vw, 9rem);
+      font-weight: 300;
+      line-height: 0.95;
+      letter-spacing: -0.01em;
+      color: var(--off-white);
+      margin-bottom: 1.75rem;
+    }
+
+    .rbl-hero-subtitle {
+      font-family: var(--ff-corm);
+      font-size: clamp(1.1rem, 1.8vw, 1.45rem);
+      font-weight: 300;
+      font-style: italic;
+      color: var(--text-muted);
+      max-width: 52ch;
+      margin: 0 auto 3rem;
+      line-height: 1.75;
+    }
+
+    .rbl-hero-scroll {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+      font-family: var(--ff-sans);
+      font-size: 0.58rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: rgba(201,168,76,0.5);
+    }
+    .rbl-hero-scroll-line {
+      width: 1px;
+      height: 3rem;
+      background: linear-gradient(to bottom, rgba(201,168,76,0.5), transparent);
+      animation: scroll-pulse 2.2s ease-in-out infinite;
+    }
+    @keyframes scroll-pulse {
+      0%, 100% { opacity: 0.5; transform: scaleY(1); }
+      50%       { opacity: 1;   transform: scaleY(1.15); }
+    }
+
+    /* =============================================
+       SECTION HEADER (shared)
+    ============================================= */
+    .sec-hd {
+      text-align: center;
+      padding: clamp(4.5rem, 9vw, 8rem) var(--pad-x) clamp(2.5rem, 4vw, 4rem);
+    }
+    .sec-hd .tag-label { margin-bottom: 1.5rem; }
+    .sec-hd h2 {
+      font-family: var(--ff-play);
+      font-size: clamp(2.2rem, 4vw, 4rem);
+      font-weight: 400;
+      line-height: 1.1;
+      color: var(--off-white);
+      margin-bottom: 1.25rem;
+    }
+    .sec-hd h2 em {
+      font-style: italic;
+      color: var(--gold-light);
+    }
+    .sec-hd p {
+      font-family: var(--ff-corm);
+      font-size: clamp(1rem, 1.5vw, 1.2rem);
+      font-style: italic;
+      color: var(--text-muted);
+      max-width: 52ch;
+      margin: 0 auto;
+      line-height: 1.85;
+    }
+
+    /* =============================================
+       BUTTONS
+    ============================================= */
+    .btn-gold {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.75rem;
+      font-family: var(--ff-sans);
+      font-size: 0.7rem;
+      font-weight: 500;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--dark);
+      background: var(--gold);
+      padding: 1rem 2.25rem;
+      border: none;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+      transition: background 0.35s var(--ease), transform 0.35s var(--ease);
+    }
+    .btn-gold:hover { background: var(--gold-light); transform: translateY(-2px); }
+
+    .btn-outline-gold {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.75rem;
+      font-family: var(--ff-sans);
+      font-size: 0.7rem;
+      font-weight: 400;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--gold);
+      background: transparent;
+      padding: 1rem 2.25rem;
+      border: 1px solid var(--gold);
+      cursor: pointer;
+      transition: background 0.35s var(--ease), color 0.35s var(--ease), transform 0.35s var(--ease);
+    }
+    .btn-outline-gold:hover {
+      background: var(--gold);
+      color: var(--dark);
+      transform: translateY(-2px);
+    }
+
+    /* =============================================
+       ACCESS SECTION
+    ============================================= */
+    .rbl-access {
+      background: var(--dark-2);
+      padding: 0 var(--pad-x) clamp(4rem, 8vw, 7rem);
+    }
+
+    .rbl-access-cards {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.5rem;
+      max-width: 860px;
+      margin: 0 auto;
+    }
+
+    .rbl-access-card {
+      background: var(--dark-3);
+      border: 1px solid var(--gold-dim);
+      padding: 2.75rem 2.5rem;
+      position: relative;
+      overflow: hidden;
+      transition: border-color 0.4s var(--ease), transform 0.4s var(--ease);
+    }
+    .rbl-access-card::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 2px;
+      background: var(--gold);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.5s ease;
+    }
+    .rbl-access-card:hover {
+      border-color: rgba(201,168,76,0.4);
+      transform: translateY(-4px);
+    }
+    .rbl-access-card:hover::after { transform: scaleX(1); }
+
+    .rbl-access-icon {
+      width: 3rem;
+      height: 3rem;
+      margin-bottom: 1.5rem;
+      color: var(--gold);
+    }
+
+    .rbl-access-tier {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-family: var(--ff-sans);
+      font-size: 0.6rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 1rem;
+    }
+    .rbl-access-tier-dot {
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: var(--gold);
+      flex-shrink: 0;
+    }
+
+    .rbl-access-card h3 {
+      font-family: var(--ff-play);
+      font-size: clamp(1.15rem, 1.8vw, 1.45rem);
+      font-weight: 400;
+      color: var(--off-white);
+      margin-bottom: 0.9rem;
+      line-height: 1.25;
+    }
+
+    .rbl-access-card p {
+      font-family: var(--ff-sans);
+      font-size: 0.82rem;
+      line-height: 1.8;
+      color: var(--text-muted);
+    }
+
+    /* =============================================
+       EXPERIENCE FEATURES — 4 columns
+    ============================================= */
+    .rbl-features {
+      background: var(--dark);
+      padding: 0 var(--pad-x) clamp(4rem, 8vw, 7rem);
+    }
+
+    .rbl-features-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0;
+      border: 1px solid var(--gold-dim);
+    }
+
+    .rbl-feat {
+      padding: 3rem 2.25rem;
+      border-right: 1px solid var(--gold-dim);
+      position: relative;
+      overflow: hidden;
+      transition: background 0.4s var(--ease);
+    }
+    .rbl-feat:last-child { border-right: none; }
+    .rbl-feat:hover { background: var(--dark-3); }
+
+    .rbl-feat-icon {
+      width: 2.5rem;
+      height: 2.5rem;
+      color: var(--gold);
+      margin-bottom: 1.75rem;
+    }
+
+    .rbl-feat-line {
+      width: 2rem;
+      height: 1px;
+      background: var(--gold);
+      margin-bottom: 1.25rem;
+    }
+
+    .rbl-feat h3 {
+      font-family: var(--ff-play);
+      font-size: clamp(1rem, 1.4vw, 1.25rem);
+      font-weight: 400;
+      color: var(--off-white);
+      margin-bottom: 0.85rem;
+      line-height: 1.3;
+    }
+
+    .rbl-feat p {
+      font-family: var(--ff-sans);
+      font-size: 0.8rem;
+      line-height: 1.85;
+      color: var(--text-muted);
+    }
+
+    /* =============================================
+       THE SPACE — 2-col editorial
+    ============================================= */
+    .rbl-space {
+      background: var(--dark-2);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      min-height: clamp(32rem, 55vw, 52rem);
+      overflow: hidden;
+    }
+
+    .rbl-space-img {
+      position: relative;
+      overflow: hidden;
+    }
+    .rbl-space-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      display: block;
+      filter: brightness(0.85) contrast(1.06) saturate(0.88);
+      transition: transform 1.4s ease;
+    }
+    .rbl-space:hover .rbl-space-img img { transform: scale(1.04); }
+    .rbl-space-img::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: rgba(13,11,9,0.15);
+    }
+
+    .rbl-space-content {
+      background: var(--dark-3);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: clamp(3.5rem, 6vw, 6.5rem);
+      gap: 2rem;
+      position: relative;
+    }
+    .rbl-space-content::before {
+      content: '';
+      position: absolute;
+      top: 0; bottom: 0; left: 0;
+      width: 1px;
+      background: linear-gradient(to bottom, transparent, rgba(201,168,76,0.3) 30%, rgba(201,168,76,0.3) 70%, transparent);
+    }
+
+    .rbl-space-tag {
+      font-family: var(--ff-sans);
+      font-size: 0.6rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--gold);
+    }
+
+    .rbl-space-content h2 {
+      font-family: var(--ff-corm);
+      font-size: clamp(2.5rem, 4vw, 4rem);
+      font-weight: 300;
+      line-height: 1.08;
+      color: var(--off-white);
+      letter-spacing: -0.01em;
+    }
+    .rbl-space-content h2 em {
+      font-style: italic;
+      color: var(--gold-light);
+    }
+
+    .rbl-space-content p {
+      font-family: var(--ff-corm);
+      font-size: clamp(1rem, 1.4vw, 1.18rem);
+      font-style: italic;
+      color: var(--text-muted);
+      line-height: 1.9;
+      max-width: 38ch;
+    }
+
+    .rbl-space-stats {
+      display: flex;
+      gap: 2.5rem;
+      padding-top: 0.5rem;
+    }
+
+    .rbl-space-stat-val {
+      font-family: var(--ff-corm);
+      font-size: clamp(2rem, 3vw, 2.75rem);
+      font-weight: 300;
+      color: var(--gold-light);
+      line-height: 1;
+      margin-bottom: 0.3rem;
+    }
+
+    .rbl-space-stat-label {
+      font-family: var(--ff-sans);
+      font-size: 0.6rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+
+    /* =============================================
+       COMPLIMENTARY SERVICES
+    ============================================= */
+    .rbl-complimentary {
+      background: var(--dark);
+      padding: clamp(4rem, 8vw, 7rem) var(--pad-x);
+    }
+
+    .rbl-comp-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: var(--gold-dim);
+      border: 1px solid var(--gold-dim);
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    .rbl-comp-item {
+      background: var(--dark);
+      display: flex;
+      align-items: flex-start;
+      gap: 1.25rem;
+      padding: 2rem 2rem;
+      transition: background 0.35s var(--ease);
+    }
+    .rbl-comp-item:hover { background: var(--dark-3); }
+
+    .rbl-comp-icon {
+      width: 1.75rem;
+      height: 1.75rem;
+      color: var(--gold);
+      flex-shrink: 0;
+      margin-top: 0.1rem;
+    }
+
+    .rbl-comp-text {
+      font-family: var(--ff-sans);
+      font-size: 0.82rem;
+      color: var(--off-white);
+      line-height: 1.65;
+    }
+    .rbl-comp-text strong {
+      display: block;
+      font-weight: 500;
+      color: var(--gold-light);
+      font-size: 0.72rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: 0.3rem;
+    }
+
+    /* =============================================
+       HOW TO ACCESS — 4 numbered steps
+    ============================================= */
+    .rbl-how {
+      background: var(--dark-4);
+      border-top: 1px solid var(--gold-dim);
+      border-bottom: 1px solid var(--gold-dim);
+      padding: clamp(4rem, 8vw, 7rem) var(--pad-x);
+    }
+
+    .rbl-steps {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0;
+      margin-top: 3rem;
+      position: relative;
+    }
+    .rbl-steps::before {
+      content: '';
+      position: absolute;
+      top: 2.5rem;
+      left: 10%;
+      right: 10%;
+      height: 1px;
+      background: linear-gradient(to right, transparent, var(--gold-dim) 20%, var(--gold-dim) 80%, transparent);
+      pointer-events: none;
+    }
+
+    .rbl-step {
+      padding: 0 2rem 0;
+      text-align: center;
+      position: relative;
+    }
+
+    .rbl-step-num {
+      width: 5rem;
+      height: 5rem;
+      border: 1px solid var(--gold-dim);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 2rem;
+      font-family: var(--ff-corm);
+      font-size: 1.6rem;
+      font-weight: 300;
+      color: var(--gold);
+      background: var(--dark-4);
+      position: relative;
+      z-index: 1;
+      transition: border-color 0.35s var(--ease), background 0.35s var(--ease);
+    }
+    .rbl-step:hover .rbl-step-num {
+      border-color: var(--gold);
+      background: rgba(201,168,76,0.06);
+    }
+
+    .rbl-step h3 {
+      font-family: var(--ff-play);
+      font-size: 1rem;
+      font-weight: 400;
+      color: var(--off-white);
+      margin-bottom: 0.75rem;
+      line-height: 1.3;
+    }
+
+    .rbl-step p {
+      font-family: var(--ff-sans);
+      font-size: 0.78rem;
+      line-height: 1.8;
+      color: var(--text-muted);
+    }
+
+    /* =============================================
+       RESERVATION FORM
+    ============================================= */
+    .rbl-reservation {
+      background: var(--dark-2);
+      padding: clamp(4.5rem, 9vw, 8rem) var(--pad-x);
+      position: relative;
+      overflow: hidden;
+    }
+    .rbl-reservation::before {
+      content: '';
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      width: 70vw; height: 70vw;
+      max-width: 700px; max-height: 700px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(201,168,76,0.04) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .rbl-form-wrap {
+      max-width: 700px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+    }
+
+    .rbl-form {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.25rem;
+    }
+    .rbl-form-full { grid-column: 1 / -1; }
+
+    .rbl-field {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .rbl-field label {
+      font-family: var(--ff-sans);
+      font-size: 0.62rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--gold);
+      font-weight: 500;
+    }
+
+    .rbl-field input,
+    .rbl-field select,
+    .rbl-field textarea {
+      background: var(--dark-3);
+      border: 1px solid var(--gold-dim);
+      color: var(--off-white);
+      font-family: var(--ff-sans);
+      font-size: 0.85rem;
+      padding: 0.85rem 1.1rem;
+      outline: none;
+      appearance: none;
+      -webkit-appearance: none;
+      transition: border-color 0.35s var(--ease);
+      width: 100%;
+    }
+    .rbl-field input::placeholder,
+    .rbl-field textarea::placeholder { color: var(--text-muted); }
+    .rbl-field input:focus,
+    .rbl-field select:focus,
+    .rbl-field textarea:focus { border-color: var(--gold); }
+
+    .rbl-field select {
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' fill='none'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23C9A84C' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 1.1rem center;
+      padding-right: 2.5rem;
+      cursor: pointer;
+    }
+    .rbl-field select option { background: var(--dark-3); }
+
+    .rbl-field textarea { resize: vertical; min-height: 7rem; line-height: 1.65; }
+
+    .rbl-form-submit {
+      grid-column: 1 / -1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1rem;
+      padding-top: 0.5rem;
+    }
+
+    .rbl-form-note {
+      font-family: var(--ff-corm);
+      font-size: 0.9rem;
+      font-style: italic;
+      color: var(--text-muted);
+      text-align: center;
+    }
+
+    /* =============================================
+       CTA TO AKSAL BLACK
+    ============================================= */
+    .rbl-cta-strip {
+      background: var(--dark-3);
+      border-top: 1px solid var(--gold-dim);
+      padding: clamp(3.5rem, 7vw, 6rem) var(--pad-x);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 2rem;
+    }
+
+    .rbl-cta-strip-text h3 {
+      font-family: var(--ff-corm);
+      font-size: clamp(1.6rem, 3vw, 2.5rem);
+      font-weight: 300;
+      color: var(--gold-light);
+      line-height: 1.15;
+      margin-bottom: 0.6rem;
+    }
+    .rbl-cta-strip-text h3 em {
+      font-style: italic;
+      color: var(--gold-pale);
+    }
+    .rbl-cta-strip-text p {
+      font-family: var(--ff-sans);
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      max-width: 44ch;
+      line-height: 1.75;
+    }
+
+    /* =============================================
+       FOOTER STRIP
+    ============================================= */
+    .rbl-footer {
+      background: #080705;
+      border-top: 1px solid rgba(201,168,76,0.08);
+      padding: 2rem var(--pad-x);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .rbl-footer p {
+      font-family: var(--ff-sans);
+      font-size: 0.62rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: rgba(201,168,76,0.3);
+    }
+
+    /* =============================================
+       RESPONSIVE
+    ============================================= */
+    @media (max-width: 1100px) {
+      .rbl-features-grid { grid-template-columns: repeat(2, 1fr); }
+      .rbl-feat { border-bottom: 1px solid var(--gold-dim); }
+      .rbl-feat:nth-child(2) { border-right: none; }
+      .rbl-feat:nth-child(3) { border-right: 1px solid var(--gold-dim); border-bottom: none; }
+      .rbl-feat:last-child { border-right: none; }
+    }
+
+    @media (max-width: 900px) {
+      .rbl-steps { grid-template-columns: repeat(2, 1fr); gap: 2.5rem 1rem; }
+      .rbl-steps::before { display: none; }
+      .rbl-space { grid-template-columns: 1fr; }
+      .rbl-space-img { height: 50vw; min-height: 20rem; }
+      .rbl-space-content::before { display: none; }
+      .rbl-cta-strip { flex-direction: column; text-align: center; align-items: center; }
+      .rbl-cta-strip-text p { margin: 0 auto; }
+    }
+
+    @media (max-width: 700px) {
+      .rbl-access-cards { grid-template-columns: 1fr; }
+      .rbl-features-grid { grid-template-columns: 1fr; }
+      .rbl-feat { border-right: none; border-bottom: 1px solid var(--gold-dim); }
+      .rbl-feat:last-child { border-bottom: none; }
+      .rbl-comp-grid { grid-template-columns: 1fr; }
+      .rbl-steps { grid-template-columns: 1fr; }
+      .rbl-form { grid-template-columns: 1fr; }
+      .rbl-form-full { grid-column: auto; }
+      .rbl-form-submit { grid-column: auto; }
+      .rbl-footer { flex-direction: column; gap: 0.75rem; text-align: center; }
+    }
+
+    @media (max-width: 480px) {
+      .rbl-hero-title { font-size: 3.5rem; }
+      .rbl-space-stats { flex-direction: column; gap: 1.25rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAVIGATION -->
+  <nav class="rbl-nav" id="rblNav" aria-label="Rose Boulevard Lounge navigation">
+    <div class="rbl-nav-logo">
+      Rose Boulevard Lounge
+      <span>Morocco Mall</span>
+    </div>
+    <a href="rose-boulevard.html" class="rbl-nav-back" aria-label="Back to Rose Boulevard">Rose Boulevard</a>
+  </nav>
+
+
+  <!-- ============================================================
+       HERO
+  ============================================================ -->
+  <section class="rbl-hero" id="rblHero" aria-label="Hero">
+    <div class="rbl-hero-bg" aria-hidden="true"></div>
+    <div class="rbl-hero-overlay" aria-hidden="true"></div>
+
+    <div class="rbl-hero-content">
+      <div class="rbl-hero-tag reveal">Rose Boulevard Lounge</div>
+      <h1 class="rbl-hero-title reveal d1">The Lounge</h1>
+      <p class="rbl-hero-subtitle reveal d2">
+        An exclusive retreat for our most distinguished guests.
+      </p>
+    </div>
+
+    <div class="rbl-hero-scroll reveal d4" aria-hidden="true">
+      <div class="rbl-hero-scroll-line"></div>
+      <span>Discover</span>
+    </div>
+  </section>
+
+
+  <!-- ============================================================
+       ACCESS SECTION
+  ============================================================ -->
+  <section class="rbl-access" id="access" aria-labelledby="access-heading">
+    <div class="sec-hd">
+      <span class="tag-label reveal">Exclusive Access</span>
+      <h2 class="reveal d1" id="access-heading">Who May <em>Enter</em></h2>
+      <p class="reveal d2">
+        The Rose Boulevard Lounge is reserved for those whose relationship with Morocco Mall reflects the highest distinction.
+      </p>
+    </div>
+
+    <div class="rbl-access-cards">
+
+      <!-- Card 1 — Aksal Black Members -->
+      <div class="rbl-access-card reveal d1">
+        <!-- SVG: Diamond / tier badge -->
+        <svg class="rbl-access-icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <polygon points="24,4 44,16 44,32 24,44 4,32 4,16" />
+          <polygon points="24,10 38,18 38,30 24,38 10,30 10,18" stroke-opacity="0.45" />
+          <line x1="24" y1="4" x2="24" y2="44" stroke-opacity="0.3" />
+          <line x1="4" y1="16" x2="44" y2="16" stroke-opacity="0.3" />
+          <line x1="4" y1="32" x2="44" y2="32" stroke-opacity="0.3" />
+        </svg>
+        <div class="rbl-access-tier">
+          <span class="rbl-access-tier-dot"></span>
+          Aksal Black Programme
+        </div>
+        <h3>Black Gold &amp; Diamond Members</h3>
+        <p>Holders of the Aksal Black Gold or Diamond card benefit from unlimited complimentary access to the Rose Boulevard Lounge throughout the day, simply upon presentation of their membership card at the Lounge entrance.</p>
+      </div>
+
+      <!-- Card 2 — Rose Boulevard Purchases -->
+      <div class="rbl-access-card reveal d2">
+        <!-- SVG: Shopping bag with crown -->
+        <svg class="rbl-access-icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M12 16h24l-3 24H15L12 16z" />
+          <path d="M18 16v-3a6 6 0 0 1 12 0v3" />
+          <polyline points="18,26 21,23 24,26 27,23 30,26" stroke-opacity="0.8" />
+          <line x1="18" y1="30" x2="30" y2="30" stroke-opacity="0.45" />
+        </svg>
+        <div class="rbl-access-tier">
+          <span class="rbl-access-tier-dot"></span>
+          Same-Day Purchases
+        </div>
+        <h3>Rose Boulevard Clients — 5,000 MAD+</h3>
+        <p>Guests who have made cumulative purchases of 5,000 MAD or more within Rose Boulevard on the same day are granted complimentary Lounge access for the remainder of the visit. Proof of purchase is required at the Lounge reception desk.</p>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ============================================================
+       EXPERIENCE FEATURES — 4 columns
+  ============================================================ -->
+  <section class="rbl-features" id="experience" aria-labelledby="exp-heading">
+    <div class="sec-hd">
+      <span class="tag-label reveal">The Experience</span>
+      <h2 class="reveal d1" id="exp-heading">Four <em>Pillars</em> of Excellence</h2>
+      <p class="reveal d2">
+        Every moment spent in the Lounge is curated to elevate your visit to the level of absolute luxury.
+      </p>
+    </div>
+
+    <div class="rbl-features-grid">
+
+      <!-- Feature 1 — Champagne & Refreshments -->
+      <div class="rbl-feat reveal d1">
+        <svg class="rbl-feat-icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M17 6h14l-4 18H21L17 6z" />
+          <line x1="21" y1="24" x2="21" y2="38" />
+          <line x1="27" y1="24" x2="27" y2="38" />
+          <line x1="15" y1="38" x2="33" y2="38" />
+          <path d="M17 12c2 2 8 2 10 0" stroke-opacity="0.5" />
+        </svg>
+        <div class="rbl-feat-line"></div>
+        <h3>Champagne &amp; Refreshments</h3>
+        <p>A curated selection of prestige champagnes, fine wines, artisanal teas and bespoke mocktails, served by a dedicated butler throughout your stay in the Lounge.</p>
+      </div>
+
+      <!-- Feature 2 — Personal Stylist -->
+      <div class="rbl-feat reveal d2">
+        <svg class="rbl-feat-icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <circle cx="24" cy="13" r="5" />
+          <path d="M14 42v-7a10 10 0 0 1 20 0v7" />
+          <path d="M24 26l3 8-3 5-3-5 3-8" stroke-opacity="0.6" />
+          <line x1="18" y1="30" x2="14" y2="42" stroke-opacity="0.4" />
+          <line x1="30" y1="30" x2="34" y2="42" stroke-opacity="0.4" />
+        </svg>
+        <div class="rbl-feat-line"></div>
+        <h3>Personal Stylist on Request</h3>
+        <p>A personal stylist is available upon advance reservation to guide your selections across Rose Boulevard's boutiques, offering expert curation tailored to your individual aesthetic.</p>
+      </div>
+
+      <!-- Feature 3 — Private Shopping Concierge -->
+      <div class="rbl-feat reveal d3">
+        <svg class="rbl-feat-icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <rect x="8" y="14" width="32" height="26" rx="1" />
+          <path d="M16 14v-4a8 8 0 0 1 16 0v4" />
+          <circle cx="24" cy="27" r="4" />
+          <line x1="24" y1="31" x2="24" y2="36" stroke-opacity="0.6" />
+        </svg>
+        <div class="rbl-feat-line"></div>
+        <h3>Private Shopping Concierge</h3>
+        <p>Our dedicated concierge liaises directly with each maison to arrange private viewings, reserve exclusive pieces, coordinate personalization requests and manage all logistics of your purchases.</p>
+      </div>
+
+      <!-- Feature 4 — Valet Dedicated Service -->
+      <div class="rbl-feat reveal d4">
+        <svg class="rbl-feat-icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <rect x="4" y="20" width="40" height="16" rx="3" />
+          <path d="M8 20l4-10h24l4 10" />
+          <circle cx="14" cy="36" r="4" />
+          <circle cx="34" cy="36" r="4" />
+          <line x1="18" y1="36" x2="30" y2="36" />
+          <line x1="10" y1="26" x2="38" y2="26" stroke-opacity="0.4" />
+        </svg>
+        <div class="rbl-feat-line"></div>
+        <h3>Valet Dedicated Service</h3>
+        <p>Lounge guests benefit from priority valet parking, with vehicles retrieved on demand. A seamless arrival and departure experience befitting the Rose Boulevard standard of excellence.</p>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ============================================================
+       THE SPACE — 2-col editorial
+  ============================================================ -->
+  <section class="rbl-space" id="space" aria-label="The Space">
+    <div class="rbl-space-img reveal-left">
+      <img
+        src="https://images.unsplash.com/photo-1543007630-9710e4a00a20?w=800&h=700&fit=crop"
+        alt="Rose Boulevard Lounge interior — panoramic private space"
+        loading="lazy"
+      />
+    </div>
+
+    <div class="rbl-space-content reveal-right">
+      <span class="rbl-space-tag">The Space</span>
+
+      <h2>
+        180 m&sup2; of<br><em>Absolute Serenity</em>
+      </h2>
+
+      <p>
+        Suspended above the Rose Boulevard arcade, the Lounge unfolds over 180 square metres of
+        hand-curated interiors. Floor-to-ceiling windows frame a sweeping panoramic view over the
+        avenue below, while curated contemporary art from Moroccan and international artists adorns
+        the walls in a dialogue between heritage and modernity.
+      </p>
+
+      <p>
+        Two private meeting rooms — fully soundproofed, equipped with screen and connectivity — are
+        available for guests requiring a discreet professional setting within the luxury of the Lounge
+        environment.
+      </p>
+
+      <div class="rbl-space-stats">
+        <div>
+          <div class="rbl-space-stat-val">180</div>
+          <div class="rbl-space-stat-label">Square metres</div>
+        </div>
+        <div>
+          <div class="rbl-space-stat-val">2</div>
+          <div class="rbl-space-stat-label">Private rooms</div>
+        </div>
+        <div>
+          <div class="rbl-space-stat-val">1</div>
+          <div class="rbl-space-stat-label">Panoramic terrace</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ============================================================
+       COMPLIMENTARY SERVICES
+  ============================================================ -->
+  <section class="rbl-complimentary" id="services" aria-labelledby="comp-heading">
+    <div class="sec-hd" style="padding-top: 0;">
+      <span class="tag-label reveal">Included Services</span>
+      <h2 class="reveal d1" id="comp-heading">Complimentary <em>for All Guests</em></h2>
+      <p class="reveal d2">
+        Every service listed below is included without supplement for all Rose Boulevard Lounge guests.
+      </p>
+    </div>
+
+    <div class="rbl-comp-grid reveal d2">
+
+      <div class="rbl-comp-item">
+        <svg class="rbl-comp-icon" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M10 6h12l-3 12H13L10 6z" />
+          <line x1="13" y1="18" x2="13" y2="26" />
+          <line x1="19" y1="18" x2="19" y2="26" />
+          <line x1="9" y1="26" x2="23" y2="26" />
+        </svg>
+        <div class="rbl-comp-text">
+          <strong>Prestige Champagne</strong>
+          A glass of prestige cuvee champagne upon arrival, with complimentary refills throughout your visit.
+        </div>
+      </div>
+
+      <div class="rbl-comp-item">
+        <svg class="rbl-comp-icon" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M8 10h12l-1 10H9L8 10z" />
+          <path d="M20 13c3 0 5 1 5 4s-2 4-5 4" />
+          <ellipse cx="14" cy="24" rx="8" ry="2" stroke-opacity="0.45" />
+        </svg>
+        <div class="rbl-comp-text">
+          <strong>Artisanal Teas &amp; Infusions</strong>
+          A selection of rare teas, herbal infusions, Moroccan mint tea and bespoke house blends.
+        </div>
+      </div>
+
+      <div class="rbl-comp-item">
+        <svg class="rbl-comp-icon" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <rect x="4" y="8" width="24" height="18" rx="1" />
+          <line x1="4" y1="13" x2="28" y2="13" />
+          <line x1="9" y1="18" x2="23" y2="18" stroke-opacity="0.5" />
+          <line x1="9" y1="22" x2="19" y2="22" stroke-opacity="0.5" />
+        </svg>
+        <div class="rbl-comp-text">
+          <strong>International Press</strong>
+          Current editions of leading international fashion, lifestyle and business publications.
+        </div>
+      </div>
+
+      <div class="rbl-comp-item">
+        <svg class="rbl-comp-icon" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <rect x="5" y="5" width="22" height="22" rx="2" />
+          <path d="M16 12 v4 l3 2" stroke-opacity="0.7" />
+          <circle cx="16" cy="16" r="6" />
+        </svg>
+        <div class="rbl-comp-text">
+          <strong>High-Speed Wi-Fi</strong>
+          Dedicated ultra-fast Wi-Fi network with full connectivity throughout the Lounge space.
+        </div>
+      </div>
+
+      <div class="rbl-comp-item">
+        <svg class="rbl-comp-icon" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <rect x="10" y="4" width="12" height="20" rx="2" />
+          <line x1="14" y1="20" x2="18" y2="20" />
+          <path d="M16 24 v4" />
+          <path d="M12 28 h8" />
+          <path d="M7 15 c0-4 3-7 4-9" stroke-opacity="0.5" stroke-dasharray="2 2" />
+          <path d="M25 15 c0-4-3-7-4-9" stroke-opacity="0.5" stroke-dasharray="2 2" />
+        </svg>
+        <div class="rbl-comp-text">
+          <strong>Multi-Device Charging</strong>
+          Wireless and wired charging stations for all devices, including laptop power points.
+        </div>
+      </div>
+
+      <div class="rbl-comp-item">
+        <svg class="rbl-comp-icon" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <circle cx="16" cy="16" r="11" />
+          <path d="M10 16 h12" stroke-opacity="0.5" />
+          <path d="M16 10 v12" stroke-opacity="0.5" />
+          <path d="M11 11 l10 10" stroke-opacity="0.3" />
+          <path d="M21 11 l-10 10" stroke-opacity="0.3" />
+        </svg>
+        <div class="rbl-comp-text">
+          <strong>Seasonal Refreshments</strong>
+          Freshly prepared light bites, canapes and seasonal accompaniments throughout the day.
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ============================================================
+       HOW TO ACCESS — 4 numbered steps
+  ============================================================ -->
+  <section class="rbl-how" id="how-to-access" aria-labelledby="how-heading">
+    <div class="sec-hd" style="padding-top: 0;">
+      <span class="tag-label reveal">Access Protocol</span>
+      <h2 class="reveal d1" id="how-heading">How to <em>Access the Lounge</em></h2>
+      <p class="reveal d2">
+        Entering the Rose Boulevard Lounge is a simple, graceful process designed to respect your time.
+      </p>
+    </div>
+
+    <div class="rbl-steps">
+
+      <div class="rbl-step reveal d1">
+        <div class="rbl-step-num">01</div>
+        <h3>Confirm Eligibility</h3>
+        <p>Ensure you hold an Aksal Black Gold or Diamond card, or have made same-day Rose Boulevard purchases of 5,000 MAD or more, receipts in hand.</p>
+      </div>
+
+      <div class="rbl-step reveal d2">
+        <div class="rbl-step-num">02</div>
+        <h3>Locate the Lounge</h3>
+        <p>Proceed to Level 2, Rose Boulevard. The Lounge entrance is situated at the centre of the avenue, marked by the discreet gold signature facade and reception podium.</p>
+      </div>
+
+      <div class="rbl-step reveal d3">
+        <div class="rbl-step-num">03</div>
+        <h3>Present Your Credentials</h3>
+        <p>Our host team will welcome you and verify your eligibility. Presentation of your Aksal Black card or same-day purchase receipts takes moments and is handled with full discretion.</p>
+      </div>
+
+      <div class="rbl-step reveal d4">
+        <div class="rbl-step-num">04</div>
+        <h3>Enjoy Your Retreat</h3>
+        <p>You are welcomed into the Lounge and free to enjoy all services, spaces and amenities at your own pace for the duration of your visit to Morocco Mall.</p>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ============================================================
+       RESERVATION FORM
+  ============================================================ -->
+  <section class="rbl-reservation" id="reservation" aria-labelledby="res-heading">
+    <div class="sec-hd" style="padding-top: 0;">
+      <span class="tag-label reveal">Reserve Your Visit</span>
+      <h2 class="reveal d1" id="res-heading">Request a <em>Lounge Reservation</em></h2>
+      <p class="reveal d2">
+        While walk-ins are always welcome, advance reservation ensures the full suite of personalised services is prepared for your arrival.
+      </p>
+    </div>
+
+    <div class="rbl-form-wrap reveal d2">
+      <form class="rbl-form" action="#" method="post" novalidate aria-label="Lounge reservation form">
+
+        <div class="rbl-field">
+          <label for="res-name">Full Name</label>
+          <input
+            type="text"
+            id="res-name"
+            name="full_name"
+            placeholder="Your full name"
+            autocomplete="name"
+            required
+          />
+        </div>
+
+        <div class="rbl-field">
+          <label for="res-email">Email Address</label>
+          <input
+            type="email"
+            id="res-email"
+            name="email"
+            placeholder="your@email.com"
+            autocomplete="email"
+            required
+          />
+        </div>
+
+        <div class="rbl-field">
+          <label for="res-date">Preferred Date</label>
+          <input
+            type="date"
+            id="res-date"
+            name="date"
+            required
+          />
+        </div>
+
+        <div class="rbl-field">
+          <label for="res-time">Preferred Arrival Time</label>
+          <select id="res-time" name="arrival_time">
+            <option value="" disabled selected>Select a time slot</option>
+            <option value="10:00">10:00 — Opening</option>
+            <option value="11:00">11:00</option>
+            <option value="12:00">12:00 — Noon</option>
+            <option value="14:00">14:00</option>
+            <option value="15:00">15:00</option>
+            <option value="16:00">16:00</option>
+            <option value="17:00">17:00</option>
+            <option value="18:00">18:00</option>
+            <option value="19:00">19:00</option>
+            <option value="20:00">20:00</option>
+            <option value="21:00">21:00 — Evening</option>
+          </select>
+        </div>
+
+        <div class="rbl-field">
+          <label for="res-guests">Number of Guests</label>
+          <select id="res-guests" name="guests">
+            <option value="1">1 guest (individual)</option>
+            <option value="2" selected>2 guests</option>
+            <option value="3">3 guests</option>
+            <option value="4">4 guests</option>
+            <option value="5">5 guests</option>
+            <option value="6+">6 or more guests</option>
+          </select>
+        </div>
+
+        <div class="rbl-field">
+          <label for="res-membership">Membership Status</label>
+          <select id="res-membership" name="membership">
+            <option value="" disabled selected>Select your access type</option>
+            <option value="black-gold">Aksal Black Gold Member</option>
+            <option value="black-diamond">Aksal Black Diamond Member</option>
+            <option value="purchase">Same-day Rose Boulevard Purchase (5,000+ MAD)</option>
+          </select>
+        </div>
+
+        <div class="rbl-field rbl-form-full">
+          <label for="res-requests">Special Requests</label>
+          <textarea
+            id="res-requests"
+            name="special_requests"
+            placeholder="Personal stylist appointment, dietary requirements, room reservation, any special occasion or preference..."
+          ></textarea>
+        </div>
+
+        <div class="rbl-form-submit">
+          <button type="submit" class="btn-gold">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M5 12h14M12 5l7 7-7 7" />
+            </svg>
+            Submit Reservation Request
+          </button>
+          <p class="rbl-form-note">Our concierge team will confirm your reservation within 24 hours.</p>
+        </div>
+
+      </form>
+    </div>
+  </section>
+
+
+  <!-- ============================================================
+       CTA STRIP — Aksal Black
+  ============================================================ -->
+  <div class="rbl-cta-strip" aria-label="Aksal Black programme promotion">
+    <div class="rbl-cta-strip-text">
+      <h3>
+        Not yet a member of<br><em>Aksal Black?</em>
+      </h3>
+      <p>
+        Join Morocco Mall's premier loyalty programme and unlock permanent access to the Rose Boulevard Lounge, alongside exclusive privileges across more than 200 partner boutiques.
+      </p>
+    </div>
+    <a href="aksal-black.html" class="btn-gold" aria-label="Discover Aksal Black loyalty programme">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M5 12h14M12 5l7 7-7 7" />
+      </svg>
+      Discover Aksal Black
+    </a>
+  </div>
+
+
+  <!-- ============================================================
+       FOOTER STRIP
+  ============================================================ -->
+  <footer class="rbl-footer" role="contentinfo">
+    <p>Rose Boulevard Lounge &mdash; Level 2, Morocco Mall, Casablanca</p>
+    <p>Open daily 10:00 &ndash; 22:00</p>
+    <p>&copy; 2026 Morocco Mall &mdash; Groupe Aksal</p>
+  </footer>
+
+
+  <!-- ============================================================
+       SCRIPTS
+  ============================================================ -->
+  <script src="../js/seo.js"></script>
+<script src="../js/translations.js"></script>
+  <script src="../js/app.js"></script>
+
+  <script>
+    (function () {
+      'use strict';
+
+      /* --- Hero pan on load --- */
+      var hero = document.getElementById('rblHero');
+      if (hero) {
+        requestAnimationFrame(function () {
+          hero.classList.add('loaded');
+        });
+      }
+
+      /* --- Navbar scroll state --- */
+      var nav = document.getElementById('rblNav');
+      function handleScroll() {
+        if (window.scrollY > 60) {
+          nav.classList.add('scrolled');
+        } else {
+          nav.classList.remove('scrolled');
+        }
+      }
+      window.addEventListener('scroll', handleScroll, { passive: true });
+      handleScroll();
+
+      /* --- Intersection Observer: reveal animations --- */
+      var revealEls = document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .reveal-scale');
+      if (!revealEls.length) return;
+
+      var observer = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+      });
+
+      revealEls.forEach(function (el) { observer.observe(el); });
+
+      /* --- Smooth scroll for hash links --- */
+      document.querySelectorAll('a[href^="#"]').forEach(function (link) {
+        link.addEventListener('click', function (e) {
+          var target = document.querySelector(this.getAttribute('href'));
+          if (target) {
+            e.preventDefault();
+            target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }
+        });
+      });
+
+      /* --- Form: prevent default, show confirmation --- */
+      var form = document.querySelector('.rbl-form');
+      if (form) {
+        form.addEventListener('submit', function (e) {
+          e.preventDefault();
+          var btn = form.querySelector('button[type="submit"]');
+          if (btn) {
+            btn.textContent = 'Request Received';
+            btn.style.background = 'rgba(201,168,76,0.35)';
+            btn.style.color = '#F5E9C8';
+            btn.disabled = true;
+          }
+        });
+      }
+
+      /* --- Date input: set minimum to today --- */
+      var dateInput = document.getElementById('res-date');
+      if (dateInput) {
+        var today = new Date();
+        var yyyy  = today.getFullYear();
+        var mm    = String(today.getMonth() + 1).padStart(2, '0');
+        var dd    = String(today.getDate()).padStart(2, '0');
+        dateInput.min = yyyy + '-' + mm + '-' + dd;
+      }
+
+    })();
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,1555 @@
+<!DOCTYPE html>
+<html lang="fr" dir="ltr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Carrières Morocco Mall — Rejoignez notre équipe et construisez votre avenir dans le plus grand centre commercial d'Afrique." />
+  <title>Carrières — Morocco Mall</title>
+  <link rel="icon" href="../assets/logo.png" type="image/png" />
+  <link rel="stylesheet" href="../css/main.css" />
+  <script src="../js/translations.js" defer></script>
+  <script src="../js/app.js" defer></script>
+  <style>
+    /* ── Hero ── */
+    .careers-hero {
+      position: relative;
+      min-height: 88vh;
+      display: flex;
+      align-items: center;
+      background-color: #0A0A0A;
+      background-image: url('https://images.unsplash.com/photo-1497366216548-37526070297c?w=1920&h=900&fit=crop&q=80');
+      background-size: cover;
+      background-position: center;
+      overflow: hidden;
+    }
+    .careers-hero__overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(10,10,10,0.88) 0%, rgba(10,10,10,0.55) 60%, rgba(10,10,10,0.72) 100%);
+    }
+    .careers-hero__content {
+      position: relative;
+      z-index: 2;
+      max-width: 780px;
+      padding-top: 120px;
+      padding-bottom: 80px;
+    }
+    .careers-hero__eyebrow {
+      font-size: 0.65rem;
+      font-weight: 500;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 1.5rem;
+    }
+    .careers-hero__title {
+      font-family: var(--font-display);
+      font-size: clamp(2.8rem, 7vw, 6rem);
+      font-weight: 300;
+      line-height: 1.05;
+      color: var(--white);
+      margin-bottom: 1.5rem;
+    }
+    .careers-hero__title em {
+      font-style: italic;
+      color: var(--gold-light);
+    }
+    .careers-hero__subtitle {
+      font-size: clamp(1rem, 2vw, 1.2rem);
+      color: rgba(255,255,255,0.65);
+      line-height: 1.75;
+      max-width: 560px;
+      margin-bottom: 2.5rem;
+    }
+    .careers-hero__stats {
+      display: flex;
+      gap: 3rem;
+      flex-wrap: wrap;
+      margin-top: 2rem;
+      padding-top: 2rem;
+      border-top: 1px solid rgba(201,169,110,0.25);
+    }
+    .careers-hero__stat-value {
+      font-family: var(--font-display);
+      font-size: 2.4rem;
+      font-weight: 300;
+      color: var(--gold);
+      line-height: 1;
+    }
+    .careers-hero__stat-label {
+      font-size: 0.72rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.45);
+      margin-top: 0.35rem;
+    }
+
+    /* ── Why Join Us ── */
+    .why-section {
+      padding: clamp(4rem, 8vw, 7rem) 0;
+      background: var(--cream);
+    }
+    .section-eyebrow {
+      font-size: 0.65rem;
+      font-weight: 500;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 1rem;
+    }
+    .section-title {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 4.5vw, 3.5rem);
+      font-weight: 300;
+      line-height: 1.1;
+      color: var(--black);
+      margin-bottom: 1rem;
+    }
+    .section-title em { font-style: italic; color: var(--gold-dark); }
+    .section-intro {
+      font-size: 1rem;
+      color: var(--gray-600);
+      line-height: 1.8;
+      max-width: 560px;
+      margin-bottom: 3.5rem;
+    }
+    .why-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 2rem;
+    }
+    .why-card {
+      background: var(--white);
+      border: 1px solid var(--gray-200);
+      padding: 2.5rem 2rem;
+      transition: box-shadow 0.3s var(--ease), transform 0.3s var(--ease);
+    }
+    .why-card:hover {
+      box-shadow: 0 16px 48px rgba(0,0,0,0.1);
+      transform: translateY(-4px);
+    }
+    .why-card__icon {
+      width: 52px;
+      height: 52px;
+      margin-bottom: 1.5rem;
+      color: var(--gold);
+    }
+    .why-card__title {
+      font-family: var(--font-display);
+      font-size: 1.35rem;
+      font-weight: 400;
+      color: var(--black);
+      margin-bottom: 0.75rem;
+    }
+    .why-card__desc {
+      font-size: 0.88rem;
+      color: var(--gray-600);
+      line-height: 1.75;
+    }
+
+    /* ── Filter Bar ── */
+    .filter-section {
+      background: var(--white);
+      border-bottom: 1px solid var(--gray-200);
+      position: sticky;
+      top: 0;
+      z-index: 50;
+    }
+    .filter-bar {
+      display: flex;
+      gap: 0.5rem;
+      padding: 1rem 0;
+      overflow-x: auto;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+      flex-wrap: wrap;
+    }
+    .filter-bar::-webkit-scrollbar { display: none; }
+    .filter-chip {
+      display: inline-flex;
+      align-items: center;
+      padding: 0.45rem 1.2rem;
+      border: 1px solid var(--gray-200);
+      background: var(--white);
+      color: var(--gray-600);
+      font-size: 0.8rem;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      cursor: pointer;
+      border-radius: 2px;
+      transition: all 0.2s var(--ease);
+      white-space: nowrap;
+    }
+    .filter-chip:hover {
+      border-color: var(--gold);
+      color: var(--gold-dark);
+    }
+    .filter-chip.active {
+      background: var(--black);
+      border-color: var(--black);
+      color: var(--white);
+    }
+
+    /* ── Job Listings ── */
+    .jobs-section {
+      padding: clamp(4rem, 7vw, 6rem) 0;
+      background: var(--white);
+    }
+    .jobs-count {
+      font-size: 0.78rem;
+      color: var(--gray-400);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 2.5rem;
+    }
+    .jobs-count span {
+      color: var(--black);
+      font-weight: 600;
+    }
+    .jobs-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+      gap: 1.5rem;
+    }
+    .job-card {
+      border: 1px solid var(--gray-200);
+      padding: 2rem;
+      background: var(--white);
+      transition: box-shadow 0.3s var(--ease), border-color 0.3s var(--ease), transform 0.3s var(--ease);
+      display: flex;
+      flex-direction: column;
+    }
+    .job-card:hover {
+      box-shadow: 0 12px 36px rgba(0,0,0,0.09);
+      border-color: var(--gold-light);
+      transform: translateY(-3px);
+    }
+    .job-card__top {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 0.75rem;
+      margin-bottom: 1rem;
+    }
+    .job-card__badges {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+    .badge {
+      display: inline-block;
+      font-size: 0.6rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 0.25rem 0.65rem;
+      border-radius: 2px;
+    }
+    .badge--dept-retail    { background: #EFF6FF; color: #1D4ED8; }
+    .badge--dept-management { background: #F0FDF4; color: #15803D; }
+    .badge--dept-marketing  { background: #FDF4FF; color: #9333EA; }
+    .badge--dept-it         { background: #FFF7ED; color: #C2410C; }
+    .badge--dept-services   { background: #FFF1F2; color: #BE123C; }
+    .badge--dept-operations { background: #F0F9FF; color: #0369A1; }
+    .badge--cdi   { background: #F0FDF4; color: #15803D; border: 1px solid #BBF7D0; }
+    .badge--cdd   { background: #FFF7ED; color: #C2410C; border: 1px solid #FED7AA; }
+    .badge--stage { background: #EFF6FF; color: #1D4ED8; border: 1px solid #BFDBFE; }
+    .job-card__title {
+      font-family: var(--font-display);
+      font-size: 1.25rem;
+      font-weight: 400;
+      color: var(--black);
+      margin-bottom: 0.4rem;
+      line-height: 1.2;
+    }
+    .job-card__meta {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      font-size: 0.75rem;
+      color: var(--gray-400);
+      margin-bottom: 1rem;
+      flex-wrap: wrap;
+    }
+    .job-card__meta-item {
+      display: flex;
+      align-items: center;
+      gap: 0.3rem;
+    }
+    .job-card__meta-item svg {
+      width: 12px;
+      height: 12px;
+      flex-shrink: 0;
+    }
+    .job-card__desc {
+      font-size: 0.85rem;
+      color: var(--gray-600);
+      line-height: 1.7;
+      flex: 1;
+      margin-bottom: 1.5rem;
+    }
+    .job-card__footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-top: 1px solid var(--gray-200);
+      padding-top: 1rem;
+      gap: 0.75rem;
+    }
+    .job-card__date {
+      font-size: 0.72rem;
+      color: var(--gray-400);
+    }
+    .btn-apply {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.55rem 1.25rem;
+      background: var(--black);
+      color: var(--white);
+      font-size: 0.78rem;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      border: 1px solid var(--black);
+      cursor: pointer;
+      transition: background 0.2s var(--ease), color 0.2s var(--ease);
+      text-decoration: none;
+    }
+    .btn-apply:hover {
+      background: var(--gold-dark);
+      border-color: var(--gold-dark);
+      color: var(--white);
+    }
+    .job-card[data-hidden="true"] { display: none; }
+
+    /* ── Employee Quotes ── */
+    .testimonials-section {
+      padding: clamp(4rem, 8vw, 7rem) 0;
+      background: var(--black);
+    }
+    .testimonials-section .section-title { color: var(--white); }
+    .testimonials-section .section-intro { color: rgba(255,255,255,0.5); }
+    .testimonials-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+      margin-top: 3rem;
+    }
+    .testimonial-card {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      padding: 2.5rem 2rem;
+      position: relative;
+    }
+    .testimonial-card::before {
+      content: '\201C';
+      font-family: var(--font-display);
+      font-size: 5rem;
+      line-height: 1;
+      color: var(--gold);
+      opacity: 0.4;
+      position: absolute;
+      top: 1.2rem;
+      left: 1.5rem;
+    }
+    .testimonial-card__quote {
+      font-family: var(--font-display);
+      font-size: 1.15rem;
+      font-style: italic;
+      font-weight: 300;
+      color: rgba(255,255,255,0.82);
+      line-height: 1.65;
+      margin-bottom: 2rem;
+      padding-top: 1.5rem;
+      position: relative;
+      z-index: 1;
+    }
+    .testimonial-card__author {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+    .testimonial-card__avatar {
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid rgba(201,169,110,0.4);
+      flex-shrink: 0;
+    }
+    .testimonial-card__name {
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: var(--white);
+    }
+    .testimonial-card__role {
+      font-size: 0.75rem;
+      color: var(--gold);
+      letter-spacing: 0.08em;
+      margin-top: 0.15rem;
+    }
+
+    /* ── Application Form ── */
+    .apply-section {
+      padding: clamp(4rem, 8vw, 7rem) 0;
+      background: var(--cream);
+    }
+    .apply-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.6fr;
+      gap: 4rem;
+      align-items: start;
+    }
+    @media (max-width: 860px) {
+      .apply-grid { grid-template-columns: 1fr; gap: 3rem; }
+    }
+    .apply-info__list {
+      margin-top: 2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+    }
+    .apply-info__item {
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+    }
+    .apply-info__icon {
+      width: 36px;
+      height: 36px;
+      background: var(--gold);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .apply-info__icon svg {
+      width: 16px;
+      height: 16px;
+      color: var(--white);
+    }
+    .apply-info__text-title {
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: var(--black);
+      margin-bottom: 0.2rem;
+    }
+    .apply-info__text-desc {
+      font-size: 0.82rem;
+      color: var(--gray-600);
+      line-height: 1.6;
+    }
+    .apply-form {
+      background: var(--white);
+      border: 1px solid var(--gray-200);
+      padding: 3rem;
+    }
+    @media (max-width: 600px) {
+      .apply-form { padding: 2rem 1.5rem; }
+    }
+    .apply-form__title {
+      font-family: var(--font-display);
+      font-size: 1.7rem;
+      font-weight: 300;
+      color: var(--black);
+      margin-bottom: 0.5rem;
+    }
+    .apply-form__subtitle {
+      font-size: 0.85rem;
+      color: var(--gray-400);
+      margin-bottom: 2rem;
+    }
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.25rem;
+    }
+    @media (max-width: 560px) {
+      .form-row { grid-template-columns: 1fr; }
+    }
+    .form-group {
+      margin-bottom: 1.5rem;
+    }
+    .form-label {
+      display: block;
+      font-size: 0.75rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--gray-600);
+      margin-bottom: 0.5rem;
+    }
+    .form-label span { color: var(--gold-dark); margin-left: 2px; }
+    .form-input,
+    .form-select,
+    .form-textarea {
+      width: 100%;
+      padding: 0.75rem 1rem;
+      border: 1px solid var(--gray-200);
+      background: var(--white);
+      color: var(--black);
+      font-size: 0.9rem;
+      font-family: var(--font-body);
+      outline: none;
+      transition: border-color 0.2s var(--ease);
+      border-radius: 0;
+      appearance: none;
+      -webkit-appearance: none;
+    }
+    .form-input:focus,
+    .form-select:focus,
+    .form-textarea:focus {
+      border-color: var(--gold);
+    }
+    .form-input::placeholder,
+    .form-textarea::placeholder {
+      color: var(--gray-400);
+    }
+    .form-select {
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%239CA3AF' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 1rem center;
+      padding-right: 2.5rem;
+      cursor: pointer;
+    }
+    .form-textarea { resize: vertical; min-height: 120px; }
+    .form-file-label {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 0.75rem 1rem;
+      border: 1px dashed var(--gray-200);
+      cursor: pointer;
+      color: var(--gray-600);
+      font-size: 0.85rem;
+      transition: border-color 0.2s var(--ease), background 0.2s var(--ease);
+    }
+    .form-file-label:hover {
+      border-color: var(--gold);
+      background: var(--cream);
+      color: var(--gold-dark);
+    }
+    .form-file-label svg { width: 18px; height: 18px; flex-shrink: 0; }
+    input[type="file"] { display: none; }
+    .form-file-name {
+      font-size: 0.75rem;
+      color: var(--gray-400);
+      margin-top: 0.4rem;
+    }
+    .btn-submit {
+      width: 100%;
+      padding: 1rem;
+      background: var(--black);
+      color: var(--white);
+      font-size: 0.85rem;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      border: none;
+      cursor: pointer;
+      transition: background 0.25s var(--ease);
+      margin-top: 0.5rem;
+    }
+    .btn-submit:hover { background: var(--gold-dark); }
+    .form-success {
+      display: none;
+      padding: 1.5rem;
+      background: #F0FDF4;
+      border: 1px solid #BBF7D0;
+      color: #15803D;
+      font-size: 0.9rem;
+      text-align: center;
+      margin-top: 1rem;
+      line-height: 1.6;
+    }
+
+    /* ── Internship ── */
+    .internship-section {
+      padding: clamp(4rem, 8vw, 6rem) 0;
+      background: var(--white);
+      border-top: 1px solid var(--gray-200);
+    }
+    .internship-grid {
+      display: grid;
+      grid-template-columns: 1.2fr 1fr;
+      gap: 5rem;
+      align-items: center;
+    }
+    @media (max-width: 820px) {
+      .internship-grid { grid-template-columns: 1fr; gap: 3rem; }
+      .internship-image { order: -1; }
+    }
+    .internship-image {
+      position: relative;
+    }
+    .internship-image img {
+      width: 100%;
+      aspect-ratio: 4/3;
+      object-fit: cover;
+    }
+    .internship-image__badge {
+      position: absolute;
+      bottom: -1.5rem;
+      right: -1.5rem;
+      width: 120px;
+      height: 120px;
+      background: var(--gold);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      color: var(--white);
+      text-align: center;
+    }
+    .internship-image__badge-num {
+      font-family: var(--font-display);
+      font-size: 2.2rem;
+      font-weight: 300;
+      line-height: 1;
+    }
+    .internship-image__badge-text {
+      font-size: 0.6rem;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-top: 0.2rem;
+    }
+    .internship-content .section-intro { max-width: 480px; margin-bottom: 2rem; }
+    .internship-perks {
+      display: flex;
+      flex-direction: column;
+      gap: 0.85rem;
+      margin-bottom: 2.5rem;
+    }
+    .internship-perk {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      font-size: 0.88rem;
+      color: var(--gray-600);
+    }
+    .internship-perk::before {
+      content: '';
+      width: 6px;
+      height: 6px;
+      background: var(--gold);
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+    .btn-internship {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      padding: 0.85rem 2rem;
+      background: transparent;
+      color: var(--black);
+      font-size: 0.82rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      border: 1.5px solid var(--black);
+      cursor: pointer;
+      transition: all 0.25s var(--ease);
+      text-decoration: none;
+    }
+    .btn-internship:hover {
+      background: var(--black);
+      color: var(--white);
+    }
+
+    /* ── Reveal animations ── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.7s var(--ease-out), transform 0.7s var(--ease-out);
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .reveal-delay-1 { transition-delay: 0.1s; }
+    .reveal-delay-2 { transition-delay: 0.2s; }
+    .reveal-delay-3 { transition-delay: 0.3s; }
+    .reveal-delay-4 { transition-delay: 0.4s; }
+
+    /* ── Responsive tweaks ── */
+    @media (max-width: 640px) {
+      .jobs-grid { grid-template-columns: 1fr; }
+      .testimonials-grid { grid-template-columns: 1fr; }
+      .why-grid { grid-template-columns: 1fr; }
+      .careers-hero__stats { gap: 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+<main id="main-content">
+
+  <!-- ═══════════════════════════════════════════════════════════
+       HERO
+  ═══════════════════════════════════════════════════════════ -->
+  <section class="careers-hero">
+    <div class="careers-hero__overlay" aria-hidden="true"></div>
+    <div class="container careers-hero__content">
+      <nav style="margin-bottom:1.5rem;font-size:0.75rem;color:rgba(255,255,255,0.4);letter-spacing:0.06em;">
+        <a href="../index.html" style="color:rgba(255,255,255,0.4);">Morocco Mall</a>
+        <span style="margin:0 0.5rem;">›</span>
+        <span style="color:var(--gold);">Carrières</span>
+      </nav>
+      <p class="careers-hero__eyebrow">Rejoignez-nous</p>
+      <h1 class="careers-hero__title">
+        Rejoignez<br>
+        <em>notre équipe</em>
+      </h1>
+      <p class="careers-hero__subtitle">
+        Construisez votre avenir au sein du plus grand centre commercial d'Afrique.
+        Plus de 600 enseignes, des milliers de visiteurs chaque jour et des équipes
+        passionnées qui font vivre une expérience d'exception.
+      </p>
+      <a href="#postuler" class="btn-apply" style="font-size:0.85rem;padding:0.9rem 2.2rem;letter-spacing:0.12em;">
+        Voir les offres
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+      </a>
+      <div class="careers-hero__stats">
+        <div>
+          <div class="careers-hero__stat-value">600+</div>
+          <div class="careers-hero__stat-label">Enseignes partenaires</div>
+        </div>
+        <div>
+          <div class="careers-hero__stat-value">12</div>
+          <div class="careers-hero__stat-label">Postes ouverts</div>
+        </div>
+        <div>
+          <div class="careers-hero__stat-value">40+</div>
+          <div class="careers-hero__stat-label">Nationalités représentées</div>
+        </div>
+        <div>
+          <div class="careers-hero__stat-value">8</div>
+          <div class="careers-hero__stat-label">Ans d'excellence</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════
+       WHY JOIN US
+  ═══════════════════════════════════════════════════════════ -->
+  <section class="why-section">
+    <div class="container">
+      <div class="reveal">
+        <p class="section-eyebrow">Pourquoi nous rejoindre</p>
+        <h2 class="section-title">Un environnement<br><em>qui vous inspire</em></h2>
+        <p class="section-intro">
+          Morocco Mall n'est pas seulement un lieu de shopping — c'est un écosystème
+          vivant où chaque talent contribue à créer des moments mémorables.
+        </p>
+      </div>
+      <div class="why-grid">
+
+        <!-- Card 1 — Environnement Dynamique -->
+        <div class="why-card reveal reveal-delay-1">
+          <svg class="why-card__icon" viewBox="0 0 52 52" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="26" cy="26" r="22"/>
+            <path d="M26 14v12l8 5"/>
+            <path d="M18 32c1.5 3 4.5 5 8 5s6.5-2 8-5"/>
+          </svg>
+          <h3 class="why-card__title">Environnement Dynamique</h3>
+          <p class="why-card__desc">
+            Évoluez dans un cadre stimulant au rythme des tendances mondiales.
+            Chaque journée apporte de nouveaux défis et de nouvelles opportunités
+            de vous dépasser.
+          </p>
+        </div>
+
+        <!-- Card 2 — Formation Continue -->
+        <div class="why-card reveal reveal-delay-2">
+          <svg class="why-card__icon" viewBox="0 0 52 52" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M6 18l20-10 20 10-20 10z"/>
+            <path d="M6 18v16"/>
+            <path d="M46 18v16"/>
+            <path d="M16 23v12a10 5 0 0 0 20 0V23"/>
+          </svg>
+          <h3 class="why-card__title">Formation Continue</h3>
+          <p class="why-card__desc">
+            Accédez à des programmes de formation sur mesure, des ateliers spécialisés
+            et des mentorats qui accélèrent votre développement professionnel et
+            personnel.
+          </p>
+        </div>
+
+        <!-- Card 3 — Avantages Employés -->
+        <div class="why-card reveal reveal-delay-3">
+          <svg class="why-card__icon" viewBox="0 0 52 52" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M26 8l4.9 9.9 10.9 1.6-7.9 7.7 1.9 10.9L26 33l-9.8 5.1 1.9-10.9L10.2 19.5l10.9-1.6z"/>
+          </svg>
+          <h3 class="why-card__title">Avantages Employés</h3>
+          <p class="why-card__desc">
+            Bénéficiez d'une couverture santé complète, de réductions exclusives
+            dans les boutiques et restaurants du mall, ainsi que d'une politique
+            de bien-être au travail.
+          </p>
+        </div>
+
+        <!-- Card 4 — Diversité & Inclusion -->
+        <div class="why-card reveal reveal-delay-4">
+          <svg class="why-card__icon" viewBox="0 0 52 52" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="20" cy="20" r="8"/>
+            <circle cx="36" cy="20" r="8"/>
+            <circle cx="28" cy="34" r="8"/>
+            <path d="M26 20h2"/>
+            <path d="M24 28l2-4"/>
+          </svg>
+          <h3 class="why-card__title">Diversité &amp; Inclusion</h3>
+          <p class="why-card__desc">
+            Nous croyons en la richesse des différences. Notre équipe multiculturelle
+            de plus de 40 nationalités est le reflet de notre engagement envers
+            un environnement inclusif et respectueux.
+          </p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════
+       FILTER BAR
+  ═══════════════════════════════════════════════════════════ -->
+  <div class="filter-section" id="offres">
+    <div class="container">
+      <div class="filter-bar" role="group" aria-label="Filtrer par département">
+        <button class="filter-chip active" data-dept="all">Tout</button>
+        <button class="filter-chip" data-dept="retail">Retail</button>
+        <button class="filter-chip" data-dept="management">Management</button>
+        <button class="filter-chip" data-dept="marketing">Marketing</button>
+        <button class="filter-chip" data-dept="it">IT</button>
+        <button class="filter-chip" data-dept="services">Services</button>
+        <button class="filter-chip" data-dept="operations">Operations</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════════
+       JOB LISTINGS
+  ═══════════════════════════════════════════════════════════ -->
+  <section class="jobs-section" id="postuler">
+    <div class="container">
+      <div class="reveal" style="margin-bottom:2rem;">
+        <p class="section-eyebrow">Offres d'emploi</p>
+        <h2 class="section-title">Nos <em>opportunités</em></h2>
+      </div>
+      <p class="jobs-count">Affichage de <span id="jobs-visible-count">12</span> offres sur <span>12</span></p>
+      <div class="jobs-grid" id="jobs-grid">
+
+        <!-- 1. Responsable Boutique -->
+        <article class="job-card reveal" data-dept="retail">
+          <div class="job-card__top">
+            <div class="job-card__badges">
+              <span class="badge badge--dept-retail">Retail</span>
+              <span class="badge badge--cdi">CDI</span>
+            </div>
+          </div>
+          <h3 class="job-card__title">Responsable Boutique</h3>
+          <div class="job-card__meta">
+            <span class="job-card__meta-item">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+              Morocco Mall, Casablanca
+            </span>
+          </div>
+          <p class="job-card__desc">
+            Gérez les opérations quotidiennes d'une boutique premium, encadrez l'équipe de vente et
+            développez les performances commerciales en cohérence avec la stratégie de l'enseigne.
+          </p>
+          <div class="job-card__footer">
+            <span class="job-card__date">Publié le 28 mai 2026</span>
+            <a href="#formulaire-candidature" class="btn-apply" onclick="prefillRole('Responsable Boutique')">Postuler</a>
+          </div>
+        </article>
+
+        <!-- 2. Visual Merchandiser -->
+        <article class="job-card reveal reveal-delay-1" data-dept="retail">
+          <div class="job-card__top">
+            <div class="job-card__badges">
+              <span class="badge badge--dept-retail">Retail</span>
+              <span class="badge badge--cdd">CDD</span>
+            </div>
+          </div>
+          <h3 class="job-card__title">Visual Merchandiser</h3>
+          <div class="job-card__meta">
+            <span class="job-card__meta-item">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+              Morocco Mall, Casablanca
+            </span>
+          </div>
+          <p class="job-card__desc">
+            Créez des vitrines et des espaces de vente captivants qui reflètent l'identité de la marque
+            et optimisent l'expérience client au sein du mall.
+          </p>
+          <div class="job-card__footer">
+            <span class="job-card__date">Publié le 25 mai 2026</span>
+            <a href="#formulaire-candidature" class="btn-apply" onclick="prefillRole('Visual Merchandiser')">Postuler</a>
+          </div>
+        </article>
+
+        <!-- 3. Community Manager -->
+        <article class="job-card reveal reveal-delay-2" data-dept="marketing">
+          <div class="job-card__top">
+            <div class="job-card__badges">
+              <span class="badge badge--dept-marketing">Marketing</span>
+              <span class="badge badge--cdi">CDI</span>
+            </div>
+          </div>
+          <h3 class="job-card__title">Community Manager</h3>
+          <div class="job-card__meta">
+            <span class="job-card__meta-item">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+              Morocco Mall, Casablanca
+            </span>
+          </div>
+          <p class="job-card__desc">
+            Animez et développez la présence digitale du mall sur l'ensemble des réseaux sociaux,
+            en créant du contenu engageant et en pilotant les campagnes digitales.
+          </p>
+          <div class="job-card__footer">
+            <span class="job-card__date">Publié le 20 mai 2026</span>
+            <a href="#formulaire-candidature" class="btn-apply" onclick="prefillRole('Community Manager')">Postuler</a>
+          </div>
+        </article>
+
+        <!-- 4. Développeur Web -->
+        <article class="job-card reveal reveal-delay-3" data-dept="it">
+          <div class="job-card__top">
+            <div class="job-card__badges">
+              <span class="badge badge--dept-it">IT</span>
+              <span class="badge badge--cdi">CDI</span>
+            </div>
+          </div>
+          <h3 class="job-card__title">Développeur Web</h3>
+          <div class="job-card__meta">
+            <span class="job-card__meta-item">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+              Morocco Mall, Casablanca
+            </span>
+          </div>
+          <p class="job-card__desc">
+            Développez et maintenez les plateformes digitales du mall. Vous maîtrisez JavaScript,
+            React ou Vue.js et avez le sens du détail pour livrer des interfaces performantes.
+          </p>
+          <div class="job-card__footer">
+            <span class="job-card__date">Publié le 18 mai 2026</span>
+            <a href="#formulaire-candidature" class="btn-apply" onclick="prefillRole('Développeur Web')">Postuler</a>
+          </div>
+        </article>
+
+        <!-- 5. Concierge Manager -->
+        <article class="job-card reveal" data-dept="services">
+          <div class="job-card__top">
+            <div class="job-card__badges">
+              <span class="badge badge--dept-services">Services</span>
+              <span class="badge badge--cdi">CDI</span>
+            </div>
+          </div>
+          <h3 class="job-card__title">Concierge Manager</h3>
+          <div class="job-card__meta">
+            <span class="job-card__meta-item">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+              Morocco Mall, Casablanca
+            </span>
+          </div>
+          <p class="job-card__desc">
+            Supervisez l'ensemble des services de conciergerie et veillez à offrir une expérience
+            visiteur irréprochable. Votre sens du service d'excellence est votre atout majeur.
+          </p>
+          <div class="job-card__footer">
+            <span class="job-card__date">Publié le 15 mai 2026</span>
+            <a href="#formulaire-candidature" class="btn-apply" onclick="prefillRole('Concierge Manager')">Postuler</a>
+          </div>
+        </article>
+
+        <!-- 6. Responsable Marketing -->
+        <article class="job-card reveal reveal-delay-1" data-dept="marketing">
+          <div class="job-card__top">
+            <div class="job-card__badges">
+              <span class="badge badge--dept-marketing">Marketing</span>
+              <span class="badge badge--cdi">CDI</span>
+            </div>
+          </div>
+          <h3 class="job-card__title">Responsable Marketing</h3>
+          <div class="job-card__meta">
+            <span class="job-card__meta-item">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+              Morocco Mall, Casablanca
+            </span>
+          </div>
+          <p class="job-card__desc">
+            Pilotez la stratégie marketing du mall, coordonnez les campagnes saisonnières et
+            développez des partenariats stratégiques pour renforcer la notoriété de la marque.
+          </p>
+          <div class="job-card__footer">
+            <span class="job-card__date">Publié le 12 mai 2026</span>
+            <a href="#formulaire-candidature" class="btn-apply" onclick="prefillRole('Responsable Marketing')">Postuler</a>
+          </div>
+        </article>
+
+        <!-- 7. Chef de Projet IT -->
+        <article class="job-card reveal reveal-delay-2" data-dept="it">
+          <div class="job-card__top">
+            <div class="job-card__badges">
+              <span class="badge badge--dept-it">IT</span>
+              <span class="badge badge--cdd">CDD</span>
+            </div>
+          </div>
+          <h3 class="job-card__title">Chef de Projet IT</h3>
+          <div class="job-card__meta">
+            <span class="job-card__meta-item">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+              Morocco Mall, Casablanca
+            </span>
+          </div>
+          <p class="job-card__desc">
+            Gérez les projets de transformation digitale du mall de bout en bout, en coordonnant
+            les équipes techniques et les parties prenantes métier pour respecter délais et budgets.
+          </p>
+          <div class="job-card__footer">
+            <span class="job-card__date">Publié le 10 mai 2026</span>
+            <a href="#formulaire-candidature" class="btn-apply" onclick="prefillRole('Chef de Projet IT')">Postuler</a>
+          </div>
+        </article>
+
+        <!-- 8. Analyste de données -->
+        <article class="job-card reveal reveal-delay-3" data-dept="it">
+          <div class="job-card__top">
+            <div class="job-card__badges">
+              <span class="badge badge--dept-it">IT</span>
+              <span class="badge badge--stage">Stage</span>
+            </div>
+          </div>
+          <h3 class="job-card__title">Analyste de Données</h3>
+          <div class="job-card__meta">
+            <span class="job-card__meta-item">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+              Morocco Mall, Casablanca
+            </span>
+          </div>
+          <p class="job-card__desc">
+            Collectez, analysez et interprétez les données de fréquentation et de vente pour
+            produire des insights actionnables qui guident les décisions stratégiques du mall.
+          </p>
+          <div class="job-card__footer">
+            <span class="job-card__date">Publié le 8 mai 2026</span>
+            <a href="#formulaire-candidature" class="btn-apply" onclick="prefillRole('Analyste de Données')">Postuler</a>
+          </div>
+        </article>
+
+        <!-- 9. Chef Cuisinier -->
+        <article class="job-card reveal" data-dept="services">
+          <div class="job-card__top">
+            <div class="job-card__badges">
+              <span class="badge badge--dept-services">Services</span>
+              <span class="badge badge--cdi">CDI</span>
+            </div>
+          </div>
+          <h3 class="job-card__title">Chef Cuisinier</h3>
+          <div class="job-card__meta">
+            <span class="job-card__meta-item">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+              Morocco Mall, Casablanca
+            </span>
+          </div>
+          <p class="job-card__desc">
+            Rejoignez l'espace restauration du mall et exprimez votre passion culinaire dans un
+            environnement haut de gamme servant des milliers de convives chaque jour.
+          </p>
+          <div class="job-card__footer">
+            <span class="job-card__date">Publié le 5 mai 2026</span>
+            <a href="#formulaire-candidature" class="btn-apply" onclick="prefillRole('Chef Cuisinier')">Postuler</a>
+          </div>
+        </article>
+
+        <!-- 10. Technicien de Maintenance -->
+        <article class="job-card reveal reveal-delay-1" data-dept="operations">
+          <div class="job-card__top">
+            <div class="job-card__badges">
+              <span class="badge badge--dept-operations">Operations</span>
+              <span class="badge badge--cdi">CDI</span>
+            </div>
+          </div>
+          <h3 class="job-card__title">Technicien de Maintenance</h3>
+          <div class="job-card__meta">
+            <span class="job-card__meta-item">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+              Morocco Mall, Casablanca
+            </span>
+          </div>
+          <p class="job-card__desc">
+            Assurez la maintenance préventive et curative des installations techniques du mall
+            (électricité, climatisation, plomberie) pour garantir un fonctionnement optimal.
+          </p>
+          <div class="job-card__footer">
+            <span class="job-card__date">Publié le 2 mai 2026</span>
+            <a href="#formulaire-candidature" class="btn-apply" onclick="prefillRole('Technicien de Maintenance')">Postuler</a>
+          </div>
+        </article>
+
+        <!-- 11. Coordinateur Événements -->
+        <article class="job-card reveal reveal-delay-2" data-dept="management">
+          <div class="job-card__top">
+            <div class="job-card__badges">
+              <span class="badge badge--dept-management">Management</span>
+              <span class="badge badge--cdd">CDD</span>
+            </div>
+          </div>
+          <h3 class="job-card__title">Coordinateur Événements</h3>
+          <div class="job-card__meta">
+            <span class="job-card__meta-item">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+              Morocco Mall, Casablanca
+            </span>
+          </div>
+          <p class="job-card__desc">
+            Orchestrez les événements phares du mall — défilés, activations marques, célébrations
+            saisonnières — en gérant logistique, fournisseurs et communication de A à Z.
+          </p>
+          <div class="job-card__footer">
+            <span class="job-card__date">Publié le 30 avr. 2026</span>
+            <a href="#formulaire-candidature" class="btn-apply" onclick="prefillRole('Coordinateur Événements')">Postuler</a>
+          </div>
+        </article>
+
+        <!-- 12. Chargé de Communication -->
+        <article class="job-card reveal reveal-delay-3" data-dept="marketing">
+          <div class="job-card__top">
+            <div class="job-card__badges">
+              <span class="badge badge--dept-marketing">Marketing</span>
+              <span class="badge badge--stage">Stage</span>
+            </div>
+          </div>
+          <h3 class="job-card__title">Chargé de Communication</h3>
+          <div class="job-card__meta">
+            <span class="job-card__meta-item">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+              Morocco Mall, Casablanca
+            </span>
+          </div>
+          <p class="job-card__desc">
+            Rédigez et diffusez les communiqués de presse, gérez les relations médias et contribuez
+            à la stratégie de communication externe du mall pour renforcer sa visibilité.
+          </p>
+          <div class="job-card__footer">
+            <span class="job-card__date">Publié le 28 avr. 2026</span>
+            <a href="#formulaire-candidature" class="btn-apply" onclick="prefillRole('Chargé de Communication')">Postuler</a>
+          </div>
+        </article>
+
+      </div><!-- /jobs-grid -->
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════
+       EMPLOYEE QUOTES
+  ═══════════════════════════════════════════════════════════ -->
+  <section class="testimonials-section">
+    <div class="container">
+      <div class="reveal">
+        <p class="section-eyebrow" style="color:var(--gold);">Témoignages</p>
+        <h2 class="section-title" style="color:var(--white);">Ce que disent<br><em style="color:var(--gold-light);">nos collaborateurs</em></h2>
+        <p class="section-intro">Découvrez les parcours authentiques de celles et ceux qui font Morocco Mall chaque jour.</p>
+      </div>
+      <div class="testimonials-grid">
+
+        <!-- Quote 1 -->
+        <div class="testimonial-card reveal reveal-delay-1">
+          <p class="testimonial-card__quote">
+            "Travailler ici m'a permis de progresser bien au-delà de mes attentes. L'environnement
+            est exigeant mais tellement stimulant. En trois ans, j'ai grandi autant
+            professionnellement qu'humainement."
+          </p>
+          <div class="testimonial-card__author">
+            <img
+              src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=120&h=120&fit=crop&crop=faces&q=80"
+              alt="Portrait de Nadia Benali"
+              class="testimonial-card__avatar"
+              loading="lazy"
+            />
+            <div>
+              <div class="testimonial-card__name">Nadia Benali</div>
+              <div class="testimonial-card__role">Responsable Boutique · 3 ans</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Quote 2 -->
+        <div class="testimonial-card reveal reveal-delay-2">
+          <p class="testimonial-card__quote">
+            "Morocco Mall m'a donné les ressources pour explorer ma créativité. Le programme
+            de formation continue est excellent, et l'équipe marketing est vraiment
+            passionnée et soudée."
+          </p>
+          <div class="testimonial-card__author">
+            <img
+              src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=120&h=120&fit=crop&crop=faces&q=80"
+              alt="Portrait de Youssef Alami"
+              class="testimonial-card__avatar"
+              loading="lazy"
+            />
+            <div>
+              <div class="testimonial-card__name">Youssef Alami</div>
+              <div class="testimonial-card__role">Community Manager · 2 ans</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Quote 3 -->
+        <div class="testimonial-card reveal reveal-delay-3">
+          <p class="testimonial-card__quote">
+            "La diversité de l'équipe et la bienveillance du management font de ce lieu
+            un endroit unique où il fait vraiment bon travailler. Chaque projet est
+            une nouvelle aventure collective."
+          </p>
+          <div class="testimonial-card__author">
+            <img
+              src="https://images.unsplash.com/photo-1580489944761-15a19d654956?w=120&h=120&fit=crop&crop=faces&q=80"
+              alt="Portrait de Salma Cherkaoui"
+              class="testimonial-card__avatar"
+              loading="lazy"
+            />
+            <div>
+              <div class="testimonial-card__name">Salma Cherkaoui</div>
+              <div class="testimonial-card__role">Coordinatrice Événements · 4 ans</div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════
+       APPLICATION FORM
+  ═══════════════════════════════════════════════════════════ -->
+  <section class="apply-section" id="formulaire-candidature">
+    <div class="container">
+      <div class="apply-grid">
+
+        <!-- Left — Info -->
+        <div class="reveal">
+          <p class="section-eyebrow">Postuler</p>
+          <h2 class="section-title">Construisez<br><em>votre avenir</em><br>avec nous</h2>
+          <p class="section-intro">
+            Envoyez-nous votre candidature et notre équipe RH vous contactera dans
+            les 5 jours ouvrables. Nous examinons chaque dossier avec soin.
+          </p>
+          <div class="apply-info__list">
+            <div class="apply-info__item">
+              <div class="apply-info__icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.12 12 19.79 19.79 0 0 1 1.07 3.4 2 2 0 0 1 3.04 1.2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 9.91a16 16 0 0 0 6.18 6.18l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+              </div>
+              <div>
+                <div class="apply-info__text-title">Réponse rapide</div>
+                <div class="apply-info__text-desc">Vous serez contacté(e) sous 5 jours ouvrables par notre équipe RH.</div>
+              </div>
+            </div>
+            <div class="apply-info__item">
+              <div class="apply-info__icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+              </div>
+              <div>
+                <div class="apply-info__text-title">Processus transparent</div>
+                <div class="apply-info__text-desc">Entretien RH, entretien métier, puis décision finale sous 2 semaines.</div>
+              </div>
+            </div>
+            <div class="apply-info__item">
+              <div class="apply-info__icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+              </div>
+              <div>
+                <div class="apply-info__text-title">Confidentialité garantie</div>
+                <div class="apply-info__text-desc">Vos données personnelles sont traitées avec la plus grande discrétion.</div>
+              </div>
+            </div>
+            <div class="apply-info__item">
+              <div class="apply-info__icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
+              </div>
+              <div>
+                <div class="apply-info__text-title">Contact RH</div>
+                <div class="apply-info__text-desc">careers@moroccamall.ma &mdash; Du lundi au vendredi, 9h&ndash;17h.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right — Form -->
+        <div class="reveal reveal-delay-2">
+          <form class="apply-form" id="apply-form" novalidate>
+            <h3 class="apply-form__title">Votre candidature</h3>
+            <p class="apply-form__subtitle">Tous les champs marqués * sont obligatoires.</p>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label" for="f-nom">Nom complet <span>*</span></label>
+                <input class="form-input" type="text" id="f-nom" name="nom" placeholder="Ex. : Fatima Zahra" required autocomplete="name" />
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="f-email">Adresse e-mail <span>*</span></label>
+                <input class="form-input" type="email" id="f-email" name="email" placeholder="vous@exemple.com" required autocomplete="email" />
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label" for="f-tel">Téléphone <span>*</span></label>
+                <input class="form-input" type="tel" id="f-tel" name="telephone" placeholder="+212 6 00 00 00 00" required autocomplete="tel" />
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="f-poste">Poste souhaité <span>*</span></label>
+                <select class="form-select" id="f-poste" name="poste" required>
+                  <option value="" disabled selected>Sélectionner un poste</option>
+                  <optgroup label="Retail">
+                    <option value="Responsable Boutique">Responsable Boutique</option>
+                    <option value="Visual Merchandiser">Visual Merchandiser</option>
+                  </optgroup>
+                  <optgroup label="Management">
+                    <option value="Coordinateur Événements">Coordinateur Événements</option>
+                  </optgroup>
+                  <optgroup label="Marketing">
+                    <option value="Community Manager">Community Manager</option>
+                    <option value="Responsable Marketing">Responsable Marketing</option>
+                    <option value="Chargé de Communication">Chargé de Communication</option>
+                  </optgroup>
+                  <optgroup label="IT">
+                    <option value="Développeur Web">Développeur Web</option>
+                    <option value="Chef de Projet IT">Chef de Projet IT</option>
+                    <option value="Analyste de Données">Analyste de Données</option>
+                  </optgroup>
+                  <optgroup label="Services">
+                    <option value="Concierge Manager">Concierge Manager</option>
+                    <option value="Chef Cuisinier">Chef Cuisinier</option>
+                  </optgroup>
+                  <optgroup label="Operations">
+                    <option value="Technicien de Maintenance">Technicien de Maintenance</option>
+                  </optgroup>
+                  <option value="Candidature spontanée">Candidature spontanée</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="f-cv">CV (PDF, DOC — max 5 Mo) <span>*</span></label>
+              <label class="form-file-label" for="f-cv" id="f-cv-label">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+                <span id="f-cv-text">Cliquez pour téléverser votre CV</span>
+              </label>
+              <input type="file" id="f-cv" name="cv" accept=".pdf,.doc,.docx" required />
+              <p class="form-file-name" id="f-cv-name" aria-live="polite"></p>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="f-lettre">Lettre de motivation</label>
+              <textarea
+                class="form-textarea"
+                id="f-lettre"
+                name="lettre"
+                rows="5"
+                placeholder="Décrivez en quelques lignes ce qui vous attire chez Morocco Mall et ce que vous apporteriez à l'équipe..."
+              ></textarea>
+            </div>
+
+            <button type="submit" class="btn-submit">
+              Envoyer ma candidature
+            </button>
+            <div class="form-success" id="form-success" role="alert">
+              Merci pour votre candidature ! Notre equipe RH prendra contact avec vous sous 5 jours ouvrables.
+            </div>
+          </form>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════
+       INTERNSHIP SECTION
+  ═══════════════════════════════════════════════════════════ -->
+  <section class="internship-section">
+    <div class="container">
+      <div class="internship-grid">
+
+        <!-- Image -->
+        <div class="internship-image reveal">
+          <img
+            src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=960&h=720&fit=crop&q=80"
+            alt="Stagiaires Morocco Mall travaillant en équipe"
+            loading="lazy"
+          />
+          <div class="internship-image__badge">
+            <span class="internship-image__badge-num">30+</span>
+            <span class="internship-image__badge-text">Stages par an</span>
+          </div>
+        </div>
+
+        <!-- Content -->
+        <div class="internship-content reveal reveal-delay-2">
+          <p class="section-eyebrow">Stages &amp; Alternance</p>
+          <h2 class="section-title">Démarrez<br>votre carrière<br><em>ici</em></h2>
+          <p class="section-intro">
+            Morocco Mall accueille chaque année plus de 30 stagiaires et alternants dans
+            tous ses départements. C'est votre chance de découvrir le secteur retail
+            premium au plus haut niveau.
+          </p>
+          <ul class="internship-perks">
+            <li class="internship-perk">Immersion dans un environnement international et multiculturel</li>
+            <li class="internship-perk">Encadrement par des professionnels expérimentés</li>
+            <li class="internship-perk">Accès aux formations internes et aux événements du groupe</li>
+            <li class="internship-perk">Indemnité de stage compétitive</li>
+            <li class="internship-perk">Possibilité d'embauche à l'issue du stage selon profil</li>
+            <li class="internship-perk">Durée : 2 à 6 mois selon le poste et la convention</li>
+          </ul>
+          <a href="#formulaire-candidature" class="btn-internship" onclick="prefillRole('Candidature spontanée')">
+            Postuler pour un stage
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </a>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- ═══════════════════════════════════════════════════════════
+     JAVASCRIPT
+═══════════════════════════════════════════════════════════ -->
+<script>
+/* ── Department filter ── */
+(function () {
+  const chips = document.querySelectorAll('.filter-chip');
+  const cards = document.querySelectorAll('#jobs-grid .job-card');
+  const countEl = document.getElementById('jobs-visible-count');
+
+  function updateCount() {
+    const visible = [...cards].filter(c => c.getAttribute('data-hidden') !== 'true').length;
+    if (countEl) countEl.textContent = visible;
+  }
+
+  chips.forEach(chip => {
+    chip.addEventListener('click', () => {
+      chips.forEach(c => c.classList.remove('active'));
+      chip.classList.add('active');
+
+      const dept = chip.dataset.dept;
+
+      cards.forEach(card => {
+        if (dept === 'all' || card.dataset.dept === dept) {
+          card.setAttribute('data-hidden', 'false');
+          card.style.display = '';
+        } else {
+          card.setAttribute('data-hidden', 'true');
+          card.style.display = 'none';
+        }
+      });
+
+      updateCount();
+    });
+  });
+
+  updateCount();
+})();
+
+/* ── Pre-fill role from "Postuler" button ── */
+function prefillRole(roleName) {
+  const select = document.getElementById('f-poste');
+  if (!select) return;
+  for (let i = 0; i < select.options.length; i++) {
+    if (select.options[i].value === roleName) {
+      select.selectedIndex = i;
+      break;
+    }
+  }
+  // Smooth-scroll to form
+  const form = document.getElementById('formulaire-candidature');
+  if (form) {
+    setTimeout(() => {
+      form.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }, 80);
+  }
+}
+
+/* ── CV file input label ── */
+(function () {
+  const input = document.getElementById('f-cv');
+  const nameEl = document.getElementById('f-cv-name');
+  const textEl = document.getElementById('f-cv-text');
+
+  if (!input) return;
+
+  input.addEventListener('change', () => {
+    const file = input.files && input.files[0];
+    if (file) {
+      textEl.textContent = 'Fichier selectionne';
+      nameEl.textContent = file.name;
+    } else {
+      textEl.textContent = 'Cliquez pour telecharger votre CV';
+      nameEl.textContent = '';
+    }
+  });
+})();
+
+/* ── Form submit (front-end only) ── */
+(function () {
+  const form = document.getElementById('apply-form');
+  const successEl = document.getElementById('form-success');
+
+  if (!form) return;
+
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+
+    // Basic HTML5 validation
+    if (!form.checkValidity()) {
+      form.reportValidity();
+      return;
+    }
+
+    // Simulate submission
+    const btn = form.querySelector('.btn-submit');
+    btn.textContent = 'Envoi en cours...';
+    btn.disabled = true;
+
+    setTimeout(() => {
+      if (successEl) {
+        successEl.style.display = 'block';
+      }
+      btn.textContent = 'Candidature envoyee';
+      form.reset();
+      // Reset file label
+      const textEl = document.getElementById('f-cv-text');
+      const nameEl = document.getElementById('f-cv-name');
+      if (textEl) textEl.textContent = 'Cliquez pour telecharger votre CV';
+      if (nameEl) nameEl.textContent = '';
+    }, 1200);
+  });
+})();
+
+/* ── Reveal on scroll ── */
+(function () {
+  const revealEls = document.querySelectorAll('.reveal');
+
+  if (!revealEls.length) return;
+
+  const io = new IntersectionObserver(
+    (entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          io.unobserve(entry.target);
+        }
+      });
+    },
+    { threshold: 0.12 }
+  );
+
+  revealEls.forEach(el => io.observe(el));
+})();
+</script>
+</body>
+</html>

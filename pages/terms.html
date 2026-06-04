@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Conditions Générales d'Utilisation – Morocco Mall</title>
+  <link rel="stylesheet" href="../css/main.css" />
+  <script src="../js/translations.js" defer></script>
+  <script src="../js/app.js" defer></script>
+  <style>
+    /* ── Reset & base ── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Georgia', 'Times New Roman', serif;
+      background: #f9f6f1;
+      color: #1a1a1a;
+      line-height: 1.75;
+    }
+
+    /* ── Hero ── */
+    .hero {
+      background: #000;
+      color: #fff;
+      text-align: center;
+      padding: 80px 24px 64px;
+    }
+
+    .hero__eyebrow {
+      font-family: 'Arial', sans-serif;
+      font-size: 0.75rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: #b89a5a;
+      margin-bottom: 18px;
+    }
+
+    .hero__title {
+      font-size: clamp(1.8rem, 4vw, 3rem);
+      font-weight: 400;
+      letter-spacing: 0.04em;
+      margin-bottom: 20px;
+    }
+
+    .hero__sub {
+      font-size: 0.95rem;
+      color: #aaa;
+      font-family: 'Arial', sans-serif;
+      max-width: 560px;
+      margin: 0 auto;
+    }
+
+    /* ── Page wrapper ── */
+    .page-wrapper {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 56px 24px 96px;
+    }
+
+    .intro {
+      font-size: 0.95rem;
+      color: #555;
+      font-family: 'Arial', sans-serif;
+      margin-bottom: 40px;
+      border-left: 3px solid #b89a5a;
+      padding-left: 16px;
+    }
+
+    /* ── Accordion (details / summary) ── */
+    .accordion-list {
+      list-style: none;
+    }
+
+    .accordion-list li {
+      margin-bottom: 0;
+    }
+
+    .accordion-list li:nth-child(odd) details {
+      background: #fff;
+    }
+
+    .accordion-list li:nth-child(even) details {
+      background: #f3ede3;
+    }
+
+    details {
+      border: 1px solid #e0d8cc;
+      border-bottom: none;
+      transition: background 0.2s;
+    }
+
+    .accordion-list li:last-child details {
+      border-bottom: 1px solid #e0d8cc;
+    }
+
+    summary {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 20px 28px;
+      cursor: pointer;
+      list-style: none;
+      font-family: 'Arial', sans-serif;
+      font-size: 1rem;
+      font-weight: 600;
+      letter-spacing: 0.01em;
+      color: #1a1a1a;
+      user-select: none;
+      gap: 12px;
+    }
+
+    summary::-webkit-details-marker { display: none; }
+
+    summary .section-num {
+      font-size: 0.72rem;
+      color: #b89a5a;
+      letter-spacing: 0.1em;
+      font-weight: 700;
+      min-width: 28px;
+    }
+
+    summary .section-title {
+      flex: 1;
+    }
+
+    summary .chevron {
+      width: 20px;
+      height: 20px;
+      flex-shrink: 0;
+      transition: transform 0.3s ease;
+      color: #b89a5a;
+    }
+
+    details[open] summary .chevron {
+      transform: rotate(180deg);
+    }
+
+    details[open] summary {
+      border-bottom: 1px solid #e0d8cc;
+    }
+
+    .details-body {
+      padding: 24px 28px 28px 28px;
+      font-family: 'Arial', sans-serif;
+      font-size: 0.92rem;
+      color: #3a3a3a;
+      line-height: 1.8;
+    }
+
+    .details-body p + p {
+      margin-top: 12px;
+    }
+
+    .details-body ul {
+      margin: 12px 0 12px 20px;
+    }
+
+    .details-body ul li {
+      margin-bottom: 6px;
+    }
+
+    .details-body strong {
+      color: #1a1a1a;
+    }
+
+    .details-body a {
+      color: #b89a5a;
+      text-decoration: none;
+    }
+
+    .details-body a:hover {
+      text-decoration: underline;
+    }
+
+    /* ── Footer note ── */
+    .legal-footer {
+      margin-top: 56px;
+      padding-top: 24px;
+      border-top: 1px solid #e0d8cc;
+      font-family: 'Arial', sans-serif;
+      font-size: 0.82rem;
+      color: #888;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ── Hero ── -->
+  <section class="hero">
+    <p class="hero__eyebrow">Morocco Mall · Casablanca</p>
+    <h1 class="hero__title">Conditions Générales d'Utilisation</h1>
+    <p class="hero__sub">Dernière mise à jour : juin 2026</p>
+  </section>
+
+  <!-- ── Content ── -->
+  <main class="page-wrapper">
+
+    <p class="intro">
+      Veuillez lire attentivement les présentes Conditions Générales d'Utilisation avant d'utiliser le site
+      <strong>www.moroccomall.ma</strong>. En accédant à ce site, vous acceptez d'être lié par l'ensemble des
+      dispositions ci-dessous.
+    </p>
+
+    <ul class="accordion-list">
+
+      <!-- 1 -->
+      <li>
+        <details>
+          <summary>
+            <span class="section-num">01</span>
+            <span class="section-title">Objet du site</span>
+            <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="6 9 12 15 18 9"></polyline>
+            </svg>
+          </summary>
+          <div class="details-body">
+            <p>
+              Le site <strong>www.moroccomall.ma</strong> est édité par la société <strong>AKSAL S.A.</strong>,
+              propriétaire et gestionnaire du Morocco Mall, situé Boulevard de la Corniche, Ain Diab, 20180 Casablanca,
+              Maroc.
+            </p>
+            <p>
+              Ce site a pour objet de présenter les enseignes, services, événements et actualités du Morocco Mall,
+              premier centre commercial haut de gamme du Maroc. Il permet également aux visiteurs de consulter les
+              horaires, de s'inscrire à des newsletters, de prendre connaissance des offres promotionnelles et
+              d'accéder aux espaces partenaires.
+            </p>
+            <p>
+              L'accès au site est gratuit. AKSAL S.A. se réserve le droit de modifier, suspendre ou interrompre tout
+              ou partie des services proposés sur ce site à tout moment et sans préavis.
+            </p>
+          </div>
+        </details>
+      </li>
+
+      <!-- 2 -->
+      <li>
+        <details>
+          <summary>
+            <span class="section-num">02</span>
+            <span class="section-title">Propriété intellectuelle</span>
+            <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="6 9 12 15 18 9"></polyline>
+            </svg>
+          </summary>
+          <div class="details-body">
+            <p>
+              L'ensemble des éléments constituant ce site – notamment la structure, le design, les textes, les
+              photographies, les vidéos, les logos, les icônes, les illustrations, les graphiques et le code source –
+              est la propriété exclusive d'<strong>AKSAL S.A.</strong> ou de ses partenaires et est protégé par les
+              lois marocaines et internationales relatives à la propriété intellectuelle.
+            </p>
+            <p>
+              Toute reproduction, représentation, modification, publication ou transmission, totale ou partielle, du
+              contenu de ce site, par quelque procédé que ce soit, sans autorisation préalable et écrite d'AKSAL S.A.,
+              est strictement interdite et constitue une contrefaçon sanctionnée par la loi.
+            </p>
+            <p>
+              Les marques et logos figurant sur ce site sont des marques déposées appartenant à AKSAL S.A. ou à des
+              tiers partenaires. Toute utilisation non autorisée de ces marques est interdite.
+            </p>
+          </div>
+        </details>
+      </li>
+
+      <!-- 3 -->
+      <li>
+        <details>
+          <summary>
+            <span class="section-num">03</span>
+            <span class="section-title">Responsabilité</span>
+            <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="6 9 12 15 18 9"></polyline>
+            </svg>
+          </summary>
+          <div class="details-body">
+            <p>
+              AKSAL S.A. met tout en œuvre pour assurer l'exactitude et la mise à jour des informations diffusées sur
+              ce site. Toutefois, la société ne peut garantir l'exhaustivité, l'exactitude ou l'actualité des
+              informations présentées et se réserve le droit de corriger à tout moment leur contenu.
+            </p>
+            <p>
+              AKSAL S.A. ne saurait être tenue responsable des dommages directs ou indirects résultant de l'accès ou
+              de l'utilisation de ce site, notamment :
+            </p>
+            <ul>
+              <li>Une interruption ou indisponibilité du site.</li>
+              <li>Des erreurs ou omissions dans les contenus publiés.</li>
+              <li>L'intrusion d'un tiers ayant entraîné une modification des informations.</li>
+              <li>La transmission de virus ou tout autre élément nuisible lors du téléchargement de données.</li>
+            </ul>
+            <p>
+              L'utilisateur est seul responsable de l'utilisation qu'il fait des informations disponibles sur ce site.
+            </p>
+          </div>
+        </details>
+      </li>
+
+      <!-- 4 -->
+      <li>
+        <details>
+          <summary>
+            <span class="section-num">04</span>
+            <span class="section-title">Données personnelles</span>
+            <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="6 9 12 15 18 9"></polyline>
+            </svg>
+          </summary>
+          <div class="details-body">
+            <p>
+              Conformément à la <strong>loi n° 09-08 relative à la protection des personnes physiques à l'égard du
+              traitement des données à caractère personnel</strong>, promulguée par le Dahir n° 1-09-15 du 18 février
+              2009, AKSAL S.A. s'engage à protéger la vie privée des utilisateurs de ce site.
+            </p>
+            <p>
+              Les données personnelles collectées via les formulaires du site (inscription newsletter, demandes de
+              contact, programme de fidélité) sont destinées exclusivement à AKSAL S.A. et ne sont en aucun cas
+              cédées ou vendues à des tiers sans le consentement préalable de l'utilisateur.
+            </p>
+            <p>
+              Conformément à la loi, vous disposez d'un droit d'accès, de rectification et de suppression des données
+              vous concernant. Pour exercer ces droits, vous pouvez adresser une demande à :
+              <a href="mailto:privacy@moroccomall.ma">privacy@moroccomall.ma</a>.
+            </p>
+            <p>
+              Le traitement des données personnelles a été déclaré à la <strong>Commission Nationale de contrôle de la
+              protection des Données à caractère Personnel (CNDP)</strong>.
+            </p>
+          </div>
+        </details>
+      </li>
+
+      <!-- 5 -->
+      <li>
+        <details>
+          <summary>
+            <span class="section-num">05</span>
+            <span class="section-title">Cookies</span>
+            <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="6 9 12 15 18 9"></polyline>
+            </svg>
+          </summary>
+          <div class="details-body">
+            <p>
+              Ce site utilise des cookies afin d'améliorer l'expérience de navigation et de fournir des fonctionnalités
+              adaptées aux préférences des utilisateurs. Un cookie est un petit fichier texte déposé sur votre terminal
+              lors de la visite d'un site web.
+            </p>
+            <p>Les cookies utilisés sur ce site peuvent être classés en trois catégories :</p>
+            <ul>
+              <li><strong>Cookies essentiels</strong> : nécessaires au fonctionnement du site (session, sécurité).</li>
+              <li><strong>Cookies analytiques</strong> : permettent de mesurer l'audience et d'améliorer les
+                performances du site (ex. Google Analytics).</li>
+              <li><strong>Cookies marketing</strong> : utilisés pour vous proposer des publicités personnalisées sur
+                nos canaux partenaires.</li>
+            </ul>
+            <p>
+              Vous pouvez à tout moment configurer votre navigateur pour refuser ou supprimer les cookies. Sachez
+              cependant que la désactivation de certains cookies peut affecter votre expérience de navigation sur
+              ce site.
+            </p>
+          </div>
+        </details>
+      </li>
+
+      <!-- 6 -->
+      <li>
+        <details>
+          <summary>
+            <span class="section-num">06</span>
+            <span class="section-title">Liens externes</span>
+            <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="6 9 12 15 18 9"></polyline>
+            </svg>
+          </summary>
+          <div class="details-body">
+            <p>
+              Ce site peut contenir des liens hypertextes renvoyant vers des sites tiers. Ces liens sont fournis à
+              titre indicatif et informatif uniquement.
+            </p>
+            <p>
+              AKSAL S.A. n'exerce aucun contrôle sur le contenu des sites tiers et n'assume aucune responsabilité
+              quant aux informations, produits ou services qu'ils proposent, ni quant à leur politique de
+              confidentialité ou leurs conditions d'utilisation.
+            </p>
+            <p>
+              La mise en place d'un lien hypertexte vers le site www.moroccomall.ma nécessite une autorisation
+              préalable et écrite d'AKSAL S.A. Pour toute demande, veuillez contacter :
+              <a href="mailto:digital@moroccomall.ma">digital@moroccomall.ma</a>.
+            </p>
+          </div>
+        </details>
+      </li>
+
+      <!-- 7 -->
+      <li>
+        <details>
+          <summary>
+            <span class="section-num">07</span>
+            <span class="section-title">Droit applicable</span>
+            <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="6 9 12 15 18 9"></polyline>
+            </svg>
+          </summary>
+          <div class="details-body">
+            <p>
+              Les présentes Conditions Générales d'Utilisation sont régies par le <strong>droit marocain</strong>.
+            </p>
+            <p>
+              Tout litige relatif à l'utilisation du site www.moroccomall.ma sera soumis à la compétence exclusive
+              des juridictions compétentes de <strong>Casablanca, Maroc</strong>, sauf disposition légale contraire.
+            </p>
+            <p>
+              En cas de difficulté dans l'interprétation des présentes CGU, seule la version française fait foi.
+              AKSAL S.A. se réserve le droit de modifier à tout moment les présentes CGU sans préavis. Les
+              modifications prennent effet dès leur publication sur le site.
+            </p>
+          </div>
+        </details>
+      </li>
+
+      <!-- 8 -->
+      <li>
+        <details>
+          <summary>
+            <span class="section-num">08</span>
+            <span class="section-title">Contact juridique</span>
+            <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="6 9 12 15 18 9"></polyline>
+            </svg>
+          </summary>
+          <div class="details-body">
+            <p>
+              Pour toute question relative aux présentes Conditions Générales d'Utilisation ou pour exercer vos droits
+              en matière de données personnelles, vous pouvez nous contacter par les moyens suivants :
+            </p>
+            <ul>
+              <li><strong>Email :</strong> <a href="mailto:legal@moroccomall.ma">legal@moroccomall.ma</a></li>
+              <li><strong>Courrier :</strong> AKSAL S.A. – Direction Juridique, Morocco Mall, Boulevard de la
+                Corniche, Ain Diab, 20180 Casablanca, Maroc</li>
+              <li><strong>Téléphone :</strong> +212 5 22 97 97 97</li>
+            </ul>
+            <p>
+              Nous nous engageons à répondre à toute demande dans un délai maximum de <strong>30 jours ouvrés</strong>
+              à compter de la réception de votre requête.
+            </p>
+          </div>
+        </details>
+      </li>
+
+    </ul>
+
+    <p class="legal-footer">
+      &copy; 2026 AKSAL S.A. – Morocco Mall. Tous droits réservés. | RC Casablanca &nbsp;·&nbsp;
+      IF &nbsp;·&nbsp; Patente &nbsp;·&nbsp; CNSS
+    </p>
+
+  </main>
+
+</body>
+</html>

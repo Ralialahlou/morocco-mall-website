@@ -1,0 +1,18 @@
+User-agent: *
+Allow: /
+
+# Block admin/dev directories
+Disallow: /node_modules/
+Disallow: /.git/
+Disallow: /data/
+
+# Allow crawling of all pages
+Allow: /pages/
+Allow: /assets/
+Allow: /css/
+Allow: /js/
+
+Sitemap: https://www.moroccomall.ma/sitemap.xml
+
+# Crawl-delay for polite bots
+Crawl-delay: 1

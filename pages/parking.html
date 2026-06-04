@@ -1,0 +1,1301 @@
+<!DOCTYPE html>
+<html lang="fr" dir="ltr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Parking Morocco Mall — 3 000+ places, gratuit 2 heures, 30+ bornes EV, valet parking, accès PMR. Ouvert 24h/24 7j/7." />
+  <title>Parking — Morocco Mall</title>
+  <link rel="icon" href="../assets/logo.png" type="image/png" />
+  <link rel="stylesheet" href="../css/main.css" />
+  <style>
+    /* ============================================================
+       PARKING PAGE — page-level styles
+       ============================================================ */
+
+    /* Hero */
+    .prk-hero {
+      background: var(--black);
+      padding: clamp(6rem, 14vw, 11rem) 0 clamp(4rem, 8vw, 7rem);
+      position: relative;
+      overflow: hidden;
+    }
+    .prk-hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 50% 80% at 10% 60%, rgba(201,169,110,0.05) 0%, transparent 65%),
+                  radial-gradient(ellipse 40% 60% at 90% 20%, rgba(201,169,110,0.04) 0%, transparent 60%);
+      pointer-events: none;
+    }
+    /* Subtle grid texture */
+    .prk-hero::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.015) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.015) 1px, transparent 1px);
+      background-size: 80px 80px;
+      pointer-events: none;
+    }
+    .prk-hero__inner {
+      position: relative;
+      z-index: 1;
+    }
+    .prk-breadcrumb {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.7rem;
+      color: rgba(255,255,255,0.3);
+      margin-bottom: 2.5rem;
+    }
+    .prk-breadcrumb a { color: rgba(255,255,255,0.4); transition: color 0.2s; }
+    .prk-breadcrumb a:hover { color: var(--gold); }
+    .prk-breadcrumb span { color: rgba(255,255,255,0.2); }
+    .prk-hero__eyebrow {
+      font-size: 0.65rem;
+      font-weight: 500;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 1.2rem;
+    }
+    .prk-hero__title {
+      font-family: var(--font-display);
+      font-size: clamp(3rem, 8vw, 7rem);
+      font-weight: 300;
+      line-height: 1;
+      color: var(--white);
+      margin-bottom: 1.5rem;
+    }
+    .prk-hero__title em { font-style: italic; color: var(--gold-light); }
+    .prk-hero__sub {
+      font-size: clamp(0.88rem, 1.6vw, 1.05rem);
+      color: rgba(255,255,255,0.42);
+      max-width: 520px;
+      line-height: 1.8;
+    }
+
+    /* ----  QUICK INFO BAR ---- */
+    .prk-info-bar {
+      background: var(--black);
+      border-top: 1px solid rgba(255,255,255,0.07);
+    }
+    .prk-info-bar__inner {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0;
+    }
+    @media (max-width: 760px) {
+      .prk-info-bar__inner { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 420px) {
+      .prk-info-bar__inner { grid-template-columns: 1fr; }
+    }
+    .prk-stat {
+      padding: clamp(1.5rem, 3vw, 2.5rem) clamp(1.2rem, 3vw, 2.5rem);
+      border-right: 1px solid rgba(255,255,255,0.07);
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+    }
+    .prk-stat:last-child { border-right: none; }
+    @media (max-width: 760px) {
+      .prk-stat:nth-child(2) { border-right: none; }
+      .prk-stat:nth-child(3) { border-right: 1px solid rgba(255,255,255,0.07); }
+      .prk-stat { border-bottom: 1px solid rgba(255,255,255,0.07); }
+    }
+    .prk-stat__icon {
+      width: 32px;
+      height: 32px;
+      margin-bottom: 0.5rem;
+    }
+    .prk-stat__icon svg {
+      width: 100%;
+      height: 100%;
+      stroke: var(--gold);
+      stroke-width: 1.4;
+      fill: none;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+    .prk-stat__value {
+      font-family: var(--font-display);
+      font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+      font-weight: 300;
+      color: var(--white);
+      line-height: 1;
+    }
+    .prk-stat__label {
+      font-size: 0.7rem;
+      font-weight: 400;
+      color: rgba(255,255,255,0.38);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    /* ---- SECTION HELPERS ---- */
+    .prk-eyebrow {
+      font-size: 0.62rem;
+      font-weight: 500;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold-dark);
+      margin-bottom: 0.6rem;
+    }
+    .prk-section-title {
+      font-family: var(--font-display);
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      font-weight: 300;
+      line-height: 1.1;
+      margin-bottom: 0.5rem;
+    }
+    .prk-section-title em { font-style: italic; }
+    .prk-section-sub {
+      font-size: 0.84rem;
+      color: var(--gray-400);
+      line-height: 1.75;
+      max-width: 460px;
+    }
+
+    /* ---- PARKING TYPES GRID ---- */
+    .prk-types {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1px;
+      background: var(--gray-200);
+    }
+    @media (max-width: 1100px) { .prk-types { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 560px)  { .prk-types { grid-template-columns: 1fr; } }
+
+    .prk-type-card {
+      background: var(--white);
+      padding: clamp(2rem, 4vw, 3rem) clamp(1.5rem, 3vw, 2.5rem);
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      transition: background 0.25s;
+    }
+    .prk-type-card:hover { background: var(--cream); }
+    .prk-type-card__icon {
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      margin-bottom: 0.5rem;
+    }
+    .prk-type-card__icon svg {
+      width: 40px;
+      height: 40px;
+      stroke: var(--black);
+      stroke-width: 1.35;
+      fill: none;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      transition: stroke 0.25s;
+    }
+    .prk-type-card:hover .prk-type-card__icon svg { stroke: var(--gold-dark); }
+    .prk-type-card__title {
+      font-family: var(--font-display);
+      font-size: 1.35rem;
+      font-weight: 400;
+      line-height: 1.15;
+      color: var(--black);
+    }
+    .prk-type-card__desc {
+      font-size: 0.8rem;
+      color: var(--gray-600);
+      line-height: 1.8;
+      flex-grow: 1;
+    }
+    .prk-type-card__price-row {
+      display: flex;
+      align-items: baseline;
+      gap: 0.5rem;
+      padding-top: 0.5rem;
+      border-top: 1px solid var(--gray-200);
+      margin-top: auto;
+    }
+    .prk-type-card__price {
+      font-family: var(--font-display);
+      font-size: 1.2rem;
+      font-weight: 500;
+      color: var(--black);
+    }
+    .prk-type-card__price-note {
+      font-size: 0.68rem;
+      color: var(--gray-400);
+      letter-spacing: 0.06em;
+    }
+    .prk-type-card__tag {
+      font-size: 0.62rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--gray-400);
+      font-weight: 500;
+    }
+
+    /* ---- ROSE BOULEVARD VIP SECTION ---- */
+    .prk-vip {
+      background: linear-gradient(145deg, #0D0B09 0%, #1C1408 45%, #100E08 75%, #0D0B09 100%);
+      padding: clamp(4rem, 9vw, 8rem) 0;
+      position: relative;
+      overflow: hidden;
+    }
+    /* Corner decorative rings */
+    .prk-vip__deco-ring {
+      position: absolute;
+      border: 1px solid rgba(201,169,110,0.06);
+      border-radius: 50%;
+      pointer-events: none;
+    }
+    .prk-vip__deco-ring--1 {
+      width: 480px; height: 480px;
+      bottom: -160px; right: -100px;
+    }
+    .prk-vip__deco-ring--2 {
+      width: 320px; height: 320px;
+      bottom: -80px; right: -20px;
+      border-color: rgba(201,169,110,0.04);
+    }
+    .prk-vip__deco-ring--3 {
+      width: 200px; height: 200px;
+      top: -60px; left: -40px;
+      border-color: rgba(201,169,110,0.05);
+    }
+    /* Top gold line accent */
+    .prk-vip::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent 0%, rgba(201,169,110,0.35) 30%, rgba(201,169,110,0.35) 70%, transparent 100%);
+    }
+    .prk-vip__inner {
+      position: relative;
+      z-index: 1;
+    }
+    .prk-vip__label {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-size: 0.6rem;
+      font-weight: 500;
+      letter-spacing: 0.24em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 1.4rem;
+      padding: 0.4rem 0.9rem;
+      border: 1px solid rgba(201,169,110,0.3);
+    }
+    .prk-vip__label-dot {
+      width: 5px;
+      height: 5px;
+      background: var(--gold);
+      border-radius: 50%;
+    }
+    .prk-vip__title {
+      font-family: var(--font-display);
+      font-size: clamp(2.4rem, 6vw, 5rem);
+      font-weight: 300;
+      color: var(--white);
+      line-height: 1.05;
+      margin-bottom: 0.6rem;
+    }
+    .prk-vip__title em { font-style: italic; color: var(--gold-light); }
+    .prk-vip__subtitle {
+      font-size: clamp(0.85rem, 1.5vw, 1rem);
+      color: rgba(255,255,255,0.38);
+      max-width: 540px;
+      line-height: 1.85;
+      margin-bottom: 3rem;
+    }
+
+    /* VIP layout: left info + right benefits */
+    .prk-vip__layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: clamp(3rem, 7vw, 7rem);
+      align-items: start;
+    }
+    @media (max-width: 820px) {
+      .prk-vip__layout { grid-template-columns: 1fr; }
+    }
+
+    /* Access conditions */
+    .prk-vip__access-heading {
+      font-size: 0.62rem;
+      font-weight: 500;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.3);
+      margin-bottom: 1.2rem;
+    }
+    .prk-vip__access-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+    .prk-vip__access-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+      padding: 1.1rem 0;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+    .prk-vip__access-item:last-child { border-bottom: none; }
+    .prk-vip__access-icon {
+      width: 36px;
+      height: 36px;
+      border: 1px solid rgba(201,169,110,0.25);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .prk-vip__access-icon svg {
+      width: 17px; height: 17px;
+      stroke: var(--gold);
+      stroke-width: 1.5;
+      fill: none;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+    .prk-vip__access-text-title {
+      font-size: 0.8rem;
+      font-weight: 500;
+      color: var(--white);
+      margin-bottom: 0.2rem;
+    }
+    .prk-vip__access-text-desc {
+      font-size: 0.74rem;
+      color: rgba(255,255,255,0.38);
+      line-height: 1.65;
+    }
+
+    /* Benefits panel */
+    .prk-vip__benefits-heading {
+      font-size: 0.62rem;
+      font-weight: 500;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.3);
+      margin-bottom: 1.2rem;
+    }
+    .prk-vip__benefits-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1px;
+      background: rgba(201,169,110,0.12);
+      margin-bottom: 2rem;
+    }
+    .prk-vip__benefit {
+      background: rgba(255,255,255,0.03);
+      padding: 1.5rem 1.4rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+    .prk-vip__benefit-icon svg {
+      width: 26px; height: 26px;
+      stroke: var(--gold);
+      stroke-width: 1.4;
+      fill: none;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+    .prk-vip__benefit-title {
+      font-family: var(--font-display);
+      font-size: 1rem;
+      font-weight: 400;
+      color: var(--white);
+    }
+    .prk-vip__benefit-desc {
+      font-size: 0.72rem;
+      color: rgba(255,255,255,0.38);
+      line-height: 1.6;
+    }
+
+    .btn--gold-solid {
+      display: inline-block;
+      font-size: 0.65rem;
+      font-weight: 500;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      background: var(--gold);
+      color: var(--black);
+      padding: 0.85rem 1.8rem;
+      transition: background 0.25s;
+    }
+    .btn--gold-solid:hover { background: var(--gold-light); }
+    .btn--gold-outline {
+      display: inline-block;
+      font-size: 0.65rem;
+      font-weight: 500;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      border: 1px solid var(--gold);
+      color: var(--gold-light);
+      padding: 0.85rem 1.8rem;
+      transition: background 0.25s, color 0.25s;
+    }
+    .btn--gold-outline:hover { background: var(--gold); color: var(--black); }
+
+    /* ---- ENTRANCES / HOW TO GET THERE ---- */
+    .prk-entrances {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1px;
+      background: var(--gray-200);
+    }
+    @media (max-width: 1000px) { .prk-entrances { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 520px)  { .prk-entrances { grid-template-columns: 1fr; } }
+
+    .prk-entrance-card {
+      background: var(--cream);
+      padding: clamp(2rem, 4vw, 2.8rem) clamp(1.5rem, 3vw, 2.2rem);
+      display: flex;
+      flex-direction: column;
+      gap: 0.7rem;
+      position: relative;
+      overflow: hidden;
+      transition: background 0.25s;
+    }
+    .prk-entrance-card:hover { background: var(--cream-dark); }
+
+    /* Animated arrow */
+    .prk-entrance-card__arrow-container {
+      position: absolute;
+      top: 1.5rem;
+      right: 1.5rem;
+      width: 40px;
+      height: 40px;
+    }
+    .prk-entrance-card__arrow-container svg {
+      width: 100%;
+      height: 100%;
+      stroke: var(--gold);
+      stroke-width: 1.5;
+      fill: none;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      animation: arrowPulse 2.4s ease-in-out infinite;
+    }
+    /* Each entrance card gets its own rotation */
+    .prk-entrance-card--nord .prk-entrance-card__arrow-container svg  { transform: rotate(0deg); }
+    .prk-entrance-card--sud  .prk-entrance-card__arrow-container svg  { transform: rotate(180deg); }
+    .prk-entrance-card--est  .prk-entrance-card__arrow-container svg  { transform: rotate(90deg); }
+    .prk-entrance-card--ouest .prk-entrance-card__arrow-container svg { transform: rotate(270deg); }
+
+    @keyframes arrowPulse {
+      0%, 100% { opacity: 0.4; }
+      50%       { opacity: 1; }
+    }
+
+    .prk-entrance-card__compass {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 44px;
+      height: 44px;
+      background: var(--black);
+      font-family: var(--font-display);
+      font-size: 1.1rem;
+      font-weight: 300;
+      color: var(--gold);
+      margin-bottom: 0.3rem;
+    }
+    .prk-entrance-card__title {
+      font-family: var(--font-display);
+      font-size: 1.3rem;
+      font-weight: 400;
+      color: var(--black);
+      line-height: 1.15;
+    }
+    .prk-entrance-card__landmark {
+      font-size: 0.7rem;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--gray-400);
+    }
+    .prk-entrance-card__desc {
+      font-size: 0.78rem;
+      color: var(--gray-600);
+      line-height: 1.75;
+      flex-grow: 1;
+    }
+    .prk-entrance-card__levels {
+      display: flex;
+      gap: 0.4rem;
+      flex-wrap: wrap;
+      margin-top: 0.5rem;
+    }
+    .prk-entrance-card__level-tag {
+      font-size: 0.6rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      background: var(--white);
+      color: var(--gray-600);
+      padding: 0.25rem 0.6rem;
+      border: 1px solid var(--gray-200);
+    }
+
+    /* Moving arrows animation for the full entrance section header */
+    .prk-direction-strip {
+      display: flex;
+      align-items: center;
+      gap: 1.2rem;
+      overflow: hidden;
+      margin-bottom: 2.5rem;
+    }
+    .prk-direction-strip__arrows {
+      display: flex;
+      gap: 0.5rem;
+    }
+    .prk-direction-strip__arrows svg {
+      width: 18px; height: 18px;
+      stroke: var(--gold);
+      stroke-width: 1.5;
+      fill: none;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+    .prk-direction-strip__arrows svg:nth-child(1) { animation: arrowFlow 1.6s ease-in-out infinite 0s; }
+    .prk-direction-strip__arrows svg:nth-child(2) { animation: arrowFlow 1.6s ease-in-out infinite 0.2s; }
+    .prk-direction-strip__arrows svg:nth-child(3) { animation: arrowFlow 1.6s ease-in-out infinite 0.4s; }
+    @keyframes arrowFlow {
+      0%, 100% { opacity: 0.2; transform: translateX(0); }
+      50%       { opacity: 1;   transform: translateX(4px); }
+    }
+
+    /* ---- PARKING TIPS ---- */
+    .prk-tips {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: clamp(2rem, 5vw, 5rem);
+      align-items: start;
+    }
+    @media (max-width: 760px) {
+      .prk-tips { grid-template-columns: 1fr; }
+    }
+    .prk-tips-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+    .prk-tip-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 1.2rem;
+      padding: 1.4rem 0;
+      border-bottom: 1px solid var(--gray-200);
+    }
+    .prk-tip-item:first-child { padding-top: 0; }
+    .prk-tip-item:last-child  { border-bottom: none; }
+    .prk-tip-item__number {
+      font-family: var(--font-display);
+      font-size: 2.2rem;
+      font-weight: 300;
+      color: var(--gray-200);
+      line-height: 1;
+      flex-shrink: 0;
+      min-width: 2.5rem;
+    }
+    .prk-tip-item__title {
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: var(--black);
+      margin-bottom: 0.3rem;
+    }
+    .prk-tip-item__desc {
+      font-size: 0.78rem;
+      color: var(--gray-600);
+      line-height: 1.75;
+    }
+
+    /* Tip side panel */
+    .prk-tips-panel {
+      background: var(--black);
+      padding: clamp(2rem, 4vw, 3rem);
+      position: relative;
+      overflow: hidden;
+    }
+    .prk-tips-panel::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--gold) 0%, transparent 100%);
+    }
+    .prk-tips-panel__eyebrow {
+      font-size: 0.6rem;
+      font-weight: 500;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 1rem;
+    }
+    .prk-tips-panel__title {
+      font-family: var(--font-display);
+      font-size: clamp(1.6rem, 3vw, 2.2rem);
+      font-weight: 300;
+      color: var(--white);
+      line-height: 1.1;
+      margin-bottom: 1.5rem;
+    }
+    .prk-tips-panel__title em { font-style: italic; color: var(--gold-light); }
+    .prk-tips-panel__item {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.8rem;
+      padding: 0.9rem 0;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+    .prk-tips-panel__item:last-child { border-bottom: none; }
+    .prk-tips-panel__item-dot {
+      width: 6px;
+      height: 6px;
+      background: var(--gold);
+      border-radius: 50%;
+      margin-top: 0.35rem;
+      flex-shrink: 0;
+    }
+    .prk-tips-panel__item-text {
+      font-size: 0.78rem;
+      color: rgba(255,255,255,0.5);
+      line-height: 1.7;
+    }
+    .prk-tips-panel__item-text strong {
+      color: rgba(255,255,255,0.85);
+      font-weight: 500;
+    }
+    .prk-tips-panel__peak {
+      margin-top: 1.5rem;
+      padding: 1rem 1.2rem;
+      background: rgba(201,169,110,0.07);
+      border-left: 2px solid var(--gold);
+    }
+    .prk-tips-panel__peak-label {
+      font-size: 0.6rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 0.3rem;
+    }
+    .prk-tips-panel__peak-text {
+      font-size: 0.78rem;
+      color: rgba(255,255,255,0.45);
+      line-height: 1.65;
+    }
+
+    /* ---- BOTTOM CTA STRIP ---- */
+    .prk-cta-strip {
+      background: var(--cream);
+      padding: clamp(3rem, 6vw, 5rem) 0;
+      border-top: 1px solid var(--gray-200);
+    }
+    .prk-cta-strip__inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 2rem;
+      flex-wrap: wrap;
+    }
+    .prk-cta-strip__label {
+      font-size: 0.62rem;
+      font-weight: 500;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold-dark);
+      margin-bottom: 0.5rem;
+    }
+    .prk-cta-strip__title {
+      font-family: var(--font-display);
+      font-size: clamp(1.6rem, 3.5vw, 2.4rem);
+      font-weight: 300;
+      color: var(--black);
+      line-height: 1.1;
+    }
+    .prk-cta-strip__title em { font-style: italic; }
+    .btn--dark {
+      display: inline-block;
+      font-size: 0.65rem;
+      font-weight: 500;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      background: var(--black);
+      color: var(--white);
+      padding: 0.85rem 1.8rem;
+      transition: background 0.25s;
+    }
+    .btn--dark:hover { background: var(--gray-800); }
+  </style>
+</head>
+<body>
+<main id="main-content">
+
+  <!-- ============================================================
+       PAGE HERO
+       ============================================================ -->
+  <div class="prk-hero">
+    <div class="container prk-hero__inner">
+      <nav class="prk-breadcrumb" aria-label="Fil d'ariane">
+        <a href="../index.html">Morocco Mall</a>
+        <span aria-hidden="true">›</span>
+        <span>Parking</span>
+      </nav>
+      <p class="prk-hero__eyebrow">Accès &amp; Stationnement</p>
+      <h1 class="prk-hero__title">
+        Parking<br><em>Morocco Mall</em>
+      </h1>
+      <p class="prk-hero__sub">
+        3 000+ places de stationnement, gratuit les 2 premières heures avec validation en boutique. Accès sécurisé 24h/24 7j/7, avec bornes EV et valet premium.
+      </p>
+    </div>
+  </div>
+
+
+  <!-- ============================================================
+       QUICK INFO BAR
+       ============================================================ -->
+  <div class="prk-info-bar reveal">
+    <div class="container" style="padding-left:0;padding-right:0;">
+      <div class="prk-info-bar__inner">
+
+        <!-- 3000+ places -->
+        <div class="prk-stat">
+          <div class="prk-stat__icon" aria-hidden="true">
+            <svg viewBox="0 0 32 32">
+              <rect x="3" y="5" width="26" height="22" rx="2"/>
+              <path d="M11 11h7a4 4 0 0 1 0 8h-7V11z"/>
+              <line x1="11" y1="19" x2="11" y2="27"/>
+            </svg>
+          </div>
+          <div class="prk-stat__value">3 000+</div>
+          <div class="prk-stat__label">Places disponibles</div>
+        </div>
+
+        <!-- Gratuit 2h -->
+        <div class="prk-stat">
+          <div class="prk-stat__icon" aria-hidden="true">
+            <svg viewBox="0 0 32 32">
+              <circle cx="16" cy="16" r="12"/>
+              <polyline points="16,8 16,16 21,21"/>
+            </svg>
+          </div>
+          <div class="prk-stat__value">Gratuit 2h</div>
+          <div class="prk-stat__label">Avec validation boutique</div>
+        </div>
+
+        <!-- 30+ bornes EV -->
+        <div class="prk-stat">
+          <div class="prk-stat__icon" aria-hidden="true">
+            <svg viewBox="0 0 32 32">
+              <rect x="9" y="4" width="14" height="20" rx="2"/>
+              <path d="M14 16l3-6v8l3-2"/>
+              <line x1="13" y1="24" x2="13" y2="28"/>
+              <line x1="19" y1="24" x2="19" y2="28"/>
+              <line x1="23" y1="9" x2="27" y2="9"/>
+              <line x1="23" y1="13" x2="27" y2="13"/>
+            </svg>
+          </div>
+          <div class="prk-stat__value">30+</div>
+          <div class="prk-stat__label">Bornes de recharge EV</div>
+        </div>
+
+        <!-- Ouvert 24h -->
+        <div class="prk-stat">
+          <div class="prk-stat__icon" aria-hidden="true">
+            <svg viewBox="0 0 32 32">
+              <path d="M6 20 Q6 14 10 11 L16 5 L22 11 Q26 14 26 20"/>
+              <path d="M6 20 L26 20"/>
+              <path d="M12 20 L12 15 Q16 11 20 15 L20 20"/>
+              <circle cx="9" cy="23" r="2"/>
+              <circle cx="23" cy="23" r="2"/>
+            </svg>
+          </div>
+          <div class="prk-stat__value">24h/24</div>
+          <div class="prk-stat__label">Ouvert 7 jours sur 7</div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ============================================================
+       PARKING TYPES
+       ============================================================ -->
+  <section class="section" style="background:var(--white);">
+    <div class="container">
+      <div style="display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:2.5rem;gap:1rem;flex-wrap:wrap;" class="reveal">
+        <div>
+          <p class="prk-eyebrow">Types de stationnement</p>
+          <h2 class="prk-section-title">Choisissez votre <em>formule</em></h2>
+        </div>
+        <p class="prk-section-sub" style="text-align:right;">
+          Du stationnement standard au service valet premium, nous proposons une solution adaptee a chaque visiteur.
+        </p>
+      </div>
+    </div>
+
+    <div class="container" style="padding-left:0;padding-right:0;">
+      <div class="prk-types reveal">
+
+        <!-- Card 1 — Standard -->
+        <div class="prk-type-card">
+          <div class="prk-type-card__icon" aria-hidden="true">
+            <svg viewBox="0 0 40 40">
+              <rect x="4" y="7" width="32" height="26" rx="2"/>
+              <path d="M14 14h8a4.5 4.5 0 0 1 0 9h-8V14z"/>
+              <line x1="14" y1="23" x2="14" y2="32"/>
+            </svg>
+          </div>
+          <h3 class="prk-type-card__title">Parking Standard</h3>
+          <p class="prk-type-card__desc">
+            Gratuit les 2 premieres heures avec validation en boutique. Apres 2h : 10 MAD par heure supplementaire. Parking propre, securise, surveille et accessible 24h/24 sur tous les niveaux.
+          </p>
+          <p class="prk-type-card__tag">Tous niveaux · Acces 24h/24</p>
+          <div class="prk-type-card__price-row">
+            <span class="prk-type-card__price">Gratuit 2h</span>
+            <span class="prk-type-card__price-note">puis 10 MAD/h</span>
+          </div>
+        </div>
+
+        <!-- Card 2 — Valet -->
+        <div class="prk-type-card">
+          <div class="prk-type-card__icon" aria-hidden="true">
+            <svg viewBox="0 0 40 40">
+              <circle cx="20" cy="20" r="14"/>
+              <circle cx="20" cy="20" r="5"/>
+              <line x1="9"  y1="13" x2="13" y2="17"/>
+              <line x1="31" y1="13" x2="27" y2="17"/>
+              <line x1="9"  y1="27" x2="13" y2="23"/>
+              <line x1="31" y1="27" x2="27" y2="23"/>
+            </svg>
+          </div>
+          <h3 class="prk-type-card__title">Valet Parking</h3>
+          <p class="prk-type-card__desc">
+            Service premium porte-a-porte aux entrees principales du mall. Confiez votre vehicule a notre equipe qualifiee et retrouvez-le pret a partir. Tarif fixe, sans surprise.
+          </p>
+          <p class="prk-type-card__tag">Entrees principales · 10h00 – 23h00</p>
+          <div class="prk-type-card__price-row">
+            <span class="prk-type-card__price">60 MAD</span>
+            <span class="prk-type-card__price-note">tarif unique</span>
+          </div>
+        </div>
+
+        <!-- Card 3 — EV Charging -->
+        <div class="prk-type-card">
+          <div class="prk-type-card__icon" aria-hidden="true">
+            <svg viewBox="0 0 40 40">
+              <rect x="11" y="5" width="18" height="24" rx="2"/>
+              <path d="M18 19l3-7v9l3-2"/>
+              <line x1="16" y1="29" x2="16" y2="34"/>
+              <line x1="24" y1="29" x2="24" y2="34"/>
+              <line x1="29" y1="10" x2="35" y2="10"/>
+              <line x1="29" y1="15" x2="35" y2="15"/>
+            </svg>
+          </div>
+          <h3 class="prk-type-card__title">Recharge EV</h3>
+          <p class="prk-type-card__desc">
+            30+ bornes de recharge reparties sur tous les niveaux du parking, compatibles Type 2 et CCS. Rechargez votre vehicule pendant votre shopping. Facturation uniquement a l'energie consommee.
+          </p>
+          <p class="prk-type-card__tag">Tous niveaux · Type 2 &amp; CCS</p>
+          <div class="prk-type-card__price-row">
+            <span class="prk-type-card__price">2,5 MAD/kWh</span>
+            <span class="prk-type-card__price-note">energie consommee</span>
+          </div>
+        </div>
+
+        <!-- Card 4 — PMR -->
+        <div class="prk-type-card">
+          <div class="prk-type-card__icon" aria-hidden="true">
+            <svg viewBox="0 0 40 40">
+              <circle cx="20" cy="8" r="3.5"/>
+              <path d="M20 11.5v12"/>
+              <path d="M13 16h14"/>
+              <path d="M16 23.5l-3.5 9h15l-2.5-6"/>
+              <circle cx="14" cy="35" r="3"/>
+              <circle cx="28" cy="35" r="3"/>
+            </svg>
+          </div>
+          <h3 class="prk-type-card__title">Parking Accessible</h3>
+          <p class="prk-type-card__desc">
+            Emplacements dedies aux personnes en situation de handicap sur chaque niveau du parking, situes a proximite immediate de tous les ascenseurs. Acces simplifie et securise.
+          </p>
+          <p class="prk-type-card__tag">Tous niveaux · Pres des ascenseurs</p>
+          <div class="prk-type-card__price-row">
+            <span class="prk-type-card__price">Gratuit</span>
+            <span class="prk-type-card__price-note">avec badge handicap</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ============================================================
+       ROSE BOULEVARD VIP PARKING
+       ============================================================ -->
+  <section class="prk-vip">
+    <div class="prk-vip__deco-ring prk-vip__deco-ring--1" aria-hidden="true"></div>
+    <div class="prk-vip__deco-ring prk-vip__deco-ring--2" aria-hidden="true"></div>
+    <div class="prk-vip__deco-ring prk-vip__deco-ring--3" aria-hidden="true"></div>
+
+    <div class="container prk-vip__inner">
+      <div class="reveal">
+        <div class="prk-vip__label">
+          <span class="prk-vip__label-dot" aria-hidden="true"></span>
+          Niveau P0 exclusif
+        </div>
+        <h2 class="prk-vip__title">
+          Rose Boulevard<br><em>VIP Parking</em>
+        </h2>
+        <p class="prk-vip__subtitle">
+          Un acces prive reserve aux membres privilegies et aux clients de Rose Boulevard. L'experience de stationnement la plus exclusive de Casablanca.
+        </p>
+      </div>
+
+      <div class="prk-vip__layout reveal">
+
+        <!-- Left — Access conditions -->
+        <div>
+          <p class="prk-vip__access-heading">Acces reserve a</p>
+          <div class="prk-vip__access-list">
+
+            <div class="prk-vip__access-item">
+              <div class="prk-vip__access-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24">
+                  <path d="M12 2l2.09 6.26L20 10l-4.91 3.74L16.18 20 12 16.9 7.82 20l1.09-6.26L4 10l5.91-1.74L12 2z"/>
+                </svg>
+              </div>
+              <div>
+                <p class="prk-vip__access-text-title">Membres Aksal Black Gold et au-dessus</p>
+                <p class="prk-vip__access-text-desc">Les titulaires d'une carte Aksal Black niveau Gold, Platinum ou Diamond beneficient d'un acces prioritaire au parking VIP P0 sur presentation de leur carte membre.</p>
+              </div>
+            </div>
+
+            <div class="prk-vip__access-item">
+              <div class="prk-vip__access-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24">
+                  <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/>
+                  <line x1="3" y1="6" x2="21" y2="6"/>
+                  <path d="M16 10a4 4 0 0 1-8 0"/>
+                </svg>
+              </div>
+              <div>
+                <p class="prk-vip__access-text-title">Clients Rose Boulevard le jour meme</p>
+                <p class="prk-vip__access-text-desc">Tout client ayant effectue un achat dans les boutiques Rose Boulevard le jour meme peut acceder au parking VIP sur presentation de son ticket de caisse a la barriere d'entree.</p>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- Right — Benefits -->
+        <div>
+          <p class="prk-vip__benefits-heading">Avantages inclus</p>
+          <div class="prk-vip__benefits-grid">
+
+            <div class="prk-vip__benefit">
+              <div class="prk-vip__benefit-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24">
+                  <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+                  <polyline points="9,22 9,12 15,12 15,22"/>
+                </svg>
+              </div>
+              <p class="prk-vip__benefit-title">Niveau P0 dedie</p>
+              <p class="prk-vip__benefit-desc">Niveau privatif P0 adjacent a l'entree Rose Boulevard pour un acces direct et immediat.</p>
+            </div>
+
+            <div class="prk-vip__benefit">
+              <div class="prk-vip__benefit-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24">
+                  <circle cx="12" cy="12" r="10"/>
+                  <circle cx="12" cy="12" r="4"/>
+                  <line x1="4.93" y1="4.93" x2="9.17" y2="9.17"/>
+                  <line x1="14.83" y1="14.83" x2="19.07" y2="19.07"/>
+                  <line x1="14.83" y1="9.17" x2="19.07" y2="4.93"/>
+                  <line x1="4.93" y1="19.07" x2="9.17" y2="14.83"/>
+                </svg>
+              </div>
+              <p class="prk-vip__benefit-title">Valet offert</p>
+              <p class="prk-vip__benefit-desc">Service valet complementaire inclus pour les membres VIP. Aucun supplement.</p>
+            </div>
+
+            <div class="prk-vip__benefit">
+              <div class="prk-vip__benefit-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24">
+                  <circle cx="12" cy="12" r="10"/>
+                  <polyline points="12,6 12,12 16,14"/>
+                </svg>
+              </div>
+              <p class="prk-vip__benefit-title">6 heures gratuites</p>
+              <p class="prk-vip__benefit-desc">Stationnement gratuit jusqu'a 6 heures consecutives. Au-dela, tarif preferentiel applique.</p>
+            </div>
+
+            <div class="prk-vip__benefit">
+              <div class="prk-vip__benefit-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24">
+                  <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+                </svg>
+              </div>
+              <p class="prk-vip__benefit-title">Experience premium</p>
+              <p class="prk-vip__benefit-desc">Signalisation privee, eclairage soigne et acces direct aux espaces de luxe de Rose Boulevard.</p>
+            </div>
+
+          </div>
+
+          <a class="btn--gold-outline" href="aksal-black.html">En savoir plus sur Aksal Black</a>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ============================================================
+       HOW TO GET TO PARKING — ENTRANCES
+       ============================================================ -->
+  <section class="section" style="background:var(--white);">
+    <div class="container">
+      <div class="reveal" style="margin-bottom:0;">
+        <p class="prk-eyebrow">Acces au parking</p>
+        <div style="display:flex;align-items:flex-end;justify-content:space-between;flex-wrap:wrap;gap:1rem;margin-bottom:2.5rem;">
+          <h2 class="prk-section-title" style="margin-bottom:0;">Comment <em>nous rejoindre</em></h2>
+          <div class="prk-direction-strip" style="margin-bottom:0;">
+            <div class="prk-direction-strip__arrows" aria-hidden="true">
+              <svg viewBox="0 0 18 18"><polyline points="6,3 12,9 6,15"/></svg>
+              <svg viewBox="0 0 18 18"><polyline points="6,3 12,9 6,15"/></svg>
+              <svg viewBox="0 0 18 18"><polyline points="6,3 12,9 6,15"/></svg>
+            </div>
+            <span style="font-size:0.72rem;color:var(--gray-400);letter-spacing:0.08em;">4 entrees vehicules</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="container" style="padding-left:0;padding-right:0;">
+      <div class="prk-entrances reveal">
+
+        <!-- Nord -->
+        <div class="prk-entrance-card prk-entrance-card--nord">
+          <div class="prk-entrance-card__arrow-container" aria-hidden="true">
+            <svg viewBox="0 0 40 40">
+              <line x1="20" y1="32" x2="20" y2="10"/>
+              <polyline points="12,18 20,10 28,18"/>
+            </svg>
+          </div>
+          <div class="prk-entrance-card__compass" aria-label="Direction Nord">N</div>
+          <h3 class="prk-entrance-card__title">Entree Nord</h3>
+          <p class="prk-entrance-card__landmark">Boulevard de la Corniche</p>
+          <p class="prk-entrance-card__desc">
+            Entree principale cote ocean. Acces direct depuis le boulevard de la Corniche en direction de Ain Diab. Signalisation dès la sortie de l'autoroute A3. Rampes vers P1 et P2.
+          </p>
+          <div class="prk-entrance-card__levels">
+            <span class="prk-entrance-card__level-tag">P0 VIP</span>
+            <span class="prk-entrance-card__level-tag">P1</span>
+            <span class="prk-entrance-card__level-tag">P2</span>
+          </div>
+        </div>
+
+        <!-- Sud -->
+        <div class="prk-entrance-card prk-entrance-card--sud">
+          <div class="prk-entrance-card__arrow-container" aria-hidden="true">
+            <svg viewBox="0 0 40 40">
+              <line x1="20" y1="32" x2="20" y2="10"/>
+              <polyline points="12,18 20,10 28,18"/>
+            </svg>
+          </div>
+          <div class="prk-entrance-card__compass" aria-label="Direction Sud">S</div>
+          <h3 class="prk-entrance-card__title">Entree Sud</h3>
+          <p class="prk-entrance-card__landmark">Quartier Ain Diab</p>
+          <p class="prk-entrance-card__desc">
+            Acces secondaire depuis la route cotiere d'Ain Diab et le quartier residentiel sud. Idéal pour les visiteurs venant depuis le centre-ville de Casablanca ou le quartier Maarif.
+          </p>
+          <div class="prk-entrance-card__levels">
+            <span class="prk-entrance-card__level-tag">P2</span>
+            <span class="prk-entrance-card__level-tag">P3</span>
+          </div>
+        </div>
+
+        <!-- Est -->
+        <div class="prk-entrance-card prk-entrance-card--est">
+          <div class="prk-entrance-card__arrow-container" aria-hidden="true">
+            <svg viewBox="0 0 40 40">
+              <line x1="20" y1="32" x2="20" y2="10"/>
+              <polyline points="12,18 20,10 28,18"/>
+            </svg>
+          </div>
+          <div class="prk-entrance-card__compass" aria-label="Direction Est">E</div>
+          <h3 class="prk-entrance-card__title">Entree Est</h3>
+          <p class="prk-entrance-card__landmark">Acces Conciergerie &amp; Cinéma</p>
+          <p class="prk-entrance-card__desc">
+            Entree privilegiee pour les visiteurs se rendant au cinema Pathé, a la zone Conciergerie ou aux restaurants du niveau 3. Proche du terminal de taxi et du point de depot Careem.
+          </p>
+          <div class="prk-entrance-card__levels">
+            <span class="prk-entrance-card__level-tag">P1</span>
+            <span class="prk-entrance-card__level-tag">P3</span>
+            <span class="prk-entrance-card__level-tag">Valet</span>
+          </div>
+        </div>
+
+        <!-- Ouest -->
+        <div class="prk-entrance-card prk-entrance-card--ouest">
+          <div class="prk-entrance-card__arrow-container" aria-hidden="true">
+            <svg viewBox="0 0 40 40">
+              <line x1="20" y1="32" x2="20" y2="10"/>
+              <polyline points="12,18 20,10 28,18"/>
+            </svg>
+          </div>
+          <div class="prk-entrance-card__compass" aria-label="Direction Ouest">O</div>
+          <h3 class="prk-entrance-card__title">Entree Ouest</h3>
+          <p class="prk-entrance-card__landmark">Acces Rose Boulevard</p>
+          <p class="prk-entrance-card__desc">
+            Entree dediee aux boutiques de luxe Rose Boulevard et au parking VIP P0. Acces reserve aux membres Aksal Black Gold et aux clients Rose Boulevard. Valet inclus pour les membres VIP.
+          </p>
+          <div class="prk-entrance-card__levels">
+            <span class="prk-entrance-card__level-tag">P0 VIP</span>
+            <span class="prk-entrance-card__level-tag">Valet VIP</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ============================================================
+       PARKING TIPS
+       ============================================================ -->
+  <section class="section section--cream">
+    <div class="container">
+      <div class="reveal" style="margin-bottom:3rem;">
+        <p class="prk-eyebrow">Conseils pratiques</p>
+        <h2 class="prk-section-title">Bien utiliser <em>le parking</em></h2>
+      </div>
+
+      <div class="prk-tips reveal">
+
+        <!-- Numbered tip list -->
+        <div class="prk-tips-list">
+
+          <div class="prk-tip-item">
+            <span class="prk-tip-item__number" aria-hidden="true">01</span>
+            <div>
+              <p class="prk-tip-item__title">Validez votre ticket en boutique</p>
+              <p class="prk-tip-item__desc">Pour beneficier des 2 heures gratuites, pensez a faire valider votre ticket de parking lors de votre passage en caisse dans n'importe quelle boutique participante du mall. La validation est automatique avec tout achat.</p>
+            </div>
+          </div>
+
+          <div class="prk-tip-item">
+            <span class="prk-tip-item__number" aria-hidden="true">02</span>
+            <div>
+              <p class="prk-tip-item__title">Application parking bientot disponible</p>
+              <p class="prk-tip-item__desc">Morocco Mall prepare le lancement d'une application mobile dediee permettant de localiser votre vehicule, de consulter la disponibilite en temps reel et de payer directement depuis votre smartphone. Suivez nos reseaux pour l'annonce officielle.</p>
+            </div>
+          </div>
+
+          <div class="prk-tip-item">
+            <span class="prk-tip-item__number" aria-hidden="true">03</span>
+            <div>
+              <p class="prk-tip-item__title">Emplacements accessibles pres des entrees</p>
+              <p class="prk-tip-item__desc">Les places reservees aux personnes en situation de handicap sont positionnees au plus pres de chaque entree du mall sur tous les niveaux. Des ascenseurs securises permettent un acces direct aux galeries sans contrainte de mobilite.</p>
+            </div>
+          </div>
+
+          <div class="prk-tip-item">
+            <span class="prk-tip-item__number" aria-hidden="true">04</span>
+            <div>
+              <p class="prk-tip-item__title">Evitez les heures de pointe</p>
+              <p class="prk-tip-item__desc">Le parking atteint sa capacite maximale le samedi entre 15h et 19h. Pour une experience optimale lors de cette periode, privilégiez l'entree Nord ou utilisez le service valet qui dispose de places reservees accessibles en toutes circonstances.</p>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Side info panel -->
+        <div class="prk-tips-panel">
+          <p class="prk-tips-panel__eyebrow">Informations tarifaires</p>
+          <h3 class="prk-tips-panel__title">Tarifs &amp; <em>conditions</em></h3>
+
+          <div class="prk-tips-panel__item">
+            <div class="prk-tips-panel__item-dot" aria-hidden="true"></div>
+            <p class="prk-tips-panel__item-text">
+              <strong>Standard — 0 a 2h :</strong> Gratuit avec validation en boutique (tout achat)
+            </p>
+          </div>
+          <div class="prk-tips-panel__item">
+            <div class="prk-tips-panel__item-dot" aria-hidden="true"></div>
+            <p class="prk-tips-panel__item-text">
+              <strong>Standard — apres 2h :</strong> 10 MAD par heure supplementaire, decompte a la minute
+            </p>
+          </div>
+          <div class="prk-tips-panel__item">
+            <div class="prk-tips-panel__item-dot" aria-hidden="true"></div>
+            <p class="prk-tips-panel__item-text">
+              <strong>Valet Parking :</strong> 60 MAD tarif unique, service disponible 10h00 – 23h00 aux entrees principales
+            </p>
+          </div>
+          <div class="prk-tips-panel__item">
+            <div class="prk-tips-panel__item-dot" aria-hidden="true"></div>
+            <p class="prk-tips-panel__item-text">
+              <strong>Bornes EV :</strong> 2,5 MAD/kWh consomme, compatible Type 2 et CCS, aucune reservation requise
+            </p>
+          </div>
+          <div class="prk-tips-panel__item">
+            <div class="prk-tips-panel__item-dot" aria-hidden="true"></div>
+            <p class="prk-tips-panel__item-text">
+              <strong>PMR :</strong> Entierement gratuit sur presentation du badge handicap officiel
+            </p>
+          </div>
+          <div class="prk-tips-panel__item">
+            <div class="prk-tips-panel__item-dot" aria-hidden="true"></div>
+            <p class="prk-tips-panel__item-text">
+              <strong>VIP P0 :</strong> 6 heures gratuites pour les membres Aksal Black Gold et clients Rose Boulevard du jour
+            </p>
+          </div>
+
+          <div class="prk-tips-panel__peak">
+            <p class="prk-tips-panel__peak-label">Heure de pointe</p>
+            <p class="prk-tips-panel__peak-text">
+              Capacite maximale atteinte le samedi entre 15h00 et 19h00. Anticipez votre arrivee ou utilisez le valet pour un acces garanti.
+            </p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ============================================================
+       BOTTOM CTA STRIP
+       ============================================================ -->
+  <div class="prk-cta-strip">
+    <div class="container">
+      <div class="prk-cta-strip__inner reveal">
+        <div>
+          <p class="prk-cta-strip__label">Programme VIP</p>
+          <h2 class="prk-cta-strip__title">
+            Devenez membre <em>Aksal Black</em><br>et profitez du parking VIP
+          </h2>
+        </div>
+        <div style="display:flex;gap:1rem;flex-wrap:wrap;align-items:center;">
+          <a class="btn--dark" href="aksal-black.html">Decouvrir Aksal Black</a>
+          <a class="btn--gold-outline" href="services.html" style="border-color:var(--gray-200);color:var(--gray-600);" onmouseover="this.style.borderColor='var(--black)';this.style.color='var(--black)';" onmouseout="this.style.borderColor='var(--gray-200)';this.style.color='var(--gray-600)';">Tous les services</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</main>
+<script src="../js/seo.js"></script>
+<script src="../js/translations.js"></script>
+<script src="../js/app.js"></script>
+</body>
+</html>

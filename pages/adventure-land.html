@@ -1,0 +1,1096 @@
+<!DOCTYPE html>
+<html lang="fr" dir="ltr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Adventure Land — parc d'attractions indoor au Morocco Mall. 15+ attractions pour toute la famille : Grand 8, Maison Hantée, VR Zone, Laser Tag et bien plus." />
+  <title>Adventure Land — Morocco Mall</title>
+  <link rel="icon" href="../assets/logo.png" type="image/png" />
+  <link rel="stylesheet" href="../css/main.css" />
+  <style>
+    /* ============================================================
+       ADVENTURE LAND PAGE — Scoped Styles
+       ============================================================ */
+
+    /* Accent color */
+    :root {
+      --al-amber:       #E8832A;
+      --al-amber-dark:  #9E4E0A;
+      --al-amber-light: #F5C07A;
+      --al-dark:        #1A0D02;
+    }
+
+    /* Hero */
+    .al-hero {
+      position: relative;
+      height: 100vh;
+      min-height: 620px;
+      display: flex;
+      align-items: flex-end;
+      overflow: hidden;
+    }
+    .al-hero__bg {
+      position: absolute;
+      inset: 0;
+      background-image: url('https://images.unsplash.com/photo-1556740738-b6a63e27c4df?w=1920&h=1080&fit=crop');
+      background-size: cover;
+      background-position: center;
+      transform: scale(1.05);
+      transition: transform 8s ease-out;
+    }
+    .al-hero__bg.loaded { transform: scale(1); }
+    .al-hero__overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        to top,
+        rgba(26, 13, 2, 0.93) 0%,
+        rgba(26, 13, 2, 0.58) 45%,
+        rgba(26, 13, 2, 0.22) 100%
+      );
+    }
+    .al-hero__content {
+      position: relative;
+      z-index: 2;
+      padding-bottom: clamp(3rem, 8vh, 6rem);
+      color: var(--white);
+    }
+    .al-hero__breadcrumb {
+      font-family: var(--font-body);
+      font-size: 0.65rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.45);
+      margin-bottom: 2rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .al-hero__breadcrumb a {
+      color: rgba(255, 255, 255, 0.45);
+      transition: color 0.2s;
+    }
+    .al-hero__breadcrumb a:hover { color: var(--white); }
+    .al-hero__eyebrow {
+      font-family: var(--font-body);
+      font-size: 0.65rem;
+      font-weight: 500;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--al-amber);
+      margin-bottom: 1.25rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    .al-hero__eyebrow::before {
+      content: '';
+      display: block;
+      width: 2rem;
+      height: 1px;
+      background: var(--al-amber);
+    }
+    .al-hero__title {
+      font-family: var(--font-display);
+      font-size: clamp(3.2rem, 9vw, 7.5rem);
+      font-weight: 300;
+      line-height: 1;
+      letter-spacing: -0.01em;
+      margin-bottom: 1.25rem;
+    }
+    .al-hero__title em {
+      font-style: italic;
+      color: var(--al-amber-light);
+    }
+    .al-hero__subtitle {
+      font-size: clamp(0.9rem, 1.5vw, 1.1rem);
+      line-height: 1.7;
+      color: rgba(255, 255, 255, 0.7);
+      max-width: 520px;
+      margin-bottom: 2.5rem;
+    }
+    .al-hero__tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+    }
+    .al-hero__tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: rgba(232, 131, 42, 0.18);
+      border: 1px solid rgba(232, 131, 42, 0.4);
+      color: var(--al-amber-light);
+      font-family: var(--font-body);
+      font-size: 0.65rem;
+      font-weight: 500;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      padding: 0.5rem 1.1rem;
+      backdrop-filter: blur(6px);
+    }
+    .al-hero__scroll {
+      margin-top: 2.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      font-family: var(--font-body);
+      font-size: 0.65rem;
+      font-weight: 500;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.5);
+    }
+    .al-hero__scroll-line {
+      width: 1px;
+      height: 3rem;
+      background: rgba(255, 255, 255, 0.3);
+      position: relative;
+      overflow: hidden;
+    }
+    .al-hero__scroll-line::after {
+      content: '';
+      position: absolute;
+      top: -100%;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: var(--al-amber);
+      animation: scroll-line 2s ease-in-out infinite;
+    }
+    @keyframes scroll-line {
+      0% { top: -100%; }
+      100% { top: 100%; }
+    }
+
+    /* Key Info Strip */
+    .info-strip {
+      background: var(--al-dark);
+      padding: 2rem 0;
+      border-bottom: 1px solid rgba(232, 131, 42, 0.15);
+    }
+    .info-strip__grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 0;
+    }
+    @media (min-width: 768px) {
+      .info-strip__grid { grid-template-columns: repeat(4, 1fr); }
+    }
+    .info-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+      padding: 1.25rem 1.5rem;
+      border-right: 1px solid rgba(255, 255, 255, 0.07);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+    }
+    .info-item:nth-child(2n) { border-right: none; }
+    @media (min-width: 768px) {
+      .info-item { border-bottom: none; }
+      .info-item:nth-child(2n) { border-right: 1px solid rgba(255, 255, 255, 0.07); }
+      .info-item:last-child { border-right: none; }
+    }
+    .info-item__icon {
+      width: 2.5rem;
+      height: 2.5rem;
+      background: rgba(232, 131, 42, 0.14);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      color: var(--al-amber);
+    }
+    .info-item__icon svg { width: 1.1rem; height: 1.1rem; }
+    .info-item__label {
+      font-family: var(--font-body);
+      font-size: 0.6rem;
+      font-weight: 500;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.4);
+      margin-bottom: 0.35rem;
+    }
+    .info-item__value {
+      font-family: var(--font-display);
+      font-size: 1.1rem;
+      font-weight: 400;
+      color: var(--white);
+      line-height: 1.3;
+    }
+
+    /* Section common */
+    .section {
+      padding: clamp(4rem, 8vw, 7rem) 0;
+    }
+    .section--cream { background: var(--cream); }
+    .section--dark {
+      background: var(--al-dark);
+      color: var(--white);
+    }
+    .section-label {
+      font-family: var(--font-body);
+      font-size: 0.65rem;
+      font-weight: 500;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--al-amber);
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    .section-label::before {
+      content: '';
+      display: block;
+      width: 2rem;
+      height: 1px;
+      background: var(--al-amber);
+    }
+    .section-title {
+      font-family: var(--font-display);
+      font-size: clamp(2.2rem, 5vw, 4rem);
+      font-weight: 300;
+      line-height: 1.1;
+      letter-spacing: -0.01em;
+      margin-bottom: 1.5rem;
+    }
+    .section-title em { font-style: italic; color: var(--al-amber); }
+    .section-title--white { color: var(--white); }
+    .section-title--white em { color: var(--al-amber-light); }
+    .section-desc {
+      font-size: 0.95rem;
+      line-height: 1.8;
+      color: var(--gray-600);
+      max-width: 620px;
+      margin-bottom: 3.5rem;
+    }
+    .section-desc--light { color: rgba(255, 255, 255, 0.65); }
+
+    /* Attractions grid */
+    .attractions-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+    }
+    @media (min-width: 640px) {
+      .attractions-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (min-width: 1100px) {
+      .attractions-grid { grid-template-columns: repeat(4, 1fr); }
+    }
+    .attraction-card {
+      background: var(--white);
+      border: 1px solid var(--gray-200);
+      padding: 2rem 1.75rem;
+      position: relative;
+      transition: transform 0.35s var(--ease-out), box-shadow 0.35s var(--ease-out), border-color 0.35s;
+      overflow: hidden;
+    }
+    .attraction-card::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 3px;
+      background: var(--al-amber);
+      transition: width 0.4s var(--ease-out);
+    }
+    .attraction-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 18px 45px rgba(0,0,0,0.11);
+      border-color: rgba(232,131,42,0.3);
+    }
+    .attraction-card:hover::after { width: 100%; }
+    .attraction-card__thrill {
+      display: inline-block;
+      font-family: var(--font-body);
+      font-size: 0.58rem;
+      font-weight: 600;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      padding: 0.28rem 0.75rem;
+      border-radius: 2rem;
+      margin-bottom: 1.25rem;
+    }
+    .thrill--familial  { background: #e8f5ed; color: #1a4d2e; }
+    .thrill--sensations { background: #fff3e0; color: #b34a00; }
+    .thrill--extreme   { background: #fce4ec; color: #b71c1c; }
+    .attraction-card__icon {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+      display: block;
+    }
+    .attraction-card__name {
+      font-family: var(--font-display);
+      font-size: 1.45rem;
+      font-weight: 400;
+      margin-bottom: 0.35rem;
+      line-height: 1.15;
+    }
+    .attraction-card__height {
+      font-family: var(--font-body);
+      font-size: 0.65rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      color: var(--al-amber-dark);
+      margin-bottom: 0.9rem;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+    .attraction-card__height svg { width: 0.85rem; height: 0.85rem; }
+    .attraction-card__desc {
+      font-size: 0.82rem;
+      line-height: 1.65;
+      color: var(--gray-600);
+    }
+
+    /* VR Zone spotlight */
+    .vr-spotlight {
+      background: var(--black);
+      position: relative;
+      overflow: hidden;
+    }
+    .vr-spotlight__inner {
+      display: grid;
+      grid-template-columns: 1fr;
+      min-height: 520px;
+    }
+    @media (min-width: 900px) {
+      .vr-spotlight__inner { grid-template-columns: 1fr 1fr; }
+    }
+    .vr-spotlight__image {
+      position: relative;
+      min-height: 320px;
+      overflow: hidden;
+    }
+    @media (min-width: 900px) {
+      .vr-spotlight__image { min-height: auto; }
+    }
+    .vr-spotlight__image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.8s var(--ease-out);
+    }
+    .vr-spotlight:hover .vr-spotlight__image img { transform: scale(1.03); }
+    .vr-spotlight__image-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(90deg, rgba(0,0,0,0) 60%, rgba(0,0,0,0.5) 100%);
+    }
+    @media (max-width: 899px) {
+      .vr-spotlight__image-overlay {
+        background: linear-gradient(to top, rgba(0,0,0,0.6) 0%, transparent 60%);
+      }
+    }
+    .vr-spotlight__body {
+      padding: clamp(3rem, 6vw, 5rem);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      color: var(--white);
+    }
+    .vr-spotlight__label {
+      font-family: var(--font-body);
+      font-size: 0.65rem;
+      font-weight: 500;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--al-amber);
+      margin-bottom: 1.25rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    .vr-spotlight__label::before {
+      content: '';
+      display: block;
+      width: 2rem;
+      height: 1px;
+      background: var(--al-amber);
+    }
+    .vr-spotlight__title {
+      font-family: var(--font-display);
+      font-size: clamp(2.5rem, 5vw, 4rem);
+      font-weight: 300;
+      line-height: 1.05;
+      letter-spacing: -0.01em;
+      margin-bottom: 1.5rem;
+    }
+    .vr-spotlight__title em { font-style: italic; color: var(--al-amber-light); }
+    .vr-spotlight__desc {
+      font-size: 0.95rem;
+      line-height: 1.8;
+      color: rgba(255,255,255,0.65);
+      margin-bottom: 2.5rem;
+      max-width: 440px;
+    }
+    .vr-spotlight__stats {
+      display: flex;
+      gap: 2.5rem;
+      flex-wrap: wrap;
+    }
+    .vr-stat__value {
+      font-family: var(--font-display);
+      font-size: 2.4rem;
+      font-weight: 300;
+      color: var(--al-amber-light);
+      line-height: 1;
+    }
+    .vr-stat__label {
+      font-family: var(--font-body);
+      font-size: 0.65rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.4);
+      margin-top: 0.3rem;
+    }
+
+    /* Tickets */
+    .tickets-section {
+      background: var(--cream);
+      padding: clamp(4rem, 8vw, 7rem) 0;
+    }
+    .tickets-layout {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 3rem;
+      margin-top: 3.5rem;
+    }
+    @media (min-width: 900px) {
+      .tickets-layout { grid-template-columns: 1fr 1.2fr; gap: 4rem; }
+    }
+
+    /* Token block */
+    .token-block {
+      background: var(--white);
+      border: 1px solid var(--gray-200);
+      padding: 2.5rem;
+    }
+    .token-block__heading {
+      font-family: var(--font-display);
+      font-size: 1.7rem;
+      font-weight: 400;
+      margin-bottom: 0.4rem;
+    }
+    .token-block__sub {
+      font-size: 0.8rem;
+      color: var(--gray-400);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 2rem;
+    }
+    .token-price-display {
+      background: var(--al-dark);
+      color: var(--white);
+      padding: 2rem;
+      margin-bottom: 1.5rem;
+      text-align: center;
+    }
+    .token-price-display__amount {
+      font-family: var(--font-display);
+      font-size: 3.5rem;
+      font-weight: 300;
+      color: var(--al-amber-light);
+      line-height: 1;
+    }
+    .token-price-display__unit {
+      font-family: var(--font-body);
+      font-size: 0.65rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.45);
+      margin-top: 0.4rem;
+    }
+    .token-rides-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+    .token-ride-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.75rem 0;
+      border-bottom: 1px solid var(--gray-200);
+      font-size: 0.88rem;
+      color: var(--gray-600);
+    }
+    .token-ride-row:last-child { border-bottom: none; }
+    .token-ride-row__name { font-weight: 500; color: var(--gray-800); }
+    .token-ride-row__tokens {
+      font-family: var(--font-body);
+      font-size: 0.7rem;
+      font-weight: 600;
+      background: rgba(232,131,42,0.1);
+      color: var(--al-amber-dark);
+      padding: 0.25rem 0.8rem;
+      border-radius: 2rem;
+      white-space: nowrap;
+    }
+
+    /* Day pass block */
+    .pass-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+    }
+    .pass-card {
+      background: var(--white);
+      border: 1px solid var(--gray-200);
+      padding: 2rem;
+      display: flex;
+      align-items: center;
+      gap: 1.75rem;
+      transition: transform 0.3s var(--ease-out), box-shadow 0.3s var(--ease-out), border-color 0.3s;
+    }
+    .pass-card:hover {
+      transform: translateX(5px);
+      box-shadow: 0 8px 28px rgba(0,0,0,0.09);
+      border-color: var(--al-amber);
+    }
+    .pass-card--featured {
+      border-color: var(--al-amber);
+      background: linear-gradient(135deg, #fff8f0 0%, var(--white) 100%);
+    }
+    .pass-card__icon {
+      font-size: 2.2rem;
+      flex-shrink: 0;
+    }
+    .pass-card__name {
+      font-family: var(--font-display);
+      font-size: 1.3rem;
+      font-weight: 400;
+      margin-bottom: 0.2rem;
+    }
+    .pass-card__desc {
+      font-size: 0.78rem;
+      color: var(--gray-400);
+    }
+    .pass-card__price {
+      margin-left: auto;
+      text-align: right;
+      flex-shrink: 0;
+    }
+    .pass-card__amount {
+      font-family: var(--font-display);
+      font-size: 2rem;
+      font-weight: 300;
+      color: var(--al-amber-dark);
+      line-height: 1;
+    }
+    .pass-card__currency {
+      font-size: 1rem;
+      vertical-align: super;
+    }
+    .pass-card__per {
+      font-size: 0.65rem;
+      color: var(--gray-400);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    /* Related pages */
+    .related-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+      margin-top: 3rem;
+    }
+    @media (min-width: 640px) {
+      .related-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    .related-card {
+      position: relative;
+      min-height: 320px;
+      overflow: hidden;
+      display: flex;
+      align-items: flex-end;
+      border-radius: 4px;
+    }
+    .related-card__bg {
+      position: absolute;
+      inset: 0;
+      background-size: cover;
+      background-position: center;
+      transition: transform 0.7s var(--ease-out);
+    }
+    .related-card:hover .related-card__bg { transform: scale(1.05); }
+    .related-card__overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, transparent 60%);
+    }
+    .related-card__body {
+      position: relative;
+      z-index: 2;
+      padding: 2rem;
+      color: var(--white);
+    }
+    .related-card__eyebrow {
+      font-family: var(--font-body);
+      font-size: 0.6rem;
+      font-weight: 500;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--al-amber);
+      margin-bottom: 0.6rem;
+    }
+    .related-card__title {
+      font-family: var(--font-display);
+      font-size: 1.9rem;
+      font-weight: 300;
+      margin-bottom: 0.75rem;
+    }
+    .related-card__link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-family: var(--font-body);
+      font-size: 0.65rem;
+      font-weight: 500;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.6);
+      transition: color 0.25s, gap 0.25s;
+    }
+    .related-card__link:hover { color: var(--white); gap: 0.9rem; }
+    .related-card__link-line {
+      width: 1.5rem;
+      height: 1px;
+      background: currentColor;
+      transition: width 0.25s;
+      flex-shrink: 0;
+    }
+    .related-card__link:hover .related-card__link-line { width: 2rem; }
+
+    /* Reveal */
+    .reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.7s var(--ease-out), transform 0.7s var(--ease-out);
+    }
+    .reveal.in-view { opacity: 1; transform: translateY(0); }
+    .reveal-delay-1 { transition-delay: 0.1s; }
+    .reveal-delay-2 { transition-delay: 0.2s; }
+    .reveal-delay-3 { transition-delay: 0.3s; }
+    .reveal-delay-4 { transition-delay: 0.4s; }
+    .reveal-delay-5 { transition-delay: 0.5s; }
+    .reveal-delay-6 { transition-delay: 0.6s; }
+    .reveal-delay-7 { transition-delay: 0.7s; }
+    .reveal-delay-8 { transition-delay: 0.8s; }
+  </style>
+</head>
+<body>
+
+<main id="main-content">
+
+  <!-- ============================================================
+       HERO
+       ============================================================ -->
+  <section class="al-hero" aria-label="Adventure Land hero">
+    <div class="al-hero__bg" id="heroBg"></div>
+    <div class="al-hero__overlay"></div>
+    <div class="container al-hero__content">
+      <nav class="al-hero__breadcrumb" aria-label="Fil d'Ariane">
+        <a href="../index.html">Morocco Mall</a>
+        <span aria-hidden="true">›</span>
+        <a href="entertainment.html">Entertainment</a>
+        <span aria-hidden="true">›</span>
+        <span>Adventure Land</span>
+      </nav>
+      <p class="al-hero__eyebrow">Parc d'attractions indoor</p>
+      <h1 class="al-hero__title">Adventure<br><em>Land</em></h1>
+      <p class="al-hero__subtitle">
+        Des sensations fortes pour toute la famille. 15 attractions uniques dans un univers immersif au cœur de Morocco Mall.
+      </p>
+      <div class="al-hero__tags" aria-label="Informations clés">
+        <span class="al-hero__tag">10:00 – 22:00</span>
+        <span class="al-hero__tag">15+ attractions</span>
+        <span class="al-hero__tag">Tous âges</span>
+      </div>
+      <div class="al-hero__scroll" aria-hidden="true">
+        <div class="al-hero__scroll-line"></div>
+        Explorer
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       KEY INFO STRIP
+       ============================================================ -->
+  <div class="info-strip" role="complementary" aria-label="Informations pratiques">
+    <div class="container">
+      <div class="info-strip__grid">
+        <div class="info-item">
+          <div class="info-item__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          </div>
+          <div>
+            <div class="info-item__label">Horaires</div>
+            <div class="info-item__value">10:00 – 22:00</div>
+          </div>
+        </div>
+        <div class="info-item">
+          <div class="info-item__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          </div>
+          <div>
+            <div class="info-item__label">Localisation</div>
+            <div class="info-item__value">Niveau 2 · Casa Bay &amp; Marrakech</div>
+          </div>
+        </div>
+        <div class="info-item">
+          <div class="info-item__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          </div>
+          <div>
+            <div class="info-item__label">Attractions</div>
+            <div class="info-item__value">15+ attractions</div>
+          </div>
+        </div>
+        <div class="info-item">
+          <div class="info-item__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>
+          </div>
+          <div>
+            <div class="info-item__label">Public</div>
+            <div class="info-item__value">Tous âges</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       ATTRACTIONS
+       ============================================================ -->
+  <section class="section" aria-labelledby="attractions-title">
+    <div class="container">
+      <p class="section-label reveal">8 expériences phares</p>
+      <h2 class="section-title reveal reveal-delay-1" id="attractions-title">
+        Nos <em>attractions</em>
+      </h2>
+      <p class="section-desc reveal reveal-delay-2">
+        Du grand frisson en famille à l'adrénaline pure, Adventure Land offre une gamme complète d'attractions pour tous les profils et toutes les envies.
+      </p>
+
+      <div class="attractions-grid">
+
+        <!-- Grand 8 -->
+        <article class="attraction-card reveal reveal-delay-1">
+          <span class="attraction-card__thrill thrill--extreme">Extrême</span>
+          <span class="attraction-card__icon" aria-hidden="true">🎢</span>
+          <h3 class="attraction-card__name">Grand 8</h3>
+          <div class="attraction-card__height">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 2L12 22M4.93 4.93L12 12M19.07 4.93L12 12"/></svg>
+            Taille min. 120 cm
+          </div>
+          <p class="attraction-card__desc">Le clou du spectacle d'Adventure Land. Un parcours de montagnes russes indoor avec loopings, virages serrés et montée d'adrénaline garantie.</p>
+        </article>
+
+        <!-- Maison Hantée -->
+        <article class="attraction-card reveal reveal-delay-2">
+          <span class="attraction-card__thrill thrill--sensations">Sensations</span>
+          <span class="attraction-card__icon" aria-hidden="true">👻</span>
+          <h3 class="attraction-card__name">Maison Hantée</h3>
+          <div class="attraction-card__height">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 2L12 22M4.93 4.93L12 12M19.07 4.93L12 12"/></svg>
+            Déconseillé -10 ans
+          </div>
+          <p class="attraction-card__desc">Parcours horrifique avec acteurs vivants, effets sonores et visuels immersifs. 15 minutes d'effroi dans des couloirs labyrinthiques plongés dans l'obscurité.</p>
+        </article>
+
+        <!-- Bumper Cars -->
+        <article class="attraction-card reveal reveal-delay-3">
+          <span class="attraction-card__thrill thrill--familial">Familial</span>
+          <span class="attraction-card__icon" aria-hidden="true">🚗</span>
+          <h3 class="attraction-card__name">Bumper Cars</h3>
+          <div class="attraction-card__height">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 2L12 22M4.93 4.93L12 12M19.07 4.93L12 12"/></svg>
+            Taille min. 110 cm
+          </div>
+          <p class="attraction-card__desc">Voitures tamponneuses électriques sur une piste lumineuse de 400 m². Musique et effets lumineux pour des sessions de 5 minutes à répétition.</p>
+        </article>
+
+        <!-- Carousel Royal -->
+        <article class="attraction-card reveal reveal-delay-4">
+          <span class="attraction-card__thrill thrill--familial">Familial</span>
+          <span class="attraction-card__icon" aria-hidden="true">🎠</span>
+          <h3 class="attraction-card__name">Carousel Royal</h3>
+          <div class="attraction-card__height">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 2L12 22M4.93 4.93L12 12M19.07 4.93L12 12"/></svg>
+            Tous âges
+          </div>
+          <p class="attraction-card__desc">Grand carrousel à deux étages avec 40 montures sculptées à la main. Un voyage enchanté orné de lumières et de mélodies que petits et grands adorent.</p>
+        </article>
+
+        <!-- 4D Cinema Ride -->
+        <article class="attraction-card reveal reveal-delay-5">
+          <span class="attraction-card__thrill thrill--sensations">Sensations</span>
+          <span class="attraction-card__icon" aria-hidden="true">🎬</span>
+          <h3 class="attraction-card__name">4D Cinema Ride</h3>
+          <div class="attraction-card__height">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 2L12 22M4.93 4.93L12 12M19.07 4.93L12 12"/></svg>
+            Taille min. 100 cm
+          </div>
+          <p class="attraction-card__desc">Cinéma en mouvements synchronisés avec vibrations, projections d'eau et effets de vent. Rotation de films toutes les 45 minutes sur écran géant 4K.</p>
+        </article>
+
+        <!-- Laser Tag Arena -->
+        <article class="attraction-card reveal reveal-delay-6">
+          <span class="attraction-card__thrill thrill--sensations">Sensations</span>
+          <span class="attraction-card__icon" aria-hidden="true">🔫</span>
+          <h3 class="attraction-card__name">Laser Tag Arena</h3>
+          <div class="attraction-card__height">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 2L12 22M4.93 4.93L12 12M19.07 4.93L12 12"/></svg>
+            8 ans et +
+          </div>
+          <p class="attraction-card__desc">Combat laser en équipes dans une arène de 600 m² avec décor futuriste. Sessions de 15 minutes, scoreboard en direct et classements hebdomadaires.</p>
+        </article>
+
+        <!-- Virtual Reality Zone -->
+        <article class="attraction-card reveal reveal-delay-7">
+          <span class="attraction-card__thrill thrill--extreme">Extrême</span>
+          <span class="attraction-card__icon" aria-hidden="true">🥽</span>
+          <h3 class="attraction-card__name">Virtual Reality Zone</h3>
+          <div class="attraction-card__height">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 2L12 22M4.93 4.93L12 12M19.07 4.93L12 12"/></svg>
+            12 ans et +
+          </div>
+          <p class="attraction-card__desc">10 postes VR haute résolution avec des expériences renouvelées chaque mois. Combats spatiaux, exploration sous-marine et aventures en réalité augmentée.</p>
+        </article>
+
+        <!-- Rock Climbing Wall -->
+        <article class="attraction-card reveal reveal-delay-8">
+          <span class="attraction-card__thrill thrill--sensations">Sensations</span>
+          <span class="attraction-card__icon" aria-hidden="true">🧗</span>
+          <h3 class="attraction-card__name">Rock Climbing Wall</h3>
+          <div class="attraction-card__height">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 2L12 22M4.93 4.93L12 12M19.07 4.93L12 12"/></svg>
+            6 ans et +
+          </div>
+          <p class="attraction-card__desc">Mur d'escalade indoor de 10 mètres avec 6 voies de difficulté progressive. Équipement et harnais fournis, moniteurs certifiés sur place pour les débutants.</p>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       VR ZONE SPOTLIGHT
+       ============================================================ -->
+  <section class="vr-spotlight" aria-label="Virtual Reality Zone — focus">
+    <div class="vr-spotlight__inner">
+      <div class="vr-spotlight__image">
+        <img
+          src="https://images.unsplash.com/photo-1593508512255-86ab42a8e620?w=700&h=450&fit=crop"
+          alt="Joueurs avec casques de réalité virtuelle dans la VR Zone d'Adventure Land"
+          loading="lazy"
+          width="700"
+          height="450"
+        />
+        <div class="vr-spotlight__image-overlay" aria-hidden="true"></div>
+      </div>
+      <div class="vr-spotlight__body">
+        <p class="vr-spotlight__label reveal">Focus Attraction</p>
+        <h2 class="vr-spotlight__title reveal reveal-delay-1">
+          Virtual<br><em>Reality Zone</em>
+        </h2>
+        <p class="vr-spotlight__desc reveal reveal-delay-2">
+          Plongez dans des univers digitaux sans limites. Notre VR Zone est équipée des derniers casques de réalité virtuelle haute résolution offrant un rendu visuel à 120 fps. Dix expériences distinctes, renouvelées chaque mois pour toujours plus de sensations inédites.
+        </p>
+        <div class="vr-spotlight__stats reveal reveal-delay-3">
+          <div class="vr-stat">
+            <div class="vr-stat__value">10</div>
+            <div class="vr-stat__label">Postes VR</div>
+          </div>
+          <div class="vr-stat">
+            <div class="vr-stat__value">120fps</div>
+            <div class="vr-stat__label">Rendu visuel</div>
+          </div>
+          <div class="vr-stat">
+            <div class="vr-stat__value">12+</div>
+            <div class="vr-stat__label">Expériences</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       TICKETS / TARIFS
+       ============================================================ -->
+  <section class="tickets-section" aria-labelledby="tickets-title">
+    <div class="container">
+      <p class="section-label reveal">Tarification</p>
+      <h2 class="section-title reveal reveal-delay-1" id="tickets-title">
+        Tokens &amp;<br><em>Day Pass</em>
+      </h2>
+      <p class="section-desc reveal reveal-delay-2">
+        Choisissez entre le système de tokens à la carte ou nos day pass tout-inclus pour une journée sans limite dans Adventure Land.
+      </p>
+
+      <div class="tickets-layout">
+
+        <!-- TOKEN SYSTEM -->
+        <div class="reveal reveal-delay-1">
+          <div class="token-block">
+            <h3 class="token-block__heading">Système Tokens</h3>
+            <div class="token-block__sub">Payez uniquement ce que vous utilisez</div>
+            <div class="token-price-display" aria-label="Prix : 20 MAD par token">
+              <div class="token-price-display__amount">20 <span style="font-size:1.5rem;color:rgba(245,192,122,0.6)">MAD</span></div>
+              <div class="token-price-display__unit">par token</div>
+            </div>
+            <div class="token-rides-list" role="list" aria-label="Coût en tokens par attraction">
+              <div class="token-ride-row" role="listitem">
+                <span class="token-ride-row__name">Grand 8</span>
+                <span class="token-ride-row__tokens">4 tokens</span>
+              </div>
+              <div class="token-ride-row" role="listitem">
+                <span class="token-ride-row__name">Maison Hantée</span>
+                <span class="token-ride-row__tokens">3 tokens</span>
+              </div>
+              <div class="token-ride-row" role="listitem">
+                <span class="token-ride-row__name">Bumper Cars</span>
+                <span class="token-ride-row__tokens">2 tokens</span>
+              </div>
+              <div class="token-ride-row" role="listitem">
+                <span class="token-ride-row__name">4D Cinema Ride</span>
+                <span class="token-ride-row__tokens">3 tokens</span>
+              </div>
+              <div class="token-ride-row" role="listitem">
+                <span class="token-ride-row__name">Laser Tag Arena</span>
+                <span class="token-ride-row__tokens">4 tokens</span>
+              </div>
+              <div class="token-ride-row" role="listitem">
+                <span class="token-ride-row__name">Virtual Reality Zone</span>
+                <span class="token-ride-row__tokens">4 tokens</span>
+              </div>
+              <div class="token-ride-row" role="listitem">
+                <span class="token-ride-row__name">Carousel Royal</span>
+                <span class="token-ride-row__tokens">2 tokens</span>
+              </div>
+              <div class="token-ride-row" role="listitem">
+                <span class="token-ride-row__name">Rock Climbing Wall</span>
+                <span class="token-ride-row__tokens">3 tokens</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- DAY PASS -->
+        <div class="reveal reveal-delay-2">
+          <h3 class="section-label" style="margin-bottom:1.5rem;">Day Pass — Accès illimité</h3>
+          <div class="pass-grid">
+            <div class="pass-card">
+              <span class="pass-card__icon" aria-hidden="true">🧒</span>
+              <div>
+                <div class="pass-card__name">Pass Enfant</div>
+                <div class="pass-card__desc">Moins de 12 ans · Accès à toutes les attractions appropriées</div>
+              </div>
+              <div class="pass-card__price">
+                <div class="pass-card__amount"><span class="pass-card__currency">MAD </span>150</div>
+                <div class="pass-card__per">par jour</div>
+              </div>
+            </div>
+            <div class="pass-card pass-card--featured">
+              <span class="pass-card__icon" aria-hidden="true">🧑</span>
+              <div>
+                <div class="pass-card__name">Pass Adulte</div>
+                <div class="pass-card__desc">12 ans et + · Accès illimité à l'ensemble des attractions</div>
+              </div>
+              <div class="pass-card__price">
+                <div class="pass-card__amount"><span class="pass-card__currency">MAD </span>200</div>
+                <div class="pass-card__per">par jour</div>
+              </div>
+            </div>
+            <div class="pass-card">
+              <span class="pass-card__icon" aria-hidden="true">👨‍👩‍👧‍👦</span>
+              <div>
+                <div class="pass-card__name">Pass Famille</div>
+                <div class="pass-card__desc">2 adultes + 2 enfants · La formule la plus économique</div>
+              </div>
+              <div class="pass-card__price">
+                <div class="pass-card__amount"><span class="pass-card__currency">MAD </span>500</div>
+                <div class="pass-card__per">par jour</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       RELATED PAGES
+       ============================================================ -->
+  <section class="section" aria-labelledby="related-title">
+    <div class="container">
+      <p class="section-label reveal">À découvrir aussi</p>
+      <h2 class="section-title reveal reveal-delay-1" id="related-title">Autres <em>expériences</em></h2>
+
+      <div class="related-grid">
+        <a href="hello-park.html" class="related-card reveal reveal-delay-1" aria-label="Découvrir Hello Park">
+          <div class="related-card__bg" style="background-image: url('https://images.unsplash.com/photo-1566041510394-cf7c1b1b14e7?w=800&h=600&fit=crop');" aria-hidden="true"></div>
+          <div class="related-card__overlay" aria-hidden="true"></div>
+          <div class="related-card__body">
+            <p class="related-card__eyebrow">Aire de jeux indoor · 3–12 ans</p>
+            <h3 class="related-card__title">Hello Park</h3>
+            <span class="related-card__link">
+              <span class="related-card__link-line" aria-hidden="true"></span>
+              Découvrir
+            </span>
+          </div>
+        </a>
+        <a href="sea-dream.html" class="related-card reveal reveal-delay-2" aria-label="Découvrir Sea Dream Aquarium">
+          <div class="related-card__bg" style="background-image: url('https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=800&h=600&fit=crop');" aria-hidden="true"></div>
+          <div class="related-card__overlay" aria-hidden="true"></div>
+          <div class="related-card__body">
+            <p class="related-card__eyebrow">Aquarium géant</p>
+            <h3 class="related-card__title">Sea Dream</h3>
+            <span class="related-card__link">
+              <span class="related-card__link-line" aria-hidden="true"></span>
+              Découvrir
+            </span>
+          </div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<script src="../js/seo.js"></script>
+<script src="../js/translations.js"></script>
+<script src="../js/app.js"></script>
+<script>
+  // Hero image load
+  (function () {
+    var bg = document.getElementById('heroBg');
+    if (bg) { bg.classList.add('loaded'); }
+  })();
+
+  // Intersection Observer for reveal animations
+  (function () {
+    var elements = document.querySelectorAll('.reveal');
+    if (!elements.length) return;
+    var observer = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in-view');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12 });
+    elements.forEach(function (el) { observer.observe(el); });
+  })();
+</script>
+</body>
+</html>

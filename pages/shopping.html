@@ -1,0 +1,1146 @@
+<!DOCTYPE html>
+<html lang="fr" dir="ltr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Morocco Mall Store Directory — Discover 300+ brands across fashion, beauty, electronics, sport, home and more." />
+  <title>Shopping &amp; Store Directory — Morocco Mall</title>
+  <link rel="icon" href="../assets/logo.png" type="image/png" />
+  <link rel="stylesheet" href="../css/main.css" />
+  <style>
+    /* ── Page Hero ─────────────────────────────────────────────── */
+    .page-hero {
+      background: var(--black);
+      color: var(--white);
+      padding: clamp(5rem, 14vw, 9rem) 0 clamp(3rem, 8vw, 5rem);
+      position: relative;
+      overflow: hidden;
+    }
+    .page-hero::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 70% 60% at 80% 50%, rgba(201,169,110,0.07) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .page-hero__content { position: relative; z-index: 1; }
+    .page-hero__breadcrumb {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.65rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.4);
+      margin-bottom: 2rem;
+    }
+    .page-hero__breadcrumb a { color: rgba(255,255,255,0.4); transition: color 0.2s; }
+    .page-hero__breadcrumb a:hover { color: rgba(255,255,255,0.8); }
+    .page-hero__title {
+      font-family: var(--font-display);
+      font-size: clamp(2.8rem, 7vw, 6rem);
+      font-weight: 300;
+      line-height: 0.97;
+      letter-spacing: -0.01em;
+      margin-bottom: 1.5rem;
+      max-width: 700px;
+    }
+    .page-hero__title em { font-style: italic; }
+    .page-hero__subtitle {
+      font-size: 0.88rem;
+      color: rgba(255,255,255,0.55);
+      line-height: 1.75;
+      max-width: 500px;
+      letter-spacing: 0.03em;
+    }
+    .page-hero__stats {
+      display: flex;
+      gap: 3rem;
+      margin-top: 3rem;
+      flex-wrap: wrap;
+    }
+    .page-hero__stat-num {
+      font-family: var(--font-display);
+      font-size: 2.5rem;
+      font-weight: 300;
+      color: var(--gold);
+      line-height: 1;
+    }
+    .page-hero__stat-label {
+      font-size: 0.6rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.35);
+      margin-top: 0.4rem;
+    }
+
+    /* ── Editor's Picks ────────────────────────────────────────── */
+    .picks-section {
+      padding: clamp(3rem, 8vw, 5.5rem) 0;
+      background: var(--white);
+    }
+    .picks-scroll {
+      display: flex;
+      gap: 1rem;
+      overflow-x: auto;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+      padding-bottom: 0.5rem;
+      margin-top: 2rem;
+    }
+    .picks-scroll::-webkit-scrollbar { display: none; }
+    .pick-card {
+      flex: 0 0 260px;
+      aspect-ratio: 4/5;
+      position: relative;
+      overflow: hidden;
+      cursor: pointer;
+      border-radius: 2px;
+    }
+    .pick-card__img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.6s var(--ease);
+    }
+    .pick-card:hover .pick-card__img { transform: scale(1.06); }
+    .pick-card__overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(0,0,0,0.78) 0%, rgba(0,0,0,0.18) 50%, transparent 100%);
+    }
+    .pick-card__content {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      padding: 1.5rem 1.25rem 1.25rem;
+      z-index: 2;
+    }
+    .pick-card__cat {
+      font-size: 0.58rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.55);
+      margin-bottom: 0.45rem;
+    }
+    .pick-card__name {
+      font-family: var(--font-display);
+      font-size: 1.55rem;
+      font-weight: 300;
+      color: var(--white);
+      line-height: 1.05;
+      letter-spacing: 0.03em;
+    }
+    .pick-card__tag {
+      display: inline-block;
+      font-size: 0.55rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      border: 1px solid rgba(255,255,255,0.4);
+      color: rgba(255,255,255,0.7);
+      padding: 0.2rem 0.6rem;
+      margin-top: 0.6rem;
+      border-radius: 1px;
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .pick-card:hover .pick-card__tag { border-color: var(--gold); color: var(--gold); }
+
+    /* ── New Arrivals Bar ──────────────────────────────────────── */
+    .arrivals-bar {
+      background: var(--black);
+      color: var(--white);
+      padding: 1.25rem var(--pad-x);
+    }
+    .arrivals-bar__inner {
+      max-width: var(--max-w);
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+    }
+    .arrivals-bar__label {
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.45);
+      white-space: nowrap;
+    }
+    .arrivals-bar__divider {
+      width: 1px;
+      height: 18px;
+      background: rgba(255,255,255,0.15);
+      flex-shrink: 0;
+    }
+    .arrivals-bar__pills {
+      display: flex;
+      gap: 0.6rem;
+      flex-wrap: wrap;
+    }
+    .arrivals-pill {
+      font-size: 0.6rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      font-weight: 500;
+      padding: 0.35rem 0.9rem;
+      border: 1px solid rgba(201,169,110,0.5);
+      color: var(--gold);
+      border-radius: 2px;
+      cursor: pointer;
+      transition: background 0.2s, border-color 0.2s;
+      font-family: var(--font-body);
+      background: none;
+    }
+    .arrivals-pill:hover { background: rgba(201,169,110,0.12); border-color: var(--gold); }
+
+    /* ── Filter Bar ────────────────────────────────────────────── */
+    .filter-section {
+      background: var(--white);
+      border-bottom: 1px solid var(--gray-200);
+      position: sticky;
+      top: calc(var(--bar-h) + var(--nav-h));
+      z-index: 100;
+    }
+    .filter-section__inner {
+      max-width: var(--max-w);
+      margin: 0 auto;
+      padding: 0.75rem var(--pad-x);
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+    .filter-search {
+      position: relative;
+      flex: 0 0 260px;
+    }
+    .filter-search__icon {
+      position: absolute;
+      left: 0.85rem;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 15px;
+      height: 15px;
+      color: var(--gray-400);
+      pointer-events: none;
+    }
+    .filter-search__input {
+      width: 100%;
+      padding: 0.6rem 0.85rem 0.6rem 2.4rem;
+      border: 1px solid var(--gray-200);
+      font-size: 0.78rem;
+      font-family: var(--font-body);
+      color: var(--black);
+      background: var(--gray-100);
+      outline: none;
+      transition: border-color 0.2s, background 0.2s;
+      border-radius: 2px;
+    }
+    .filter-search__input::placeholder { color: var(--gray-400); }
+    .filter-search__input:focus { border-color: var(--black); background: var(--white); }
+    .filter-chips {
+      display: flex;
+      gap: 0.4rem;
+      flex-wrap: wrap;
+    }
+    .filter-chip {
+      font-size: 0.6rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      font-weight: 500;
+      padding: 0.4rem 1rem;
+      border: 1px solid var(--gray-200);
+      color: var(--gray-600);
+      background: var(--white);
+      cursor: pointer;
+      border-radius: 2px;
+      transition: border-color 0.2s, color 0.2s, background 0.2s;
+      font-family: var(--font-body);
+    }
+    .filter-chip:hover { border-color: var(--black); color: var(--black); }
+    .filter-chip.active {
+      background: var(--black);
+      color: var(--white);
+      border-color: var(--black);
+    }
+
+    /* ── A-Z Jump ──────────────────────────────────────────────── */
+    .az-bar {
+      background: var(--gray-100);
+      border-bottom: 1px solid var(--gray-200);
+      padding: 0.6rem var(--pad-x);
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+    .az-bar::-webkit-scrollbar { display: none; }
+    .az-bar__inner {
+      max-width: var(--max-w);
+      margin: 0 auto;
+      display: flex;
+      gap: 0.15rem;
+      min-width: max-content;
+    }
+    .az-link {
+      font-size: 0.65rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--gray-400);
+      padding: 0.3rem 0.45rem;
+      cursor: pointer;
+      border-radius: 2px;
+      transition: color 0.15s, background 0.15s;
+      font-family: var(--font-body);
+      background: none;
+      border: none;
+    }
+    .az-link:hover { color: var(--black); background: var(--white); }
+    .az-link.has-brands { color: var(--gray-800); }
+    .az-link.has-brands:hover { color: var(--black); background: var(--white); }
+
+    /* ── Brand Grid Section ────────────────────────────────────── */
+    .directory-section {
+      padding: clamp(3rem, 8vw, 5rem) 0;
+      background: var(--white);
+    }
+
+    /* Letter group heading */
+    .brand-letter-head {
+      grid-column: 1 / -1;
+      font-family: var(--font-display);
+      font-size: 2.5rem;
+      font-weight: 300;
+      color: var(--gray-200);
+      border-bottom: 1px solid var(--gray-200);
+      padding-bottom: 0.5rem;
+      margin-top: 1.5rem;
+      line-height: 1;
+    }
+
+    /* Enhanced store card */
+    .store-card {
+      background: var(--white);
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: flex-end;
+      gap: 0.5rem;
+      padding: 1.5rem 1.25rem;
+      cursor: pointer;
+      transition: background 0.3s var(--ease);
+      border-bottom: 1px solid var(--gray-200);
+      border-right: 1px solid var(--gray-200);
+      min-height: 120px;
+      position: relative;
+    }
+    .store-card:hover { background: var(--cream); }
+    .store-card__initial {
+      position: absolute;
+      top: 1rem; right: 1.2rem;
+      font-family: var(--font-display);
+      font-size: 3.5rem;
+      font-weight: 300;
+      color: var(--gray-200);
+      line-height: 1;
+      transition: color 0.3s;
+      pointer-events: none;
+    }
+    .store-card:hover .store-card__initial { color: var(--cream-dark); }
+    .store-card__name {
+      font-size: 0.7rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--black);
+      font-weight: 500;
+      position: relative;
+      z-index: 1;
+    }
+    .store-card__floor {
+      font-size: 0.6rem;
+      color: var(--gray-400);
+      letter-spacing: 0.08em;
+      position: relative;
+      z-index: 1;
+    }
+    .store-card__cat-tag {
+      font-size: 0.55rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      font-weight: 500;
+      padding: 0.2rem 0.55rem;
+      border-radius: 1px;
+      position: relative;
+      z-index: 1;
+    }
+    .store-card__cat-tag--fashion   { background: rgba(10,10,10,0.06); color: var(--gray-800); }
+    .store-card__cat-tag--beauty    { background: rgba(255,182,193,0.2); color: #9B3060; }
+    .store-card__cat-tag--electronics { background: rgba(59,130,246,0.1); color: #1D4ED8; }
+    .store-card__cat-tag--sport     { background: rgba(34,197,94,0.1); color: #166534; }
+    .store-card__cat-tag--maison    { background: rgba(245,158,11,0.1); color: #92400E; }
+    .store-card__cat-tag--kids      { background: rgba(168,85,247,0.1); color: #6B21A8; }
+    .store-card__cat-tag--food      { background: rgba(239,68,68,0.1); color: #991B1B; }
+    .store-card__cat-tag--services  { background: rgba(107,114,128,0.12); color: var(--gray-600); }
+
+    /* Hidden state for filter */
+    .store-card[hidden] { display: none; }
+
+    /* Brand grid wrapper */
+    #brand-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      background: transparent;
+      gap: 0;
+      border-top: 1px solid var(--gray-200);
+      border-left: 1px solid var(--gray-200);
+    }
+    @media (min-width: 640px)  { #brand-grid { grid-template-columns: repeat(3, 1fr); } }
+    @media (min-width: 1024px) { #brand-grid { grid-template-columns: repeat(4, 1fr); } }
+
+    /* No results */
+    .no-results {
+      grid-column: 1 / -1;
+      text-align: center;
+      padding: 5rem 1rem;
+      color: var(--gray-400);
+    }
+    .no-results__icon {
+      font-family: var(--font-display);
+      font-size: 4rem;
+      font-weight: 300;
+      margin-bottom: 1rem;
+      opacity: 0.3;
+    }
+    .no-results__msg {
+      font-size: 0.78rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    /* ── Coming Soon ───────────────────────────────────────────── */
+    .coming-section {
+      padding: clamp(3rem, 8vw, 5.5rem) 0;
+      background: var(--cream);
+    }
+    .coming-card {
+      background: var(--white);
+      padding: 2rem 1.75rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      border-bottom: 3px solid transparent;
+      transition: border-color 0.3s, transform 0.3s var(--ease);
+      cursor: pointer;
+    }
+    .coming-card:hover { border-color: var(--gold); transform: translateY(-3px); }
+    .coming-card__badge {
+      display: inline-block;
+      font-size: 0.55rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      font-weight: 600;
+      padding: 0.3rem 0.75rem;
+      background: var(--gold);
+      color: var(--white);
+      border-radius: 1px;
+      width: fit-content;
+    }
+    .coming-card__name {
+      font-family: var(--font-display);
+      font-size: 1.8rem;
+      font-weight: 300;
+      line-height: 1.05;
+      margin-top: 0.25rem;
+    }
+    .coming-card__desc {
+      font-size: 0.82rem;
+      color: var(--gray-600);
+      line-height: 1.65;
+    }
+    .coming-card__date {
+      font-size: 0.6rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--gray-400);
+      margin-top: 0.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .coming-card__date::before {
+      content: '';
+      display: block;
+      width: 20px;
+      height: 1px;
+      background: var(--gray-400);
+    }
+
+    /* ── Join Us CTA ───────────────────────────────────────────── */
+    .join-cta {
+      background: var(--black);
+      color: var(--white);
+      padding: clamp(4rem, 10vw, 8rem) 0;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .join-cta::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 60% 70% at 50% 100%, rgba(201,169,110,0.1) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .join-cta__inner { position: relative; z-index: 1; }
+    .join-cta__eyebrow {
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 1.25rem;
+    }
+    .join-cta__title {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 5vw, 4rem);
+      font-weight: 300;
+      margin-bottom: 1.25rem;
+      line-height: 1.05;
+    }
+    .join-cta__title em { font-style: italic; }
+    .join-cta__desc {
+      font-size: 0.88rem;
+      color: rgba(255,255,255,0.5);
+      max-width: 480px;
+      margin: 0 auto 2.5rem;
+      line-height: 1.7;
+    }
+    .join-cta__actions {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    /* ── Reveal animation ──────────────────────────────────────── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.6s var(--ease-out), transform 0.6s var(--ease-out);
+    }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    .reveal-delay-1 { transition-delay: 0.1s; }
+    .reveal-delay-2 { transition-delay: 0.2s; }
+    .reveal-delay-3 { transition-delay: 0.3s; }
+
+    /* ── Results count ─────────────────────────────────────────── */
+    .results-count {
+      font-size: 0.65rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--gray-400);
+      margin-bottom: 1.5rem;
+    }
+    .results-count span { color: var(--black); font-weight: 500; }
+  </style>
+</head>
+<body>
+<main id="main-content">
+
+  <!-- ═══════════════════════════════════════════════════════════
+       PAGE HERO
+  ═══════════════════════════════════════════════════════════ -->
+  <div class="page-hero">
+    <div class="container page-hero__content">
+      <nav class="page-hero__breadcrumb" aria-label="Breadcrumb">
+        <a href="../index.html">Morocco Mall</a>
+        <span>›</span>
+        <span>Shopping</span>
+      </nav>
+      <h1 class="page-hero__title">Discover Your<br><em>Personal Style</em></h1>
+      <p class="page-hero__subtitle">Explore a curated universe of international and local brands across fashion, beauty, lifestyle, electronics and more — all under one roof.</p>
+      <div class="page-hero__stats">
+        <div>
+          <div class="page-hero__stat-num">300+</div>
+          <div class="page-hero__stat-label">Brands</div>
+        </div>
+        <div>
+          <div class="page-hero__stat-num">3</div>
+          <div class="page-hero__stat-label">Niveaux</div>
+        </div>
+        <div>
+          <div class="page-hero__stat-num">250K</div>
+          <div class="page-hero__stat-label">m² de shopping</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════════
+       EDITOR'S PICKS — Featured This Season
+  ═══════════════════════════════════════════════════════════ -->
+  <section class="picks-section">
+    <div class="container">
+      <div class="section__header reveal">
+        <div>
+          <p class="section__eyebrow">Editor's Picks</p>
+          <h2 class="section__title">Featured This Season</h2>
+        </div>
+        <a class="section__link btn-arrow" href="#brand-grid">
+          Voir toutes les enseignes
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+            <path d="M5 12h14M12 5l7 7-7 7"/>
+          </svg>
+        </a>
+      </div>
+
+      <div class="picks-scroll" role="list" aria-label="Featured brands">
+
+        <!-- Card 1 — Zara -->
+        <article class="pick-card reveal" role="listitem" tabindex="0" aria-label="Zara — Mode">
+          <img
+            class="pick-card__img"
+            src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=400&h=500&fit=crop"
+            alt="Zara editorial"
+            loading="lazy"
+          />
+          <div class="pick-card__overlay"></div>
+          <div class="pick-card__content">
+            <p class="pick-card__cat">Mode · Niveau 1</p>
+            <h3 class="pick-card__name">Zara</h3>
+            <span class="pick-card__tag">New Collection</span>
+          </div>
+        </article>
+
+        <!-- Card 2 — Omega -->
+        <article class="pick-card reveal reveal-delay-1" role="listitem" tabindex="0" aria-label="Omega — Horlogerie">
+          <img
+            class="pick-card__img"
+            src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=400&h=500&fit=crop"
+            alt="Watch editorial"
+            loading="lazy"
+          />
+          <div class="pick-card__overlay"></div>
+          <div class="pick-card__content">
+            <p class="pick-card__cat">Horlogerie · Rose Boulevard</p>
+            <h3 class="pick-card__name">Omega</h3>
+            <span class="pick-card__tag">Exclusivité</span>
+          </div>
+        </article>
+
+        <!-- Card 3 — Sephora -->
+        <article class="pick-card reveal reveal-delay-2" role="listitem" tabindex="0" aria-label="Sephora — Beauté">
+          <img
+            class="pick-card__img"
+            src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&h=500&fit=crop"
+            alt="Beauty editorial"
+            loading="lazy"
+          />
+          <div class="pick-card__overlay"></div>
+          <div class="pick-card__content">
+            <p class="pick-card__cat">Beauté · Niveau 1</p>
+            <h3 class="pick-card__name">Sephora</h3>
+            <span class="pick-card__tag">Summer Beauty</span>
+          </div>
+        </article>
+
+        <!-- Card 4 — Nike -->
+        <article class="pick-card reveal reveal-delay-3" role="listitem" tabindex="0" aria-label="Nike — Sport">
+          <img
+            class="pick-card__img"
+            src="https://images.unsplash.com/photo-1584917865442-de89df76afd3?w=400&h=500&fit=crop"
+            alt="Nike editorial"
+            loading="lazy"
+          />
+          <div class="pick-card__overlay"></div>
+          <div class="pick-card__content">
+            <p class="pick-card__cat">Sport · Niveau 1</p>
+            <h3 class="pick-card__name">Nike</h3>
+            <span class="pick-card__tag">Été 2026</span>
+          </div>
+        </article>
+
+        <!-- Card 5 — Massimo Dutti -->
+        <article class="pick-card reveal" role="listitem" tabindex="0" aria-label="Massimo Dutti — Mode">
+          <img
+            class="pick-card__img"
+            src="https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=400&h=500&fit=crop"
+            alt="Fashion editorial"
+            loading="lazy"
+          />
+          <div class="pick-card__overlay"></div>
+          <div class="pick-card__content">
+            <p class="pick-card__cat">Mode Premium · Niveau 2</p>
+            <h3 class="pick-card__name">Massimo Dutti</h3>
+            <span class="pick-card__tag">Signature Edit</span>
+          </div>
+        </article>
+
+        <!-- Card 6 — Zara Home -->
+        <article class="pick-card reveal reveal-delay-1" role="listitem" tabindex="0" aria-label="Zara Home — Maison">
+          <img
+            class="pick-card__img"
+            src="https://images.unsplash.com/photo-1567401893414-76b7b1e5a7a5?w=400&h=500&fit=crop"
+            alt="Home decor editorial"
+            loading="lazy"
+          />
+          <div class="pick-card__overlay"></div>
+          <div class="pick-card__content">
+            <p class="pick-card__cat">Maison · Niveau 2</p>
+            <h3 class="pick-card__name">Zara Home</h3>
+            <span class="pick-card__tag">New In</span>
+          </div>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════
+       NEW ARRIVALS BAR
+  ═══════════════════════════════════════════════════════════ -->
+  <div class="arrivals-bar" role="complementary" aria-label="New arrivals">
+    <div class="arrivals-bar__inner">
+      <p class="arrivals-bar__label">Nouveautés · New to Morocco Mall</p>
+      <div class="arrivals-bar__divider" aria-hidden="true"></div>
+      <div class="arrivals-bar__pills">
+        <button class="arrivals-pill" onclick="filterByBrand('Chanel')">Chanel</button>
+        <button class="arrivals-pill" onclick="filterByBrand('Mango')">Mango</button>
+        <button class="arrivals-pill" onclick="filterByBrand('New Look')">New Look</button>
+        <button class="arrivals-pill" onclick="filterByBrand('iStore')">iStore</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════════
+       FILTER BAR (sticky)
+  ═══════════════════════════════════════════════════════════ -->
+  <div class="filter-section" role="search" aria-label="Filtrer les enseignes">
+    <div class="filter-section__inner">
+
+      <div class="filter-search">
+        <svg class="filter-search__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+          <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
+        </svg>
+        <input
+          id="brand-search"
+          class="filter-search__input"
+          type="search"
+          placeholder="Rechercher une enseigne…"
+          aria-label="Rechercher une enseigne"
+          oninput="handleSearch(this.value)"
+          autocomplete="off"
+        />
+      </div>
+
+      <div class="filter-chips" role="group" aria-label="Filtrer par catégorie">
+        <button class="filter-chip active" data-filter="all"          onclick="setFilter('all', this)">Tout</button>
+        <button class="filter-chip"        data-filter="fashion"      onclick="setFilter('fashion', this)">Mode</button>
+        <button class="filter-chip"        data-filter="beauty"       onclick="setFilter('beauty', this)">Beauté</button>
+        <button class="filter-chip"        data-filter="electronics"  onclick="setFilter('electronics', this)">Électronique</button>
+        <button class="filter-chip"        data-filter="sport"        onclick="setFilter('sport', this)">Sport</button>
+        <button class="filter-chip"        data-filter="maison"       onclick="setFilter('maison', this)">Maison</button>
+        <button class="filter-chip"        data-filter="kids"         onclick="setFilter('kids', this)">Enfants</button>
+        <button class="filter-chip"        data-filter="food"         onclick="setFilter('food', this)">Restauration</button>
+        <button class="filter-chip"        data-filter="services"     onclick="setFilter('services', this)">Services</button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════════
+       A-Z QUICK JUMP
+  ═══════════════════════════════════════════════════════════ -->
+  <div class="az-bar" aria-label="Navigation alphabétique">
+    <div class="az-bar__inner" id="az-bar">
+      <!-- Populated by JS -->
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════════
+       BRAND DIRECTORY GRID
+  ═══════════════════════════════════════════════════════════ -->
+  <section class="directory-section" id="directory" aria-label="Répertoire des enseignes">
+    <div class="container">
+      <p class="results-count" id="results-count" aria-live="polite">
+        <span id="count-num">28</span> enseignes
+      </p>
+      <div id="brand-grid" role="list" aria-label="Enseignes du mall">
+
+        <!-- Fashion -->
+        <div class="store-card reveal"           role="listitem" data-category="fashion" data-name="adidas">
+          <span class="store-card__initial" aria-hidden="true">A</span>
+          <span class="store-card__name">Adidas</span>
+          <span class="store-card__floor">Niveau 1</span>
+          <span class="store-card__cat-tag store-card__cat-tag--sport">Sport</span>
+        </div>
+        <div class="store-card reveal reveal-delay-1" role="listitem" data-category="beauty" data-name="anastasia beverly hills">
+          <span class="store-card__initial" aria-hidden="true">A</span>
+          <span class="store-card__name">Anastasia Beverly Hills</span>
+          <span class="store-card__floor">Niveau 1</span>
+          <span class="store-card__cat-tag store-card__cat-tag--beauty">Beauté</span>
+        </div>
+        <div class="store-card reveal reveal-delay-2" role="listitem" data-category="fashion" data-name="bershka">
+          <span class="store-card__initial" aria-hidden="true">B</span>
+          <span class="store-card__name">Bershka</span>
+          <span class="store-card__floor">Niveau 1</span>
+          <span class="store-card__cat-tag store-card__cat-tag--fashion">Mode</span>
+        </div>
+        <div class="store-card reveal reveal-delay-3" role="listitem" data-category="fashion" data-name="chanel">
+          <span class="store-card__initial" aria-hidden="true">C</span>
+          <span class="store-card__name">Chanel</span>
+          <span class="store-card__floor">Rose Boulevard</span>
+          <span class="store-card__cat-tag store-card__cat-tag--fashion">Mode</span>
+        </div>
+        <div class="store-card reveal"           role="listitem" data-category="kids" data-name="chicco">
+          <span class="store-card__initial" aria-hidden="true">C</span>
+          <span class="store-card__name">Chicco</span>
+          <span class="store-card__floor">Niveau 1</span>
+          <span class="store-card__cat-tag store-card__cat-tag--kids">Enfants</span>
+        </div>
+        <div class="store-card reveal reveal-delay-1" role="listitem" data-category="sport" data-name="decathlon">
+          <span class="store-card__initial" aria-hidden="true">D</span>
+          <span class="store-card__name">Decathlon</span>
+          <span class="store-card__floor">RDC</span>
+          <span class="store-card__cat-tag store-card__cat-tag--sport">Sport</span>
+        </div>
+        <div class="store-card reveal reveal-delay-2" role="listitem" data-category="electronics" data-name="fnac">
+          <span class="store-card__initial" aria-hidden="true">F</span>
+          <span class="store-card__name">Fnac</span>
+          <span class="store-card__floor">Niveau 2</span>
+          <span class="store-card__cat-tag store-card__cat-tag--electronics">Électronique</span>
+        </div>
+        <div class="store-card reveal reveal-delay-3" role="listitem" data-category="fashion" data-name="h&m">
+          <span class="store-card__initial" aria-hidden="true">H</span>
+          <span class="store-card__name">H&amp;M</span>
+          <span class="store-card__floor">Niveau 1</span>
+          <span class="store-card__cat-tag store-card__cat-tag--fashion">Mode</span>
+        </div>
+        <div class="store-card reveal"           role="listitem" data-category="maison" data-name="ikea">
+          <span class="store-card__initial" aria-hidden="true">I</span>
+          <span class="store-card__name">IKEA</span>
+          <span class="store-card__floor">Niveau 2</span>
+          <span class="store-card__cat-tag store-card__cat-tag--maison">Maison</span>
+        </div>
+        <div class="store-card reveal reveal-delay-1" role="listitem" data-category="electronics" data-name="istore">
+          <span class="store-card__initial" aria-hidden="true">I</span>
+          <span class="store-card__name">iStore</span>
+          <span class="store-card__floor">Niveau 2</span>
+          <span class="store-card__cat-tag store-card__cat-tag--electronics">Électronique</span>
+        </div>
+        <div class="store-card reveal reveal-delay-2" role="listitem" data-category="kids" data-name="kiabi">
+          <span class="store-card__initial" aria-hidden="true">K</span>
+          <span class="store-card__name">Kiabi</span>
+          <span class="store-card__floor">Niveau 1</span>
+          <span class="store-card__cat-tag store-card__cat-tag--kids">Enfants</span>
+        </div>
+        <div class="store-card reveal reveal-delay-3" role="listitem" data-category="beauty" data-name="l'occitane">
+          <span class="store-card__initial" aria-hidden="true">L</span>
+          <span class="store-card__name">L'Occitane</span>
+          <span class="store-card__floor">Niveau 1</span>
+          <span class="store-card__cat-tag store-card__cat-tag--beauty">Beauté</span>
+        </div>
+        <div class="store-card reveal"           role="listitem" data-category="fashion" data-name="lacoste">
+          <span class="store-card__initial" aria-hidden="true">L</span>
+          <span class="store-card__name">Lacoste</span>
+          <span class="store-card__floor">Niveau 1</span>
+          <span class="store-card__cat-tag store-card__cat-tag--fashion">Mode</span>
+        </div>
+        <div class="store-card reveal reveal-delay-1" role="listitem" data-category="beauty" data-name="mac cosmetics">
+          <span class="store-card__initial" aria-hidden="true">M</span>
+          <span class="store-card__name">MAC Cosmetics</span>
+          <span class="store-card__floor">Niveau 2</span>
+          <span class="store-card__cat-tag store-card__cat-tag--beauty">Beauté</span>
+        </div>
+        <div class="store-card reveal reveal-delay-2" role="listitem" data-category="fashion" data-name="mango">
+          <span class="store-card__initial" aria-hidden="true">M</span>
+          <span class="store-card__name">Mango</span>
+          <span class="store-card__floor">Niveau 1</span>
+          <span class="store-card__cat-tag store-card__cat-tag--fashion">Mode</span>
+        </div>
+        <div class="store-card reveal reveal-delay-3" role="listitem" data-category="fashion" data-name="massimo dutti">
+          <span class="store-card__initial" aria-hidden="true">M</span>
+          <span class="store-card__name">Massimo Dutti</span>
+          <span class="store-card__floor">Niveau 2</span>
+          <span class="store-card__cat-tag store-card__cat-tag--fashion">Mode</span>
+        </div>
+        <div class="store-card reveal"           role="listitem" data-category="fashion" data-name="new look">
+          <span class="store-card__initial" aria-hidden="true">N</span>
+          <span class="store-card__name">New Look</span>
+          <span class="store-card__floor">Niveau 1</span>
+          <span class="store-card__cat-tag store-card__cat-tag--fashion">Mode</span>
+        </div>
+        <div class="store-card reveal reveal-delay-1" role="listitem" data-category="sport" data-name="nike">
+          <span class="store-card__initial" aria-hidden="true">N</span>
+          <span class="store-card__name">Nike</span>
+          <span class="store-card__floor">Niveau 1</span>
+          <span class="store-card__cat-tag store-card__cat-tag--sport">Sport</span>
+        </div>
+        <div class="store-card reveal reveal-delay-2" role="listitem" data-category="fashion" data-name="oysho">
+          <span class="store-card__initial" aria-hidden="true">O</span>
+          <span class="store-card__name">Oysho</span>
+          <span class="store-card__floor">Niveau 1</span>
+          <span class="store-card__cat-tag store-card__cat-tag--fashion">Mode</span>
+        </div>
+        <div class="store-card reveal reveal-delay-3" role="listitem" data-category="fashion" data-name="pull & bear">
+          <span class="store-card__initial" aria-hidden="true">P</span>
+          <span class="store-card__name">Pull &amp; Bear</span>
+          <span class="store-card__floor">Niveau 1</span>
+          <span class="store-card__cat-tag store-card__cat-tag--fashion">Mode</span>
+        </div>
+        <div class="store-card reveal"           role="listitem" data-category="electronics" data-name="samsung">
+          <span class="store-card__initial" aria-hidden="true">S</span>
+          <span class="store-card__name">Samsung</span>
+          <span class="store-card__floor">Niveau 2</span>
+          <span class="store-card__cat-tag store-card__cat-tag--electronics">Électronique</span>
+        </div>
+        <div class="store-card reveal reveal-delay-1" role="listitem" data-category="beauty" data-name="sephora">
+          <span class="store-card__initial" aria-hidden="true">S</span>
+          <span class="store-card__name">Sephora</span>
+          <span class="store-card__floor">Niveau 1</span>
+          <span class="store-card__cat-tag store-card__cat-tag--beauty">Beauté</span>
+        </div>
+        <div class="store-card reveal reveal-delay-2" role="listitem" data-category="fashion" data-name="stradivarius">
+          <span class="store-card__initial" aria-hidden="true">S</span>
+          <span class="store-card__name">Stradivarius</span>
+          <span class="store-card__floor">Niveau 1</span>
+          <span class="store-card__cat-tag store-card__cat-tag--fashion">Mode</span>
+        </div>
+        <div class="store-card reveal reveal-delay-3" role="listitem" data-category="kids" data-name="toys r us">
+          <span class="store-card__initial" aria-hidden="true">T</span>
+          <span class="store-card__name">Toys"R"Us</span>
+          <span class="store-card__floor">Niveau 2</span>
+          <span class="store-card__cat-tag store-card__cat-tag--kids">Enfants</span>
+        </div>
+        <div class="store-card reveal"           role="listitem" data-category="fashion" data-name="zara">
+          <span class="store-card__initial" aria-hidden="true">Z</span>
+          <span class="store-card__name">Zara</span>
+          <span class="store-card__floor">Niveau 1</span>
+          <span class="store-card__cat-tag store-card__cat-tag--fashion">Mode</span>
+        </div>
+        <div class="store-card reveal reveal-delay-1" role="listitem" data-category="maison" data-name="zara home">
+          <span class="store-card__initial" aria-hidden="true">Z</span>
+          <span class="store-card__name">Zara Home</span>
+          <span class="store-card__floor">Niveau 2</span>
+          <span class="store-card__cat-tag store-card__cat-tag--maison">Maison</span>
+        </div>
+        <div class="store-card reveal reveal-delay-2" role="listitem" data-category="kids" data-name="zara kids">
+          <span class="store-card__initial" aria-hidden="true">Z</span>
+          <span class="store-card__name">Zara Kids</span>
+          <span class="store-card__floor">Niveau 1</span>
+          <span class="store-card__cat-tag store-card__cat-tag--kids">Enfants</span>
+        </div>
+        <div class="store-card reveal reveal-delay-3" role="listitem" data-category="beauty" data-name="yves rocher">
+          <span class="store-card__initial" aria-hidden="true">Y</span>
+          <span class="store-card__name">Yves Rocher</span>
+          <span class="store-card__floor">Niveau 1</span>
+          <span class="store-card__cat-tag store-card__cat-tag--beauty">Beauté</span>
+        </div>
+
+        <!-- No results state (hidden by default) -->
+        <div class="no-results" id="no-results" style="display:none;" aria-live="polite">
+          <div class="no-results__icon">0</div>
+          <p class="no-results__msg">Aucun résultat pour votre recherche</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════
+       COMING SOON
+  ═══════════════════════════════════════════════════════════ -->
+  <section class="coming-section" aria-label="Prochaines ouvertures">
+    <div class="container">
+      <div class="section__header reveal">
+        <div>
+          <p class="section__eyebrow">Store Openings</p>
+          <h2 class="section__title">Coming Soon</h2>
+        </div>
+      </div>
+      <div class="grid-3">
+
+        <article class="coming-card reveal">
+          <span class="coming-card__badge">Ouverture imminente</span>
+          <h3 class="coming-card__name">Mango</h3>
+          <p class="coming-card__desc">Un nouveau concept store Mango s'installe au coeur de Casablanca Bay. Découvrez la nouvelle collection Printemps-Été dans un espace entièrement repensé.</p>
+          <div class="coming-card__date">14 Juin 2026 · Niveau 1</div>
+        </article>
+
+        <article class="coming-card reveal reveal-delay-1">
+          <span class="coming-card__badge">Rose Boulevard</span>
+          <h3 class="coming-card__name">Chanel</h3>
+          <p class="coming-card__desc">La maison Chanel rejoint Rose Boulevard, la galerie premium de Morocco Mall dédiée aux grandes maisons de couture et à la haute joaillerie.</p>
+          <div class="coming-card__date">19 Août 2026 · Rose Boulevard</div>
+        </article>
+
+        <article class="coming-card reveal reveal-delay-2">
+          <span class="coming-card__badge">Nouveau concept</span>
+          <h3 class="coming-card__name">New Concept Store</h3>
+          <p class="coming-card__desc">Un espace de marque innovant dédié à la mode durable et aux créateurs émergents marocains et internationaux. Rendez-vous à l'été 2026.</p>
+          <div class="coming-card__date">Été 2026 · Niveau 2</div>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════
+       JOIN US — Leasing CTA
+  ═══════════════════════════════════════════════════════════ -->
+  <section class="join-cta" aria-label="Rejoignez Morocco Mall">
+    <div class="container join-cta__inner">
+      <p class="join-cta__eyebrow">Leasing &amp; Partenariats</p>
+      <h2 class="join-cta__title">Rejoignez une<br><em>Destination Unique</em></h2>
+      <p class="join-cta__desc">Ouvrez votre enseigne dans l'un des plus grands centres commerciaux d'Afrique et bénéficiez d'une visibilité exceptionnelle auprès de millions de visiteurs chaque année.</p>
+      <div class="join-cta__actions">
+        <a class="btn btn--outline-white btn--lg" href="join-us.html">Nous rejoindre</a>
+        <a class="btn btn--gold btn--lg" href="mall-map.html">Plan du mall</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<script src="../js/seo.js"></script>
+<script src="../js/translations.js"></script>
+<script src="../js/app.js"></script>
+<script>
+/* ============================================================
+   SHOPPING PAGE — Interactive Directory Logic
+   ============================================================ */
+
+  /* ── State ─────────────────────────────────────────────────── */
+  let currentFilter = 'all';
+  let currentSearch = '';
+
+  /* ── Filter by category chip ──────────────────────────────── */
+  function setFilter(category, btn) {
+    currentFilter = category;
+
+    // Update chip active state
+    document.querySelectorAll('.filter-chip').forEach(function(c) {
+      c.classList.toggle('active', c.dataset.filter === category);
+    });
+
+    applyFilters();
+  }
+
+  /* ── Filter by brand name (from arrivals bar pills) ───────── */
+  function filterByBrand(name) {
+    const searchInput = document.getElementById('brand-search');
+    searchInput.value = name;
+    currentSearch = name.toLowerCase();
+    currentFilter = 'all';
+    document.querySelectorAll('.filter-chip').forEach(function(c) {
+      c.classList.toggle('active', c.dataset.filter === 'all');
+    });
+    applyFilters();
+    document.getElementById('directory').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  /* ── Handle search input ──────────────────────────────────── */
+  function handleSearch(value) {
+    currentSearch = value.toLowerCase().trim();
+    applyFilters();
+  }
+
+  /* ── Core filter logic ────────────────────────────────────── */
+  function applyFilters() {
+    const cards = document.querySelectorAll('#brand-grid .store-card[data-name]');
+    let visible = 0;
+
+    cards.forEach(function(card) {
+      const name     = card.dataset.name     || '';
+      const category = card.dataset.category || '';
+
+      const matchesCategory = currentFilter === 'all' || category === currentFilter;
+      const matchesSearch   = !currentSearch || name.includes(currentSearch);
+
+      if (matchesCategory && matchesSearch) {
+        card.style.display = '';
+        visible++;
+      } else {
+        card.style.display = 'none';
+      }
+    });
+
+    // Update count
+    const countEl = document.getElementById('count-num');
+    if (countEl) countEl.textContent = visible;
+
+    // Toggle no-results
+    const noResults = document.getElementById('no-results');
+    if (noResults) noResults.style.display = visible === 0 ? 'block' : 'none';
+  }
+
+  /* ── Build A-Z bar ────────────────────────────────────────── */
+  function buildAZBar() {
+    const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
+    const cards   = document.querySelectorAll('#brand-grid .store-card[data-name]');
+
+    // Collect first letters present
+    const present = new Set();
+    cards.forEach(function(c) {
+      if (c.dataset.name) present.add(c.dataset.name[0].toUpperCase());
+    });
+
+    const bar = document.getElementById('az-bar');
+    if (!bar) return;
+    bar.innerHTML = '';
+
+    letters.forEach(function(letter) {
+      const btn = document.createElement('button');
+      btn.className = 'az-link' + (present.has(letter) ? ' has-brands' : '');
+      btn.textContent = letter;
+      btn.setAttribute('aria-label', 'Aller à la lettre ' + letter);
+
+      if (present.has(letter)) {
+        btn.addEventListener('click', function() {
+          jumpToLetter(letter);
+        });
+      } else {
+        btn.style.opacity = '0.3';
+        btn.style.pointerEvents = 'none';
+      }
+      bar.appendChild(btn);
+    });
+  }
+
+  /* ── Jump to first brand starting with letter ─────────────── */
+  function jumpToLetter(letter) {
+    const cards = document.querySelectorAll('#brand-grid .store-card[data-name]');
+    for (let i = 0; i < cards.length; i++) {
+      const card = cards[i];
+      if (card.dataset.name && card.dataset.name[0].toUpperCase() === letter && card.style.display !== 'none') {
+        card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        card.style.outline = '2px solid var(--gold)';
+        setTimeout(function() { card.style.outline = ''; }, 1500);
+        break;
+      }
+    }
+  }
+
+  /* ── Reveal on scroll ─────────────────────────────────────── */
+  function setupReveal() {
+    const observer = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.08 });
+
+    document.querySelectorAll('.reveal').forEach(function(el) {
+      observer.observe(el);
+    });
+  }
+
+  /* ── Init ─────────────────────────────────────────────────── */
+  document.addEventListener('DOMContentLoaded', function() {
+    buildAZBar();
+    setupReveal();
+  });
+</script>
+</body>
+</html>

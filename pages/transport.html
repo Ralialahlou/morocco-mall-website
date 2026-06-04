@@ -1,0 +1,1410 @@
+<!DOCTYPE html>
+<html lang="fr" dir="ltr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Comment rejoindre Morocco Mall — Careem, taxi, tramway, parking. Toutes les options de transport pour Casablanca, Marrakech, Rabat et Bouskoura." />
+  <title>Transport — Morocco Mall</title>
+  <link rel="icon" href="../assets/logo.png" type="image/png" />
+  <link rel="stylesheet" href="../css/main.css" />
+  <style>
+    /* ============================================================
+       TRANSPORT PAGE — page-level styles
+       ============================================================ */
+
+    /* ---- HERO ---- */
+    .trp-hero {
+      background: var(--black);
+      padding: clamp(6rem, 14vw, 11rem) 0 clamp(4rem, 8vw, 7rem);
+      position: relative;
+      overflow: hidden;
+    }
+    .trp-hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 55% 80% at 15% 55%, rgba(255,82,0,0.04) 0%, transparent 65%),
+                  radial-gradient(ellipse 45% 65% at 85% 25%, rgba(201,169,110,0.04) 0%, transparent 60%);
+      pointer-events: none;
+    }
+    .trp-hero::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.013) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.013) 1px, transparent 1px);
+      background-size: 80px 80px;
+      pointer-events: none;
+    }
+    .trp-hero__inner {
+      position: relative;
+      z-index: 1;
+    }
+    .trp-breadcrumb {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.7rem;
+      color: rgba(255,255,255,0.3);
+      margin-bottom: 2.5rem;
+    }
+    .trp-breadcrumb a { color: rgba(255,255,255,0.4); transition: color 0.2s; text-decoration: none; }
+    .trp-breadcrumb a:hover { color: var(--gold); }
+    .trp-breadcrumb span { color: rgba(255,255,255,0.2); }
+    .trp-hero__eyebrow {
+      font-size: 0.65rem;
+      font-weight: 500;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 1.2rem;
+    }
+    .trp-hero__title {
+      font-family: var(--font-display);
+      font-size: clamp(3rem, 8vw, 7rem);
+      font-weight: 300;
+      line-height: 1;
+      color: var(--white);
+      margin-bottom: 1.5rem;
+    }
+    .trp-hero__title em { font-style: italic; color: var(--gold-light); }
+    .trp-hero__sub {
+      font-size: clamp(0.88rem, 1.6vw, 1.05rem);
+      color: rgba(255,255,255,0.42);
+      max-width: 560px;
+      line-height: 1.8;
+    }
+    .trp-hero__badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+      margin-top: 2.5rem;
+    }
+    .trp-hero__badge {
+      display: flex;
+      align-items: center;
+      gap: 0.45rem;
+      padding: 0.4rem 0.9rem;
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 100px;
+      font-size: 0.7rem;
+      font-weight: 400;
+      color: rgba(255,255,255,0.45);
+      letter-spacing: 0.04em;
+    }
+    .trp-hero__badge svg {
+      width: 14px; height: 14px;
+      stroke: var(--gold); stroke-width: 1.6; fill: none;
+      stroke-linecap: round; stroke-linejoin: round;
+      flex-shrink: 0;
+    }
+
+    /* ---- SECTION WRAPPER ---- */
+    .trp-section {
+      padding: clamp(4rem, 8vw, 7rem) 0;
+    }
+    .trp-section--dark {
+      background: #0a0a0a;
+    }
+    .trp-section--light {
+      background: var(--white);
+    }
+    .trp-section--cream {
+      background: var(--cream, #f9f6f1);
+    }
+    .trp-section-header {
+      margin-bottom: clamp(2.5rem, 5vw, 4rem);
+    }
+    .trp-eyebrow {
+      font-size: 0.62rem;
+      font-weight: 500;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold-dark);
+      margin-bottom: 0.6rem;
+    }
+    .trp-section-title {
+      font-family: var(--font-display);
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      font-weight: 300;
+      line-height: 1.1;
+      margin-bottom: 0.5rem;
+    }
+    .trp-section-title em { font-style: italic; }
+    .trp-section-sub {
+      font-size: 0.84rem;
+      color: var(--gray-600, #666);
+      line-height: 1.75;
+      max-width: 480px;
+    }
+    .trp-section--dark .trp-eyebrow { color: rgba(255,82,0,0.8); }
+    .trp-section--dark .trp-section-title { color: var(--white); }
+    .trp-section--dark .trp-section-sub { color: rgba(255,255,255,0.4); }
+
+    /* ---- CAREEM CARD ---- */
+    .careem-card {
+      background: #111;
+      border: 1px solid rgba(255,82,0,0.25);
+      border-radius: 4px;
+      overflow: hidden;
+      display: grid;
+      grid-template-columns: 1fr 420px;
+      gap: 0;
+      position: relative;
+    }
+    @media (max-width: 900px) {
+      .careem-card { grid-template-columns: 1fr; }
+    }
+    .careem-card__accent {
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, #FF5200 0%, rgba(255,82,0,0.3) 100%);
+    }
+    .careem-card__body {
+      padding: clamp(2.5rem, 5vw, 4rem);
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+    .careem-card__eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.62rem;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: #FF5200;
+    }
+    .careem-card__eyebrow-dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: #FF5200;
+      flex-shrink: 0;
+    }
+    .careem-card__title {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 4.5vw, 3.2rem);
+      font-weight: 300;
+      line-height: 1.05;
+      color: var(--white);
+    }
+    .careem-card__title strong {
+      font-weight: 600;
+      color: #FF5200;
+    }
+    .careem-card__desc {
+      font-size: 0.88rem;
+      color: rgba(255,255,255,0.5);
+      line-height: 1.8;
+      max-width: 440px;
+    }
+    .careem-promo {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.8rem;
+      background: rgba(255,82,0,0.08);
+      border: 1px solid rgba(255,82,0,0.22);
+      border-radius: 4px;
+      padding: 0.9rem 1.4rem;
+      width: fit-content;
+    }
+    .careem-promo__label {
+      font-size: 0.65rem;
+      font-weight: 500;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.4);
+    }
+    .careem-promo__code {
+      font-family: 'Courier New', monospace;
+      font-size: 1rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      color: #FF5200;
+    }
+    .careem-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      background: #FF5200;
+      color: #fff;
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 0.9rem 2rem;
+      border-radius: 2px;
+      text-decoration: none;
+      width: fit-content;
+      transition: background 0.2s, transform 0.2s;
+    }
+    .careem-cta:hover {
+      background: #e04a00;
+      transform: translateY(-1px);
+    }
+    .careem-cta svg {
+      width: 16px; height: 16px;
+      stroke: #fff; stroke-width: 2; fill: none;
+      stroke-linecap: round; stroke-linejoin: round;
+    }
+    .careem-card__visual {
+      background: rgba(255,82,0,0.04);
+      border-left: 1px solid rgba(255,82,0,0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 3rem;
+    }
+    @media (max-width: 900px) {
+      .careem-card__visual {
+        border-left: none;
+        border-top: 1px solid rgba(255,82,0,0.1);
+        padding: 2.5rem 3rem;
+      }
+    }
+    .careem-car-svg {
+      width: 100%;
+      max-width: 300px;
+      opacity: 0.85;
+    }
+    .careem-features {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      margin-top: 0.25rem;
+    }
+    .careem-feature {
+      display: flex;
+      align-items: center;
+      gap: 0.45rem;
+      font-size: 0.73rem;
+      color: rgba(255,255,255,0.5);
+    }
+    .careem-feature svg {
+      width: 14px; height: 14px;
+      stroke: #FF5200; stroke-width: 1.8; fill: none;
+      stroke-linecap: round; stroke-linejoin: round;
+      flex-shrink: 0;
+    }
+
+    /* ---- TRANSPORT CARDS GRID ---- */
+    .trp-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1px;
+      background: var(--gray-200, #e0e0e0);
+    }
+    @media (max-width: 700px) {
+      .trp-grid { grid-template-columns: 1fr; }
+    }
+    .trp-card {
+      background: var(--white);
+      padding: clamp(2rem, 4vw, 3rem) clamp(1.5rem, 3vw, 2.5rem);
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      transition: background 0.25s;
+    }
+    .trp-card:hover { background: #fafafa; }
+    .trp-card__icon-wrap {
+      width: 52px; height: 52px;
+      border: 1px solid rgba(0,0,0,0.1);
+      border-radius: 2px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 0.5rem;
+    }
+    .trp-card__icon-wrap svg {
+      width: 26px; height: 26px;
+      stroke: var(--black); stroke-width: 1.4; fill: none;
+      stroke-linecap: round; stroke-linejoin: round;
+    }
+    .trp-card__title {
+      font-family: var(--font-display);
+      font-size: 1.35rem;
+      font-weight: 400;
+      color: var(--black);
+      line-height: 1.15;
+    }
+    .trp-card__desc {
+      font-size: 0.8rem;
+      color: var(--gray-600, #666);
+      line-height: 1.8;
+      flex-grow: 1;
+    }
+    .trp-info-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 0.55rem;
+    }
+    .trp-info-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.6rem;
+      font-size: 0.78rem;
+      color: var(--gray-600, #666);
+      line-height: 1.5;
+    }
+    .trp-info-list li svg {
+      width: 14px; height: 14px;
+      stroke: var(--gold-dark); stroke-width: 1.8; fill: none;
+      stroke-linecap: round; stroke-linejoin: round;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+    .trp-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      background: var(--black);
+      color: var(--white);
+      font-size: 0.68rem;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      padding: 0.3rem 0.7rem;
+      border-radius: 100px;
+      width: fit-content;
+    }
+    .trp-pill--gold { background: var(--gold-dark); }
+    .trp-pill--orange { background: #FF5200; }
+
+    /* ---- TRAMWAY ---- */
+    .tram-card {
+      background: var(--black);
+      border-radius: 4px;
+      padding: clamp(2.5rem, 5vw, 4rem);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: clamp(2rem, 4vw, 4rem);
+      position: relative;
+      overflow: hidden;
+    }
+    @media (max-width: 760px) {
+      .tram-card { grid-template-columns: 1fr; }
+    }
+    .tram-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--gold) 0%, rgba(201,169,110,0.2) 100%);
+    }
+    .tram-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: rgba(201,169,110,0.12);
+      border: 1px solid rgba(201,169,110,0.25);
+      border-radius: 100px;
+      padding: 0.35rem 0.9rem;
+      width: fit-content;
+      margin-bottom: 1rem;
+    }
+    .tram-badge__line {
+      font-size: 0.7rem;
+      font-weight: 700;
+      color: var(--gold);
+      letter-spacing: 0.1em;
+    }
+    .tram-badge__sep {
+      width: 1px; height: 12px;
+      background: rgba(201,169,110,0.3);
+    }
+    .tram-badge__city {
+      font-size: 0.68rem;
+      color: rgba(255,255,255,0.4);
+      letter-spacing: 0.06em;
+    }
+    .tram-title {
+      font-family: var(--font-display);
+      font-size: clamp(1.6rem, 3.5vw, 2.4rem);
+      font-weight: 300;
+      color: var(--white);
+      margin-bottom: 0.6rem;
+      line-height: 1.1;
+    }
+    .tram-title em { font-style: italic; color: var(--gold-light); }
+    .tram-desc {
+      font-size: 0.82rem;
+      color: rgba(255,255,255,0.42);
+      line-height: 1.8;
+    }
+    .tram-schedule {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 2px;
+      overflow: hidden;
+    }
+    .tram-schedule__header {
+      padding: 0.8rem 1.2rem;
+      background: rgba(255,255,255,0.06);
+      font-size: 0.62rem;
+      font-weight: 600;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.4);
+    }
+    .tram-schedule__row {
+      display: flex;
+      align-items: center;
+      padding: 0.9rem 1.2rem;
+      gap: 1rem;
+      border-top: 1px solid rgba(255,255,255,0.06);
+    }
+    .tram-schedule__row:first-of-type { border-top: none; }
+    .tram-schedule__icon {
+      width: 32px; height: 32px;
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 2px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .tram-schedule__icon svg {
+      width: 16px; height: 16px;
+      stroke: var(--gold); stroke-width: 1.6; fill: none;
+      stroke-linecap: round; stroke-linejoin: round;
+    }
+    .tram-schedule__label {
+      font-size: 0.7rem;
+      color: rgba(255,255,255,0.35);
+      flex-grow: 1;
+      letter-spacing: 0.04em;
+    }
+    .tram-schedule__value {
+      font-family: var(--font-display);
+      font-size: 0.95rem;
+      font-weight: 400;
+      color: var(--white);
+    }
+    .tram-stop-info {
+      margin-top: 1.5rem;
+      display: flex;
+      align-items: flex-start;
+      gap: 0.9rem;
+      padding: 1rem 1.2rem;
+      background: rgba(201,169,110,0.06);
+      border: 1px solid rgba(201,169,110,0.15);
+      border-radius: 2px;
+    }
+    .tram-stop-info svg {
+      width: 18px; height: 18px;
+      stroke: var(--gold); stroke-width: 1.6; fill: none;
+      stroke-linecap: round; stroke-linejoin: round;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+    .tram-stop-info__text {
+      font-size: 0.78rem;
+      color: rgba(255,255,255,0.45);
+      line-height: 1.7;
+    }
+    .tram-stop-info__text strong { color: var(--gold-light); font-weight: 500; }
+
+    /* ---- PARKING LINK CARD ---- */
+    .parking-link-card {
+      background: var(--white);
+      border: 1px solid rgba(0,0,0,0.1);
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 2rem;
+      padding: clamp(2rem, 4vw, 3rem) clamp(1.5rem, 3vw, 2.5rem);
+      text-decoration: none;
+      color: inherit;
+      transition: border-color 0.25s, box-shadow 0.25s;
+      position: relative;
+      overflow: hidden;
+    }
+    .parking-link-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; bottom: 0;
+      width: 3px;
+      background: var(--gold-dark);
+    }
+    .parking-link-card:hover {
+      border-color: rgba(0,0,0,0.2);
+      box-shadow: 0 8px 40px rgba(0,0,0,0.08);
+    }
+    .parking-link-card__left { display: flex; align-items: center; gap: 1.5rem; }
+    .parking-link-card__icon {
+      width: 56px; height: 56px;
+      background: var(--black);
+      border-radius: 2px;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .parking-link-card__icon svg {
+      width: 26px; height: 26px;
+      stroke: var(--gold); stroke-width: 1.4; fill: none;
+      stroke-linecap: round; stroke-linejoin: round;
+    }
+    .parking-link-card__title {
+      font-family: var(--font-display);
+      font-size: 1.4rem;
+      font-weight: 400;
+      color: var(--black);
+      margin-bottom: 0.25rem;
+    }
+    .parking-link-card__sub {
+      font-size: 0.78rem;
+      color: var(--gray-600, #666);
+      line-height: 1.6;
+    }
+    .parking-link-card__arrow {
+      width: 44px; height: 44px;
+      border: 1px solid rgba(0,0,0,0.12);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+      transition: background 0.2s, border-color 0.2s;
+    }
+    .parking-link-card:hover .parking-link-card__arrow {
+      background: var(--black);
+      border-color: var(--black);
+    }
+    .parking-link-card__arrow svg {
+      width: 18px; height: 18px;
+      stroke: var(--black); stroke-width: 2; fill: none;
+      stroke-linecap: round; stroke-linejoin: round;
+      transition: stroke 0.2s;
+    }
+    .parking-link-card:hover .parking-link-card__arrow svg { stroke: var(--white); }
+    @media (max-width: 560px) {
+      .parking-link-card { flex-direction: column; align-items: flex-start; }
+      .parking-link-card__arrow { display: none; }
+    }
+
+    /* ---- TABS ---- */
+    .trp-tabs-nav {
+      display: flex;
+      gap: 0;
+      border-bottom: 1px solid rgba(0,0,0,0.1);
+      margin-bottom: 0;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+    }
+    .trp-tabs-nav::-webkit-scrollbar { display: none; }
+    .trp-tab-btn {
+      flex-shrink: 0;
+      padding: 1rem 1.8rem;
+      font-size: 0.75rem;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--gray-600, #666);
+      background: none;
+      border: none;
+      border-bottom: 2px solid transparent;
+      cursor: pointer;
+      transition: color 0.2s, border-color 0.2s;
+      white-space: nowrap;
+    }
+    .trp-tab-btn:hover { color: var(--black); }
+    .trp-tab-btn.is-active {
+      color: var(--black);
+      border-bottom-color: var(--black);
+    }
+    .trp-tab-panel {
+      display: none;
+      padding: clamp(2rem, 4vw, 3.5rem) 0;
+    }
+    .trp-tab-panel.is-active { display: block; }
+    .trp-tab-content {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: clamp(2rem, 4vw, 4rem);
+      align-items: start;
+    }
+    @media (max-width: 760px) {
+      .trp-tab-content { grid-template-columns: 1fr; }
+    }
+    .trp-tab-addr {
+      background: #f5f4f0;
+      border-radius: 2px;
+      padding: 1.8rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.9rem;
+    }
+    .trp-tab-addr__label {
+      font-size: 0.62rem;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: rgba(0,0,0,0.35);
+    }
+    .trp-tab-addr__value {
+      font-family: var(--font-display);
+      font-size: 1.15rem;
+      font-weight: 400;
+      color: var(--black);
+      line-height: 1.4;
+    }
+    .trp-tab-addr__meta {
+      font-size: 0.76rem;
+      color: var(--gray-600, #666);
+      line-height: 1.6;
+    }
+    .trp-tab-options {
+      display: flex;
+      flex-direction: column;
+      gap: 0.8rem;
+    }
+    .trp-option-row {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 1rem 1.2rem;
+      border: 1px solid rgba(0,0,0,0.08);
+      border-radius: 2px;
+      background: var(--white);
+    }
+    .trp-option-row__icon {
+      width: 36px; height: 36px;
+      background: var(--black);
+      border-radius: 2px;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .trp-option-row__icon svg {
+      width: 18px; height: 18px;
+      stroke: var(--gold); stroke-width: 1.5; fill: none;
+      stroke-linecap: round; stroke-linejoin: round;
+    }
+    .trp-option-row__body { flex-grow: 1; }
+    .trp-option-row__name {
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--black);
+      margin-bottom: 0.15rem;
+    }
+    .trp-option-row__detail {
+      font-size: 0.72rem;
+      color: var(--gray-600, #666);
+    }
+    .trp-option-row__time {
+      font-family: var(--font-display);
+      font-size: 1rem;
+      font-weight: 400;
+      color: var(--black);
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+    .trp-option-row__time span {
+      font-size: 0.62rem;
+      font-weight: 400;
+      color: rgba(0,0,0,0.35);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      margin-left: 2px;
+    }
+
+    /* ---- RESPONSIVE HELPERS ---- */
+    @media (max-width: 560px) {
+      .trp-section { padding: clamp(2.5rem, 6vw, 4rem) 0; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- =========================================================
+       NAVIGATION (injected by app.js)
+       ========================================================= -->
+  <div id="nav-placeholder"></div>
+
+  <!-- =========================================================
+       HERO
+       ========================================================= -->
+  <section class="trp-hero">
+    <div class="container">
+      <div class="trp-hero__inner">
+        <nav class="trp-breadcrumb" aria-label="Fil d'Ariane">
+          <a href="../index.html">Accueil</a>
+          <span aria-hidden="true">/</span>
+          <a href="#">Services</a>
+          <span aria-hidden="true">/</span>
+          <span>Transport</span>
+        </nav>
+        <p class="trp-hero__eyebrow">Votre itinéraire</p>
+        <h1 class="trp-hero__title">Comment Nous<br /><em>Rejoindre</em></h1>
+        <p class="trp-hero__sub">
+          Morocco Mall est accessible par de nombreux moyens de transport.
+          Que vous veniez en VTC, en taxi, en tramway ou en voiture, nous vous
+          facilitons chaque trajet.
+        </p>
+        <div class="trp-hero__badges">
+          <div class="trp-hero__badge">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            Ouvert 7j/7
+          </div>
+          <div class="trp-hero__badge">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            4 sites au Maroc
+          </div>
+          <div class="trp-hero__badge">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="1" y="3" width="15" height="13" rx="1"/><path d="M16 8h4l3 3v5h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+            Parking gratuit 2h
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================================================
+       CAREEM — OFFICIAL PARTNER
+       ========================================================= -->
+  <section class="trp-section trp-section--dark">
+    <div class="container">
+      <div class="trp-section-header">
+        <p class="trp-eyebrow">Partenaire officiel</p>
+        <h2 class="trp-section-title">Réservez votre <em>course</em></h2>
+        <p class="trp-section-sub">
+          Notre partenaire de confiance pour tous vos déplacements vers Morocco Mall.
+        </p>
+      </div>
+
+      <div class="careem-card">
+        <div class="careem-card__accent" aria-hidden="true"></div>
+
+        <div class="careem-card__body">
+          <p class="careem-card__eyebrow">
+            <span class="careem-card__eyebrow-dot" aria-hidden="true"></span>
+            Partenaire officiel de transport
+          </p>
+
+          <h3 class="careem-card__title">
+            Arrivez avec<br /><strong>Careem</strong>
+          </h3>
+
+          <p class="careem-card__desc">
+            Réservez votre VTC avec Careem — disponible 24h/24, 7j/7.
+            Bénéficiez de tarifs transparents, d'un service fiable et d'un accès
+            direct aux entrées principales de Morocco Mall.
+          </p>
+
+          <div class="careem-features">
+            <span class="careem-feature">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+              Disponible 24h/24 7j/7
+            </span>
+            <span class="careem-feature">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+              Suivi en temps réel
+            </span>
+            <span class="careem-feature">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+              Paiement en ligne ou en espèces
+            </span>
+            <span class="careem-feature">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+              Conducteurs vérifiés
+            </span>
+          </div>
+
+          <div class="careem-promo" aria-label="Code promotionnel">
+            <div>
+              <div class="careem-promo__label">Code promo</div>
+              <div class="careem-promo__code">MOROCCOMALL</div>
+            </div>
+          </div>
+
+          <a href="https://www.careem.com" target="_blank" rel="noopener noreferrer" class="careem-cta">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+            </svg>
+            Télécharger Careem
+          </a>
+        </div>
+
+        <div class="careem-card__visual" aria-hidden="true">
+          <!-- SVG car illustration -->
+          <svg class="careem-car-svg" viewBox="0 0 400 220" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Illustration voiture Careem">
+            <!-- Road shadow -->
+            <ellipse cx="200" cy="200" rx="180" ry="14" fill="rgba(255,82,0,0.07)"/>
+            <!-- Car body -->
+            <rect x="40" y="110" width="320" height="80" rx="12" fill="#1a1a1a" stroke="rgba(255,82,0,0.3)" stroke-width="1.5"/>
+            <!-- Roof -->
+            <path d="M110 110 C120 70 160 50 200 50 C240 50 280 70 290 110 Z" fill="#1a1a1a" stroke="rgba(255,82,0,0.3)" stroke-width="1.5"/>
+            <!-- Windows -->
+            <path d="M120 108 C126 80 155 62 185 62 L185 108 Z" fill="rgba(255,82,0,0.15)" stroke="rgba(255,82,0,0.2)" stroke-width="1"/>
+            <path d="M190 108 L190 62 C220 62 248 80 254 108 Z" fill="rgba(255,82,0,0.15)" stroke="rgba(255,82,0,0.2)" stroke-width="1"/>
+            <!-- Door line -->
+            <line x1="187" y1="110" x2="187" y2="186" stroke="rgba(255,82,0,0.2)" stroke-width="1.5"/>
+            <!-- Door handles -->
+            <rect x="148" y="148" width="20" height="5" rx="2.5" fill="rgba(255,82,0,0.4)"/>
+            <rect x="232" y="148" width="20" height="5" rx="2.5" fill="rgba(255,82,0,0.4)"/>
+            <!-- Front headlights -->
+            <rect x="330" y="118" width="30" height="14" rx="4" fill="rgba(255,82,0,0.15)" stroke="rgba(255,82,0,0.4)" stroke-width="1"/>
+            <rect x="332" y="120" width="16" height="10" rx="2" fill="rgba(255,82,0,0.5)"/>
+            <!-- Rear lights -->
+            <rect x="40" y="118" width="28" height="14" rx="4" fill="rgba(255,82,0,0.1)" stroke="rgba(255,82,0,0.25)" stroke-width="1"/>
+            <rect x="42" y="120" width="14" height="10" rx="2" fill="rgba(255,82,0,0.3)"/>
+            <!-- Front wheel -->
+            <circle cx="305" cy="188" r="28" fill="#0d0d0d" stroke="rgba(255,82,0,0.35)" stroke-width="2"/>
+            <circle cx="305" cy="188" r="16" fill="#1a1a1a" stroke="rgba(255,82,0,0.2)" stroke-width="1"/>
+            <circle cx="305" cy="188" r="5" fill="rgba(255,82,0,0.5)"/>
+            <!-- Rear wheel -->
+            <circle cx="95" cy="188" r="28" fill="#0d0d0d" stroke="rgba(255,82,0,0.35)" stroke-width="2"/>
+            <circle cx="95" cy="188" r="16" fill="#1a1a1a" stroke="rgba(255,82,0,0.2)" stroke-width="1"/>
+            <circle cx="95" cy="188" r="5" fill="rgba(255,82,0,0.5)"/>
+            <!-- Careem logo area on door -->
+            <rect x="150" y="120" width="100" height="22" rx="3" fill="rgba(255,82,0,0.08)" stroke="rgba(255,82,0,0.15)" stroke-width="1"/>
+            <text x="200" y="135" font-family="Arial, sans-serif" font-size="10" font-weight="700" fill="rgba(255,82,0,0.7)" text-anchor="middle" letter-spacing="1">CAREEM</text>
+            <!-- Speed lines -->
+            <line x1="0" y1="158" x2="38" y2="158" stroke="rgba(255,82,0,0.15)" stroke-width="1.5" stroke-dasharray="4 4"/>
+            <line x1="0" y1="168" x2="30" y2="168" stroke="rgba(255,82,0,0.1)" stroke-width="1" stroke-dasharray="3 5"/>
+            <line x1="0" y1="178" x2="25" y2="178" stroke="rgba(255,82,0,0.08)" stroke-width="1" stroke-dasharray="2 6"/>
+          </svg>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================================================
+       TAXI + TRAMWAY
+       ========================================================= -->
+  <section class="trp-section trp-section--light">
+    <div class="container">
+      <div class="trp-section-header">
+        <p class="trp-eyebrow" style="color: var(--gold-dark);">Autres options</p>
+        <h2 class="trp-section-title">Taxi &amp; <em>Tramway</em></h2>
+        <p class="trp-section-sub">Accédez facilement au mall via les transports en commun ou les taxis officiels.</p>
+      </div>
+
+      <div class="trp-grid">
+        <!-- TAXI -->
+        <div class="trp-card">
+          <div class="trp-card__icon-wrap">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M5 17H3a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v5a2 2 0 0 1-2 2h-2"/>
+              <circle cx="7.5" cy="17.5" r="2.5"/>
+              <circle cx="16.5" cy="17.5" r="2.5"/>
+              <line x1="10" y1="17.5" x2="14" y2="17.5"/>
+            </svg>
+          </div>
+          <div class="trp-pill">
+            <svg width="10" height="10" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+            Disponible immédiatement
+          </div>
+          <h3 class="trp-card__title">Taxi</h3>
+          <p class="trp-card__desc">
+            Des stations de taxis sont situées à chaque entrée principale du mall.
+            Les taxis officiels — petits taxis rouges à Casablanca — sont accessibles
+            toute la journée. Exigez toujours le compteur.
+          </p>
+          <ul class="trp-info-list">
+            <li>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+              Stations à chaque entrée du mall
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+              Tarif estimé depuis le centre-ville (Casablanca Bay) : <strong>30–50 MAD</strong>
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+              Tarif selon compteur obligatoire — refusez les forfaits non officiels
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.62 3.42 2 2 0 0 1 3.6 1.21h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 8.91a16 16 0 0 0 6.95 6.95l1.26-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 24 17v-.08z"/></svg>
+              Grands taxis disponibles pour trajets inter-villes
+            </li>
+          </ul>
+        </div>
+
+        <!-- BUS / AUTRE -->
+        <div class="trp-card">
+          <div class="trp-card__icon-wrap">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <rect x="1" y="3" width="22" height="16" rx="2" ry="2"/>
+              <line x1="1" y1="8" x2="23" y2="8"/>
+              <line x1="1" y1="14" x2="23" y2="14"/>
+              <line x1="7" y1="19" x2="7" y2="21"/>
+              <line x1="17" y1="19" x2="17" y2="21"/>
+              <line x1="8" y1="3" x2="8" y2="8"/>
+              <line x1="16" y1="3" x2="16" y2="8"/>
+            </svg>
+          </div>
+          <div class="trp-pill trp-pill--gold">
+            <svg width="10" height="10" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+            Réseau urbain
+          </div>
+          <h3 class="trp-card__title">Bus &amp; Transport Urbain</h3>
+          <p class="trp-card__desc">
+            Le réseau de bus urbain M'dina Bus à Casablanca dessert les environs
+            du mall. Combiné avec le tramway (Ligne T1), il offre une connexion
+            complète depuis l'ensemble de l'agglomération.
+          </p>
+          <ul class="trp-info-list">
+            <li>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+              Lignes M'dina Bus : arrêts proches de l'entrée principale
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+              Correspondance avec Ligne T1 tramway à Sidi Maârouf
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+              Tarif bus : 4 MAD le trajet — paiement à bord
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+              Service opérationnel de 05h30 à 22h30
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================================================
+       TRAMWAY
+       ========================================================= -->
+  <section class="trp-section trp-section--cream">
+    <div class="container">
+      <div class="trp-section-header">
+        <p class="trp-eyebrow">Casablanca</p>
+        <h2 class="trp-section-title">Ligne de <em>Tramway</em></h2>
+        <p class="trp-section-sub">La ligne T1 du tramway de Casablanca relie directement le centre-ville à Morocco Mall.</p>
+      </div>
+
+      <div class="tram-card">
+        <div>
+          <div class="tram-badge" role="img" aria-label="Ligne T1 Casablanca">
+            <span class="tram-badge__line">T1</span>
+            <div class="tram-badge__sep" aria-hidden="true"></div>
+            <span class="tram-badge__city">Casablanca</span>
+          </div>
+          <h3 class="tram-title">Arrêt <em>Morocco Mall</em></h3>
+          <p class="tram-desc">
+            Rejoignez Morocco Mall depuis n'importe quel point de la ligne T1.
+            Le tramway dessert les principaux quartiers de Casablanca avec une
+            fréquence élevée tout au long de la journée. Confortable, ponctuel
+            et économique.
+          </p>
+          <div class="tram-stop-info">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            <div class="tram-stop-info__text">
+              L'arrêt <strong>Morocco Mall</strong> est situé directement en face de
+              l'entrée principale, côté boulevard Sidi Abderrahmane. Accès à pied en
+              moins de 2 minutes depuis la plateforme.
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <div class="tram-schedule" role="table" aria-label="Horaires tramway">
+            <div class="tram-schedule__header" role="row">Horaires et fréquence</div>
+
+            <div class="tram-schedule__row" role="row">
+              <div class="tram-schedule__icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+              </div>
+              <span class="tram-schedule__label" role="rowheader">Première rame</span>
+              <span class="tram-schedule__value" role="cell">06:00</span>
+            </div>
+
+            <div class="tram-schedule__row" role="row">
+              <div class="tram-schedule__icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+              </div>
+              <span class="tram-schedule__label" role="rowheader">Fréquence de passage</span>
+              <span class="tram-schedule__value" role="cell">toutes les 10 min</span>
+            </div>
+
+            <div class="tram-schedule__row" role="row">
+              <div class="tram-schedule__icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+              </div>
+              <span class="tram-schedule__label" role="rowheader">Dernière rame</span>
+              <span class="tram-schedule__value" role="cell">23:00</span>
+            </div>
+
+            <div class="tram-schedule__row" role="row">
+              <div class="tram-schedule__icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
+              </div>
+              <span class="tram-schedule__label" role="rowheader">Tarif unitaire</span>
+              <span class="tram-schedule__value" role="cell">6 MAD</span>
+            </div>
+
+            <div class="tram-schedule__row" role="row">
+              <div class="tram-schedule__icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>
+              </div>
+              <span class="tram-schedule__label" role="rowheader">Service</span>
+              <span class="tram-schedule__value" role="cell">7j/7</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================================================
+       PARKING LINK
+       ========================================================= -->
+  <section class="trp-section trp-section--light">
+    <div class="container">
+      <div class="trp-section-header">
+        <p class="trp-eyebrow" style="color: var(--gold-dark);">Vous venez en voiture ?</p>
+        <h2 class="trp-section-title">Parking <em>gratuit</em></h2>
+        <p class="trp-section-sub">3 000 places disponibles — dont des bornes de recharge électrique et places PMR.</p>
+      </div>
+
+      <a href="parking.html" class="parking-link-card" aria-label="Accéder à la page Parking Morocco Mall">
+        <div class="parking-link-card__left">
+          <div class="parking-link-card__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24">
+              <rect x="1" y="3" width="15" height="13" rx="1"/>
+              <path d="M16 8h4l3 3v5h-7V8z"/>
+              <circle cx="5.5" cy="18.5" r="2.5"/>
+              <circle cx="18.5" cy="18.5" r="2.5"/>
+            </svg>
+          </div>
+          <div>
+            <div class="parking-link-card__title">Parking Morocco Mall</div>
+            <div class="parking-link-card__sub">
+              3 000+ places · Gratuit 2h · 30+ bornes EV · Valet · PMR
+            </div>
+          </div>
+        </div>
+        <div class="parking-link-card__arrow" aria-hidden="true">
+          <svg viewBox="0 0 24 24">
+            <line x1="5" y1="12" x2="19" y2="12"/>
+            <polyline points="12 5 19 12 12 19"/>
+          </svg>
+        </div>
+      </a>
+    </div>
+  </section>
+
+  <!-- =========================================================
+       PER-MALL TABS
+       ========================================================= -->
+  <section class="trp-section trp-section--cream">
+    <div class="container">
+      <div class="trp-section-header">
+        <p class="trp-eyebrow">Nos sites</p>
+        <h2 class="trp-section-title">Choisissez <em>votre mall</em></h2>
+        <p class="trp-section-sub">Informations d'accès détaillées pour chacun de nos quatre sites au Maroc.</p>
+      </div>
+
+      <div class="trp-tabs-nav" role="tablist" aria-label="Sélection du mall">
+        <button
+          class="trp-tab-btn is-active"
+          role="tab"
+          aria-selected="true"
+          aria-controls="tab-casa"
+          id="btn-casa"
+          data-tab="casa"
+        >Casablanca</button>
+        <button
+          class="trp-tab-btn"
+          role="tab"
+          aria-selected="false"
+          aria-controls="tab-marrakech"
+          id="btn-marrakech"
+          data-tab="marrakech"
+        >Marrakech</button>
+        <button
+          class="trp-tab-btn"
+          role="tab"
+          aria-selected="false"
+          aria-controls="tab-rabat"
+          id="btn-rabat"
+          data-tab="rabat"
+        >Rabat</button>
+        <button
+          class="trp-tab-btn"
+          role="tab"
+          aria-selected="false"
+          aria-controls="tab-bouskoura"
+          id="btn-bouskoura"
+          data-tab="bouskoura"
+        >Bouskoura</button>
+      </div>
+
+      <!-- Casablanca -->
+      <div id="tab-casa" class="trp-tab-panel is-active" role="tabpanel" aria-labelledby="btn-casa">
+        <div class="trp-tab-content">
+          <div>
+            <div class="trp-tab-addr">
+              <div class="trp-tab-addr__label">Adresse</div>
+              <div class="trp-tab-addr__value">Boulevard de la Corniche,<br />Ain Diab, Casablanca</div>
+              <div class="trp-tab-addr__meta">
+                En bord de mer, à 8 km du centre-ville. Accès direct depuis l'autoroute A5 et la corniche de Casablanca.
+              </div>
+            </div>
+          </div>
+          <div class="trp-tab-options">
+            <div class="trp-option-row">
+              <div class="trp-option-row__icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><path d="M5 17H3a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v5a2 2 0 0 1-2 2h-2"/><circle cx="7.5" cy="17.5" r="2.5"/><circle cx="16.5" cy="17.5" r="2.5"/><line x1="10" y1="17.5" x2="14" y2="17.5"/></svg>
+              </div>
+              <div class="trp-option-row__body">
+                <div class="trp-option-row__name">Taxi depuis Casa-Voyageurs</div>
+                <div class="trp-option-row__detail">Via la corniche — environ 14 km</div>
+              </div>
+              <div class="trp-option-row__time">25 min <span>env.</span></div>
+            </div>
+            <div class="trp-option-row">
+              <div class="trp-option-row__icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><rect x="1" y="3" width="22" height="16" rx="2"/><line x1="1" y1="8" x2="23" y2="8"/><line x1="1" y1="14" x2="23" y2="14"/><line x1="7" y1="19" x2="7" y2="21"/><line x1="17" y1="19" x2="17" y2="21"/></svg>
+              </div>
+              <div class="trp-option-row__body">
+                <div class="trp-option-row__name">Tramway Ligne T1</div>
+                <div class="trp-option-row__detail">Arrêt Morocco Mall — toutes les 10 min</div>
+              </div>
+              <div class="trp-option-row__time">30 min <span>centre</span></div>
+            </div>
+            <div class="trp-option-row">
+              <div class="trp-option-row__icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+              </div>
+              <div class="trp-option-row__body">
+                <div class="trp-option-row__name">Depuis l'aéroport Mohamed V</div>
+                <div class="trp-option-row__detail">Via autoroute — environ 35 km</div>
+              </div>
+              <div class="trp-option-row__time">35 min <span>env.</span></div>
+            </div>
+            <div class="trp-option-row">
+              <div class="trp-option-row__icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><rect x="1" y="3" width="15" height="13" rx="1"/><path d="M16 8h4l3 3v5h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+              </div>
+              <div class="trp-option-row__body">
+                <div class="trp-option-row__name">En voiture — Parking</div>
+                <div class="trp-option-row__detail">3 000+ places, gratuit les 2 premières heures</div>
+              </div>
+              <div class="trp-option-row__time">Gratuit <span>2h</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Marrakech -->
+      <div id="tab-marrakech" class="trp-tab-panel" role="tabpanel" aria-labelledby="btn-marrakech">
+        <div class="trp-tab-content">
+          <div>
+            <div class="trp-tab-addr">
+              <div class="trp-tab-addr__label">Adresse</div>
+              <div class="trp-tab-addr__value">Route de Casablanca,<br />Targa, Marrakech</div>
+              <div class="trp-tab-addr__meta">
+                À 4 km du centre historique (Medina). Accès facile depuis l'Avenue Mohammed VI et la Route de Casablanca.
+              </div>
+            </div>
+          </div>
+          <div class="trp-tab-options">
+            <div class="trp-option-row">
+              <div class="trp-option-row__icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><path d="M5 17H3a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v5a2 2 0 0 1-2 2h-2"/><circle cx="7.5" cy="17.5" r="2.5"/><circle cx="16.5" cy="17.5" r="2.5"/><line x1="10" y1="17.5" x2="14" y2="17.5"/></svg>
+              </div>
+              <div class="trp-option-row__body">
+                <div class="trp-option-row__name">Taxi depuis Jemaa el-Fna</div>
+                <div class="trp-option-row__detail">Centre médina — environ 5 km</div>
+              </div>
+              <div class="trp-option-row__time">10 min <span>env.</span></div>
+            </div>
+            <div class="trp-option-row">
+              <div class="trp-option-row__icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><path d="M5 17H3a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v5a2 2 0 0 1-2 2h-2"/><circle cx="7.5" cy="17.5" r="2.5"/><circle cx="16.5" cy="17.5" r="2.5"/><line x1="10" y1="17.5" x2="14" y2="17.5"/></svg>
+              </div>
+              <div class="trp-option-row__body">
+                <div class="trp-option-row__name">Careem / VTC</div>
+                <div class="trp-option-row__detail">Service disponible 24h/24 7j/7 à Marrakech</div>
+              </div>
+              <div class="trp-option-row__time">10 min <span>env.</span></div>
+            </div>
+            <div class="trp-option-row">
+              <div class="trp-option-row__icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+              </div>
+              <div class="trp-option-row__body">
+                <div class="trp-option-row__name">Depuis l'aéroport Menara</div>
+                <div class="trp-option-row__detail">Via avenue Mohamed VI — 6 km</div>
+              </div>
+              <div class="trp-option-row__time">12 min <span>env.</span></div>
+            </div>
+            <div class="trp-option-row">
+              <div class="trp-option-row__icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><rect x="1" y="3" width="15" height="13" rx="1"/><path d="M16 8h4l3 3v5h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+              </div>
+              <div class="trp-option-row__body">
+                <div class="trp-option-row__name">En voiture — Parking</div>
+                <div class="trp-option-row__detail">Vaste parking sur site avec places PMR</div>
+              </div>
+              <div class="trp-option-row__time">Gratuit <span>2h</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Rabat -->
+      <div id="tab-rabat" class="trp-tab-panel" role="tabpanel" aria-labelledby="btn-rabat">
+        <div class="trp-tab-content">
+          <div>
+            <div class="trp-tab-addr">
+              <div class="trp-tab-addr__label">Adresse</div>
+              <div class="trp-tab-addr__value">Avenue Annakhil,<br />Hay Riad, Rabat</div>
+              <div class="trp-tab-addr__meta">
+                Situé dans le quartier Hay Riad, à 8 km du centre de Rabat. Proche du boulevard de la Victoire et de l'autoroute A1.
+              </div>
+            </div>
+          </div>
+          <div class="trp-tab-options">
+            <div class="trp-option-row">
+              <div class="trp-option-row__icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><path d="M5 17H3a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v5a2 2 0 0 1-2 2h-2"/><circle cx="7.5" cy="17.5" r="2.5"/><circle cx="16.5" cy="17.5" r="2.5"/><line x1="10" y1="17.5" x2="14" y2="17.5"/></svg>
+              </div>
+              <div class="trp-option-row__body">
+                <div class="trp-option-row__name">Taxi depuis Agdal</div>
+                <div class="trp-option-row__detail">Quartier Agdal — environ 4 km</div>
+              </div>
+              <div class="trp-option-row__time">10 min <span>env.</span></div>
+            </div>
+            <div class="trp-option-row">
+              <div class="trp-option-row__icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><rect x="1" y="3" width="22" height="16" rx="2"/><line x1="1" y1="8" x2="23" y2="8"/><line x1="1" y1="14" x2="23" y2="14"/><line x1="7" y1="19" x2="7" y2="21"/><line x1="17" y1="19" x2="17" y2="21"/></svg>
+              </div>
+              <div class="trp-option-row__body">
+                <div class="trp-option-row__name">Bus Stareo</div>
+                <div class="trp-option-row__detail">Lignes desservant Hay Riad</div>
+              </div>
+              <div class="trp-option-row__time">20 min <span>centre</span></div>
+            </div>
+            <div class="trp-option-row">
+              <div class="trp-option-row__icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><path d="M5 17H3a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v5a2 2 0 0 1-2 2h-2"/><circle cx="7.5" cy="17.5" r="2.5"/><circle cx="16.5" cy="17.5" r="2.5"/><line x1="10" y1="17.5" x2="14" y2="17.5"/></svg>
+              </div>
+              <div class="trp-option-row__body">
+                <div class="trp-option-row__name">Careem / VTC</div>
+                <div class="trp-option-row__detail">Disponible 24h/24 7j/7 à Rabat</div>
+              </div>
+              <div class="trp-option-row__time">12 min <span>env.</span></div>
+            </div>
+            <div class="trp-option-row">
+              <div class="trp-option-row__icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><rect x="1" y="3" width="15" height="13" rx="1"/><path d="M16 8h4l3 3v5h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+              </div>
+              <div class="trp-option-row__body">
+                <div class="trp-option-row__name">En voiture — Parking</div>
+                <div class="trp-option-row__detail">Parking couvert sur site</div>
+              </div>
+              <div class="trp-option-row__time">Gratuit <span>2h</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Bouskoura -->
+      <div id="tab-bouskoura" class="trp-tab-panel" role="tabpanel" aria-labelledby="btn-bouskoura">
+        <div class="trp-tab-content">
+          <div>
+            <div class="trp-tab-addr">
+              <div class="trp-tab-addr__label">Adresse</div>
+              <div class="trp-tab-addr__value">Route de Bouskoura,<br />Bouskoura, Casablanca</div>
+              <div class="trp-tab-addr__meta">
+                A la sortie de Casablanca en direction de l'aéroport. Accès rapide depuis l'autoroute A3 et la rocade de Casablanca.
+              </div>
+            </div>
+          </div>
+          <div class="trp-tab-options">
+            <div class="trp-option-row">
+              <div class="trp-option-row__icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><path d="M5 17H3a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v5a2 2 0 0 1-2 2h-2"/><circle cx="7.5" cy="17.5" r="2.5"/><circle cx="16.5" cy="17.5" r="2.5"/><line x1="10" y1="17.5" x2="14" y2="17.5"/></svg>
+              </div>
+              <div class="trp-option-row__body">
+                <div class="trp-option-row__name">Taxi depuis Twin Center</div>
+                <div class="trp-option-row__detail">Centre Casablanca — environ 16 km</div>
+              </div>
+              <div class="trp-option-row__time">20 min <span>env.</span></div>
+            </div>
+            <div class="trp-option-row">
+              <div class="trp-option-row__icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+              </div>
+              <div class="trp-option-row__body">
+                <div class="trp-option-row__name">Depuis l'aéroport Mohamed V</div>
+                <div class="trp-option-row__detail">Via l'autoroute A3 — 10 km</div>
+              </div>
+              <div class="trp-option-row__time">15 min <span>env.</span></div>
+            </div>
+            <div class="trp-option-row">
+              <div class="trp-option-row__icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><path d="M5 17H3a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v5a2 2 0 0 1-2 2h-2"/><circle cx="7.5" cy="17.5" r="2.5"/><circle cx="16.5" cy="17.5" r="2.5"/><line x1="10" y1="17.5" x2="14" y2="17.5"/></svg>
+              </div>
+              <div class="trp-option-row__body">
+                <div class="trp-option-row__name">Careem / VTC</div>
+                <div class="trp-option-row__detail">Disponible 24h/24 7j/7</div>
+              </div>
+              <div class="trp-option-row__time">20 min <span>env.</span></div>
+            </div>
+            <div class="trp-option-row">
+              <div class="trp-option-row__icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><rect x="1" y="3" width="15" height="13" rx="1"/><path d="M16 8h4l3 3v5h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+              </div>
+              <div class="trp-option-row__body">
+                <div class="trp-option-row__name">En voiture — Parking</div>
+                <div class="trp-option-row__detail">Grand parking extérieur et couvert</div>
+              </div>
+              <div class="trp-option-row__time">Gratuit <span>2h</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- =========================================================
+       FOOTER (injected by app.js)
+       ========================================================= -->
+  <div id="footer-placeholder"></div>
+
+  <!-- =========================================================
+       SCRIPTS
+       ========================================================= -->
+  <script src="../js/seo.js"></script>
+<script src="../js/translations.js"></script>
+  <script src="../js/app.js"></script>
+  <script>
+    /* ---- Tab behaviour ---- */
+    (function () {
+      const buttons = document.querySelectorAll('.trp-tab-btn');
+      const panels  = document.querySelectorAll('.trp-tab-panel');
+
+      buttons.forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          var target = btn.dataset.tab;
+
+          buttons.forEach(function (b) {
+            b.classList.remove('is-active');
+            b.setAttribute('aria-selected', 'false');
+          });
+          panels.forEach(function (p) {
+            p.classList.remove('is-active');
+          });
+
+          btn.classList.add('is-active');
+          btn.setAttribute('aria-selected', 'true');
+          var panel = document.getElementById('tab-' + target);
+          if (panel) panel.classList.add('is-active');
+        });
+      });
+    })();
+  </script>
+</body>
+</html>

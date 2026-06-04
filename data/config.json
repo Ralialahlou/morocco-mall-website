@@ -1,0 +1,52 @@
+{
+  "_comment": "Site-wide configuration. Edit here to update across the whole website.",
+  "site": {
+    "name": "Morocco Mall",
+    "tagline": {
+      "fr": "Style. Gastronomie. Expériences.",
+      "en": "Style. Dining. Experiences.",
+      "ar": "الأناقة. المطاعم. التجارب."
+    },
+    "url": "https://www.moroccomall.ma",
+    "defaultLanguage": "fr",
+    "languages": ["fr", "en", "ar"]
+  },
+  "contact": {
+    "phone": "+212 522 000 111",
+    "email": "contact@moroccomall.ma",
+    "pressEmail": "presse@moroccomall.ma",
+    "roseBoulevardEmail": "roseboulevard@moroccomall.ma",
+    "restaurantEmail": "restaurant@seadream.ma",
+    "leasingEmail": "leasing@moroccomall.ma"
+  },
+  "social": {
+    "instagram": "https://www.instagram.com/moroccomall",
+    "facebook": "https://www.facebook.com/moroccomall",
+    "tiktok": "https://www.tiktok.com/@moroccomall",
+    "youtube": "https://www.youtube.com/@moroccomall",
+    "linkedin": "https://www.linkedin.com/company/moroccomall"
+  },
+  "openingHours": {
+    "shops": {
+      "weekdays": { "label": "Dim–Jeu / Sun–Thu", "hours": "10:00–21:00" },
+      "weekends": { "label": "Ven–Sam / Fri–Sat", "hours": "10:00–22:00" }
+    },
+    "restaurants": {
+      "weekdays": { "hours": "10:00–23:00" },
+      "weekends": { "hours": "10:00–00:00" }
+    },
+    "cinema": {
+      "daily": { "hours": "10:00–01:00" }
+    }
+  },
+  "apps": {
+    "aksalBlack": {
+      "ios": "https://apps.apple.com/ma/app/aksal-black",
+      "android": "https://play.google.com/store/apps/details?id=ma.aksal.black"
+    },
+    "tenant": {
+      "ios": "https://apps.apple.com/ma/app/morocco-mall-tenant",
+      "android": "https://play.google.com/store/apps/details?id=ma.moroccomall.tenant"
+    }
+  }
+}

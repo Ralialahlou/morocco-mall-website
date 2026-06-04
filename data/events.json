@@ -1,0 +1,69 @@
+{
+  "_comment": "Events data. Add/edit events here. The events.html page reads this file format for reference (currently hardcoded HTML — future CMS integration).",
+  "events": [
+    {
+      "id": "event-1",
+      "type": "fashion",
+      "month": 6,
+      "date": "2026-06-14",
+      "time": "18:00",
+      "endTime": "22:00",
+      "title": { "fr": "Summer Style Week 2026", "en": "Summer Style Week 2026", "ar": "أسبوع الأناقة الصيفي 2026" },
+      "description": { "fr": "Défilés, ateliers stylisme et rencontres exclusives avec les grandes enseignes. Sur RSVP.", "en": "Fashion shows, styling workshops and exclusive brand meet-and-greets. Free with RSVP.", "ar": "عروض أزياء وورش تنسيق الملابس ولقاءات حصرية مع الماركات الكبرى. مجاني مع التسجيل." },
+      "mall": "casablanca",
+      "location": "Place Centrale — Casablanca Bay",
+      "admission": "free-rsvp",
+      "image": "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=700&h=394&fit=crop&q=80",
+      "featured": true,
+      "bookingType": "rsvp"
+    },
+    {
+      "id": "event-2",
+      "type": "kids",
+      "month": 6,
+      "date": "2026-06-21",
+      "time": "14:00",
+      "endTime": "20:00",
+      "title": { "fr": "Kids Day — Fête de la Musique", "en": "Kids Day — Music Festival", "ar": "يوم الأطفال — مهرجان الموسيقى" },
+      "description": { "fr": "Animations musicales, ateliers créatifs et spectacles. Une journée dédiée aux familles.", "en": "Music animations, creative workshops and shows. A day dedicated to families.", "ar": "أنشطة موسيقية وورش عمل إبداعية وعروض. يوم مخصص للعائلات." },
+      "mall": "all",
+      "location": "Tous les malls",
+      "admission": "free-rsvp",
+      "image": "https://images.unsplash.com/photo-1566041510394-cf7c1b1b14e7?w=700&h=394&fit=crop&q=80",
+      "featured": false,
+      "bookingType": "rsvp"
+    },
+    {
+      "id": "event-3",
+      "type": "food",
+      "month": 7,
+      "date": "2026-07-05",
+      "time": "12:00",
+      "endTime": "23:00",
+      "title": { "fr": "Morocco Food Festival", "en": "Morocco Food Festival", "ar": "مهرجان المغرب للطعام" },
+      "description": { "fr": "Chefs invités, street food internationale et démonstrations culinaires toute la journée.", "en": "Guest chefs, international street food and culinary demonstrations all day long.", "ar": "طهاة مدعوون وطعام شارع دولي وعروض طهي طوال اليوم." },
+      "mall": "marrakech",
+      "location": "Marrakech Garden",
+      "admission": "free-rsvp",
+      "image": "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=700&h=394&fit=crop&q=80",
+      "featured": false,
+      "bookingType": "rsvp"
+    },
+    {
+      "id": "event-4",
+      "type": "opening",
+      "month": 8,
+      "date": "2026-08-19",
+      "time": "19:00",
+      "title": { "fr": "Chanel Opening — Rose Boulevard", "en": "Chanel Opening — Rose Boulevard", "ar": "افتتاح شانيل — روز بوليفار" },
+      "description": { "fr": "Soirée inaugurale de la boutique Chanel au cœur de Rose Boulevard. Sur invitation.", "en": "Inaugural evening of the Chanel boutique at the heart of Rose Boulevard. By invitation only.", "ar": "سهرة افتتاحية لبوتيك شانيل في قلب روز بوليفار. بالدعوة فقط." },
+      "mall": "casablanca",
+      "location": "Rose Boulevard — Casablanca Bay",
+      "admission": "invitation",
+      "image": "https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=700&h=394&fit=crop&q=80",
+      "featured": false,
+      "bookingType": "external",
+      "bookingUrl": "https://www.ticketmaster.ma"
+    }
+  ]
+}

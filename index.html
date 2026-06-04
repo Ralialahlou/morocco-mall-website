@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="fr" dir="ltr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Morocco Mall — Style, Dining, Experiences. Discover our four world-class shopping destinations in Casablanca, Marrakech, Rabat and Bouskoura." />
+  <meta property="og:title" content="Morocco Mall" />
+  <meta property="og:description" content="A vibrant destination where shopping, dining, and lifestyle experiences come together." />
+  <meta property="og:type" content="website" />
+  <title>Morocco Mall</title>
+  <link rel="icon" href="assets/logo.png" type="image/png" />
+  <link rel="stylesheet" href="css/main.css" />
+</head>
+<body>
+
+<!-- ─── MAIN CONTENT (chrome injected by app.js above) ─── -->
+<main id="main-content">
+
+  <!-- ═══ HERO SLIDER ═══════════════════════════════════════ -->
+  <section class="hero" id="hero" aria-label="Hero banner">
+
+    <!-- ── SLIDE 1 · Vidéo : Shopping & Style ───────────────── -->
+    <div class="hero-slide hero-slide--active" data-slide="0">
+      <video class="hero-slide__media" autoplay muted loop playsinline
+        poster="assets/luxury-2.jpg" style="object-position:center top;">
+        <source src="https://assets.mixkit.co/videos/preview/mixkit-woman-shopping-bags-in-mall-42823-large.mp4" type="video/mp4" />
+      </video>
+      <div class="hero-slide__overlay"></div>
+      <div class="hero-slide__content container">
+        <p class="hero__eyebrow" data-i18n="heroEyebrow"></p>
+        <h1 class="hero__title">
+          Style.<br><em>Dining.</em><br>Experiences.
+        </h1>
+        <p class="hero__subtitle" data-i18n="heroSubtitle"></p>
+        <div class="hero__actions">
+          <a class="btn btn--outline-white btn--lg" href="pages/shopping.html" data-i18n="discoverMore"></a>
+          <a class="btn btn--gold btn--lg" href="#locations-section" data-i18n="planVisit"></a>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── SLIDE 2 · Image : Rose Boulevard Luxe ────────────── -->
+    <div class="hero-slide" data-slide="1">
+      <div class="hero-slide__kenburns">
+        <img class="hero-slide__kb-img"
+          src="assets/luxury-1.jpg"
+          alt="Rose Boulevard — Dior boutique" loading="eager"
+          style="object-position:center center;" />
+      </div>
+      <div class="hero-slide__overlay hero-slide__overlay--rose"></div>
+      <div class="hero-slide__content container">
+        <p class="hero__eyebrow" style="color:var(--gold);">Rose Boulevard</p>
+        <h1 class="hero__title">
+          An Exclusive<br><em>World of Luxury</em>
+        </h1>
+        <p class="hero__subtitle">Les plus grandes maisons internationales réunies dans un espace d'exception unique au Maroc.</p>
+        <div class="hero__actions">
+          <a class="btn btn--gold btn--lg" href="pages/rose-boulevard.html" data-i18n="discoverMore"></a>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── SLIDE 3 · Vidéo : Divertissement & Événements ─────── -->
+    <div class="hero-slide" data-slide="2">
+      <video class="hero-slide__media" muted loop playsinline
+        poster="assets/luxury-4.jpg" style="object-position:right center;">
+        <source src="https://assets.mixkit.co/videos/preview/mixkit-light-show-in-a-night-park-display-47500-large.mp4" type="video/mp4" />
+      </video>
+      <div class="hero-slide__overlay"></div>
+      <div class="hero-slide__content container">
+        <p class="hero__eyebrow">Divertissement &amp; Événements</p>
+        <h1 class="hero__title">
+          Unforgettable<br><em>Experiences</em>
+        </h1>
+        <p class="hero__subtitle">Sea Dream Aquarium, Cinéma, Hello Park, Adventure Land &amp; Fontaine Musicale — vivez l'extraordinaire.</p>
+        <div class="hero__actions">
+          <a class="btn btn--outline-white btn--lg" href="pages/entertainment.html" data-i18n="entertainment"></a>
+          <a class="btn btn--gold btn--lg" href="pages/events.html" data-i18n="events"></a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Controls: prev / dots / next -->
+    <div class="hero__controls">
+      <button class="hero-arrow hero-arrow--prev" onclick="heroSliderPrev()" aria-label="Slide précédente">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+      </button>
+      <div class="hero__dots">
+        <button class="hero-dot active" data-slide-target="0" aria-label="Slide 1"></button>
+        <button class="hero-dot"        data-slide-target="1" aria-label="Slide 2"></button>
+        <button class="hero-dot"        data-slide-target="2" aria-label="Slide 3"></button>
+      </div>
+      <button class="hero-arrow hero-arrow--next" onclick="heroSliderNext()" aria-label="Slide suivante">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+      </button>
+    </div>
+
+    <!-- Timed progress bar -->
+    <div class="hero-progress" aria-hidden="true">
+      <div class="hero-progress-bar" id="hero-progress-bar"></div>
+    </div>
+
+    <!-- Scroll indicator -->
+    <div class="hero__scroll" aria-hidden="true">
+      <div class="hero__scroll-line"></div>
+    </div>
+
+  </section>
+
+  <!-- ═══ CATEGORY NAV ═════════════════════════════════════ -->
+  <nav class="cat-nav" aria-label="Category navigation">
+    <div class="cat-nav__inner">
+
+      <a class="cat-nav__item" href="pages/shopping.html">
+        <svg class="cat-nav__svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6L18 2z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/>
+        </svg>
+        <span data-i18n="shopping"></span>
+      </a>
+
+      <a class="cat-nav__item" href="pages/dining.html">
+        <svg class="cat-nav__svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M3 11l19-9-9 19-2-8-8-2z"/>
+        </svg>
+        <span data-i18n="food"></span>
+      </a>
+
+      <a class="cat-nav__item" href="pages/entertainment.html">
+        <svg class="cat-nav__svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/>
+        </svg>
+        <span data-i18n="funKids"></span>
+      </a>
+
+      <a class="cat-nav__item cat-nav__item--rose" href="pages/rose-boulevard.html">
+        <svg class="cat-nav__svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round">
+          <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+        </svg>
+        <span data-i18n="luxury"></span>
+      </a>
+
+      <a class="cat-nav__item" href="pages/events.html">
+        <svg class="cat-nav__svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/>
+        </svg>
+        <span data-i18n="whatsOnCat"></span>
+      </a>
+
+      <a class="cat-nav__item" href="pages/services.html">
+        <svg class="cat-nav__svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M18 8h1a4 4 0 010 8h-1"/><path d="M2 8h16v9a4 4 0 01-4 4H6a4 4 0 01-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/>
+        </svg>
+        <span data-i18n="servicesCat"></span>
+      </a>
+
+      <a class="cat-nav__item" href="pages/mall-map.html">
+        <svg class="cat-nav__svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round">
+          <polygon points="3 6 9 3 15 6 21 3 21 18 15 21 9 18 3 21"/><line x1="9" y1="3" x2="9" y2="18"/><line x1="15" y1="6" x2="15" y2="21"/>
+        </svg>
+        <span data-i18n="mallMap"></span>
+      </a>
+
+    </div>
+  </nav>
+
+  <!-- ═══ MARQUEE ══════════════════════════════════════════ -->
+  <div class="marquee-section" aria-hidden="true">
+    <div class="marquee-track">
+      <!-- duplicated for infinite scroll effect -->
+      <span class="marquee-item"><span class="marquee-item__dot"></span>Casablanca Bay</span>
+      <span class="marquee-item"><span class="marquee-item__dot"></span>Marrakech Garden</span>
+      <span class="marquee-item"><span class="marquee-item__dot"></span>Rabat Valley</span>
+      <span class="marquee-item"><span class="marquee-item__dot"></span>Bouskoura Forest</span>
+      <span class="marquee-item"><span class="marquee-item__dot"></span>Sea Dream Aquarium</span>
+      <span class="marquee-item"><span class="marquee-item__dot"></span>Rose Boulevard</span>
+      <span class="marquee-item"><span class="marquee-item__dot"></span>Adventure Land</span>
+      <span class="marquee-item"><span class="marquee-item__dot"></span>Hello Park</span>
+      <span class="marquee-item"><span class="marquee-item__dot"></span>Fontaine Musicale</span>
+      <span class="marquee-item"><span class="marquee-item__dot"></span>Aksal Black</span>
+      <!-- duplicate -->
+      <span class="marquee-item"><span class="marquee-item__dot"></span>Casablanca Bay</span>
+      <span class="marquee-item"><span class="marquee-item__dot"></span>Marrakech Garden</span>
+      <span class="marquee-item"><span class="marquee-item__dot"></span>Rabat Valley</span>
+      <span class="marquee-item"><span class="marquee-item__dot"></span>Bouskoura Forest</span>
+      <span class="marquee-item"><span class="marquee-item__dot"></span>Sea Dream Aquarium</span>
+      <span class="marquee-item"><span class="marquee-item__dot"></span>Rose Boulevard</span>
+      <span class="marquee-item"><span class="marquee-item__dot"></span>Adventure Land</span>
+      <span class="marquee-item"><span class="marquee-item__dot"></span>Hello Park</span>
+      <span class="marquee-item"><span class="marquee-item__dot"></span>Fontaine Musicale</span>
+      <span class="marquee-item"><span class="marquee-item__dot"></span>Aksal Black</span>
+    </div>
+  </div>
+
+  <!-- ═══ WELCOME SECTION ══════════════════════════════════ -->
+  <section class="section welcome-section">
+    <div class="container">
+      <div class="welcome-inner">
+        <div class="welcome-text reveal">
+          <p class="heading-sm" style="margin-bottom:1rem;" data-i18n="ourMalls"></p>
+          <blockquote class="welcome-text__quote" data-i18n="welcomeQuote"></blockquote>
+          <p class="body-lg" data-i18n="welcomeText"></p>
+          <div style="margin-top:2rem;">
+            <a class="btn-arrow" href="#locations-section">
+              <span data-i18n="seeAll"></span>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M5 12h14M12 5l7 7-7 7"/>
+              </svg>
+            </a>
+          </div>
+        </div>
+        <div class="welcome-media reveal reveal-delay-2">
+          <div class="welcome-img">
+            <div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:linear-gradient(145deg,#ede9e2,#d8d2c8);font-family:var(--font-display);font-size:0.9rem;letter-spacing:0.1em;color:#9CA3AF;">Morocco Mall</div>
+          </div>
+          <div class="welcome-img">
+            <div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:linear-gradient(145deg,#e5e0d8,#cdc5b8);font-family:var(--font-display);font-size:0.9rem;letter-spacing:0.1em;color:#9CA3AF;">Rose Boulevard</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ FEATURED STORES ══════════════════════════════════ -->
+  <section class="section section--cream">
+    <div class="container">
+      <div class="section__header reveal">
+        <div>
+          <p class="section__eyebrow" data-i18n="shop"></p>
+          <h2 class="section__title" data-i18n="featuredStores"></h2>
+        </div>
+        <a class="section__link btn-arrow" href="pages/shopping.html">
+          <span data-i18n="browseAll"></span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+      </div>
+    </div>
+    <!-- Editorial brand picks — Net-a-Porter / Ounass style -->
+    <div class="picks-scroll reveal" style="display:flex;gap:0;overflow-x:auto;scrollbar-width:none;">
+      <style>
+        .picks-scroll::-webkit-scrollbar{display:none}
+        .brand-pick{flex:0 0 clamp(180px,22vw,280px);aspect-ratio:3/4;position:relative;overflow:hidden;cursor:pointer;text-decoration:none;}
+        .brand-pick img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .6s cubic-bezier(.25,.46,.45,.94);}
+        .brand-pick:hover img{transform:scale(1.05);}
+        .brand-pick__overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.75) 0%,rgba(0,0,0,.15) 50%,transparent 100%);}
+        .brand-pick__body{position:absolute;bottom:0;left:0;right:0;padding:1.5rem 1.25rem;color:#fff;}
+        .brand-pick__cat{font-size:.58rem;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.5);margin-bottom:.3rem;}
+        .brand-pick__name{font-family:var(--font-display);font-size:1.6rem;font-weight:300;line-height:1.05;letter-spacing:.03em;}
+        .brand-pick__tag{display:inline-block;margin-top:.6rem;font-size:.55rem;letter-spacing:.16em;text-transform:uppercase;border:1px solid rgba(255,255,255,.4);color:rgba(255,255,255,.7);padding:.2rem .6rem;border-radius:1px;transition:border-color .2s,color .2s;}
+        .brand-pick:hover .brand-pick__tag{border-color:var(--gold);color:var(--gold);}
+      </style>
+      <a class="brand-pick" href="pages/shopping.html">
+        <img src="https://images.unsplash.com/photo-1483985988355-763728e1935b?w=500&h=660&fit=crop&q=80" alt="Zara" loading="lazy" />
+        <div class="brand-pick__overlay"></div>
+        <div class="brand-pick__body"><p class="brand-pick__cat">Mode</p><p class="brand-pick__name">Zara</p><span class="brand-pick__tag">Niveau 1</span></div>
+      </a>
+      <a class="brand-pick" href="pages/shopping.html">
+        <img src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=500&h=660&fit=crop&q=80" alt="Massimo Dutti" loading="lazy" />
+        <div class="brand-pick__overlay"></div>
+        <div class="brand-pick__body"><p class="brand-pick__cat">Mode</p><p class="brand-pick__name">Massimo Dutti</p><span class="brand-pick__tag">Niveau 2</span></div>
+      </a>
+      <a class="brand-pick" href="pages/rose-boulevard.html">
+        <img src="https://images.unsplash.com/photo-1584917865442-de89df76afd3?w=500&h=660&fit=crop&q=80" alt="Louis Vuitton" loading="lazy" />
+        <div class="brand-pick__overlay"></div>
+        <div class="brand-pick__body"><p class="brand-pick__cat">Luxe · Rose Boulevard</p><p class="brand-pick__name">Louis Vuitton</p><span class="brand-pick__tag">Niveau 2</span></div>
+      </a>
+      <a class="brand-pick" href="pages/shopping.html">
+        <img src="https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?w=500&h=660&fit=crop&q=80" alt="Sephora" loading="lazy" />
+        <div class="brand-pick__overlay"></div>
+        <div class="brand-pick__body"><p class="brand-pick__cat">Beauté</p><p class="brand-pick__name">Sephora</p><span class="brand-pick__tag">Niveau 1</span></div>
+      </a>
+      <a class="brand-pick" href="pages/shopping.html">
+        <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=500&h=660&fit=crop&q=80" alt="Nike" loading="lazy" />
+        <div class="brand-pick__overlay"></div>
+        <div class="brand-pick__body"><p class="brand-pick__cat">Sport</p><p class="brand-pick__name">Nike</p><span class="brand-pick__tag">Niveau 1</span></div>
+      </a>
+      <a class="brand-pick" href="pages/rose-boulevard.html">
+        <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=500&h=660&fit=crop&q=80" alt="Cartier" loading="lazy" />
+        <div class="brand-pick__overlay"></div>
+        <div class="brand-pick__body"><p class="brand-pick__cat">Joaillerie · Rose Boulevard</p><p class="brand-pick__name">Cartier</p><span class="brand-pick__tag">Niveau 2</span></div>
+      </a>
+      <a class="brand-pick" href="pages/shopping.html">
+        <img src="https://images.unsplash.com/photo-1509631179647-0177331693ae?w=500&h=660&fit=crop&q=80" alt="Mango" loading="lazy" />
+        <div class="brand-pick__overlay"></div>
+        <div class="brand-pick__body"><p class="brand-pick__cat">Mode</p><p class="brand-pick__name">Mango</p><span class="brand-pick__tag">Niveau 1</span></div>
+      </a>
+      <a class="brand-pick" href="pages/shopping.html">
+        <img src="https://images.unsplash.com/photo-1556906781-9a412961a28c?w=500&h=660&fit=crop&q=80" alt="Adidas" loading="lazy" />
+        <div class="brand-pick__overlay"></div>
+        <div class="brand-pick__body"><p class="brand-pick__cat">Sport</p><p class="brand-pick__name">Adidas</p><span class="brand-pick__tag">Niveau 1</span></div>
+      </a>
+    </div>
+  </section>
+
+  <!-- ═══ ENTERTAINMENT ════════════════════════════════════ -->
+  <section class="section">
+    <div class="container">
+      <div class="section__header reveal">
+        <div>
+          <p class="section__eyebrow" data-i18n="entertainment"></p>
+          <h2 class="section__title" data-i18n="entertainmentTitle"></h2>
+        </div>
+        <a class="section__link btn-arrow" href="pages/entertainment.html">
+          <span data-i18n="seeAll"></span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+      </div>
+      <div class="ent-grid reveal">
+        <a class="ent-card" href="pages/cinema.html">
+          <img class="ent-card__bg" src="https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?w=600&h=750&fit=crop&q=80" alt="Cinéma Morocco Mall" loading="lazy" />
+          <div class="ent-card__overlay"></div>
+          <div class="ent-card__content">
+            <p class="ent-card__cat">Cinéma · IMAX · 4DX</p>
+            <h3 class="ent-card__title">Cinéma</h3>
+            <span class="ent-card__cta">
+              <span data-i18n="learnMore"></span>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px;"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </span>
+          </div>
+        </a>
+        <a class="ent-card" href="pages/sea-dream.html">
+          <img class="ent-card__bg" src="assets/aquarium-3.jpg" alt="Sea Dream Aquarium" style="object-position:center top;" loading="lazy" />
+          <div class="ent-card__overlay"></div>
+          <div class="ent-card__content">
+            <p class="ent-card__cat">Attraction · +3000 espèces</p>
+            <h3 class="ent-card__title">Sea Dream Aquarium</h3>
+            <span class="ent-card__cta">
+              <span data-i18n="bookNow"></span>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px;"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </span>
+          </div>
+        </a>
+        <a class="ent-card" href="pages/hello-park.html">
+          <img class="ent-card__bg" src="https://images.unsplash.com/photo-1566041510394-cf7c1b1b14e7?w=600&h=750&fit=crop&q=80" alt="Hello Park" loading="lazy" />
+          <div class="ent-card__overlay"></div>
+          <div class="ent-card__content">
+            <p class="ent-card__cat">Enfants · 3–12 ans</p>
+            <h3 class="ent-card__title">Hello Park</h3>
+            <span class="ent-card__cta">
+              <span data-i18n="learnMore"></span>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px;"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </span>
+          </div>
+        </a>
+        <a class="ent-card" href="pages/adventure-land.html">
+          <img class="ent-card__bg" src="https://images.unsplash.com/photo-1556740738-b6a63e27c4df?w=600&h=750&fit=crop&q=80" alt="Adventure Land" loading="lazy" />
+          <div class="ent-card__overlay"></div>
+          <div class="ent-card__content">
+            <p class="ent-card__cat">Famille · 15+ attractions</p>
+            <h3 class="ent-card__title">Adventure Land</h3>
+            <span class="ent-card__cta">
+              <span data-i18n="learnMore"></span>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px;"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </span>
+          </div>
+        </a>
+        <a class="ent-card" href="pages/fontaine-musicale.html">
+          <img class="ent-card__bg" src="assets/fountain-1.jpg" alt="Fontaine Musicale" style="object-position:center top;" loading="lazy" />
+          <div class="ent-card__overlay"></div>
+          <div class="ent-card__content">
+            <p class="ent-card__cat">Spectacle · Accès libre</p>
+            <h3 class="ent-card__title">Fontaine Musicale</h3>
+            <span class="ent-card__cta">
+              <span data-i18n="learnMore"></span>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px;"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </span>
+          </div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ ROSE BOULEVARD ═══════════════════════════════════ -->
+  <section class="rose-section" id="rose-section">
+    <div class="rose-section__pattern"></div>
+    <div class="container rose-section__inner">
+      <div class="reveal">
+        <p class="tag tag--gold" style="margin-bottom:1.5rem;">Rose Boulevard</p>
+        <h2 class="display-lg" style="color:var(--gold-light);max-width:600px;" data-i18n="roseTitle"></h2>
+        <p class="body-lg" style="color:rgba(255,255,255,0.5);max-width:520px;margin-top:1rem;" data-i18n="roseSub"></p>
+        <div style="margin-top:2rem;">
+          <a class="btn btn--outline-white" href="pages/rose-boulevard.html" data-i18n="discoverMore"></a>
+        </div>
+      </div>
+      <div class="rose-brand-list reveal reveal-delay-1">
+        <div class="rose-brand"><div class="rose-brand__name">Louis Vuitton</div><div class="rose-brand__cat">Fashion</div></div>
+        <div class="rose-brand"><div class="rose-brand__name">Dior</div><div class="rose-brand__cat">Fashion & Beauty</div></div>
+        <div class="rose-brand"><div class="rose-brand__name">Chanel</div><div class="rose-brand__cat">Fashion & Fragrance</div></div>
+        <div class="rose-brand"><div class="rose-brand__name">Gucci</div><div class="rose-brand__cat">Fashion</div></div>
+        <div class="rose-brand"><div class="rose-brand__name">Hermès</div><div class="rose-brand__cat">Leather & Fashion</div></div>
+        <div class="rose-brand"><div class="rose-brand__name">Bulgari</div><div class="rose-brand__cat">Jewellery</div></div>
+        <div class="rose-brand"><div class="rose-brand__name">Cartier</div><div class="rose-brand__cat">Jewellery</div></div>
+        <div class="rose-brand"><div class="rose-brand__name">Tiffany &amp; Co.</div><div class="rose-brand__cat">Jewellery</div></div>
+        <div class="rose-brand"><div class="rose-brand__name">Chopard</div><div class="rose-brand__cat">Watches & Jewellery</div></div>
+        <div class="rose-brand"><div class="rose-brand__name">Christian Louboutin</div><div class="rose-brand__cat">Shoes</div></div>
+        <div class="rose-brand"><div class="rose-brand__name">Chloé</div><div class="rose-brand__cat">Fashion</div></div>
+        <div class="rose-brand"><div class="rose-brand__name">Henry Jacques</div><div class="rose-brand__cat">Fragrance</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ EVENTS — editorial 3-card grid ═════════════════ -->
+  <section class="section section--cream">
+    <div class="container">
+      <div class="section__header reveal">
+        <div>
+          <p class="section__eyebrow" data-i18n="events"></p>
+          <h2 class="section__title">Moments<br><em style="font-style:italic;">Worth Sharing</em></h2>
+        </div>
+        <a class="section__link btn-arrow" href="pages/events.html">
+          <span data-i18n="allEvents"></span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+      </div>
+
+      <!-- Editorial 3-column event cards with images -->
+      <div class="grid-3 reveal">
+        <a class="event-img-card" href="pages/events.html#event-1" style="text-decoration:none;color:inherit;display:flex;flex-direction:column;overflow:hidden;">
+          <div style="aspect-ratio:16/9;overflow:hidden;position:relative;">
+            <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=700&h=394&fit=crop&q=80" alt="Summer Style Week" style="width:100%;height:100%;object-fit:cover;transition:transform .6s ease;" loading="lazy" onmouseover="this.style.transform='scale(1.04)'" onmouseout="this.style.transform='scale(1)'" />
+            <div style="position:absolute;top:1rem;left:1rem;background:var(--black);color:var(--white);font-size:.58rem;letter-spacing:.15em;text-transform:uppercase;padding:.3rem .7rem;">Fashion</div>
+          </div>
+          <div style="padding:1.25rem 0 0;">
+            <p style="font-size:.65rem;letter-spacing:.15em;text-transform:uppercase;color:var(--gray-400);margin-bottom:.4rem;">14 Juin · 18:00 · Casablanca Bay</p>
+            <h3 style="font-family:var(--font-display);font-size:1.35rem;font-weight:400;line-height:1.2;margin-bottom:.5rem;">Summer Style Week 2026</h3>
+            <p style="font-size:.8rem;color:var(--gray-600);line-height:1.6;">Défilés, ateliers stylisme et rencontres exclusives avec les grandes enseignes. Sur RSVP.</p>
+          </div>
+        </a>
+        <a class="event-img-card" href="pages/events.html#event-3" style="text-decoration:none;color:inherit;display:flex;flex-direction:column;overflow:hidden;">
+          <div style="aspect-ratio:16/9;overflow:hidden;position:relative;">
+            <img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=700&h=394&fit=crop&q=80" alt="Morocco Food Festival" style="width:100%;height:100%;object-fit:cover;transition:transform .6s ease;" loading="lazy" onmouseover="this.style.transform='scale(1.04)'" onmouseout="this.style.transform='scale(1)'" />
+            <div style="position:absolute;top:1rem;left:1rem;background:var(--black);color:var(--white);font-size:.58rem;letter-spacing:.15em;text-transform:uppercase;padding:.3rem .7rem;">Gastronomie</div>
+          </div>
+          <div style="padding:1.25rem 0 0;">
+            <p style="font-size:.65rem;letter-spacing:.15em;text-transform:uppercase;color:var(--gray-400);margin-bottom:.4rem;">5 Juillet · Marrakech Garden</p>
+            <h3 style="font-family:var(--font-display);font-size:1.35rem;font-weight:400;line-height:1.2;margin-bottom:.5rem;">Morocco Food Festival</h3>
+            <p style="font-size:.8rem;color:var(--gray-600);line-height:1.6;">Chefs invités, street food internationale et démonstrations culinaires en plein air.</p>
+          </div>
+        </a>
+        <a class="event-img-card" href="pages/events.html#event-4" style="text-decoration:none;color:inherit;display:flex;flex-direction:column;overflow:hidden;">
+          <div style="aspect-ratio:16/9;overflow:hidden;position:relative;">
+            <img src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=700&h=394&fit=crop&q=80" alt="Chanel Opening" style="width:100%;height:100%;object-fit:cover;transition:transform .6s ease;" loading="lazy" onmouseover="this.style.transform='scale(1.04)'" onmouseout="this.style.transform='scale(1)'" />
+            <div style="position:absolute;top:1rem;left:1rem;background:var(--gold);color:var(--black);font-size:.58rem;letter-spacing:.15em;text-transform:uppercase;padding:.3rem .7rem;">Ouverture</div>
+          </div>
+          <div style="padding:1.25rem 0 0;">
+            <p style="font-size:.65rem;letter-spacing:.15em;text-transform:uppercase;color:var(--gray-400);margin-bottom:.4rem;">19 Août · Rose Boulevard · Casablanca Bay</p>
+            <h3 style="font-family:var(--font-display);font-size:1.35rem;font-weight:400;line-height:1.2;margin-bottom:.5rem;">Chanel — Opening Rose Boulevard</h3>
+            <p style="font-size:.8rem;color:var(--gray-600);line-height:1.6;">Soirée inaugurale de la boutique Chanel au cœur de Rose Boulevard. Sur invitation.</p>
+          </div>
+        </a>
+      </div>
+
+      <div style="text-align:center;margin-top:3rem;" class="reveal">
+        <a class="btn btn--outline" href="pages/events.html" data-i18n="allEvents"></a>
+      </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ LOCATIONS ════════════════════════════════════════ -->
+  <section class="section section--dark" id="locations-section">
+    <div class="container" style="margin-bottom:2rem;">
+      <div class="section__header reveal">
+        <div>
+          <p class="section__eyebrow" data-i18n="locations"></p>
+          <h2 class="section__title" data-i18n="ourMalls"></h2>
+        </div>
+      </div>
+    </div>
+    <div class="locations-grid reveal">
+      <a class="location-tile" href="pages/shopping.html?mall=casablanca" onclick="setMall('casablanca')">
+        <div class="location-tile__bg" style="background:linear-gradient(145deg,#001a2e,#003050);"></div>
+        <div class="location-tile__overlay"></div>
+        <div class="location-tile__body">
+          <p class="location-tile__city" data-i18n="malls.casablanca.city"></p>
+          <h3 class="location-tile__name" data-i18n="malls.casablanca.name"></h3>
+          <p class="location-tile__desc" data-i18n="malls.casablanca.desc"></p>
+        </div>
+      </a>
+      <a class="location-tile" href="pages/shopping.html?mall=marrakech" onclick="setMall('marrakech')">
+        <div class="location-tile__bg" style="background:linear-gradient(145deg,#2e1000,#4a1800);"></div>
+        <div class="location-tile__overlay"></div>
+        <div class="location-tile__body">
+          <p class="location-tile__city" data-i18n="malls.marrakech.city"></p>
+          <h3 class="location-tile__name" data-i18n="malls.marrakech.name"></h3>
+          <p class="location-tile__desc" data-i18n="malls.marrakech.desc"></p>
+        </div>
+      </a>
+      <a class="location-tile" href="pages/shopping.html?mall=rabat" onclick="setMall('rabat')">
+        <div class="location-tile__bg" style="background:linear-gradient(145deg,#001a0e,#003018);"></div>
+        <div class="location-tile__overlay"></div>
+        <div class="location-tile__body">
+          <p class="location-tile__city" data-i18n="malls.rabat.city"></p>
+          <h3 class="location-tile__name" data-i18n="malls.rabat.name"></h3>
+          <p class="location-tile__desc" data-i18n="malls.rabat.desc"></p>
+        </div>
+      </a>
+      <a class="location-tile" href="pages/shopping.html?mall=bouskoura" onclick="setMall('bouskoura')">
+        <div class="location-tile__bg" style="background:linear-gradient(145deg,#0e1a00,#182800);"></div>
+        <div class="location-tile__overlay"></div>
+        <div class="location-tile__body">
+          <p class="location-tile__city" data-i18n="malls.bouskoura.city"></p>
+          <h3 class="location-tile__name" data-i18n="malls.bouskoura.name"></h3>
+          <p class="location-tile__desc" data-i18n="malls.bouskoura.desc"></p>
+        </div>
+      </a>
+    </div>
+  </section>
+
+  <!-- ═══ AKSAL BLACK ═══════════════════════════════════════ -->
+  <section class="aksal-section">
+    <div class="aksal-section__glow"></div>
+    <div class="container">
+      <div class="aksal-inner">
+        <div class="reveal">
+          <p class="tag tag--gold" style="margin-bottom:1.5rem;" data-i18n="aksalTitle"></p>
+          <h2 class="display-lg" style="color:var(--gold-light);line-height:1.05;" data-i18n="aksalTitle"></h2>
+          <p class="body-lg" style="color:rgba(255,255,255,0.5);margin-top:1rem;max-width:460px;" data-i18n="aksalSub"></p>
+          <div class="aksal-perks" id="aksal-perks-grid">
+            <!-- Rendered by JS below -->
+          </div>
+          <div style="display:flex;gap:0.75rem;flex-wrap:wrap;margin-top:1.5rem;">
+            <a href="#" aria-label="Download on the App Store" style="display:inline-block;text-decoration:none;">
+              <svg xmlns="http://www.w3.org/2000/svg" width="130" height="40" viewBox="0 0 564 168">
+                <rect width="564" height="168" rx="22" fill="#000"/><rect x="1.5" y="1.5" width="561" height="165" rx="20.5" fill="none" stroke="#a6a6a6" stroke-width="3"/>
+                <path d="M114.5 84.3c-.2-19.4 15.9-28.8 16.6-29.2-9-13.3-23.1-15.1-28.1-15.3-11.9-1.2-23.3 7-29.3 7-6.1 0-15.4-6.8-25.4-6.6-13 .2-25 7.6-31.7 19.2-13.6 23.6-3.5 58.5 9.7 77.6 6.5 9.3 14.1 19.8 24.2 19.4 9.7-.4 13.4-6.2 25.1-6.2 11.7 0 15.1 6.2 25.3 6 10.5-.2 17.1-9.4 23.5-18.8 7.5-10.8 10.6-21.3 10.7-21.9-.2-.1-20.5-7.9-20.6-31.2z" fill="#fff"/>
+                <path d="M95.1 27.5c5.3-6.6 8.9-15.6 7.9-24.7-7.6.3-17 5.1-22.5 11.6-4.9 5.7-9.2 14.9-8.1 23.7 8.6.6 17.3-4.3 22.7-10.6z" fill="#fff"/>
+                <text x="172" y="62" font-family="-apple-system,Helvetica Neue,Arial,sans-serif" font-size="24" fill="#fff" font-weight="300" letter-spacing="1">Download on the</text>
+                <text x="170" y="118" font-family="-apple-system,Helvetica Neue,Arial,sans-serif" font-size="54" fill="#fff" font-weight="600" letter-spacing="-1">App Store</text>
+              </svg>
+            </a>
+            <a href="#" aria-label="Get it on Google Play" style="display:inline-block;text-decoration:none;">
+              <svg xmlns="http://www.w3.org/2000/svg" width="130" height="40" viewBox="0 0 564 168">
+                <rect width="564" height="168" rx="22" fill="#000"/><rect x="1.5" y="1.5" width="561" height="165" rx="20.5" fill="none" stroke="#a6a6a6" stroke-width="3"/>
+                <path d="M48 34 L48 134 L118 84 Z" fill="url(#gph)"/>
+                <defs><linearGradient id="gph" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#00d2ff"/><stop offset="50%" stop-color="#a5f542"/><stop offset="100%" stop-color="#ffec00"/></linearGradient></defs>
+                <text x="142" y="62" font-family="-apple-system,Helvetica Neue,Arial,sans-serif" font-size="24" fill="#fff" font-weight="300" letter-spacing="1">Get it on</text>
+                <text x="140" y="118" font-family="-apple-system,Helvetica Neue,Arial,sans-serif" font-size="54" fill="#fff" font-weight="600" letter-spacing="-1">Google Play</text>
+              </svg>
+            </a>
+          </div>
+        </div>
+
+        <!-- Aksal Black cards visual -->
+        <div class="aksal-cards-preview reveal reveal-delay-2">
+          <div class="aksal-app-logo-wrap">
+            <img src="assets/aksal-black-logo.png" alt="Aksal Black App" class="aksal-app-logo-img" />
+            <p style="font-size:0.55rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--gold);margin-top:0.6rem;text-align:center;">AKSAL BLACK</p>
+          </div>
+          <div class="aksal-cards-stack">
+            <img src="assets/aksal-card-platinum.png" alt="Aksal Black Platinum" class="aksal-card-img aksal-card-img--platinum" />
+            <img src="assets/aksal-card-gold.png"     alt="Aksal Black Gold"     class="aksal-card-img aksal-card-img--gold" />
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ SOCIAL WALL ═══════════════════════════════════════ -->
+  <section class="section section--cream">
+    <div class="container" style="margin-bottom:2rem;">
+      <div class="section__header reveal">
+        <div>
+          <p class="section__eyebrow">@moroccomall</p>
+          <h2 class="section__title" data-i18n="socialTitle"></h2>
+        </div>
+        <a class="section__link btn-arrow" href="pages/social.html">
+          <span data-i18n="followUs"></span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+      </div>
+    </div>
+    <div class="social-wall reveal">
+      <a class="social-post" href="https://www.instagram.com/moroccomall" target="_blank" rel="noopener">
+        <img class="social-post__img" src="https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=400&h=400&fit=crop&crop=center" alt="Morocco Mall shopping" loading="lazy" />
+        <div class="social-post__overlay"><div class="social-post__likes">♥ 1.2k</div></div>
+      </a>
+      <a class="social-post" href="https://www.instagram.com/moroccomall" target="_blank" rel="noopener">
+        <img class="social-post__img" src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=400&h=400&fit=crop&crop=center" alt="Fashion at Morocco Mall" loading="lazy" />
+        <div class="social-post__overlay"><div class="social-post__likes">♥ 2.4k</div></div>
+      </a>
+      <a class="social-post" href="https://www.instagram.com/moroccomall" target="_blank" rel="noopener">
+        <img class="social-post__img" src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=400&h=400&fit=crop&crop=center" alt="Luxury watches" loading="lazy" />
+        <div class="social-post__overlay"><div class="social-post__likes">♥ 3.1k</div></div>
+      </a>
+      <a class="social-post" href="https://www.instagram.com/moroccomall" target="_blank" rel="noopener">
+        <img class="social-post__img" src="https://images.unsplash.com/photo-1567401893414-76b7b1e5a7a5?w=400&h=400&fit=crop&crop=center" alt="Mall interior" loading="lazy" />
+        <div class="social-post__overlay"><div class="social-post__likes">♥ 856</div></div>
+      </a>
+      <a class="social-post" href="https://www.instagram.com/moroccomall" target="_blank" rel="noopener">
+        <img class="social-post__img" src="https://images.unsplash.com/photo-1584917865442-de89df76afd3?w=400&h=400&fit=crop&crop=center" alt="Luxury bags" loading="lazy" />
+        <div class="social-post__overlay"><div class="social-post__likes">♥ 1.8k</div></div>
+      </a>
+      <a class="social-post" href="https://www.instagram.com/moroccomall" target="_blank" rel="noopener">
+        <img class="social-post__img" src="https://images.unsplash.com/photo-1558769132-cb1aea458c5e?w=400&h=400&fit=crop&crop=center" alt="Fashion event" loading="lazy" />
+        <div class="social-post__overlay"><div class="social-post__likes">♥ 934</div></div>
+      </a>
+    </div>
+  </section>
+
+  <!-- ═══ NEWSLETTER ════════════════════════════════════════ -->
+  <section class="newsletter-section">
+    <div class="container">
+      <div class="reveal">
+        <p class="heading-sm" style="color:var(--gray-400);margin-bottom:0.75rem;" data-i18n="newsletters"></p>
+        <h2 class="display-md" style="max-width:500px;margin:0 auto 0.75rem;" data-i18n="newsletterTitle"></h2>
+        <p class="body-md" style="max-width:400px;margin:0 auto;" data-i18n="newsletterSub"></p>
+        <form class="newsletter-form" onsubmit="handleNewsletter(event)">
+          <input class="newsletter-input" type="email" required data-i18n-placeholder="emailPlaceholder" />
+          <button class="newsletter-btn" type="submit" data-i18n="subscribe"></button>
+        </form>
+        <p class="newsletter-note" data-i18n="newsletterNote"></p>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- Scripts -->
+<script src="js/seo.js"></script>
+<script src="js/translations.js"></script>
+<script src="js/app.js"></script>
+<script>
+// Render Aksal Black perks dynamically after translations load
+document.addEventListener('DOMContentLoaded', () => {
+  const grid = document.getElementById('aksal-perks-grid');
+  if (!grid || !MM.t) return;
+  const icons = ['%', '💰', '⚡', '🎉'];
+  MM.t.aksalPerks.forEach((perk, i) => {
+    const el = document.createElement('div');
+    el.className = 'aksal-perk';
+    el.innerHTML = `<div class="aksal-perk__icon">${icons[i]}</div><div class="aksal-perk__title">${perk}</div><div class="aksal-perk__desc">${MM.t.aksalPerkDescs[i]}</div>`;
+    grid.appendChild(el);
+  });
+});
+</script>
+</body>
+</html>

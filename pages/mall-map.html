@@ -1,0 +1,1615 @@
+<!DOCTYPE html>
+<html lang="fr" dir="ltr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Morocco Mall — Plan du mall interactif. Trouvez vos enseignes par niveau et catégorie." />
+  <title>Plan du Mall — Morocco Mall</title>
+  <link rel="icon" href="../assets/logo.png" type="image/png" />
+  <link rel="stylesheet" href="../css/main.css" />
+
+  <style>
+    /* ── Page-specific variables ── */
+    :root {
+      --col-fashion:       #0A0A0A;
+      --col-beauty:        #1a1a2e;
+      --col-food:          #2e1000;
+      --col-entertainment: #001a2e;
+      --col-luxury:        rgba(201,169,110,0.25);
+      --col-services:      #1a1a1a;
+      --col-fashion-border:       #333;
+      --col-beauty-border:        #3a3a5e;
+      --col-food-border:          #6e2800;
+      --col-entertainment-border: #00446e;
+      --col-luxury-border:        #C9A96E;
+      --col-services-border:      #444;
+    }
+
+    /* ── Hero ── */
+    .map-hero {
+      background: linear-gradient(135deg, #060604 0%, #0f0d0a 50%, #0a0800 100%);
+      padding: calc(var(--nav-h) + var(--bar-h) + 3rem) var(--pad-x) 3.5rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .map-hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 60% 40% at 70% 50%, rgba(201,169,110,0.06) 0%, transparent 70%),
+        repeating-linear-gradient(0deg, transparent, transparent 59px, rgba(201,169,110,0.03) 60px),
+        repeating-linear-gradient(90deg, transparent, transparent 59px, rgba(201,169,110,0.03) 60px);
+      pointer-events: none;
+    }
+    .map-hero__inner {
+      position: relative;
+      max-width: var(--max-w);
+      margin: 0 auto;
+    }
+    .map-hero__eyebrow {
+      font-size: 0.62rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    .map-hero__eyebrow::before {
+      content: '';
+      display: block;
+      width: 28px;
+      height: 1px;
+      background: var(--gold);
+    }
+    .map-hero__title {
+      font-family: var(--font-display);
+      font-size: clamp(2.4rem, 6vw, 5rem);
+      font-weight: 300;
+      color: var(--white);
+      line-height: 1.05;
+      margin-bottom: 1rem;
+    }
+    .map-hero__title em {
+      font-style: italic;
+      color: var(--gold);
+    }
+    .map-hero__subtitle {
+      font-size: 0.85rem;
+      color: rgba(255,255,255,0.5);
+      max-width: 480px;
+      line-height: 1.65;
+    }
+
+    /* ── Sticky controls ── */
+    .map-controls {
+      position: sticky;
+      top: calc(var(--bar-h) + var(--nav-h));
+      z-index: 200;
+      background: var(--white);
+      border-bottom: 1px solid var(--gray-200);
+      box-shadow: 0 2px 16px rgba(0,0,0,0.06);
+    }
+    .map-controls__inner {
+      max-width: var(--max-w);
+      margin: 0 auto;
+      padding: 0 var(--pad-x);
+    }
+    .map-controls__row1 {
+      display: flex;
+      align-items: center;
+      gap: 0;
+      border-bottom: 1px solid var(--gray-200);
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+    }
+    .map-controls__row1::-webkit-scrollbar { display: none; }
+    .floor-tab {
+      flex-shrink: 0;
+      padding: 0.9rem 1.5rem;
+      font-size: 0.7rem;
+      font-weight: 500;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--gray-400);
+      border: none;
+      background: none;
+      cursor: pointer;
+      position: relative;
+      transition: color 0.2s;
+    }
+    .floor-tab::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: var(--gold);
+      transform: scaleX(0);
+      transition: transform 0.25s var(--ease);
+    }
+    .floor-tab.active {
+      color: var(--black);
+    }
+    .floor-tab.active::after {
+      transform: scaleX(1);
+    }
+    .floor-tab:hover { color: var(--black); }
+    .map-controls__row2 {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      padding: 0.7rem 0;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+    }
+    .map-controls__row2::-webkit-scrollbar { display: none; }
+    .cat-chip {
+      flex-shrink: 0;
+      padding: 0.35rem 0.9rem;
+      font-size: 0.62rem;
+      font-weight: 500;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      border: 1px solid var(--gray-200);
+      border-radius: 100px;
+      background: transparent;
+      color: var(--gray-600);
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .cat-chip.active,
+    .cat-chip:hover {
+      background: var(--black);
+      color: var(--white);
+      border-color: var(--black);
+    }
+    .cat-chip[data-cat="fashion"].active  { background: #333; border-color: #333; }
+    .cat-chip[data-cat="beauty"].active   { background: #1a1a2e; border-color: #3a3a5e; }
+    .cat-chip[data-cat="food"].active     { background: #6e2800; border-color: #6e2800; }
+    .cat-chip[data-cat="entertainment"].active { background: #003050; border-color: #003050; }
+    .cat-chip[data-cat="luxury"].active   { background: #9E7A3B; border-color: #9E7A3B; }
+    .cat-chip[data-cat="services"].active { background: #444; border-color: #444; }
+
+    .map-search-wrap {
+      margin-left: auto;
+      flex-shrink: 0;
+      position: relative;
+    }
+    .map-search-input {
+      appearance: none;
+      -webkit-appearance: none;
+      border: 1px solid var(--gray-200);
+      border-radius: 100px;
+      padding: 0.35rem 1rem 0.35rem 2.2rem;
+      font-size: 0.72rem;
+      font-family: var(--font-body);
+      color: var(--black);
+      background: var(--gray-100);
+      outline: none;
+      width: 190px;
+      transition: border-color 0.2s, width 0.3s var(--ease);
+    }
+    .map-search-input:focus {
+      border-color: var(--gold);
+      width: 230px;
+    }
+    .map-search-input::placeholder { color: var(--gray-400); }
+    .map-search-icon {
+      position: absolute;
+      left: 0.7rem;
+      top: 50%;
+      transform: translateY(-50%);
+      pointer-events: none;
+      color: var(--gray-400);
+    }
+
+    /* ── Map section ── */
+    .map-section {
+      background: #0c0c0c;
+      padding: 2rem var(--pad-x);
+    }
+    .map-section__inner {
+      max-width: var(--max-w);
+      margin: 0 auto;
+    }
+    .map-wrapper {
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      border-radius: 8px;
+      border: 1px solid #222;
+      background: #111;
+    }
+    .floor-plan-svg {
+      display: block;
+      width: 100%;
+      min-width: 800px;
+      height: 760px;
+    }
+
+    /* ── SVG store states ── */
+    .store-bay {
+      cursor: pointer;
+      transition: opacity 0.2s, filter 0.2s;
+    }
+    .store-bay:hover rect {
+      filter: brightness(1.5);
+    }
+    .store-bay.dimmed {
+      opacity: 0.18;
+    }
+    .store-bay.highlighted rect {
+      stroke-width: 2;
+    }
+
+    /* ── Legend ── */
+    .map-legend-section {
+      background: #111;
+      border-top: 1px solid #222;
+      padding: 1.25rem var(--pad-x);
+    }
+    .map-legend-section__inner {
+      max-width: var(--max-w);
+      margin: 0 auto;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem 2rem;
+      align-items: center;
+    }
+    .legend-label {
+      font-size: 0.58rem;
+      font-weight: 500;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.35);
+      margin-right: 0.5rem;
+    }
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.68rem;
+      color: rgba(255,255,255,0.6);
+    }
+    .legend-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 2px;
+      flex-shrink: 0;
+      border: 1px solid;
+    }
+    .legend-dot--fashion       { background: #0A0A0A; border-color: #444; }
+    .legend-dot--beauty        { background: #1a1a2e; border-color: #3a3a5e; }
+    .legend-dot--food          { background: #2e1000; border-color: #6e2800; }
+    .legend-dot--entertainment { background: #001a2e; border-color: #00446e; }
+    .legend-dot--luxury        { background: rgba(201,169,110,0.25); border-color: #C9A96E; }
+    .legend-dot--services      { background: #1a1a1a; border-color: #555; }
+
+    /* ── Directory ── */
+    .directory-section {
+      background: var(--white);
+      padding: 3rem var(--pad-x) 5rem;
+    }
+    .directory-section__inner {
+      max-width: var(--max-w);
+      margin: 0 auto;
+    }
+    .directory-header {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      margin-bottom: 2rem;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    .directory-header__left p {
+      font-size: 0.62rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 0.4rem;
+    }
+    .directory-header__left h2 {
+      font-family: var(--font-display);
+      font-size: clamp(1.6rem, 3vw, 2.6rem);
+      font-weight: 300;
+      color: var(--black);
+    }
+    .directory-count {
+      font-size: 0.7rem;
+      color: var(--gray-400);
+      letter-spacing: 0.06em;
+    }
+    .directory-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    .directory-table thead th {
+      text-align: left;
+      font-size: 0.6rem;
+      font-weight: 500;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--gray-400);
+      padding: 0 1rem 0.75rem;
+      border-bottom: 1px solid var(--gray-200);
+    }
+    .directory-row {
+      cursor: pointer;
+      transition: background 0.15s;
+    }
+    .directory-row:hover { background: var(--gray-100); }
+    .directory-row.hidden { display: none; }
+    .directory-row td {
+      padding: 0.9rem 1rem;
+      border-bottom: 1px solid var(--gray-200);
+      vertical-align: middle;
+    }
+    .dir-name {
+      font-size: 0.88rem;
+      font-weight: 500;
+      color: var(--black);
+    }
+    .dir-floor {
+      font-size: 0.72rem;
+      color: var(--gray-400);
+      white-space: nowrap;
+    }
+    .dir-cat-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 2px;
+      display: inline-block;
+      margin-right: 0.4rem;
+      vertical-align: middle;
+    }
+    .dir-cat-label {
+      font-size: 0.68rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--gray-600);
+      vertical-align: middle;
+    }
+    .dir-arrow {
+      color: var(--gray-400);
+      font-size: 0.8rem;
+      text-align: right;
+    }
+    .dir-no-results {
+      text-align: center;
+      padding: 3rem;
+      color: var(--gray-400);
+      font-size: 0.85rem;
+      display: none;
+    }
+
+    /* ── Compass rose SVG ── */
+    .compass-label {
+      font-family: var(--font-body);
+      font-size: 9px;
+      fill: rgba(255,255,255,0.6);
+    }
+
+    /* ── Mobile tweaks ── */
+    @media (max-width: 640px) {
+      .map-controls__row2 { flex-wrap: nowrap; }
+      .map-search-wrap { display: none; }
+      .directory-table thead .th-category,
+      .directory-row .td-category { display: none; }
+    }
+    @media (max-width: 480px) {
+      .map-hero { padding-top: calc(var(--nav-h) + var(--bar-h) + 2rem); }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════════════════
+     LOCATION BAR + NAV injected by app.js
+     ══════════════════════════════════════════════════ -->
+<div id="location-bar-mount"></div>
+<div id="nav-mount"></div>
+
+<main id="main-content">
+
+  <!-- ═══════════════════════ HERO ═══════════════════════ -->
+  <section class="map-hero">
+    <div class="map-hero__inner">
+      <p class="map-hero__eyebrow">Morocco Mall · Casablanca</p>
+      <h1 class="map-hero__title">Plan du Mall<br><em>Interactif</em></h1>
+      <p class="map-hero__subtitle">Explorez les 4 niveaux du Morocco Mall. Trouvez vos enseignes, restaurants et services en un clic.</p>
+    </div>
+  </section>
+
+  <!-- ═══════════════════ STICKY CONTROLS ═══════════════════ -->
+  <div class="map-controls" id="map-controls">
+    <div class="map-controls__inner">
+
+      <!-- Row 1: Floor tabs -->
+      <div class="map-controls__row1" role="tablist" aria-label="Niveaux du mall">
+        <button class="floor-tab active" data-floor="rdc" role="tab" aria-selected="true">RDC</button>
+        <button class="floor-tab" data-floor="1" role="tab" aria-selected="false">Niv. 1</button>
+        <button class="floor-tab" data-floor="2" role="tab" aria-selected="false">Niv. 2</button>
+        <button class="floor-tab" data-floor="3" role="tab" aria-selected="false">Niv. 3</button>
+      </div>
+
+      <!-- Row 2: Category chips + search -->
+      <div class="map-controls__row2">
+        <button class="cat-chip active" data-cat="all">Tout</button>
+        <button class="cat-chip" data-cat="fashion">Mode</button>
+        <button class="cat-chip" data-cat="beauty">Beauté</button>
+        <button class="cat-chip" data-cat="food">Restauration</button>
+        <button class="cat-chip" data-cat="entertainment">Loisirs</button>
+        <button class="cat-chip" data-cat="luxury">Rose Blvd</button>
+        <button class="cat-chip" data-cat="services">Services</button>
+        <div class="map-search-wrap">
+          <svg class="map-search-icon" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
+          </svg>
+          <input
+            type="search"
+            id="map-search"
+            class="map-search-input"
+            placeholder="Rechercher une enseigne…"
+            aria-label="Rechercher une enseigne"
+          />
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ═══════════════════ SVG FLOOR PLAN ═══════════════════ -->
+  <section class="map-section">
+    <div class="map-section__inner">
+      <div class="map-wrapper" role="img" aria-label="Plan interactif du Morocco Mall">
+
+        <svg
+          id="floor-plan"
+          class="floor-plan-svg"
+          viewBox="0 0 1100 760"
+          xmlns="http://www.w3.org/2000/svg"
+          aria-hidden="true"
+        >
+          <defs>
+            <!-- Background grid -->
+            <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+              <path d="M 40 0 L 0 0 0 40" fill="none" stroke="rgba(255,255,255,0.04)" stroke-width="0.5"/>
+            </pattern>
+            <!-- Atrium glow -->
+            <radialGradient id="atriumGlow" cx="50%" cy="50%" r="50%">
+              <stop offset="0%" stop-color="rgba(201,169,110,0.12)"/>
+              <stop offset="100%" stop-color="rgba(201,169,110,0)"/>
+            </radialGradient>
+            <!-- Gold glow for luxury -->
+            <radialGradient id="luxuryGlow" cx="50%" cy="50%" r="50%">
+              <stop offset="0%" stop-color="rgba(201,169,110,0.18)"/>
+              <stop offset="100%" stop-color="rgba(201,169,110,0.05)"/>
+            </radialGradient>
+            <!-- Drop shadow filter -->
+            <filter id="storeShadow" x="-10%" y="-10%" width="120%" height="120%">
+              <feDropShadow dx="0" dy="1" stdDeviation="2" flood-color="rgba(0,0,0,0.6)" flood-opacity="1"/>
+            </filter>
+            <filter id="labelGlow">
+              <feGaussianBlur stdDeviation="1.5" result="blur"/>
+              <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+            </filter>
+          </defs>
+
+          <!-- ── Background ── -->
+          <rect width="1100" height="760" fill="#0c0c0c"/>
+          <rect width="1100" height="760" fill="url(#grid)"/>
+
+          <!-- ══════════════════════════════
+               OUTER BUILDING SHELL
+               ══════════════════════════════ -->
+          <rect x="40" y="30" width="1020" height="700" rx="18" ry="18"
+                fill="#141414" stroke="#2a2a2a" stroke-width="2"/>
+          <!-- Inner wall line -->
+          <rect x="60" y="50" width="980" height="660" rx="12" ry="12"
+                fill="none" stroke="#1e1e1e" stroke-width="1"/>
+
+          <!-- ══════════════════════════════
+               NORTH/SOUTH MAIN CORRIDORS
+               ══════════════════════════════ -->
+          <!-- Horizontal main corridor (center horizontal) -->
+          <rect x="60" y="340" width="980" height="80" fill="#181818" stroke="#222" stroke-width="1"/>
+          <!-- Vertical main corridor (center vertical) -->
+          <rect x="510" y="50" width="80" height="660" fill="#181818" stroke="#222" stroke-width="1"/>
+
+          <!-- Secondary corridors -->
+          <rect x="60" y="175" width="980" height="50" fill="#161616" stroke="#1e1e1e" stroke-width="0.5" opacity="0.7"/>
+          <rect x="60" y="535" width="980" height="50" fill="#161616" stroke="#1e1e1e" stroke-width="0.5" opacity="0.7"/>
+          <rect x="200" y="50" width="50" height="660" fill="#161616" stroke="#1e1e1e" stroke-width="0.5" opacity="0.7"/>
+          <rect x="850" y="50" width="50" height="660" fill="#161616" stroke="#1e1e1e" stroke-width="0.5" opacity="0.7"/>
+
+          <!-- ══════════════════════════════
+               CENTRAL ATRIUM (Oval)
+               ══════════════════════════════ -->
+          <ellipse cx="550" cy="380" rx="140" ry="110"
+                   fill="url(#atriumGlow)" stroke="#C9A96E" stroke-width="1.5" stroke-dasharray="6 4"/>
+          <ellipse cx="550" cy="380" rx="130" ry="100"
+                   fill="rgba(201,169,110,0.04)" stroke="rgba(201,169,110,0.3)" stroke-width="0.5"/>
+          <!-- Atrium label -->
+          <text x="550" y="373" text-anchor="middle" fill="rgba(201,169,110,0.8)"
+                font-family="'Cormorant Garamond', Georgia, serif" font-size="14" font-style="italic" letter-spacing="1">
+            Atrium
+          </text>
+          <text x="550" y="392" text-anchor="middle" fill="rgba(201,169,110,0.4)"
+                font-family="'DM Sans', Arial, sans-serif" font-size="8" letter-spacing="2" text-transform="uppercase">
+            CENTRAL
+          </text>
+
+          <!-- INFO DESK (center of atrium) -->
+          <g transform="translate(530,410)">
+            <rect x="0" y="0" width="40" height="22" rx="3" fill="#1a1a1a" stroke="#C9A96E" stroke-width="1.2"/>
+            <text x="20" y="14" text-anchor="middle" fill="#C9A96E"
+                  font-family="'DM Sans', Arial, sans-serif" font-size="7" font-weight="500" letter-spacing="1">INFO</text>
+          </g>
+
+          <!-- ══════════════════════════════
+               ESCALATORS & LIFTS
+               ══════════════════════════════ -->
+          <!-- Escalator NW -->
+          <g transform="translate(470,295)">
+            <rect width="28" height="28" rx="2" fill="#1f1f1f" stroke="#555" stroke-width="1"/>
+            <line x1="4" y1="4" x2="24" y2="24" stroke="#888" stroke-width="1.2"/>
+            <line x1="24" y1="4" x2="4" y2="24" stroke="#888" stroke-width="1.2"/>
+            <text x="14" y="38" text-anchor="middle" fill="#555" font-size="7" font-family="'DM Sans', Arial, sans-serif">ESC</text>
+          </g>
+          <!-- Escalator NE -->
+          <g transform="translate(602,295)">
+            <rect width="28" height="28" rx="2" fill="#1f1f1f" stroke="#555" stroke-width="1"/>
+            <line x1="4" y1="4" x2="24" y2="24" stroke="#888" stroke-width="1.2"/>
+            <line x1="24" y1="4" x2="4" y2="24" stroke="#888" stroke-width="1.2"/>
+            <text x="14" y="38" text-anchor="middle" fill="#555" font-size="7" font-family="'DM Sans', Arial, sans-serif">ESC</text>
+          </g>
+          <!-- Escalator SW -->
+          <g transform="translate(470,436)">
+            <rect width="28" height="28" rx="2" fill="#1f1f1f" stroke="#555" stroke-width="1"/>
+            <line x1="4" y1="4" x2="24" y2="24" stroke="#888" stroke-width="1.2"/>
+            <line x1="24" y1="4" x2="4" y2="24" stroke="#888" stroke-width="1.2"/>
+            <text x="14" y="38" text-anchor="middle" fill="#555" font-size="7" font-family="'DM Sans', Arial, sans-serif">ESC</text>
+          </g>
+          <!-- Escalator SE -->
+          <g transform="translate(602,436)">
+            <rect width="28" height="28" rx="2" fill="#1f1f1f" stroke="#555" stroke-width="1"/>
+            <line x1="4" y1="4" x2="24" y2="24" stroke="#888" stroke-width="1.2"/>
+            <line x1="24" y1="4" x2="4" y2="24" stroke="#888" stroke-width="1.2"/>
+            <text x="14" y="38" text-anchor="middle" fill="#555" font-size="7" font-family="'DM Sans', Arial, sans-serif">ESC</text>
+          </g>
+
+          <!-- Lift NW -->
+          <g transform="translate(155,155)">
+            <rect width="26" height="26" rx="2" fill="#1a1a1a" stroke="#666" stroke-width="1"/>
+            <text x="13" y="11" text-anchor="middle" fill="#888" font-size="8">&#9650;</text>
+            <text x="13" y="22" text-anchor="middle" fill="#888" font-size="8">&#9660;</text>
+          </g>
+          <!-- Lift NE -->
+          <g transform="translate(919,155)">
+            <rect width="26" height="26" rx="2" fill="#1a1a1a" stroke="#666" stroke-width="1"/>
+            <text x="13" y="11" text-anchor="middle" fill="#888" font-size="8">&#9650;</text>
+            <text x="13" y="22" text-anchor="middle" fill="#888" font-size="8">&#9660;</text>
+          </g>
+          <!-- Lift SW -->
+          <g transform="translate(155,579)">
+            <rect width="26" height="26" rx="2" fill="#1a1a1a" stroke="#666" stroke-width="1"/>
+            <text x="13" y="11" text-anchor="middle" fill="#888" font-size="8">&#9650;</text>
+            <text x="13" y="22" text-anchor="middle" fill="#888" font-size="8">&#9660;</text>
+          </g>
+          <!-- Lift SE -->
+          <g transform="translate(919,579)">
+            <rect width="26" height="26" rx="2" fill="#1a1a1a" stroke="#666" stroke-width="1"/>
+            <text x="13" y="11" text-anchor="middle" fill="#888" font-size="8">&#9650;</text>
+            <text x="13" y="22" text-anchor="middle" fill="#888" font-size="8">&#9660;</text>
+          </g>
+
+          <!-- WC North -->
+          <g transform="translate(510,58)">
+            <rect width="30" height="22" rx="2" fill="#1a1f1f" stroke="#2a5a5a" stroke-width="1"/>
+            <text x="15" y="15" text-anchor="middle" fill="#4a9a9a" font-size="8" font-family="'DM Sans', Arial, sans-serif" font-weight="500">WC</text>
+          </g>
+          <!-- WC South -->
+          <g transform="translate(510,678)">
+            <rect width="30" height="22" rx="2" fill="#1a1f1f" stroke="#2a5a5a" stroke-width="1"/>
+            <text x="15" y="15" text-anchor="middle" fill="#4a9a9a" font-size="8" font-family="'DM Sans', Arial, sans-serif" font-weight="500">WC</text>
+          </g>
+          <!-- WC East -->
+          <g transform="translate(1012,365)">
+            <rect width="30" height="22" rx="2" fill="#1a1f1f" stroke="#2a5a5a" stroke-width="1"/>
+            <text x="15" y="15" text-anchor="middle" fill="#4a9a9a" font-size="8" font-family="'DM Sans', Arial, sans-serif" font-weight="500">WC</text>
+          </g>
+          <!-- WC West -->
+          <g transform="translate(58,365)">
+            <rect width="30" height="22" rx="2" fill="#1a1f1f" stroke="#2a5a5a" stroke-width="1"/>
+            <text x="15" y="15" text-anchor="middle" fill="#4a9a9a" font-size="8" font-family="'DM Sans', Arial, sans-serif" font-weight="500">WC</text>
+          </g>
+
+          <!-- Prayer Room -->
+          <g transform="translate(70,640)">
+            <rect width="52" height="28" rx="3" fill="#1a1a2a" stroke="#444488" stroke-width="1"/>
+            <text x="26" y="17" text-anchor="middle" fill="#8888cc"
+                  font-size="7.5" font-family="'DM Sans', Arial, sans-serif" letter-spacing="0.5">PRIERE</text>
+          </g>
+
+          <!-- ══════════════════════════════
+               FLOOR GROUPS
+               ══════════════════════════════ -->
+
+          <!-- ─── RDC Floor Stores ─── -->
+          <g id="floor-rdc" data-floor="rdc">
+
+            <!-- NORTH ROW (top, between top wall and north corridor) -->
+
+            <!-- Store: Zara (fashion) -->
+            <g class="store-bay" data-cat="fashion" data-name="Zara" data-floor="rdc" id="store-zara"
+               role="button" aria-label="Zara — Mode — RDC" tabindex="0">
+              <rect x="70" y="60" width="120" height="105" rx="2"
+                    fill="#0A0A0A" stroke="#333" stroke-width="1.2"/>
+              <text x="130" y="109" text-anchor="middle" fill="rgba(255,255,255,0.75)"
+                    font-size="11" font-family="'DM Sans', Arial, sans-serif" font-weight="500" letter-spacing="1">ZARA</text>
+            </g>
+
+            <!-- Store: H&M (fashion) -->
+            <g class="store-bay" data-cat="fashion" data-name="H&amp;M" data-floor="rdc" id="store-hm"
+               role="button" aria-label="H&M — Mode — RDC" tabindex="0">
+              <rect x="260" y="60" width="105" height="105" rx="2"
+                    fill="#0A0A0A" stroke="#333" stroke-width="1.2"/>
+              <text x="312" y="109" text-anchor="middle" fill="rgba(255,255,255,0.75)"
+                    font-size="11" font-family="'DM Sans', Arial, sans-serif" font-weight="500" letter-spacing="1">H&amp;M</text>
+            </g>
+
+            <!-- Store: Sephora (beauty) -->
+            <g class="store-bay" data-cat="beauty" data-name="Sephora" data-floor="rdc" id="store-sephora"
+               role="button" aria-label="Sephora — Beauté — RDC" tabindex="0">
+              <rect x="670" y="60" width="110" height="105" rx="2"
+                    fill="#1a1a2e" stroke="#3a3a5e" stroke-width="1.2"/>
+              <text x="725" y="109" text-anchor="middle" fill="rgba(180,180,255,0.8)"
+                    font-size="10" font-family="'DM Sans', Arial, sans-serif" font-weight="500" letter-spacing="1">SEPHORA</text>
+            </g>
+
+            <!-- Store: Marwa (fashion) -->
+            <g class="store-bay" data-cat="fashion" data-name="Marwa" data-floor="rdc" id="store-marwa"
+               role="button" aria-label="Marwa — Mode — RDC" tabindex="0">
+              <rect x="790" y="60" width="105" height="105" rx="2"
+                    fill="#0A0A0A" stroke="#333" stroke-width="1.2"/>
+              <text x="842" y="109" text-anchor="middle" fill="rgba(255,255,255,0.75)"
+                    font-size="11" font-family="'DM Sans', Arial, sans-serif" font-weight="500" letter-spacing="1">MARWA</text>
+            </g>
+
+            <!-- Store: Adidas (fashion) -->
+            <g class="store-bay" data-cat="fashion" data-name="Adidas" data-floor="rdc" id="store-adidas"
+               role="button" aria-label="Adidas — Mode — RDC" tabindex="0">
+              <rect x="905" y="60" width="135" height="105" rx="2"
+                    fill="#0A0A0A" stroke="#333" stroke-width="1.2"/>
+              <text x="972" y="109" text-anchor="middle" fill="rgba(255,255,255,0.75)"
+                    font-size="11" font-family="'DM Sans', Arial, sans-serif" font-weight="500" letter-spacing="1">ADIDAS</text>
+            </g>
+
+            <!-- SOUTH ROW (bottom) -->
+
+            <!-- Store: Starbucks (food) -->
+            <g class="store-bay" data-cat="food" data-name="Starbucks" data-floor="rdc" id="store-starbucks"
+               role="button" aria-label="Starbucks — Restauration — RDC" tabindex="0">
+              <rect x="70" y="595" width="105" height="90" rx="2"
+                    fill="#2e1000" stroke="#6e2800" stroke-width="1.2"/>
+              <text x="122" y="636" text-anchor="middle" fill="rgba(255,180,100,0.85)"
+                    font-size="9.5" font-family="'DM Sans', Arial, sans-serif" font-weight="500" letter-spacing="0.8">STARBUCKS</text>
+            </g>
+
+            <!-- Store: McDonald's (food) -->
+            <g class="store-bay" data-cat="food" data-name="McDonald's" data-floor="rdc" id="store-mcd"
+               role="button" aria-label="McDonald's — Restauration — RDC" tabindex="0">
+              <rect x="260" y="595" width="105" height="90" rx="2"
+                    fill="#2e1000" stroke="#6e2800" stroke-width="1.2"/>
+              <text x="312" y="636" text-anchor="middle" fill="rgba(255,180,100,0.85)"
+                    font-size="9" font-family="'DM Sans', Arial, sans-serif" font-weight="500" letter-spacing="0.5">McDONALD'S</text>
+            </g>
+
+            <!-- Store: L'Occitane (beauty) -->
+            <g class="store-bay" data-cat="beauty" data-name="L'Occitane" data-floor="rdc" id="store-loccitane"
+               role="button" aria-label="L'Occitane — Beauté — RDC" tabindex="0">
+              <rect x="670" y="595" width="110" height="90" rx="2"
+                    fill="#1a1a2e" stroke="#3a3a5e" stroke-width="1.2"/>
+              <text x="725" y="632" text-anchor="middle" fill="rgba(180,180,255,0.8)"
+                    font-size="9" font-family="'DM Sans', Arial, sans-serif" font-weight="500" letter-spacing="0.5">L'OCCITANE</text>
+            </g>
+
+            <!-- Store: Nike (fashion) -->
+            <g class="store-bay" data-cat="fashion" data-name="Nike" data-floor="rdc" id="store-nike"
+               role="button" aria-label="Nike — Mode — RDC" tabindex="0">
+              <rect x="790" y="595" width="105" height="90" rx="2"
+                    fill="#0A0A0A" stroke="#333" stroke-width="1.2"/>
+              <text x="842" y="636" text-anchor="middle" fill="rgba(255,255,255,0.75)"
+                    font-size="12" font-family="'DM Sans', Arial, sans-serif" font-weight="500" letter-spacing="1.5">NIKE</text>
+            </g>
+
+            <!-- Store: Pharmacie (services) -->
+            <g class="store-bay" data-cat="services" data-name="Pharmacie" data-floor="rdc" id="store-pharmacie"
+               role="button" aria-label="Pharmacie — Services — RDC" tabindex="0">
+              <rect x="905" y="595" width="135" height="90" rx="2"
+                    fill="#1a1a1a" stroke="#555" stroke-width="1.2"/>
+              <text x="972" y="636" text-anchor="middle" fill="rgba(255,255,255,0.6)"
+                    font-size="9.5" font-family="'DM Sans', Arial, sans-serif" font-weight="500" letter-spacing="0.8">PHARMACIE</text>
+              <text x="972" y="651" text-anchor="middle" fill="rgba(80,200,80,0.7)"
+                    font-size="14" font-family="Arial, sans-serif">&#10010;</text>
+            </g>
+
+            <!-- WEST WING (left) -->
+            <g class="store-bay" data-cat="fashion" data-name="Pull&amp;Bear" data-floor="rdc" id="store-pb"
+               role="button" aria-label="Pull&Bear — Mode — RDC" tabindex="0">
+              <rect x="70" y="235" width="80" height="90" rx="2"
+                    fill="#0A0A0A" stroke="#333" stroke-width="1.2"/>
+              <text x="110" y="276" text-anchor="middle" fill="rgba(255,255,255,0.75)"
+                    font-size="9" font-family="'DM Sans', Arial, sans-serif" font-weight="500" letter-spacing="0.5">PULL&amp;BEAR</text>
+            </g>
+
+            <!-- EAST WING (right) -->
+            <g class="store-bay" data-cat="services" data-name="Banque" data-floor="rdc" id="store-bank"
+               role="button" aria-label="Banque — Services — RDC" tabindex="0">
+              <rect x="950" y="235" width="90" height="90" rx="2"
+                    fill="#1a1a1a" stroke="#555" stroke-width="1.2"/>
+              <text x="995" y="276" text-anchor="middle" fill="rgba(255,255,255,0.6)"
+                    font-size="9.5" font-family="'DM Sans', Arial, sans-serif" font-weight="500" letter-spacing="0.8">BANQUE</text>
+            </g>
+
+          </g><!-- /floor-rdc -->
+
+
+          <!-- ─── LEVEL 1 Stores ─── -->
+          <g id="floor-1" data-floor="1" style="display:none;">
+
+            <!-- Store: Zara Home (fashion) -->
+            <g class="store-bay" data-cat="fashion" data-name="Zara Home" data-floor="1"
+               role="button" aria-label="Zara Home — Mode — Niv. 1" tabindex="0">
+              <rect x="70" y="60" width="120" height="105" rx="2"
+                    fill="#0A0A0A" stroke="#333" stroke-width="1.2"/>
+              <text x="130" y="109" text-anchor="middle" fill="rgba(255,255,255,0.75)"
+                    font-size="10" font-family="'DM Sans', Arial, sans-serif" font-weight="500" letter-spacing="0.8">ZARA HOME</text>
+            </g>
+
+            <!-- Store: Massimo Dutti (fashion) -->
+            <g class="store-bay" data-cat="fashion" data-name="Massimo Dutti" data-floor="1"
+               role="button" aria-label="Massimo Dutti — Mode — Niv. 1" tabindex="0">
+              <rect x="260" y="60" width="120" height="105" rx="2"
+                    fill="#0A0A0A" stroke="#444" stroke-width="1.2"/>
+              <text x="320" y="102" text-anchor="middle" fill="rgba(255,255,255,0.75)"
+                    font-size="9.5" font-family="'DM Sans', Arial, sans-serif" font-weight="500" letter-spacing="0.5">MASSIMO</text>
+              <text x="320" y="117" text-anchor="middle" fill="rgba(255,255,255,0.75)"
+                    font-size="9.5" font-family="'DM Sans', Arial, sans-serif" font-weight="500" letter-spacing="0.5">DUTTI</text>
+            </g>
+
+            <!-- Store: Dior Beauté (luxury) -->
+            <g class="store-bay" data-cat="luxury" data-name="Dior Beauté" data-floor="1"
+               role="button" aria-label="Dior Beauté — Rose Blvd — Niv. 1" tabindex="0">
+              <rect x="670" y="60" width="110" height="105" rx="2"
+                    fill="rgba(201,169,110,0.12)" stroke="#C9A96E" stroke-width="1.2"/>
+              <text x="725" y="102" text-anchor="middle" fill="rgba(201,169,110,0.9)"
+                    font-size="10" font-family="'Cormorant Garamond', Georgia, serif" font-style="italic" letter-spacing="1">Dior</text>
+              <text x="725" y="118" text-anchor="middle" fill="rgba(201,169,110,0.7)"
+                    font-size="8" font-family="'DM Sans', Arial, sans-serif" letter-spacing="1.5">BEAUTÉ</text>
+            </g>
+
+            <!-- Store: Valentino (luxury) -->
+            <g class="store-bay" data-cat="luxury" data-name="Valentino" data-floor="1"
+               role="button" aria-label="Valentino — Rose Blvd — Niv. 1" tabindex="0">
+              <rect x="790" y="60" width="105" height="105" rx="2"
+                    fill="rgba(201,169,110,0.12)" stroke="#C9A96E" stroke-width="1.2"/>
+              <text x="842" y="109" text-anchor="middle" fill="rgba(201,169,110,0.9)"
+                    font-size="10" font-family="'Cormorant Garamond', Georgia, serif" font-style="italic" letter-spacing="1">Valentino</text>
+            </g>
+
+            <!-- Store: Gucci (luxury) -->
+            <g class="store-bay" data-cat="luxury" data-name="Gucci" data-floor="1"
+               role="button" aria-label="Gucci — Rose Blvd — Niv. 1" tabindex="0">
+              <rect x="905" y="60" width="135" height="105" rx="2"
+                    fill="rgba(201,169,110,0.12)" stroke="#C9A96E" stroke-width="1.2"/>
+              <text x="972" y="109" text-anchor="middle" fill="rgba(201,169,110,0.9)"
+                    font-size="12" font-family="'Cormorant Garamond', Georgia, serif" font-style="italic" letter-spacing="2">Gucci</text>
+            </g>
+
+            <!-- South: La Maison Arabe (food) -->
+            <g class="store-bay" data-cat="food" data-name="La Maison Arabe" data-floor="1"
+               role="button" aria-label="La Maison Arabe — Restauration — Niv. 1" tabindex="0">
+              <rect x="70" y="595" width="120" height="90" rx="2"
+                    fill="#2e1000" stroke="#6e2800" stroke-width="1.2"/>
+              <text x="130" y="634" text-anchor="middle" fill="rgba(255,180,100,0.85)"
+                    font-size="8.5" font-family="'DM Sans', Arial, sans-serif" font-weight="500">LA MAISON</text>
+              <text x="130" y="649" text-anchor="middle" fill="rgba(255,180,100,0.85)"
+                    font-size="8.5" font-family="'DM Sans', Arial, sans-serif" font-weight="500">ARABE</text>
+            </g>
+
+            <!-- South: Cinéma (entertainment) -->
+            <g class="store-bay" data-cat="entertainment" data-name="Cinéma" data-floor="1"
+               role="button" aria-label="Cinéma — Loisirs — Niv. 1" tabindex="0">
+              <rect x="260" y="595" width="120" height="90" rx="2"
+                    fill="#001a2e" stroke="#00446e" stroke-width="1.2"/>
+              <text x="320" y="636" text-anchor="middle" fill="rgba(100,180,255,0.85)"
+                    font-size="11" font-family="'DM Sans', Arial, sans-serif" font-weight="500" letter-spacing="1">CINEMA</text>
+            </g>
+
+            <!-- West: Bershka (fashion) -->
+            <g class="store-bay" data-cat="fashion" data-name="Bershka" data-floor="1"
+               role="button" aria-label="Bershka — Mode — Niv. 1" tabindex="0">
+              <rect x="70" y="235" width="80" height="90" rx="2"
+                    fill="#0A0A0A" stroke="#333" stroke-width="1.2"/>
+              <text x="110" y="276" text-anchor="middle" fill="rgba(255,255,255,0.75)"
+                    font-size="9" font-family="'DM Sans', Arial, sans-serif" font-weight="500" letter-spacing="0.5">BERSHKA</text>
+            </g>
+
+            <!-- East: Optique (services) -->
+            <g class="store-bay" data-cat="services" data-name="Optique" data-floor="1"
+               role="button" aria-label="Optique — Services — Niv. 1" tabindex="0">
+              <rect x="950" y="595" width="90" height="90" rx="2"
+                    fill="#1a1a1a" stroke="#555" stroke-width="1.2"/>
+              <text x="995" y="636" text-anchor="middle" fill="rgba(255,255,255,0.6)"
+                    font-size="9.5" font-family="'DM Sans', Arial, sans-serif" font-weight="500" letter-spacing="0.8">OPTIQUE</text>
+            </g>
+
+          </g><!-- /floor-1 -->
+
+
+          <!-- ─── LEVEL 2 Stores ─── -->
+          <g id="floor-2" data-floor="2" style="display:none;">
+
+            <!-- Aqua Dream (entertainment) — large anchor -->
+            <g class="store-bay" data-cat="entertainment" data-name="Aqua Dream" data-floor="2"
+               role="button" aria-label="Aqua Dream — Loisirs — Niv. 2" tabindex="0">
+              <rect x="70" y="60" width="200" height="200" rx="4"
+                    fill="#001a2e" stroke="#00446e" stroke-width="1.5"/>
+              <text x="170" y="155" text-anchor="middle" fill="rgba(100,200,255,0.85)"
+                    font-size="13" font-family="'DM Sans', Arial, sans-serif" font-weight="600" letter-spacing="1.5">AQUA DREAM</text>
+              <text x="170" y="173" text-anchor="middle" fill="rgba(100,200,255,0.5)"
+                    font-size="9" font-family="'DM Sans', Arial, sans-serif" letter-spacing="0.8">PARC AQUATIQUE</text>
+            </g>
+
+            <!-- Hugo Boss (luxury) -->
+            <g class="store-bay" data-cat="luxury" data-name="Hugo Boss" data-floor="2"
+               role="button" aria-label="Hugo Boss — Rose Blvd — Niv. 2" tabindex="0">
+              <rect x="670" y="60" width="110" height="105" rx="2"
+                    fill="rgba(201,169,110,0.12)" stroke="#C9A96E" stroke-width="1.2"/>
+              <text x="725" y="102" text-anchor="middle" fill="rgba(201,169,110,0.9)"
+                    font-size="9.5" font-family="'Cormorant Garamond', Georgia, serif" font-style="italic" letter-spacing="1">Hugo Boss</text>
+            </g>
+
+            <!-- The Prime Table (food) -->
+            <g class="store-bay" data-cat="food" data-name="The Prime Table" data-floor="2"
+               role="button" aria-label="The Prime Table — Restauration — Niv. 2" tabindex="0">
+              <rect x="790" y="60" width="120" height="105" rx="2"
+                    fill="#2e1000" stroke="#6e2800" stroke-width="1.2"/>
+              <text x="850" y="102" text-anchor="middle" fill="rgba(255,180,100,0.85)"
+                    font-size="9" font-family="'DM Sans', Arial, sans-serif" font-weight="500">THE PRIME</text>
+              <text x="850" y="117" text-anchor="middle" fill="rgba(255,180,100,0.85)"
+                    font-size="9" font-family="'DM Sans', Arial, sans-serif" font-weight="500">TABLE</text>
+            </g>
+
+            <!-- Armani Exchange (luxury) -->
+            <g class="store-bay" data-cat="luxury" data-name="Armani Exchange" data-floor="2"
+               role="button" aria-label="Armani Exchange — Rose Blvd — Niv. 2" tabindex="0">
+              <rect x="920" y="60" width="120" height="105" rx="2"
+                    fill="rgba(201,169,110,0.12)" stroke="#C9A96E" stroke-width="1.2"/>
+              <text x="980" y="102" text-anchor="middle" fill="rgba(201,169,110,0.9)"
+                    font-size="9" font-family="'Cormorant Garamond', Georgia, serif" font-style="italic" letter-spacing="0.8">Armani</text>
+              <text x="980" y="118" text-anchor="middle" fill="rgba(201,169,110,0.7)"
+                    font-size="8" font-family="'DM Sans', Arial, sans-serif" letter-spacing="1.5">EXCHANGE</text>
+            </g>
+
+            <!-- Bay Food Hall (food) — large anchor south -->
+            <g class="store-bay" data-cat="food" data-name="Bay Food Hall" data-floor="2"
+               role="button" aria-label="Bay Food Hall — Restauration — Niv. 2" tabindex="0">
+              <rect x="70" y="595" width="250" height="110" rx="4"
+                    fill="#2e1000" stroke="#6e2800" stroke-width="1.5"/>
+              <text x="195" y="645" text-anchor="middle" fill="rgba(255,180,100,0.85)"
+                    font-size="13" font-family="'DM Sans', Arial, sans-serif" font-weight="600" letter-spacing="1.5">BAY FOOD HALL</text>
+              <text x="195" y="662" text-anchor="middle" fill="rgba(255,180,100,0.5)"
+                    font-size="9" font-family="'DM Sans', Arial, sans-serif" letter-spacing="0.8">FOOD COURT</text>
+            </g>
+
+            <!-- Rituals (beauty) -->
+            <g class="store-bay" data-cat="beauty" data-name="Rituals" data-floor="2"
+               role="button" aria-label="Rituals — Beauté — Niv. 2" tabindex="0">
+              <rect x="670" y="595" width="110" height="90" rx="2"
+                    fill="#1a1a2e" stroke="#3a3a5e" stroke-width="1.2"/>
+              <text x="725" y="636" text-anchor="middle" fill="rgba(180,180,255,0.8)"
+                    font-size="10" font-family="'DM Sans', Arial, sans-serif" font-weight="500" letter-spacing="1">RITUALS</text>
+            </g>
+
+            <!-- East: Lacoste (fashion) -->
+            <g class="store-bay" data-cat="fashion" data-name="Lacoste" data-floor="2"
+               role="button" aria-label="Lacoste — Mode — Niv. 2" tabindex="0">
+              <rect x="950" y="235" width="90" height="90" rx="2"
+                    fill="#0A0A0A" stroke="#333" stroke-width="1.2"/>
+              <text x="995" y="276" text-anchor="middle" fill="rgba(255,255,255,0.75)"
+                    font-size="9.5" font-family="'DM Sans', Arial, sans-serif" font-weight="500" letter-spacing="0.8">LACOSTE</text>
+            </g>
+
+          </g><!-- /floor-2 -->
+
+
+          <!-- ─── LEVEL 3 Stores ─── -->
+          <g id="floor-3" data-floor="3" style="display:none;">
+
+            <!-- IMAX (entertainment) — large -->
+            <g class="store-bay" data-cat="entertainment" data-name="IMAX" data-floor="3"
+               role="button" aria-label="IMAX — Loisirs — Niv. 3" tabindex="0">
+              <rect x="70" y="60" width="180" height="160" rx="4"
+                    fill="#001a2e" stroke="#00446e" stroke-width="1.5"/>
+              <text x="160" y="135" text-anchor="middle" fill="rgba(100,200,255,0.9)"
+                    font-size="20" font-family="'DM Sans', Arial, sans-serif" font-weight="700" letter-spacing="3">IMAX</text>
+              <text x="160" y="155" text-anchor="middle" fill="rgba(100,200,255,0.5)"
+                    font-size="8.5" font-family="'DM Sans', Arial, sans-serif" letter-spacing="1.5">CINEMA</text>
+            </g>
+
+            <!-- Fun Zone (entertainment) -->
+            <g class="store-bay" data-cat="entertainment" data-name="Fun Zone" data-floor="3"
+               role="button" aria-label="Fun Zone — Loisirs — Niv. 3" tabindex="0">
+              <rect x="260" y="60" width="130" height="160" rx="4"
+                    fill="#001a2e" stroke="#00446e" stroke-width="1.5"/>
+              <text x="325" y="135" text-anchor="middle" fill="rgba(100,200,255,0.85)"
+                    font-size="11" font-family="'DM Sans', Arial, sans-serif" font-weight="600" letter-spacing="1">FUN ZONE</text>
+            </g>
+
+            <!-- Burberry (luxury) -->
+            <g class="store-bay" data-cat="luxury" data-name="Burberry" data-floor="3"
+               role="button" aria-label="Burberry — Rose Blvd — Niv. 3" tabindex="0">
+              <rect x="670" y="60" width="110" height="105" rx="2"
+                    fill="rgba(201,169,110,0.12)" stroke="#C9A96E" stroke-width="1.2"/>
+              <text x="725" y="109" text-anchor="middle" fill="rgba(201,169,110,0.9)"
+                    font-size="10" font-family="'Cormorant Garamond', Georgia, serif" font-style="italic" letter-spacing="1">Burberry</text>
+            </g>
+
+            <!-- Prada (luxury) -->
+            <g class="store-bay" data-cat="luxury" data-name="Prada" data-floor="3"
+               role="button" aria-label="Prada — Rose Blvd — Niv. 3" tabindex="0">
+              <rect x="790" y="60" width="105" height="105" rx="2"
+                    fill="rgba(201,169,110,0.12)" stroke="#C9A96E" stroke-width="1.2"/>
+              <text x="842" y="109" text-anchor="middle" fill="rgba(201,169,110,0.9)"
+                    font-size="11" font-family="'Cormorant Garamond', Georgia, serif" font-style="italic" letter-spacing="1">Prada</text>
+            </g>
+
+            <!-- Sky Lounge (food) -->
+            <g class="store-bay" data-cat="food" data-name="Sky Lounge" data-floor="3"
+               role="button" aria-label="Sky Lounge — Restauration — Niv. 3" tabindex="0">
+              <rect x="905" y="60" width="135" height="105" rx="2"
+                    fill="#2e1000" stroke="#6e2800" stroke-width="1.2"/>
+              <text x="972" y="102" text-anchor="middle" fill="rgba(255,180,100,0.85)"
+                    font-size="10.5" font-family="'DM Sans', Arial, sans-serif" font-weight="500" letter-spacing="1">SKY</text>
+              <text x="972" y="118" text-anchor="middle" fill="rgba(255,180,100,0.85)"
+                    font-size="10.5" font-family="'DM Sans', Arial, sans-serif" font-weight="500" letter-spacing="1">LOUNGE</text>
+            </g>
+
+            <!-- South: Fnac (entertainment) -->
+            <g class="store-bay" data-cat="entertainment" data-name="Fnac" data-floor="3"
+               role="button" aria-label="Fnac — Loisirs — Niv. 3" tabindex="0">
+              <rect x="70" y="595" width="120" height="90" rx="2"
+                    fill="#001a2e" stroke="#00446e" stroke-width="1.2"/>
+              <text x="130" y="636" text-anchor="middle" fill="rgba(100,200,255,0.85)"
+                    font-size="14" font-family="'DM Sans', Arial, sans-serif" font-weight="700" letter-spacing="2">FNAC</text>
+            </g>
+
+            <!-- South: Tommy Hilfiger (fashion) -->
+            <g class="store-bay" data-cat="fashion" data-name="Tommy Hilfiger" data-floor="3"
+               role="button" aria-label="Tommy Hilfiger — Mode — Niv. 3" tabindex="0">
+              <rect x="260" y="595" width="120" height="90" rx="2"
+                    fill="#0A0A0A" stroke="#333" stroke-width="1.2"/>
+              <text x="320" y="631" text-anchor="middle" fill="rgba(255,255,255,0.75)"
+                    font-size="8.5" font-family="'DM Sans', Arial, sans-serif" font-weight="500" letter-spacing="0.5">TOMMY</text>
+              <text x="320" y="646" text-anchor="middle" fill="rgba(255,255,255,0.75)"
+                    font-size="8.5" font-family="'DM Sans', Arial, sans-serif" font-weight="500" letter-spacing="0.5">HILFIGER</text>
+            </g>
+
+          </g><!-- /floor-3 -->
+
+
+          <!-- ══════════════════════════════
+               COMPASS ROSE
+               ══════════════════════════════ -->
+          <g transform="translate(1038,58)">
+            <!-- Outer circle -->
+            <circle cx="22" cy="22" r="20" fill="rgba(0,0,0,0.6)" stroke="#333" stroke-width="1"/>
+            <!-- North arrow (gold) -->
+            <polygon points="22,4 18,20 22,17 26,20" fill="#C9A96E"/>
+            <!-- South arrow (dark) -->
+            <polygon points="22,40 18,24 22,27 26,24" fill="#444"/>
+            <!-- West / East ticks -->
+            <line x1="3" y1="22" x2="9" y2="22" stroke="#555" stroke-width="1"/>
+            <line x1="35" y1="22" x2="41" y2="22" stroke="#555" stroke-width="1"/>
+            <!-- N label -->
+            <text x="22" y="2.5" text-anchor="middle" fill="#C9A96E"
+                  font-size="7" font-family="'DM Sans', Arial, sans-serif" font-weight="700">N</text>
+          </g>
+
+          <!-- ══════════════════════════════
+               FLOOR LABEL (bottom-left)
+               ══════════════════════════════ -->
+          <rect x="58" y="698" width="80" height="24" rx="12" fill="rgba(0,0,0,0.7)" stroke="#333" stroke-width="1"/>
+          <text id="floor-label-svg" x="98" y="714" text-anchor="middle"
+                fill="rgba(255,255,255,0.7)"
+                font-size="9" font-family="'DM Sans', Arial, sans-serif" font-weight="500" letter-spacing="1.5">
+            RDC
+          </text>
+
+        </svg><!-- /svg -->
+      </div><!-- /map-wrapper -->
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════ LEGEND ═══════════════════ -->
+  <div class="map-legend-section">
+    <div class="map-legend-section__inner">
+      <span class="legend-label">Légende</span>
+      <span class="legend-item">
+        <span class="legend-dot legend-dot--fashion"></span>Mode
+      </span>
+      <span class="legend-item">
+        <span class="legend-dot legend-dot--beauty"></span>Beauté
+      </span>
+      <span class="legend-item">
+        <span class="legend-dot legend-dot--food"></span>Restauration
+      </span>
+      <span class="legend-item">
+        <span class="legend-dot legend-dot--entertainment"></span>Loisirs
+      </span>
+      <span class="legend-item">
+        <span class="legend-dot legend-dot--luxury"></span>Rose Boulevard
+      </span>
+      <span class="legend-item">
+        <span class="legend-dot legend-dot--services"></span>Services
+      </span>
+      <span class="legend-item" style="margin-left:auto;gap:0.35rem;">
+        <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+          <rect x="1" y="1" width="10" height="10" stroke="#555" stroke-width="1"/>
+          <line x1="1" y1="1" x2="11" y2="11" stroke="#888" stroke-width="0.8"/>
+          <line x1="11" y1="1" x2="1" y2="11" stroke="#888" stroke-width="0.8"/>
+        </svg>
+        <span style="color:rgba(255,255,255,0.4);font-size:0.65rem;">Escalateurs</span>
+      </span>
+      <span class="legend-item" style="gap:0.35rem;">
+        <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+          <rect x="1" y="1" width="10" height="10" stroke="#666" stroke-width="1"/>
+          <text x="6" y="5.5" text-anchor="middle" fill="#888" font-size="4">&#9650;</text>
+          <text x="6" y="10.5" text-anchor="middle" fill="#888" font-size="4">&#9660;</text>
+        </svg>
+        <span style="color:rgba(255,255,255,0.4);font-size:0.65rem;">Ascenseurs</span>
+      </span>
+      <span class="legend-item" style="gap:0.35rem;">
+        <svg width="18" height="12" viewBox="0 0 18 12" fill="none">
+          <rect x="1" y="1" width="16" height="10" rx="2" fill="#1a1f1f" stroke="#2a5a5a" stroke-width="1"/>
+          <text x="9" y="9" text-anchor="middle" fill="#4a9a9a" font-size="7" font-family="Arial, sans-serif">WC</text>
+        </svg>
+        <span style="color:rgba(255,255,255,0.4);font-size:0.65rem;">Sanitaires</span>
+      </span>
+    </div>
+  </div>
+
+
+  <!-- ═══════════════════ STORE DIRECTORY ═══════════════════ -->
+  <section class="directory-section">
+    <div class="directory-section__inner">
+      <div class="directory-header">
+        <div class="directory-header__left">
+          <p>Annuaire des enseignes</p>
+          <h2>Toutes les Boutiques</h2>
+        </div>
+        <span class="directory-count" id="dir-count">24 enseignes</span>
+      </div>
+
+      <table class="directory-table" aria-label="Annuaire des boutiques">
+        <thead>
+          <tr>
+            <th style="width:36%">Enseigne</th>
+            <th style="width:14%">Niveau</th>
+            <th class="th-category" style="width:26%">Catégorie</th>
+            <th style="width:24%">Localisation</th>
+            <th style="width:5%"></th>
+          </tr>
+        </thead>
+        <tbody id="directory-body">
+
+          <!-- RDC -->
+          <tr class="directory-row" data-cat="fashion" data-floor="rdc" data-name="Zara"
+              onclick="highlightStore('store-zara','rdc')">
+            <td><span class="dir-name">Zara</span></td>
+            <td><span class="dir-floor">RDC</span></td>
+            <td class="td-category">
+              <span class="dir-cat-dot" style="background:#333;border:1px solid #555;"></span>
+              <span class="dir-cat-label">Mode</span>
+            </td>
+            <td><span class="dir-floor">Aile Nord</span></td>
+            <td class="dir-arrow">›</td>
+          </tr>
+
+          <tr class="directory-row" data-cat="fashion" data-floor="rdc" data-name="H&M"
+              onclick="highlightStore('store-hm','rdc')">
+            <td><span class="dir-name">H&amp;M</span></td>
+            <td><span class="dir-floor">RDC</span></td>
+            <td class="td-category">
+              <span class="dir-cat-dot" style="background:#333;border:1px solid #555;"></span>
+              <span class="dir-cat-label">Mode</span>
+            </td>
+            <td><span class="dir-floor">Aile Nord</span></td>
+            <td class="dir-arrow">›</td>
+          </tr>
+
+          <tr class="directory-row" data-cat="beauty" data-floor="rdc" data-name="Sephora"
+              onclick="highlightStore('store-sephora','rdc')">
+            <td><span class="dir-name">Sephora</span></td>
+            <td><span class="dir-floor">RDC</span></td>
+            <td class="td-category">
+              <span class="dir-cat-dot" style="background:#1a1a2e;border:1px solid #3a3a5e;"></span>
+              <span class="dir-cat-label">Beauté</span>
+            </td>
+            <td><span class="dir-floor">Aile Est</span></td>
+            <td class="dir-arrow">›</td>
+          </tr>
+
+          <tr class="directory-row" data-cat="fashion" data-floor="rdc" data-name="Marwa"
+              onclick="highlightStore('store-marwa','rdc')">
+            <td><span class="dir-name">Marwa</span></td>
+            <td><span class="dir-floor">RDC</span></td>
+            <td class="td-category">
+              <span class="dir-cat-dot" style="background:#333;border:1px solid #555;"></span>
+              <span class="dir-cat-label">Mode</span>
+            </td>
+            <td><span class="dir-floor">Aile Est</span></td>
+            <td class="dir-arrow">›</td>
+          </tr>
+
+          <tr class="directory-row" data-cat="fashion" data-floor="rdc" data-name="Adidas"
+              onclick="highlightStore('store-adidas','rdc')">
+            <td><span class="dir-name">Adidas</span></td>
+            <td><span class="dir-floor">RDC</span></td>
+            <td class="td-category">
+              <span class="dir-cat-dot" style="background:#333;border:1px solid #555;"></span>
+              <span class="dir-cat-label">Mode</span>
+            </td>
+            <td><span class="dir-floor">Aile Est</span></td>
+            <td class="dir-arrow">›</td>
+          </tr>
+
+          <tr class="directory-row" data-cat="food" data-floor="rdc" data-name="Starbucks"
+              onclick="highlightStore('store-starbucks','rdc')">
+            <td><span class="dir-name">Starbucks</span></td>
+            <td><span class="dir-floor">RDC</span></td>
+            <td class="td-category">
+              <span class="dir-cat-dot" style="background:#2e1000;border:1px solid #6e2800;"></span>
+              <span class="dir-cat-label">Restauration</span>
+            </td>
+            <td><span class="dir-floor">Aile Sud-Ouest</span></td>
+            <td class="dir-arrow">›</td>
+          </tr>
+
+          <tr class="directory-row" data-cat="food" data-floor="rdc" data-name="McDonald's"
+              onclick="highlightStore('store-mcd','rdc')">
+            <td><span class="dir-name">McDonald's</span></td>
+            <td><span class="dir-floor">RDC</span></td>
+            <td class="td-category">
+              <span class="dir-cat-dot" style="background:#2e1000;border:1px solid #6e2800;"></span>
+              <span class="dir-cat-label">Restauration</span>
+            </td>
+            <td><span class="dir-floor">Aile Sud</span></td>
+            <td class="dir-arrow">›</td>
+          </tr>
+
+          <tr class="directory-row" data-cat="beauty" data-floor="rdc" data-name="L'Occitane"
+              onclick="highlightStore('store-loccitane','rdc')">
+            <td><span class="dir-name">L'Occitane</span></td>
+            <td><span class="dir-floor">RDC</span></td>
+            <td class="td-category">
+              <span class="dir-cat-dot" style="background:#1a1a2e;border:1px solid #3a3a5e;"></span>
+              <span class="dir-cat-label">Beauté</span>
+            </td>
+            <td><span class="dir-floor">Aile Sud-Est</span></td>
+            <td class="dir-arrow">›</td>
+          </tr>
+
+          <tr class="directory-row" data-cat="fashion" data-floor="rdc" data-name="Nike"
+              onclick="highlightStore('store-nike','rdc')">
+            <td><span class="dir-name">Nike</span></td>
+            <td><span class="dir-floor">RDC</span></td>
+            <td class="td-category">
+              <span class="dir-cat-dot" style="background:#333;border:1px solid #555;"></span>
+              <span class="dir-cat-label">Mode</span>
+            </td>
+            <td><span class="dir-floor">Aile Est</span></td>
+            <td class="dir-arrow">›</td>
+          </tr>
+
+          <tr class="directory-row" data-cat="services" data-floor="rdc" data-name="Pharmacie"
+              onclick="highlightStore('store-pharmacie','rdc')">
+            <td><span class="dir-name">Pharmacie</span></td>
+            <td><span class="dir-floor">RDC</span></td>
+            <td class="td-category">
+              <span class="dir-cat-dot" style="background:#1a1a1a;border:1px solid #555;"></span>
+              <span class="dir-cat-label">Services</span>
+            </td>
+            <td><span class="dir-floor">Aile Est</span></td>
+            <td class="dir-arrow">›</td>
+          </tr>
+
+          <tr class="directory-row" data-cat="fashion" data-floor="rdc" data-name="Pull&Bear"
+              onclick="highlightStore('store-pb','rdc')">
+            <td><span class="dir-name">Pull&amp;Bear</span></td>
+            <td><span class="dir-floor">RDC</span></td>
+            <td class="td-category">
+              <span class="dir-cat-dot" style="background:#333;border:1px solid #555;"></span>
+              <span class="dir-cat-label">Mode</span>
+            </td>
+            <td><span class="dir-floor">Aile Ouest</span></td>
+            <td class="dir-arrow">›</td>
+          </tr>
+
+          <tr class="directory-row" data-cat="services" data-floor="rdc" data-name="Banque"
+              onclick="highlightStore('store-bank','rdc')">
+            <td><span class="dir-name">Banque Attijariwafa</span></td>
+            <td><span class="dir-floor">RDC</span></td>
+            <td class="td-category">
+              <span class="dir-cat-dot" style="background:#1a1a1a;border:1px solid #555;"></span>
+              <span class="dir-cat-label">Services</span>
+            </td>
+            <td><span class="dir-floor">Aile Est</span></td>
+            <td class="dir-arrow">›</td>
+          </tr>
+
+          <!-- NIV. 1 -->
+          <tr class="directory-row" data-cat="fashion" data-floor="1" data-name="Zara Home">
+            <td><span class="dir-name">Zara Home</span></td>
+            <td><span class="dir-floor">Niv. 1</span></td>
+            <td class="td-category">
+              <span class="dir-cat-dot" style="background:#333;border:1px solid #555;"></span>
+              <span class="dir-cat-label">Mode</span>
+            </td>
+            <td><span class="dir-floor">Aile Nord</span></td>
+            <td class="dir-arrow">›</td>
+          </tr>
+
+          <tr class="directory-row" data-cat="fashion" data-floor="1" data-name="Massimo Dutti">
+            <td><span class="dir-name">Massimo Dutti</span></td>
+            <td><span class="dir-floor">Niv. 1</span></td>
+            <td class="td-category">
+              <span class="dir-cat-dot" style="background:#333;border:1px solid #555;"></span>
+              <span class="dir-cat-label">Mode</span>
+            </td>
+            <td><span class="dir-floor">Aile Nord</span></td>
+            <td class="dir-arrow">›</td>
+          </tr>
+
+          <tr class="directory-row" data-cat="luxury" data-floor="1" data-name="Dior Beauté">
+            <td><span class="dir-name">Dior Beauté</span></td>
+            <td><span class="dir-floor">Niv. 1</span></td>
+            <td class="td-category">
+              <span class="dir-cat-dot" style="background:rgba(201,169,110,0.25);border:1px solid #C9A96E;"></span>
+              <span class="dir-cat-label">Rose Boulevard</span>
+            </td>
+            <td><span class="dir-floor">Aile Est</span></td>
+            <td class="dir-arrow">›</td>
+          </tr>
+
+          <tr class="directory-row" data-cat="luxury" data-floor="1" data-name="Valentino">
+            <td><span class="dir-name">Valentino</span></td>
+            <td><span class="dir-floor">Niv. 1</span></td>
+            <td class="td-category">
+              <span class="dir-cat-dot" style="background:rgba(201,169,110,0.25);border:1px solid #C9A96E;"></span>
+              <span class="dir-cat-label">Rose Boulevard</span>
+            </td>
+            <td><span class="dir-floor">Aile Est</span></td>
+            <td class="dir-arrow">›</td>
+          </tr>
+
+          <tr class="directory-row" data-cat="luxury" data-floor="1" data-name="Gucci">
+            <td><span class="dir-name">Gucci</span></td>
+            <td><span class="dir-floor">Niv. 1</span></td>
+            <td class="td-category">
+              <span class="dir-cat-dot" style="background:rgba(201,169,110,0.25);border:1px solid #C9A96E;"></span>
+              <span class="dir-cat-label">Rose Boulevard</span>
+            </td>
+            <td><span class="dir-floor">Aile Est</span></td>
+            <td class="dir-arrow">›</td>
+          </tr>
+
+          <tr class="directory-row" data-cat="food" data-floor="1" data-name="La Maison Arabe">
+            <td><span class="dir-name">La Maison Arabe</span></td>
+            <td><span class="dir-floor">Niv. 1</span></td>
+            <td class="td-category">
+              <span class="dir-cat-dot" style="background:#2e1000;border:1px solid #6e2800;"></span>
+              <span class="dir-cat-label">Restauration</span>
+            </td>
+            <td><span class="dir-floor">Aile Ouest</span></td>
+            <td class="dir-arrow">›</td>
+          </tr>
+
+          <tr class="directory-row" data-cat="entertainment" data-floor="1" data-name="Cinéma">
+            <td><span class="dir-name">Cinéma</span></td>
+            <td><span class="dir-floor">Niv. 1</span></td>
+            <td class="td-category">
+              <span class="dir-cat-dot" style="background:#001a2e;border:1px solid #00446e;"></span>
+              <span class="dir-cat-label">Loisirs</span>
+            </td>
+            <td><span class="dir-floor">Aile Ouest</span></td>
+            <td class="dir-arrow">›</td>
+          </tr>
+
+          <!-- NIV. 2 -->
+          <tr class="directory-row" data-cat="entertainment" data-floor="2" data-name="Aqua Dream">
+            <td><span class="dir-name">Aqua Dream</span></td>
+            <td><span class="dir-floor">Niv. 2</span></td>
+            <td class="td-category">
+              <span class="dir-cat-dot" style="background:#001a2e;border:1px solid #00446e;"></span>
+              <span class="dir-cat-label">Loisirs</span>
+            </td>
+            <td><span class="dir-floor">Aile Ouest</span></td>
+            <td class="dir-arrow">›</td>
+          </tr>
+
+          <tr class="directory-row" data-cat="food" data-floor="2" data-name="Bay Food Hall">
+            <td><span class="dir-name">Bay Food Hall</span></td>
+            <td><span class="dir-floor">Niv. 2</span></td>
+            <td class="td-category">
+              <span class="dir-cat-dot" style="background:#2e1000;border:1px solid #6e2800;"></span>
+              <span class="dir-cat-label">Restauration</span>
+            </td>
+            <td><span class="dir-floor">Aile Sud</span></td>
+            <td class="dir-arrow">›</td>
+          </tr>
+
+          <tr class="directory-row" data-cat="food" data-floor="2" data-name="The Prime Table">
+            <td><span class="dir-name">The Prime Table</span></td>
+            <td><span class="dir-floor">Niv. 2</span></td>
+            <td class="td-category">
+              <span class="dir-cat-dot" style="background:#2e1000;border:1px solid #6e2800;"></span>
+              <span class="dir-cat-label">Restauration</span>
+            </td>
+            <td><span class="dir-floor">Seaview</span></td>
+            <td class="dir-arrow">›</td>
+          </tr>
+
+          <tr class="directory-row" data-cat="luxury" data-floor="2" data-name="Hugo Boss">
+            <td><span class="dir-name">Hugo Boss</span></td>
+            <td><span class="dir-floor">Niv. 2</span></td>
+            <td class="td-category">
+              <span class="dir-cat-dot" style="background:rgba(201,169,110,0.25);border:1px solid #C9A96E;"></span>
+              <span class="dir-cat-label">Rose Boulevard</span>
+            </td>
+            <td><span class="dir-floor">Aile Est</span></td>
+            <td class="dir-arrow">›</td>
+          </tr>
+
+          <!-- NIV. 3 -->
+          <tr class="directory-row" data-cat="entertainment" data-floor="3" data-name="IMAX">
+            <td><span class="dir-name">IMAX</span></td>
+            <td><span class="dir-floor">Niv. 3</span></td>
+            <td class="td-category">
+              <span class="dir-cat-dot" style="background:#001a2e;border:1px solid #00446e;"></span>
+              <span class="dir-cat-label">Loisirs</span>
+            </td>
+            <td><span class="dir-floor">Aile Ouest</span></td>
+            <td class="dir-arrow">›</td>
+          </tr>
+
+          <tr class="directory-row" data-cat="luxury" data-floor="3" data-name="Prada">
+            <td><span class="dir-name">Prada</span></td>
+            <td><span class="dir-floor">Niv. 3</span></td>
+            <td class="td-category">
+              <span class="dir-cat-dot" style="background:rgba(201,169,110,0.25);border:1px solid #C9A96E;"></span>
+              <span class="dir-cat-label">Rose Boulevard</span>
+            </td>
+            <td><span class="dir-floor">Aile Est</span></td>
+            <td class="dir-arrow">›</td>
+          </tr>
+
+          <tr class="directory-row" data-cat="food" data-floor="3" data-name="Sky Lounge">
+            <td><span class="dir-name">Sky Lounge</span></td>
+            <td><span class="dir-floor">Niv. 3</span></td>
+            <td class="td-category">
+              <span class="dir-cat-dot" style="background:#2e1000;border:1px solid #6e2800;"></span>
+              <span class="dir-cat-label">Restauration</span>
+            </td>
+            <td><span class="dir-floor">Terrasse Sud</span></td>
+            <td class="dir-arrow">›</td>
+          </tr>
+
+        </tbody>
+      </table>
+
+      <p class="dir-no-results" id="dir-no-results">Aucune enseigne trouvée pour cette recherche.</p>
+
+    </div>
+  </section>
+
+</main>
+
+<!-- Footer injected by app.js -->
+<div id="footer-mount"></div>
+
+<script src="../js/seo.js"></script>
+<script src="../js/translations.js"></script>
+<script src="../js/app.js"></script>
+<script>
+/* ================================================================
+   MALL MAP — Interactive Logic
+   ================================================================ */
+
+(function() {
+  'use strict';
+
+  // ── State ──
+  let activeFloor = 'rdc';
+  let activeCat   = 'all';
+  let searchQuery = '';
+
+  // ── DOM refs ──
+  const floorTabs   = document.querySelectorAll('.floor-tab');
+  const catChips    = document.querySelectorAll('.cat-chip');
+  const searchInput = document.getElementById('map-search');
+  const dirRows     = document.querySelectorAll('.directory-row');
+  const dirCount    = document.getElementById('dir-count');
+  const noResults   = document.getElementById('dir-no-results');
+  const floorLabel  = document.getElementById('floor-label-svg');
+
+  // ── Floor switching ──
+  const floorGroups = {
+    rdc: document.getElementById('floor-rdc'),
+    '1': document.getElementById('floor-1'),
+    '2': document.getElementById('floor-2'),
+    '3': document.getElementById('floor-3'),
+  };
+
+  const floorNames = {
+    rdc: 'RDC',
+    '1': 'NIV. 1',
+    '2': 'NIV. 2',
+    '3': 'NIV. 3',
+  };
+
+  function switchFloor(floor) {
+    activeFloor = floor;
+    // Toggle SVG groups
+    Object.keys(floorGroups).forEach(function(f) {
+      if (floorGroups[f]) {
+        floorGroups[f].style.display = (f === floor) ? '' : 'none';
+      }
+    });
+    // Update tabs
+    floorTabs.forEach(function(tab) {
+      tab.classList.toggle('active', tab.dataset.floor === floor);
+      tab.setAttribute('aria-selected', tab.dataset.floor === floor ? 'true' : 'false');
+    });
+    // Update SVG floor label
+    if (floorLabel) floorLabel.textContent = floorNames[floor] || floor.toUpperCase();
+    // Re-apply category highlight
+    applyMapHighlight();
+    // Re-filter directory
+    filterDirectory();
+  }
+
+  floorTabs.forEach(function(tab) {
+    tab.addEventListener('click', function() {
+      switchFloor(tab.dataset.floor);
+    });
+  });
+
+  // ── Category filtering ──
+  function applyMapHighlight() {
+    const bays = floorGroups[activeFloor]
+      ? floorGroups[activeFloor].querySelectorAll('.store-bay')
+      : [];
+
+    bays.forEach(function(bay) {
+      if (activeCat === 'all') {
+        bay.classList.remove('dimmed', 'highlighted');
+      } else if (bay.dataset.cat === activeCat) {
+        bay.classList.remove('dimmed');
+        bay.classList.add('highlighted');
+      } else {
+        bay.classList.add('dimmed');
+        bay.classList.remove('highlighted');
+      }
+    });
+  }
+
+  catChips.forEach(function(chip) {
+    chip.addEventListener('click', function() {
+      activeCat = chip.dataset.cat;
+      catChips.forEach(function(c) { c.classList.remove('active'); });
+      chip.classList.add('active');
+      applyMapHighlight();
+      filterDirectory();
+    });
+  });
+
+  // ── Directory filtering ──
+  function filterDirectory() {
+    const query = searchQuery.trim().toLowerCase();
+    let visible = 0;
+
+    dirRows.forEach(function(row) {
+      const matchFloor = (activeFloor === 'rdc')
+        ? row.dataset.floor === 'rdc'
+        : row.dataset.floor === activeFloor;
+      const matchCat   = (activeCat === 'all') || (row.dataset.cat === activeCat);
+      const matchSearch = !query || row.dataset.name.toLowerCase().includes(query)
+                        || (row.querySelector('.dir-cat-label') &&
+                            row.querySelector('.dir-cat-label').textContent.toLowerCase().includes(query));
+
+      const show = matchFloor && matchCat && matchSearch;
+      row.classList.toggle('hidden', !show);
+      if (show) visible++;
+    });
+
+    if (dirCount) {
+      dirCount.textContent = visible + (visible === 1 ? ' enseigne' : ' enseignes');
+    }
+    if (noResults) {
+      noResults.style.display = (visible === 0) ? 'block' : 'none';
+    }
+  }
+
+  if (searchInput) {
+    searchInput.addEventListener('input', function() {
+      searchQuery = searchInput.value;
+      filterDirectory();
+    });
+  }
+
+  // ── Highlight store on map from directory click ──
+  window.highlightStore = function(storeId, floor) {
+    // Switch floor if needed
+    if (floor !== activeFloor) {
+      switchFloor(floor);
+    }
+    // Scroll to map
+    var mapSection = document.querySelector('.map-section');
+    if (mapSection) {
+      mapSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+    // Flash highlight
+    var el = document.getElementById(storeId);
+    if (el) {
+      // Reset all bays
+      var allBays = document.querySelectorAll('.store-bay');
+      allBays.forEach(function(b) { b.classList.remove('highlighted'); b.classList.add('dimmed'); });
+      el.classList.remove('dimmed');
+      el.classList.add('highlighted');
+      setTimeout(function() {
+        el.classList.remove('highlighted', 'dimmed');
+        allBays.forEach(function(b) { b.classList.remove('dimmed'); });
+        applyMapHighlight();
+      }, 2500);
+    }
+  };
+
+  // ── Store bay click (SVG) ──
+  document.querySelectorAll('.store-bay').forEach(function(bay) {
+    bay.addEventListener('click', function() {
+      // Scroll to matching directory row
+      var name = bay.dataset.name;
+      dirRows.forEach(function(row) {
+        if (row.dataset.name === name) {
+          row.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+          row.style.background = 'var(--cream-dark)';
+          setTimeout(function() { row.style.background = ''; }, 1800);
+        }
+      });
+    });
+    // Keyboard accessibility
+    bay.addEventListener('keydown', function(e) {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        bay.click();
+      }
+    });
+  });
+
+  // ── Init ──
+  switchFloor('rdc');
+
+})();
+</script>
+</body>
+</html>

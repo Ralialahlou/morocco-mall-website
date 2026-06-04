@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Politique de Confidentialité — Morocco Mall</title>
+  <link rel="stylesheet" href="../css/main.css" />
+  <script src="../js/translations.js" defer></script>
+  <script src="../js/app.js" defer></script>
+  <style>
+    /* ── Page-specific styles ── */
+    *,
+    *::before,
+    *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      background: #f9f6f1;
+      color: #1a1a1a;
+      line-height: 1.7;
+    }
+
+    /* Hero */
+    .pp-hero {
+      background: #000;
+      color: #fff;
+      padding: 80px 24px 64px;
+      text-align: center;
+    }
+    .pp-hero__eyebrow {
+      font-size: 11px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: #aaa;
+      margin-bottom: 16px;
+    }
+    .pp-hero__title {
+      font-size: clamp(28px, 5vw, 52px);
+      font-weight: 300;
+      letter-spacing: -0.5px;
+      margin-bottom: 12px;
+    }
+    .pp-hero__date {
+      font-size: 13px;
+      color: #888;
+      letter-spacing: 1px;
+    }
+
+    /* Layout */
+    .pp-container {
+      max-width: 820px;
+      margin: 0 auto;
+      padding: 64px 24px 96px;
+    }
+
+    /* Intro lead paragraph */
+    .pp-lead {
+      font-size: 17px;
+      color: #444;
+      border-left: 3px solid #c9a96e;
+      padding-left: 20px;
+      margin-bottom: 48px;
+      line-height: 1.8;
+    }
+
+    /* Accordion sections */
+    .pp-section {
+      background: #fff;
+      border: 1px solid #e8e0d5;
+      border-radius: 6px;
+      margin-bottom: 12px;
+      overflow: hidden;
+      transition: box-shadow 0.2s;
+    }
+    .pp-section:hover {
+      box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+    }
+
+    .pp-section summary {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 22px 28px;
+      cursor: pointer;
+      list-style: none;
+      user-select: none;
+    }
+    .pp-section summary::-webkit-details-marker { display: none; }
+
+    .pp-section__num {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 2px;
+      color: #c9a96e;
+      text-transform: uppercase;
+      min-width: 32px;
+    }
+    .pp-section__label {
+      flex: 1;
+      font-size: 16px;
+      font-weight: 500;
+      padding: 0 16px;
+      color: #1a1a1a;
+    }
+    .pp-section__icon {
+      width: 24px;
+      height: 24px;
+      border: 1.5px solid #c9a96e;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      transition: transform 0.3s, background 0.3s;
+      font-size: 14px;
+      color: #c9a96e;
+      line-height: 1;
+    }
+    .pp-section[open] .pp-section__icon {
+      transform: rotate(45deg);
+      background: #c9a96e;
+      color: #fff;
+    }
+
+    .pp-section__body {
+      padding: 0 28px 28px 76px;
+      font-size: 15px;
+      color: #3a3a3a;
+      line-height: 1.75;
+    }
+    .pp-section__body p { margin-bottom: 14px; }
+    .pp-section__body p:last-child { margin-bottom: 0; }
+    .pp-section__body ul {
+      padding-left: 20px;
+      margin-bottom: 14px;
+    }
+    .pp-section__body ul li { margin-bottom: 6px; }
+    .pp-section__body strong { color: #1a1a1a; font-weight: 600; }
+    .pp-section__body a { color: #c9a96e; text-decoration: none; }
+    .pp-section__body a:hover { text-decoration: underline; }
+
+    .pp-section__body .tag-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 14px;
+    }
+    .pp-section__body .tag {
+      background: #f9f6f1;
+      border: 1px solid #e8e0d5;
+      border-radius: 100px;
+      padding: 4px 14px;
+      font-size: 13px;
+      color: #555;
+    }
+
+    /* Contact box */
+    .pp-contact-box {
+      background: #000;
+      color: #fff;
+      border-radius: 6px;
+      padding: 40px 32px;
+      margin-top: 48px;
+      text-align: center;
+    }
+    .pp-contact-box h3 {
+      font-size: 20px;
+      font-weight: 300;
+      margin-bottom: 10px;
+    }
+    .pp-contact-box p { font-size: 14px; color: #aaa; margin-bottom: 4px; }
+    .pp-contact-box a {
+      color: #c9a96e;
+      text-decoration: none;
+      font-size: 16px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Hero -->
+  <section class="pp-hero">
+    <p class="pp-hero__eyebrow">Morocco Mall · Documents légaux</p>
+    <h1 class="pp-hero__title">Politique de Confidentialité</h1>
+    <p class="pp-hero__date">Mise à jour&nbsp;: Juin 2026</p>
+  </section>
+
+  <!-- Content -->
+  <main class="pp-container">
+
+    <p class="pp-lead">
+      Morocco Mall, exploité par le groupe Aksal, s'engage à protéger la vie privée de ses visiteurs,
+      clients et partenaires. La présente politique explique quelles données nous collectons,
+      comment nous les utilisons et quels droits vous pouvez exercer conformément à la loi marocaine
+      09-08 relative à la protection des données personnelles et au Règlement Général sur la Protection
+      des Données (RGPD) applicable aux résidents de l'Union Européenne.
+    </p>
+
+    <!-- Section 1 -->
+    <details class="pp-section" open>
+      <summary>
+        <span class="pp-section__num">01</span>
+        <span class="pp-section__label">Introduction &amp; Champ d'application</span>
+        <span class="pp-section__icon">+</span>
+      </summary>
+      <div class="pp-section__body">
+        <p>
+          La présente Politique de Confidentialité s'applique à l'ensemble des services numériques
+          proposés par Morocco Mall, notamment le site web <strong>www.moroccomall.ma</strong>,
+          l'application mobile Morocco Mall, les bornes interactives présentes dans le centre commercial,
+          ainsi que les formulaires d'inscription aux événements et à la newsletter.
+        </p>
+        <p>
+          Le responsable du traitement des données est la société <strong>Aksal Holding S.A.</strong>,
+          dont le siège social est situé à Casablanca, Maroc. En utilisant nos services, vous acceptez
+          les pratiques décrites dans la présente politique. Si vous n'êtes pas d'accord avec ces
+          pratiques, veuillez cesser d'utiliser nos services et nous contacter pour exercer vos droits.
+        </p>
+        <p>
+          Nous nous réservons le droit de modifier cette politique à tout moment. En cas de changement
+          substantiel, nous vous en informerons par e-mail ou par un avis visible sur notre site.
+          La date de dernière mise à jour figure en haut de ce document.
+        </p>
+      </div>
+    </details>
+
+    <!-- Section 2 -->
+    <details class="pp-section">
+      <summary>
+        <span class="pp-section__num">02</span>
+        <span class="pp-section__label">Données collectées</span>
+        <span class="pp-section__icon">+</span>
+      </summary>
+      <div class="pp-section__body">
+        <p>Nous collectons plusieurs catégories de données personnelles selon le contexte de votre interaction avec nos services&nbsp;:</p>
+
+        <p><strong>Navigation sur le site web</strong></p>
+        <ul>
+          <li>Adresse IP et données de géolocalisation approximative (pays, ville)</li>
+          <li>Type de navigateur, système d'exploitation et résolution d'écran</li>
+          <li>Pages visitées, durée de visite, parcours de navigation</li>
+          <li>Termes de recherche utilisés sur le site</li>
+          <li>Source de provenance (moteur de recherche, lien direct, réseau social)</li>
+        </ul>
+
+        <p><strong>Achats et transactions</strong></p>
+        <ul>
+          <li>Identité (nom, prénom), coordonnées (e-mail, téléphone, adresse postale)</li>
+          <li>Données de paiement (traitées de façon sécurisée par nos prestataires de paiement — nous ne stockons pas les numéros de carte)</li>
+          <li>Historique des achats et préférences de marques</li>
+        </ul>
+
+        <p><strong>Inscription à la newsletter</strong></p>
+        <ul>
+          <li>Adresse e-mail et préférences de communication</li>
+          <li>Date d'inscription et historique des interactions avec les e-mails (ouvertures, clics)</li>
+        </ul>
+
+        <p><strong>RSVP &amp; Événements</strong></p>
+        <ul>
+          <li>Nom, prénom, e-mail, numéro de téléphone</li>
+          <li>Informations optionnelles&nbsp;: régime alimentaire, besoins d'accessibilité pour certains événements</li>
+          <li>Données de présence et check-in à l'événement</li>
+        </ul>
+
+        <div class="tag-row">
+          <span class="tag">Navigation</span>
+          <span class="tag">Achats</span>
+          <span class="tag">Newsletter</span>
+          <span class="tag">RSVP</span>
+          <span class="tag">Programme fidelité</span>
+        </div>
+        <p>
+          Nous ne collectons jamais de données sensibles telles que l'origine raciale, les opinions
+          politiques, les données de santé, les convictions religieuses ou les données biométriques,
+          sauf consentement explicite de votre part pour des raisons spécifiques et légitimes.
+        </p>
+      </div>
+    </details>
+
+    <!-- Section 3 -->
+    <details class="pp-section">
+      <summary>
+        <span class="pp-section__num">03</span>
+        <span class="pp-section__label">Utilisation des données</span>
+        <span class="pp-section__icon">+</span>
+      </summary>
+      <div class="pp-section__body">
+        <p>Vos données personnelles sont utilisées pour les finalités suivantes&nbsp;:</p>
+        <ul>
+          <li><strong>Fournir nos services&nbsp;:</strong> traitement des réservations, gestion des événements, envoi de confirmations et de billets.</li>
+          <li><strong>Personnaliser votre expérience&nbsp;:</strong> recommandations de boutiques et d'événements adaptées à vos intérêts, communication personnalisée.</li>
+          <li><strong>Communication marketing&nbsp;:</strong> envoi de newsletters, promotions, invitations exclusives (uniquement avec votre consentement préalable).</li>
+          <li><strong>Amélioration de nos services&nbsp;:</strong> analyse statistique de l'audience, tests A/B, mesure de la performance du site.</li>
+          <li><strong>Conformité légale&nbsp;:</strong> respect des obligations comptables, fiscales et légales applicables au Maroc.</li>
+          <li><strong>Sécurité&nbsp;:</strong> prévention des fraudes, détection des accès non autorisés, protection de l'intégrité de nos systèmes.</li>
+        </ul>
+        <p>
+          Chaque traitement repose sur une base légale distincte&nbsp;: votre consentement (newsletter,
+          cookies non essentiels), l'exécution d'un contrat (réservations, achats), notre intérêt
+          légitime (sécurité, amélioration des services) ou une obligation légale.
+        </p>
+      </div>
+    </details>
+
+    <!-- Section 4 -->
+    <details class="pp-section">
+      <summary>
+        <span class="pp-section__num">04</span>
+        <span class="pp-section__label">Partage avec des tiers</span>
+        <span class="pp-section__icon">+</span>
+      </summary>
+      <div class="pp-section__body">
+        <p>
+          Morocco Mall ne vend jamais vos données personnelles à des tiers. Nous pouvons cependant
+          les partager avec des prestataires soigneusement sélectionnés qui agissent en tant que
+          sous-traitants pour notre compte&nbsp;:
+        </p>
+        <ul>
+          <li><strong>Prestataires de paiement&nbsp;:</strong> CMI, Visa, Mastercard — pour le traitement sécurisé des transactions.</li>
+          <li><strong>Prestataires d'e-mail marketing&nbsp;:</strong> pour la gestion et l'envoi de notre newsletter.</li>
+          <li><strong>Outils d'analyse web&nbsp;:</strong> Google Analytics (avec anonymisation de l'IP activée) et outils équivalents.</li>
+          <li><strong>Hébergeurs et CDN&nbsp;:</strong> pour l'hébergement sécurisé du site et la diffusion de contenus.</li>
+          <li><strong>Partenaires événementiels&nbsp;:</strong> uniquement les données strictement nécessaires à la gestion de l'événement concerné.</li>
+        </ul>
+        <p>
+          Tous nos prestataires sont contractuellement tenus de traiter vos données conformément à
+          notre politique et aux lois applicables, et de ne pas les utiliser à d'autres fins.
+          En cas de cession ou fusion d'entreprise, vos données pourraient être transférées au
+          repreneur, qui serait alors tenu par les mêmes obligations.
+        </p>
+        <p>
+          Nous pouvons être amenés à communiquer vos données aux autorités compétentes lorsque
+          la loi l'exige ou pour protéger nos droits légaux.
+        </p>
+      </div>
+    </details>
+
+    <!-- Section 5 -->
+    <details class="pp-section">
+      <summary>
+        <span class="pp-section__num">05</span>
+        <span class="pp-section__label">Cookies &amp; Technologies de suivi</span>
+        <span class="pp-section__icon">+</span>
+      </summary>
+      <div class="pp-section__body">
+        <p>Notre site utilise différents types de cookies et technologies similaires&nbsp;:</p>
+        <ul>
+          <li>
+            <strong>Cookies essentiels&nbsp;:</strong> indispensables au fonctionnement du site (gestion de session,
+            panier, préférences de langue). Ces cookies ne peuvent pas être désactivés sans altérer
+            significativement votre expérience.
+          </li>
+          <li>
+            <strong>Cookies analytiques&nbsp;:</strong> permettent de mesurer l'audience et d'améliorer
+            nos contenus (Google Analytics, Hotjar). Ils collectent des données de façon agrégée
+            et anonymisée.
+          </li>
+          <li>
+            <strong>Cookies marketing&nbsp;:</strong> utilisés pour vous proposer des publicités
+            pertinentes sur nos plateformes partenaires (Meta Pixel, LinkedIn Insight Tag, etc.)
+            et mesurer l'efficacité de nos campagnes.
+          </li>
+          <li>
+            <strong>Cookies de personnalisation&nbsp;:</strong> mémorisent vos préférences d'affichage
+            et vos interactions passées pour personnaliser votre visite.
+          </li>
+        </ul>
+        <p>
+          <strong>Opt-out :</strong> Lors de votre première visite, un bandeau de consentement vous
+          permet d'accepter ou refuser les cookies non essentiels. Vous pouvez modifier vos préférences
+          à tout moment via le lien "Gérer les cookies" en bas de chaque page du site. Vous pouvez
+          également configurer votre navigateur pour refuser ou supprimer les cookies, ou utiliser
+          des outils d'opt-out fournis par les plateformes concernées (ex.&nbsp;: tools.google.com/dlpage/gaoptout).
+        </p>
+        <p>
+          La durée de vie des cookies varie selon leur type&nbsp;: les cookies de session expirent
+          à la fermeture du navigateur, tandis que les cookies persistants ont une durée maximale
+          de 13 mois conformément aux recommandations de la CNIL et de la CNDP marocaine.
+        </p>
+      </div>
+    </details>
+
+    <!-- Section 6 -->
+    <details class="pp-section">
+      <summary>
+        <span class="pp-section__num">06</span>
+        <span class="pp-section__label">Vos droits (RGPD &amp; Loi 09-08)</span>
+        <span class="pp-section__icon">+</span>
+      </summary>
+      <div class="pp-section__body">
+        <p>
+          Conformément au RGPD et à la loi marocaine 09-08, vous disposez des droits suivants
+          concernant vos données personnelles&nbsp;:
+        </p>
+        <ul>
+          <li>
+            <strong>Droit d'accès (Art. 15 RGPD)&nbsp;:</strong> vous pouvez demander à tout moment
+            une copie de l'ensemble des données personnelles que nous détenons vous concernant.
+          </li>
+          <li>
+            <strong>Droit de rectification (Art. 16 RGPD)&nbsp;:</strong> vous pouvez demander la
+            correction de données inexactes ou incomplètes.
+          </li>
+          <li>
+            <strong>Droit à l'effacement (Art. 17 RGPD)&nbsp;:</strong> vous pouvez demander la
+            suppression de vos données, sous réserve de nos obligations légales de conservation.
+          </li>
+          <li>
+            <strong>Droit à la portabilité (Art. 20 RGPD)&nbsp;:</strong> vous pouvez recevoir vos
+            données dans un format structuré et lisible par machine.
+          </li>
+          <li>
+            <strong>Droit d'opposition (Art. 21 RGPD)&nbsp;:</strong> vous pouvez vous opposer au
+            traitement de vos données à des fins de marketing direct à tout moment.
+          </li>
+          <li>
+            <strong>Droit à la limitation du traitement (Art. 18 RGPD)&nbsp;:</strong> vous pouvez
+            demander la suspension temporaire du traitement de vos données.
+          </li>
+          <li>
+            <strong>Droit de retrait du consentement&nbsp;:</strong> lorsque le traitement est fondé
+            sur votre consentement, vous pouvez le retirer à tout moment sans que cela n'affecte
+            la licéité des traitements antérieurs.
+          </li>
+        </ul>
+        <p>
+          Pour exercer ces droits, contactez notre Délégué à la Protection des Données (DPO) à
+          l'adresse <a href="mailto:privacy@moroccomall.ma">privacy@moroccomall.ma</a>. Nous répondrons
+          à votre demande dans un délai maximum de 30 jours. Si vous n'êtes pas satisfait de notre
+          réponse, vous avez le droit de saisir la Commission Nationale de Contrôle de la Protection
+          des Données à Caractère Personnel (CNDP) du Maroc, ou l'autorité de contrôle de votre
+          pays de résidence au sein de l'UE.
+        </p>
+      </div>
+    </details>
+
+    <!-- Section 7 -->
+    <details class="pp-section">
+      <summary>
+        <span class="pp-section__num">07</span>
+        <span class="pp-section__label">Conservation des données</span>
+        <span class="pp-section__icon">+</span>
+      </summary>
+      <div class="pp-section__body">
+        <p>
+          Nous appliquons une politique stricte de durée de conservation des données. Vos données
+          personnelles ne sont conservées que le temps nécessaire aux finalités pour lesquelles
+          elles ont été collectées&nbsp;:
+        </p>
+        <ul>
+          <li><strong>Données de navigation et cookies analytiques&nbsp;:</strong> 13 mois maximum.</li>
+          <li><strong>Données de compte client et historique d'achats&nbsp;:</strong> 3 ans à compter de la dernière interaction commerciale.</li>
+          <li><strong>Données de newsletter&nbsp;:</strong> jusqu'à désinscription, puis 1 an pour archivage (preuve de consentement).</li>
+          <li><strong>Données RSVP et événements&nbsp;:</strong> 1 an après l'événement.</li>
+          <li><strong>Données de paiement&nbsp;:</strong> conformément aux obligations légales comptables et fiscales (10 ans pour les pièces comptables).</li>
+          <li><strong>Données de réclamations et litiges&nbsp;:</strong> durée de la prescription légale applicable (5 ans en droit marocain).</li>
+        </ul>
+        <p>
+          Au-delà de ces durées, vos données sont supprimées de façon sécurisée ou anonymisées de
+          manière irréversible. Certaines données peuvent être conservées plus longtemps si la loi
+          l'exige ou si un litige est en cours.
+        </p>
+        <p>
+          <strong>Durée maximale de conservation des données personnelles&nbsp;: 3 ans</strong>,
+          sauf obligation légale contraire.
+        </p>
+      </div>
+    </details>
+
+    <!-- Section 8 -->
+    <details class="pp-section">
+      <summary>
+        <span class="pp-section__num">08</span>
+        <span class="pp-section__label">Contact &amp; Délégué à la Protection des Données</span>
+        <span class="pp-section__icon">+</span>
+      </summary>
+      <div class="pp-section__body">
+        <p>
+          Morocco Mall a désigné un Délégué à la Protection des Données (DPO) chargé de veiller au
+          respect de la présente politique et de traiter vos demandes relatives à vos données
+          personnelles.
+        </p>
+        <p>Vous pouvez contacter notre DPO par les moyens suivants&nbsp;:</p>
+        <ul>
+          <li><strong>E-mail&nbsp;:</strong> <a href="mailto:privacy@moroccomall.ma">privacy@moroccomall.ma</a></li>
+          <li><strong>Courrier&nbsp;:</strong> DPO — Morocco Mall, Boulevard de la Corniche, Ain Diab, Casablanca 20050, Maroc</li>
+          <li><strong>Délai de réponse&nbsp;:</strong> 30 jours ouvrés maximum</li>
+        </ul>
+        <p>
+          Pour toute réclamation concernant le traitement de vos données personnelles, vous pouvez
+          également vous adresser à la <strong>Commission Nationale de Contrôle de la Protection des
+          Données à Caractère Personnel (CNDP)&nbsp;:</strong>
+        </p>
+        <ul>
+          <li>Site web&nbsp;: <a href="https://www.cndp.ma" target="_blank" rel="noopener">www.cndp.ma</a></li>
+          <li>Adresse&nbsp;: Avenue Annakhil, Hay Riad, Rabat, Maroc</li>
+        </ul>
+      </div>
+    </details>
+
+    <!-- Contact CTA -->
+    <div class="pp-contact-box">
+      <h3>Une question sur vos données&nbsp;?</h3>
+      <p>Notre DPO est disponible pour toute demande relative à votre vie privée.</p>
+      <br />
+      <a href="mailto:privacy@moroccomall.ma">privacy@moroccomall.ma</a>
+    </div>
+
+  </main>
+
+</body>
+</html>

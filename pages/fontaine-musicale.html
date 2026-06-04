@@ -1,0 +1,1282 @@
+<!DOCTYPE html>
+<html lang="fr" dir="ltr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Fontaine Musicale — Morocco Mall. Spectacle gratuit d'eau, lumière et musique en parfaite harmonie. Jets d'eau jusqu'à 20m, 200+ buses, éclairage LED RGB. Plusieurs représentations par jour." />
+  <title>Fontaine Musicale — Morocco Mall</title>
+  <link rel="icon" href="../assets/logo.png" type="image/png" />
+  <link rel="stylesheet" href="../css/main.css" />
+  <style>
+    /* ============================================================
+       FONTAINE MUSICALE — Scoped Styles
+       ============================================================ */
+
+    /* ---- Hero ---- */
+    .fm-hero {
+      position: relative;
+      height: 100vh;
+      min-height: 620px;
+      display: flex;
+      align-items: flex-end;
+      overflow: hidden;
+    }
+    .fm-hero__bg {
+      position: absolute;
+      inset: 0;
+      background-image: url('../assets/fountain-1.jpg');
+      background-size: cover;
+      background-position: center;
+      transform: scale(1.05);
+      transition: transform 8s ease-out;
+    }
+    .fm-hero__bg.loaded { transform: scale(1); }
+    .fm-hero__overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        160deg,
+        rgba(15, 15, 60, 0.72) 0%,
+        rgba(10, 10, 45, 0.55) 40%,
+        rgba(5, 5, 30, 0.88) 100%
+      );
+    }
+    .fm-hero__content {
+      position: relative;
+      z-index: 2;
+      padding-bottom: clamp(3rem, 8vh, 6rem);
+      color: var(--white);
+    }
+    .fm-hero__breadcrumb {
+      font-family: var(--font-body);
+      font-size: 0.65rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.45);
+      margin-bottom: 2rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .fm-hero__breadcrumb a {
+      color: rgba(255, 255, 255, 0.45);
+      transition: color 0.2s;
+    }
+    .fm-hero__breadcrumb a:hover { color: var(--white); }
+    .fm-hero__eyebrow {
+      font-family: var(--font-body);
+      font-size: 0.65rem;
+      font-weight: 500;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 1.25rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    .fm-hero__eyebrow::before {
+      content: '';
+      display: block;
+      width: 2rem;
+      height: 1px;
+      background: var(--gold);
+    }
+    .fm-hero__title {
+      font-family: var(--font-display);
+      font-size: clamp(3.2rem, 9vw, 7.5rem);
+      font-weight: 300;
+      line-height: 1;
+      letter-spacing: -0.01em;
+      margin-bottom: 1.25rem;
+    }
+    .fm-hero__title em {
+      font-style: italic;
+      color: var(--gold-light);
+    }
+    .fm-hero__subtitle {
+      font-size: clamp(0.9rem, 1.5vw, 1.1rem);
+      line-height: 1.75;
+      color: rgba(255, 255, 255, 0.7);
+      max-width: 480px;
+      margin-bottom: 2.5rem;
+    }
+    .fm-hero__badges {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    /* ---- Free Badge ---- */
+    .badge-free {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      background: var(--gold);
+      color: var(--white);
+      font-family: var(--font-body);
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      padding: 0.6rem 1.4rem;
+      border: 2px solid var(--gold);
+      box-shadow: 0 0 24px rgba(201, 169, 110, 0.45);
+    }
+    .badge-free::before {
+      content: '';
+      display: block;
+      width: 6px;
+      height: 6px;
+      background: var(--white);
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+    .fm-hero__scroll {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      font-family: var(--font-body);
+      font-size: 0.65rem;
+      font-weight: 500;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.5);
+      margin-top: 2rem;
+    }
+    .fm-hero__scroll-line {
+      width: 1px;
+      height: 3rem;
+      background: rgba(255, 255, 255, 0.3);
+      position: relative;
+      overflow: hidden;
+    }
+    .fm-hero__scroll-line::after {
+      content: '';
+      position: absolute;
+      top: -100%;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: var(--gold);
+      animation: scroll-line 2s ease-in-out infinite;
+    }
+    @keyframes scroll-line {
+      0% { top: -100%; }
+      100% { top: 100%; }
+    }
+
+    /* ---- Section helpers ---- */
+    .section { padding: clamp(4rem, 8vw, 7rem) 0; }
+    .section--cream { background: var(--cream); }
+    .section--dark {
+      background: #080820;
+      color: var(--white);
+    }
+    .section--indigo {
+      background: linear-gradient(135deg, #0d0d3a 0%, #1a1a5e 50%, #0d0d3a 100%);
+      color: var(--white);
+    }
+
+    .section-label {
+      font-family: var(--font-body);
+      font-size: 0.65rem;
+      font-weight: 500;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 0.75rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    .section-label::before {
+      content: '';
+      display: block;
+      width: 2rem;
+      height: 1px;
+      background: var(--gold);
+    }
+    .section-label--white {
+      color: var(--gold-light);
+    }
+    .section-label--white::before {
+      background: var(--gold-light);
+    }
+
+    /* ---- Show Schedule ---- */
+    .schedule-intro {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      margin-bottom: 3rem;
+    }
+
+    /* Next show countdown display */
+    .next-show-banner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+      background: linear-gradient(135deg, #0d0d3a 0%, #1a1a5e 100%);
+      border: 1px solid rgba(201, 169, 110, 0.3);
+      padding: 2rem 2.5rem;
+      margin-bottom: 3rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .next-show-banner::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at 80% 50%, rgba(201, 169, 110, 0.08) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .next-show-banner__label {
+      font-family: var(--font-body);
+      font-size: 0.6rem;
+      font-weight: 500;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 0.5rem;
+    }
+    .next-show-banner__time {
+      font-family: var(--font-display);
+      font-size: clamp(2.5rem, 5vw, 4rem);
+      font-weight: 300;
+      color: var(--white);
+      line-height: 1;
+    }
+    .next-show-banner__day {
+      font-family: var(--font-body);
+      font-size: 0.75rem;
+      color: rgba(255,255,255,0.55);
+      margin-top: 0.4rem;
+      letter-spacing: 0.08em;
+    }
+    .next-show-banner__countdown {
+      display: flex;
+      gap: 1.5rem;
+    }
+    .countdown-unit {
+      text-align: center;
+    }
+    .countdown-unit__val {
+      font-family: var(--font-display);
+      font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+      font-weight: 300;
+      color: var(--gold-light);
+      line-height: 1;
+      display: block;
+    }
+    .countdown-unit__lbl {
+      font-family: var(--font-body);
+      font-size: 0.55rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.4);
+      display: block;
+      margin-top: 0.3rem;
+    }
+    .next-show-banner__badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: rgba(201, 169, 110, 0.15);
+      border: 1px solid var(--gold);
+      color: var(--gold);
+      font-family: var(--font-body);
+      font-size: 0.6rem;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      padding: 0.5rem 1.2rem;
+    }
+
+    /* Schedule cards */
+    .schedule-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1px;
+      background: var(--gray-200);
+      border: 1px solid var(--gray-200);
+      overflow: hidden;
+    }
+    @media (min-width: 720px) {
+      .schedule-grid { grid-template-columns: repeat(3, 1fr); }
+    }
+    .schedule-day {
+      background: var(--white);
+      padding: 2.5rem 2rem;
+      transition: background 0.25s, transform 0.25s;
+    }
+    .schedule-day:hover {
+      background: var(--cream);
+      z-index: 1;
+    }
+    .schedule-day__name {
+      font-family: var(--font-body);
+      font-size: 0.65rem;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gray-400);
+      margin-bottom: 1.25rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid var(--gray-200);
+    }
+    .schedule-day--weekend .schedule-day__name {
+      color: var(--gold);
+      border-bottom-color: var(--gold);
+    }
+    .schedule-day__times {
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+    }
+    .schedule-time {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      font-family: var(--font-display);
+      font-size: 1.5rem;
+      font-weight: 300;
+      color: var(--black);
+      line-height: 1;
+    }
+    .schedule-time::before {
+      content: '';
+      display: block;
+      width: 5px;
+      height: 5px;
+      background: var(--gold);
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+    .schedule-time--late {
+      color: #3b2d7a;
+    }
+    .schedule-day__duration {
+      font-family: var(--font-body);
+      font-size: 0.65rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--gray-400);
+      margin-top: 1.5rem;
+      padding-top: 1rem;
+      border-top: 1px solid var(--gray-200);
+    }
+    .schedule-day__duration strong {
+      color: var(--gold-dark);
+    }
+
+    /* ---- About 2-col ---- */
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: clamp(2.5rem, 6vw, 5rem);
+      align-items: center;
+    }
+    @media (min-width: 900px) {
+      .about-grid { grid-template-columns: 1fr 1fr; }
+    }
+    .about-text {}
+    .about-text p {
+      font-size: 0.95rem;
+      line-height: 1.85;
+      color: var(--gray-600);
+      margin-bottom: 1.5rem;
+    }
+    .about-text p:last-child { margin-bottom: 0; }
+    .about-text p strong {
+      color: var(--black);
+      font-weight: 500;
+    }
+    .about-image {
+      position: relative;
+      overflow: hidden;
+    }
+    .about-image img {
+      width: 100%;
+      aspect-ratio: 4 / 5;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.7s var(--ease);
+    }
+    .about-image:hover img { transform: scale(1.04); }
+    .about-image__caption {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 1.5rem 2rem;
+      background: linear-gradient(to top, rgba(8, 8, 32, 0.9) 0%, transparent 100%);
+      color: rgba(255,255,255,0.7);
+      font-size: 0.7rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    /* ---- Technical Specs ---- */
+    .specs-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.5rem;
+    }
+    @media (min-width: 720px) {
+      .specs-grid { grid-template-columns: repeat(4, 1fr); }
+    }
+    .spec-card {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(201, 169, 110, 0.2);
+      padding: 2.5rem 1.75rem;
+      text-align: center;
+      transition: background 0.3s, border-color 0.3s, transform 0.3s;
+      position: relative;
+      overflow: hidden;
+    }
+    .spec-card::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: var(--gold);
+      transform: scaleX(0);
+      transition: transform 0.4s var(--ease);
+    }
+    .spec-card:hover {
+      background: rgba(201, 169, 110, 0.08);
+      border-color: rgba(201, 169, 110, 0.5);
+      transform: translateY(-4px);
+    }
+    .spec-card:hover::after { transform: scaleX(1); }
+    .spec-card__icon {
+      width: 48px;
+      height: 48px;
+      margin: 0 auto 1.25rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(201, 169, 110, 0.12);
+      border-radius: 50%;
+    }
+    .spec-card__icon svg {
+      width: 24px;
+      height: 24px;
+      fill: none;
+      stroke: var(--gold);
+      stroke-width: 1.5;
+    }
+    .spec-card__value {
+      font-family: var(--font-display);
+      font-size: clamp(2.2rem, 4.5vw, 3.5rem);
+      font-weight: 300;
+      color: var(--white);
+      line-height: 1;
+      margin-bottom: 0.5rem;
+    }
+    .spec-card__value em {
+      font-style: normal;
+      color: var(--gold-light);
+      font-size: 0.55em;
+    }
+    .spec-card__label {
+      font-family: var(--font-body);
+      font-size: 0.65rem;
+      font-weight: 500;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.5);
+      line-height: 1.4;
+    }
+
+    /* ---- Best Viewing Spots ---- */
+    .viewing-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 3rem;
+      align-items: start;
+    }
+    @media (min-width: 900px) {
+      .viewing-grid { grid-template-columns: 1fr 1fr; gap: 5rem; }
+    }
+    .viewing-tips { display: flex; flex-direction: column; gap: 1.5rem; }
+    .viewing-tip {
+      display: flex;
+      gap: 1.5rem;
+      padding: 1.75rem 2rem;
+      border: 1px solid var(--gray-200);
+      transition: border-color 0.25s, box-shadow 0.25s;
+    }
+    .viewing-tip:hover {
+      border-color: var(--gold);
+      box-shadow: 0 4px 24px rgba(201, 169, 110, 0.1);
+    }
+    .viewing-tip__num {
+      font-family: var(--font-display);
+      font-size: 2.2rem;
+      font-weight: 300;
+      color: var(--gold);
+      line-height: 1;
+      flex-shrink: 0;
+      width: 2.5rem;
+    }
+    .viewing-tip__body {}
+    .viewing-tip__title {
+      font-family: var(--font-body);
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--black);
+      margin-bottom: 0.5rem;
+    }
+    .viewing-tip__desc {
+      font-size: 0.88rem;
+      line-height: 1.7;
+      color: var(--gray-600);
+    }
+
+    /* Mall layout diagram */
+    .mall-diagram {
+      background: var(--cream);
+      border: 1px solid var(--gray-200);
+      padding: 2rem;
+      position: relative;
+    }
+    .mall-diagram__title {
+      font-family: var(--font-body);
+      font-size: 0.6rem;
+      font-weight: 500;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gray-400);
+      margin-bottom: 1.5rem;
+      text-align: center;
+    }
+    .mall-diagram__svg-wrap {
+      position: relative;
+      width: 100%;
+    }
+    /* Simple SVG diagram */
+    .diagram-svg {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    /* ---- Gallery ---- */
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1.5px;
+    }
+    @media (min-width: 640px) {
+      .gallery-grid {
+        grid-template-columns: 2fr 1fr;
+        grid-template-rows: auto auto;
+      }
+    }
+    .gallery-item {
+      position: relative;
+      overflow: hidden;
+    }
+    .gallery-item:first-child {
+      grid-row: 1 / 3;
+      min-height: 500px;
+    }
+    .gallery-item:nth-child(2),
+    .gallery-item:nth-child(3) {
+      min-height: 248px;
+    }
+    .gallery-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.7s var(--ease);
+    }
+    .gallery-item:hover img { transform: scale(1.05); }
+    .gallery-item__overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(8, 8, 32, 0.2);
+      transition: background 0.3s;
+    }
+    .gallery-item:hover .gallery-item__overlay { background: rgba(8, 8, 32, 0.05); }
+
+    /* ---- Related ---- */
+    .related-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1.5px;
+    }
+    @media (min-width: 640px) { .related-grid { grid-template-columns: repeat(3, 1fr); } }
+    .related-card {
+      position: relative;
+      overflow: hidden;
+      aspect-ratio: 3 / 4;
+      display: block;
+    }
+    .related-card img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.7s var(--ease);
+    }
+    .related-card:hover img { transform: scale(1.07); }
+    .related-card__overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        to top,
+        rgba(8, 8, 32, 0.88) 0%,
+        rgba(0, 0, 0, 0.25) 55%,
+        rgba(0, 0, 0, 0.05) 100%
+      );
+    }
+    .related-card__body {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 2.5rem 2rem;
+      color: var(--white);
+    }
+    .related-card__cat {
+      font-family: var(--font-body);
+      font-size: 0.6rem;
+      font-weight: 500;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 0.5rem;
+    }
+    .related-card__name {
+      font-family: var(--font-display);
+      font-size: clamp(1.6rem, 3vw, 2.4rem);
+      font-weight: 300;
+      line-height: 1.1;
+      margin-bottom: 1.25rem;
+    }
+    .related-card__arrow {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-family: var(--font-body);
+      font-size: 0.65rem;
+      font-weight: 500;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.5);
+      transition: color 0.25s, gap 0.25s;
+    }
+    .related-card:hover .related-card__arrow {
+      color: var(--white);
+      gap: 0.9rem;
+    }
+    .related-card__arrow-line {
+      width: 1.5rem;
+      height: 1px;
+      background: currentColor;
+      flex-shrink: 0;
+      transition: width 0.25s;
+    }
+    .related-card:hover .related-card__arrow-line { width: 2rem; }
+
+    /* ---- Reveal animations ---- */
+    .reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.7s var(--ease-out), transform 0.7s var(--ease-out);
+    }
+    .reveal.in-view { opacity: 1; transform: translateY(0); }
+    .reveal-delay-1 { transition-delay: 0.1s; }
+    .reveal-delay-2 { transition-delay: 0.2s; }
+    .reveal-delay-3 { transition-delay: 0.3s; }
+    .reveal-delay-4 { transition-delay: 0.4s; }
+  </style>
+</head>
+<body>
+
+<main id="main-content">
+
+  <!-- ============================================================
+       HERO — full-screen night indigo
+       ============================================================ -->
+  <section class="fm-hero" aria-label="Fontaine Musicale hero">
+    <div class="fm-hero__bg" id="heroBg"></div>
+    <div class="fm-hero__overlay"></div>
+    <div class="container fm-hero__content">
+      <nav class="fm-hero__breadcrumb" aria-label="Fil d'Ariane">
+        <a href="../index.html">Morocco Mall</a>
+        <span aria-hidden="true">›</span>
+        <a href="entertainment.html">Entertainment</a>
+        <span aria-hidden="true">›</span>
+        <span>Fontaine Musicale</span>
+      </nav>
+      <p class="fm-hero__eyebrow">Expérience Gratuite</p>
+      <h1 class="fm-hero__title">
+        Fontaine<br><em>Musicale</em>
+      </h1>
+      <p class="fm-hero__subtitle">
+        Lumière, eau et musique en parfaite harmonie.
+      </p>
+      <div class="fm-hero__badges">
+        <span class="badge-free" aria-label="Accès Libre et Gratuit">
+          Accès Libre &middot; Gratuit
+        </span>
+        <span class="tag tag--white">Place Centrale</span>
+      </div>
+      <div class="fm-hero__scroll" aria-hidden="true">
+        <div class="fm-hero__scroll-line"></div>
+        Voir les horaires
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       SHOW SCHEDULE
+       ============================================================ -->
+  <section class="section" id="horaires" aria-labelledby="horaires-title">
+    <div class="container">
+      <div class="schedule-intro">
+        <p class="section-label reveal">Horaires des représentations</p>
+        <h2 class="display-md reveal reveal-delay-1" id="horaires-title">
+          Prochains<br><em style="font-style:italic;color:var(--gold);">Spectacles</em>
+        </h2>
+      </div>
+
+      <!-- Next show display -->
+      <div class="next-show-banner reveal reveal-delay-2" aria-label="Prochain spectacle">
+        <div>
+          <div class="next-show-banner__label">Prochain spectacle aujourd'hui</div>
+          <div class="next-show-banner__time" id="nextShowTime">20:00</div>
+          <div class="next-show-banner__day" id="nextShowDay">Mercredi, Place Centrale</div>
+        </div>
+        <div class="next-show-banner__countdown" aria-label="Compte à rebours">
+          <div class="countdown-unit">
+            <span class="countdown-unit__val" id="countHours">—</span>
+            <span class="countdown-unit__lbl">Heures</span>
+          </div>
+          <div class="countdown-unit">
+            <span class="countdown-unit__val" id="countMins">—</span>
+            <span class="countdown-unit__lbl">Minutes</span>
+          </div>
+          <div class="countdown-unit">
+            <span class="countdown-unit__val" id="countSecs">—</span>
+            <span class="countdown-unit__lbl">Secondes</span>
+          </div>
+        </div>
+        <div>
+          <span class="next-show-banner__badge">Entrée libre</span>
+        </div>
+      </div>
+
+      <!-- Schedule table -->
+      <div class="schedule-grid reveal reveal-delay-3" role="table" aria-label="Horaires de la Fontaine Musicale">
+
+        <!-- Lundi–Vendredi -->
+        <div class="schedule-day" role="row" aria-label="Lundi au Vendredi">
+          <div class="schedule-day__name" role="rowheader">Lundi — Vendredi</div>
+          <div class="schedule-day__times" role="cell">
+            <div class="schedule-time">12:00</div>
+            <div class="schedule-time">16:00</div>
+            <div class="schedule-time">20:00</div>
+          </div>
+          <div class="schedule-day__duration">
+            Durée: <strong>~8 minutes</strong> par spectacle
+          </div>
+        </div>
+
+        <!-- Samedi -->
+        <div class="schedule-day schedule-day--weekend" role="row" aria-label="Samedi">
+          <div class="schedule-day__name" role="rowheader">Samedi</div>
+          <div class="schedule-day__times" role="cell">
+            <div class="schedule-time">12:00</div>
+            <div class="schedule-time">16:00</div>
+            <div class="schedule-time">20:00</div>
+            <div class="schedule-time schedule-time--late">22:00</div>
+          </div>
+          <div class="schedule-day__duration">
+            Durée: <strong>~8 minutes</strong> par spectacle
+          </div>
+        </div>
+
+        <!-- Dimanche -->
+        <div class="schedule-day schedule-day--weekend" role="row" aria-label="Dimanche">
+          <div class="schedule-day__name" role="rowheader">Dimanche</div>
+          <div class="schedule-day__times" role="cell">
+            <div class="schedule-time">14:00</div>
+            <div class="schedule-time">18:00</div>
+            <div class="schedule-time schedule-time--late">21:00</div>
+          </div>
+          <div class="schedule-day__duration">
+            Durée: <strong>~8 minutes</strong> par spectacle
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       ABOUT — 2-col editorial
+       ============================================================ -->
+  <section class="section section--cream" aria-labelledby="about-title">
+    <div class="container">
+      <p class="section-label reveal">La Fontaine</p>
+      <div class="about-grid">
+        <div class="about-text">
+          <h2 class="display-md reveal reveal-delay-1" id="about-title" style="margin-bottom:2rem;">
+            Chorégraphie<br><em style="font-style:italic;color:var(--gold);">aquatique</em>
+          </h2>
+          <p class="reveal reveal-delay-2">
+            La Fontaine Musicale de Morocco Mall est bien plus qu'un simple jeu d'eau — c'est un véritable spectacle chorégraphié où chaque jet d'eau danse en parfaite synchronisation avec la musique. <strong>Des jets d'eau s'élèvent jusqu'à 20 mètres de hauteur</strong>, créant des silhouettes liquides qui s'animent au rythme de compositions musicales soigneusement sélectionnées.
+          </p>
+          <p class="reveal reveal-delay-3">
+            Équipée de <strong>plus de 200 buses à haute pression</strong>, la fontaine peut générer des effets aquatiques spectaculaires : voiles de brume, arches monumentales, gerbes scintillantes et rideaux d'eau translucides qui se colorent selon l'éclairage.
+          </p>
+          <p class="reveal reveal-delay-4">
+            Le système d'<strong>éclairage LED RGB submersible</strong> baigne chaque représentation d'une palette chromatique changeante, transformant la place centrale en véritable théâtre de lumière. La diffusion en <strong>son surround</strong> enveloppe le public d'une expérience sonore immersive, avec des programmes musicaux alternant entre musiques live enregistrées et créations originales.
+          </p>
+        </div>
+        <div class="about-image reveal reveal-delay-2">
+          <img
+            src="../assets/fountain-1.jpg"
+            alt="Jets d'eau illuminés de la Fontaine Musicale de nuit"
+            loading="lazy"
+          />
+          <div class="about-image__caption">
+            Jets atteignant 20m de hauteur &middot; Éclairage LED RGB
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       TECHNICAL SPECS
+       ============================================================ -->
+  <section class="section section--indigo" aria-labelledby="specs-title">
+    <div class="container">
+      <p class="section-label section-label--white reveal">Caractéristiques techniques</p>
+      <h2 class="display-md reveal reveal-delay-1" id="specs-title" style="margin-bottom:3.5rem;color:var(--white);">
+        La Performance<br><em style="font-style:italic;color:var(--gold-light);">en chiffres</em>
+      </h2>
+      <div class="specs-grid">
+
+        <!-- 20m Jets -->
+        <div class="spec-card reveal reveal-delay-1">
+          <div class="spec-card__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M5 10c0-3.866 3.134-7 7-7s7 3.134 7 7c0 4-7 13-7 13S5 14 5 10z"/>
+              <path stroke-linecap="round" stroke-linejoin="round" d="M12 10a1.5 1.5 0 100-3 1.5 1.5 0 000 3z"/>
+            </svg>
+          </div>
+          <div class="spec-card__value">20<em>m</em></div>
+          <div class="spec-card__label">Jets d'eau<br>hauteur maximale</div>
+        </div>
+
+        <!-- 200+ Buses -->
+        <div class="spec-card reveal reveal-delay-2">
+          <div class="spec-card__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24">
+              <circle cx="12" cy="12" r="3" stroke-linecap="round"/>
+              <path stroke-linecap="round" stroke-linejoin="round" d="M12 2v3M12 19v3M2 12h3M19 12h3M4.93 4.93l2.12 2.12M16.95 16.95l2.12 2.12M19.07 4.93l-2.12 2.12M7.05 16.95l-2.12 2.12"/>
+            </svg>
+          </div>
+          <div class="spec-card__value">200<em>+</em></div>
+          <div class="spec-card__label">Buses<br>haute pression</div>
+        </div>
+
+        <!-- LED RGB -->
+        <div class="spec-card reveal reveal-delay-3">
+          <div class="spec-card__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/>
+            </svg>
+          </div>
+          <div class="spec-card__value">RGB</div>
+          <div class="spec-card__label">Éclairage LED<br>submersible</div>
+        </div>
+
+        <!-- Surround -->
+        <div class="spec-card reveal reveal-delay-4">
+          <div class="spec-card__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M15.536 8.464a5 5 0 010 7.072M12 6a7 7 0 000 12M8.464 8.464a5 5 0 000 7.072"/>
+              <circle cx="12" cy="12" r="1.5" fill="var(--gold)" stroke="none"/>
+            </svg>
+          </div>
+          <div class="spec-card__value">360<em>°</em></div>
+          <div class="spec-card__label">Musique Surround<br>immersive</div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       BEST VIEWING SPOTS
+       ============================================================ -->
+  <section class="section" aria-labelledby="viewing-title">
+    <div class="container">
+      <p class="section-label reveal">Conseil visite</p>
+      <h2 class="display-md reveal reveal-delay-1" id="viewing-title" style="margin-bottom:3rem;">
+        Les meilleures<br><em style="font-style:italic;color:var(--gold);">positions</em>
+      </h2>
+      <div class="viewing-grid">
+
+        <!-- Tips list -->
+        <div class="viewing-tips">
+          <div class="viewing-tip reveal reveal-delay-1">
+            <div class="viewing-tip__num">01</div>
+            <div class="viewing-tip__body">
+              <div class="viewing-tip__title">Palier central, Niveau 0</div>
+              <p class="viewing-tip__desc">
+                Positionnez-vous face à la fontaine depuis le palier central de la place pour une vue frontale complète sur toute la hauteur des jets. Vue idéale pour apprécier la symétrie des choreographies.
+              </p>
+            </div>
+          </div>
+          <div class="viewing-tip reveal reveal-delay-2">
+            <div class="viewing-tip__num">02</div>
+            <div class="viewing-tip__body">
+              <div class="viewing-tip__title">Balustrades, Niveaux 1 &amp; 2</div>
+              <p class="viewing-tip__desc">
+                Les balustrades du premier et deuxième étage offrent une vue plongeante sur la fontaine, permettant d'admirer les motifs géométriques créés par les buses au niveau de la vasque.
+              </p>
+            </div>
+          </div>
+          <div class="viewing-tip reveal reveal-delay-3">
+            <div class="viewing-tip__num">03</div>
+            <div class="viewing-tip__body">
+              <div class="viewing-tip__title">Terrasses des restaurants, Niveau 2</div>
+              <p class="viewing-tip__desc">
+                Profitez du spectacle depuis l'une des terrasses des restaurants surplombant la place centrale — l'alliance parfaite entre une bonne table et un spectacle inoubliable.
+              </p>
+            </div>
+          </div>
+          <div class="viewing-tip reveal reveal-delay-4">
+            <div class="viewing-tip__num">04</div>
+            <div class="viewing-tip__body">
+              <div class="viewing-tip__title">Arrivée anticipée conseillée</div>
+              <p class="viewing-tip__desc">
+                Arrivez 10 minutes avant le spectacle pour trouver la meilleure place. Les représentations du soir (20h, 21h, 22h) sont les plus spectaculaires grâce à l'éclairage LED nocturne.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Mall diagram -->
+        <div class="mall-diagram reveal reveal-delay-2">
+          <div class="mall-diagram__title">Plan schématique — Place Centrale</div>
+          <div class="mall-diagram__svg-wrap">
+            <svg class="diagram-svg" viewBox="0 0 400 420" xmlns="http://www.w3.org/2000/svg" aria-label="Schéma de la place centrale et positions de la fontaine" role="img">
+              <!-- Background -->
+              <rect width="400" height="420" fill="#F9F7F3"/>
+
+              <!-- Mall outline -->
+              <rect x="20" y="20" width="360" height="380" rx="4" fill="none" stroke="#E5E5E5" stroke-width="1.5"/>
+
+              <!-- Level indicators -->
+              <text x="30" y="50" font-family="DM Sans, sans-serif" font-size="8" fill="#9CA3AF" letter-spacing="2" text-transform="uppercase">PLAN - NIVEAU 0</text>
+
+              <!-- Central area -->
+              <rect x="80" y="80" width="240" height="260" rx="4" fill="#EDE9E2" stroke="#C9A96E" stroke-width="1"/>
+              <text x="200" y="100" font-family="DM Sans, sans-serif" font-size="8" fill="#9CA3AF" text-anchor="middle" letter-spacing="1.5">PLACE CENTRALE</text>
+
+              <!-- Fountain basin -->
+              <ellipse cx="200" cy="210" rx="55" ry="55" fill="rgba(13,13,58,0.08)" stroke="#C9A96E" stroke-width="2"/>
+              <!-- Fountain water effect circles -->
+              <ellipse cx="200" cy="210" rx="35" ry="35" fill="rgba(13,13,58,0.12)" stroke="#C9A96E" stroke-width="1" stroke-dasharray="4 3"/>
+              <ellipse cx="200" cy="210" rx="15" ry="15" fill="rgba(201,169,110,0.25)" stroke="#C9A96E" stroke-width="1.5"/>
+              <!-- Fountain center dot -->
+              <circle cx="200" cy="210" r="4" fill="#C9A96E"/>
+              <!-- Water jet lines -->
+              <line x1="200" y1="206" x2="200" y2="155" stroke="#C9A96E" stroke-width="1" stroke-dasharray="3 4" opacity="0.6"/>
+              <line x1="196" y1="208" x2="155" y2="175" stroke="#C9A96E" stroke-width="1" stroke-dasharray="3 4" opacity="0.4"/>
+              <line x1="204" y1="208" x2="245" y2="175" stroke="#C9A96E" stroke-width="1" stroke-dasharray="3 4" opacity="0.4"/>
+              <text x="200" y="250" font-family="DM Sans, sans-serif" font-size="9" fill="#C9A96E" text-anchor="middle" font-weight="600">FONTAINE</text>
+
+              <!-- Viewing position 1 - front center -->
+              <rect x="170" y="292" width="60" height="22" rx="2" fill="#C9A96E" opacity="0.9"/>
+              <text x="200" y="307" font-family="DM Sans, sans-serif" font-size="7.5" fill="white" text-anchor="middle" font-weight="600">Position 01</text>
+
+              <!-- Viewing position 2 - upper left balcony hint -->
+              <rect x="35" y="100" width="35" height="18" rx="2" fill="none" stroke="#C9A96E" stroke-width="1"/>
+              <text x="52" y="112" font-family="DM Sans, sans-serif" font-size="6.5" fill="#C9A96E" text-anchor="middle">Niv. 1&amp;2</text>
+
+              <!-- Viewing position 2 - upper right balcony hint -->
+              <rect x="330" y="100" width="35" height="18" rx="2" fill="none" stroke="#C9A96E" stroke-width="1"/>
+              <text x="348" y="112" font-family="DM Sans, sans-serif" font-size="6.5" fill="#C9A96E" text-anchor="middle">Niv. 1&amp;2</text>
+
+              <!-- Arrows from balconies toward fountain -->
+              <path d="M70 109 L80 160" stroke="#C9A96E" stroke-width="1" stroke-dasharray="3 3" opacity="0.5" fill="none"/>
+              <path d="M330 109 L320 160" stroke="#C9A96E" stroke-width="1" stroke-dasharray="3 3" opacity="0.5" fill="none"/>
+
+              <!-- Surrounding shops hint -->
+              <rect x="25" y="130" width="50" height="110" rx="2" fill="#E5E5E5" stroke="#D1D1D1" stroke-width="1"/>
+              <text x="50" y="191" font-family="DM Sans, sans-serif" font-size="6" fill="#9CA3AF" text-anchor="middle" transform="rotate(-90 50 191)">BOUTIQUES</text>
+
+              <rect x="325" y="130" width="50" height="110" rx="2" fill="#E5E5E5" stroke="#D1D1D1" stroke-width="1"/>
+              <text x="350" y="191" font-family="DM Sans, sans-serif" font-size="6" fill="#9CA3AF" text-anchor="middle" transform="rotate(90 350 191)">BOUTIQUES</text>
+
+              <!-- Restaurant terrace top -->
+              <rect x="80" y="30" width="240" height="40" rx="2" fill="#E5E5E5" stroke="#D1D1D1" stroke-width="1"/>
+              <text x="200" y="55" font-family="DM Sans, sans-serif" font-size="7" fill="#9CA3AF" text-anchor="middle" letter-spacing="1">RESTAURANTS - NIVEAU 2</text>
+
+              <!-- Legend -->
+              <g transform="translate(25, 345)">
+                <circle cx="6" cy="6" r="4" fill="#C9A96E"/>
+                <text x="16" y="10" font-family="DM Sans, sans-serif" font-size="7.5" fill="#4B5563">Fontaine</text>
+                <rect x="80" y="2" width="8" height="8" fill="#C9A96E" opacity="0.9"/>
+                <text x="94" y="10" font-family="DM Sans, sans-serif" font-size="7.5" fill="#4B5563">Vue recommandée</text>
+                <rect x="190" y="2" width="8" height="8" fill="none" stroke="#C9A96E" stroke-width="1"/>
+                <text x="204" y="10" font-family="DM Sans, sans-serif" font-size="7.5" fill="#4B5563">Balustrades</text>
+              </g>
+            </svg>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       GALLERY
+       ============================================================ -->
+  <section class="section section--dark" aria-labelledby="gallery-title">
+    <div class="container">
+      <p class="section-label section-label--white reveal">Galerie</p>
+      <h2 class="display-md reveal reveal-delay-1" id="gallery-title" style="margin-bottom:3rem;color:var(--white);">
+        La fontaine<br><em style="font-style:italic;color:var(--gold-light);">de nuit</em>
+      </h2>
+    </div>
+    <div class="gallery-grid reveal reveal-delay-2">
+
+      <!-- Main large image -->
+      <div class="gallery-item">
+        <img
+          src="../assets/fountain-1.jpg"
+          alt="Fontaine musicale illuminée la nuit — jets d'eau colorés"
+          loading="lazy"
+        />
+        <div class="gallery-item__overlay"></div>
+      </div>
+
+      <!-- Top-right image -->
+      <div class="gallery-item">
+        <img
+          src="../assets/fountain-1.jpg"
+          alt="Jets d'eau en mouvement avec éclairage LED coloré"
+          loading="lazy"
+        />
+        <div class="gallery-item__overlay"></div>
+      </div>
+
+      <!-- Bottom-right image -->
+      <div class="gallery-item">
+        <img
+          src="../assets/fountain-1.jpg"
+          alt="Spectacle aquatique nocturne avec reflets lumineux"
+          loading="lazy"
+        />
+        <div class="gallery-item__overlay"></div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ============================================================
+       RELATED ATTRACTIONS
+       ============================================================ -->
+  <section class="section section--cream" aria-labelledby="related-title">
+    <div class="container">
+      <p class="section-label reveal">À découvrir aussi</p>
+      <h2 class="display-md reveal reveal-delay-1" id="related-title" style="margin-bottom:3rem;">
+        Autres<br><em style="font-style:italic;color:var(--gold);">Expériences</em>
+      </h2>
+    </div>
+    <div class="related-grid reveal reveal-delay-2">
+
+      <!-- Cinéma -->
+      <a href="cinema.html" class="related-card" aria-label="Cinéma Morocco Mall — découvrir">
+        <img
+          src="https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?w=600&h=700&fit=crop"
+          alt="Cinéma Morocco Mall"
+          loading="lazy"
+        />
+        <div class="related-card__overlay"></div>
+        <div class="related-card__body">
+          <p class="related-card__cat">Cinéma</p>
+          <h3 class="related-card__name">Cinéma</h3>
+          <span class="related-card__arrow">
+            <span class="related-card__arrow-line"></span>
+            Découvrir
+          </span>
+        </div>
+      </a>
+
+      <!-- Sea Dream -->
+      <a href="sea-dream.html" class="related-card" aria-label="Sea Dream Aquarium — découvrir">
+        <img
+          src="https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=600&h=700&fit=crop"
+          alt="Sea Dream Aquarium"
+          loading="lazy"
+        />
+        <div class="related-card__overlay"></div>
+        <div class="related-card__body">
+          <p class="related-card__cat">Aquarium</p>
+          <h3 class="related-card__name">Sea Dream<br>Aquarium</h3>
+          <span class="related-card__arrow">
+            <span class="related-card__arrow-line"></span>
+            Découvrir
+          </span>
+        </div>
+      </a>
+
+      <!-- Hello Park -->
+      <a href="hello-park.html" class="related-card" aria-label="Hello Park — découvrir">
+        <img
+          src="https://images.unsplash.com/photo-1566041510394-cf7c1b1b14e7?w=600&h=700&fit=crop"
+          alt="Hello Park — espace de jeux pour enfants"
+          loading="lazy"
+        />
+        <div class="related-card__overlay"></div>
+        <div class="related-card__body">
+          <p class="related-card__cat">Enfants</p>
+          <h3 class="related-card__name">Hello Park</h3>
+          <span class="related-card__arrow">
+            <span class="related-card__arrow-line"></span>
+            Découvrir
+          </span>
+        </div>
+      </a>
+
+    </div>
+  </section>
+
+</main>
+
+<!-- ============================================================
+     SCRIPTS
+     ============================================================ -->
+<script src="../js/seo.js"></script>
+<script src="../js/translations.js"></script>
+<script src="../js/app.js"></script>
+<script>
+  (function () {
+    'use strict';
+
+    /* ---- Hero image reveal ---- */
+    var heroBg = document.getElementById('heroBg');
+    if (heroBg) {
+      requestAnimationFrame(function () {
+        heroBg.classList.add('loaded');
+      });
+    }
+
+    /* ---- Countdown to next show ---- */
+    var SHOWS_WEEKDAY  = [12, 16, 20];
+    var SHOWS_SATURDAY = [12, 16, 20, 22];
+    var SHOWS_SUNDAY   = [14, 18, 21];
+    var DAY_NAMES_FR   = ['Dimanche', 'Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi'];
+
+    function pad(n) { return n < 10 ? '0' + n : '' + n; }
+
+    function getShowsForDay(dayOfWeek) {
+      if (dayOfWeek === 0) return SHOWS_SUNDAY;
+      if (dayOfWeek === 6) return SHOWS_SATURDAY;
+      return SHOWS_WEEKDAY;
+    }
+
+    function updateCountdown() {
+      var now    = new Date();
+      var dow    = now.getDay();
+      var h      = now.getHours();
+      var m      = now.getMinutes();
+      var s      = now.getSeconds();
+      var nowMin = h * 60 + m;
+
+      var shows = getShowsForDay(dow);
+      var nextShowHour = null;
+      var daysAhead = 0;
+
+      /* Find next show today */
+      for (var i = 0; i < shows.length; i++) {
+        if (shows[i] * 60 > nowMin) {
+          nextShowHour = shows[i];
+          break;
+        }
+      }
+
+      /* If no show left today, look at tomorrow */
+      if (nextShowHour === null) {
+        daysAhead = 1;
+        var tomorrowDow = (dow + 1) % 7;
+        var tomorrowShows = getShowsForDay(tomorrowDow);
+        nextShowHour = tomorrowShows[0];
+      }
+
+      /* Build target date */
+      var target = new Date(now.getFullYear(), now.getMonth(), now.getDate() + daysAhead, nextShowHour, 0, 0);
+      var diff   = Math.max(0, Math.floor((target - now) / 1000));
+
+      var hh = Math.floor(diff / 3600);
+      var mm = Math.floor((diff % 3600) / 60);
+      var ss = diff % 60;
+
+      /* Update display */
+      var elHours = document.getElementById('countHours');
+      var elMins  = document.getElementById('countMins');
+      var elSecs  = document.getElementById('countSecs');
+      var elTime  = document.getElementById('nextShowTime');
+      var elDay   = document.getElementById('nextShowDay');
+
+      if (elHours) elHours.textContent = pad(hh);
+      if (elMins)  elMins.textContent  = pad(mm);
+      if (elSecs)  elSecs.textContent  = pad(ss);
+
+      if (elTime) elTime.textContent = pad(nextShowHour) + ':00';
+      if (elDay) {
+        var targetDow = (dow + daysAhead) % 7;
+        elDay.textContent = DAY_NAMES_FR[targetDow] + ', Place Centrale';
+      }
+    }
+
+    updateCountdown();
+    setInterval(updateCountdown, 1000);
+
+    /* ---- Intersection Observer for reveal animations ---- */
+    if ('IntersectionObserver' in window) {
+      var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('in-view');
+            io.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.08, rootMargin: '0px 0px -48px 0px' });
+
+      document.querySelectorAll('.reveal').forEach(function (el) {
+        io.observe(el);
+      });
+    } else {
+      document.querySelectorAll('.reveal').forEach(function (el) {
+        el.classList.add('in-view');
+      });
+    }
+
+  }());
+</script>
+
+</body>
+</html>

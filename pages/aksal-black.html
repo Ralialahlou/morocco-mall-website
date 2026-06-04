@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="fr" dir="ltr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Aksal Black — The premier loyalty programme for Morocco Mall visitors. Exclusive discounts, cashback and VIP privileges." />
+  <title>Aksal Black — Morocco Mall</title>
+  <link rel="icon" href="../assets/logo.png" type="image/png" />
+  <link rel="stylesheet" href="../css/main.css" />
+  <style>
+    body { background: #0D0B09; color: var(--white); }
+    .ab-feature {
+      border: 1px solid rgba(201,169,110,0.15);
+      padding: 2rem;
+      border-radius: 4px;
+      transition: border-color 0.3s, background 0.3s;
+    }
+    .ab-feature:hover { border-color: rgba(201,169,110,0.4); background: rgba(201,169,110,0.04); }
+    .ab-feature__icon { font-size: 2rem; margin-bottom: 1rem; }
+    .ab-feature__title { font-family: var(--font-display); font-size: 1.3rem; font-weight: 300; color: var(--gold-light); margin-bottom: 0.5rem; }
+    .ab-feature__desc { font-size: 0.8rem; color: rgba(255,255,255,0.4); line-height: 1.7; }
+    .ab-partner { padding: 1rem 1.5rem; border: 1px solid rgba(201,169,110,0.12); text-align: center; font-size: 0.8rem; color: rgba(255,255,255,0.5); transition: background 0.2s, color 0.2s; cursor: default; }
+    .ab-partner:hover { background: rgba(201,169,110,0.07); color: var(--gold-light); }
+  </style>
+</head>
+<body>
+<main id="main-content">
+
+  <!-- Hero -->
+  <div style="min-height:100svh;display:flex;flex-direction:column;justify-content:center;padding:clamp(5rem,12vw,10rem) 0;position:relative;overflow:hidden;background:linear-gradient(135deg,#0D0B09 0%,#1A1209 60%,#0D0B09 100%);">
+    <div style="position:absolute;inset:0;background:radial-gradient(circle at 70% 40%,rgba(201,169,110,0.1) 0%,transparent 60%);pointer-events:none;"></div>
+    <div style="position:absolute;inset:0;background-image:repeating-linear-gradient(45deg,rgba(201,169,110,0.015) 0,rgba(201,169,110,0.015) 1px,transparent 0,transparent 50%);background-size:30px 30px;pointer-events:none;"></div>
+    <div class="container" style="position:relative;z-index:1;">
+      <nav style="display:flex;align-items:center;gap:0.5rem;font-size:0.65rem;letter-spacing:0.15em;text-transform:uppercase;color:rgba(255,255,255,0.25);margin-bottom:3rem;">
+        <a href="../index.html" style="color:rgba(255,255,255,0.25);">Morocco Mall</a>
+        <span>›</span>
+        <span style="color:var(--gold);">Aksal Black</span>
+      </nav>
+
+      <div style="display:grid;grid-template-columns:1fr;gap:4rem;align-items:center;" class="aksal-hero-grid">
+        <div>
+          <div style="display:inline-flex;align-items:center;gap:0.75rem;margin-bottom:2rem;">
+            <div style="width:40px;height:40px;background:var(--gold);border-radius:8px;display:flex;align-items:center;justify-content:center;font-family:var(--font-display);font-size:1.1rem;font-weight:600;color:var(--black);">AB</div>
+            <span style="font-size:0.65rem;letter-spacing:0.25em;text-transform:uppercase;color:var(--gold);">Programme de Fidélité</span>
+          </div>
+          <h1 class="display-xl reveal" style="color:var(--gold-light);line-height:0.9;max-width:700px;">
+            <em>Aksal</em><br>Black
+          </h1>
+          <p class="body-lg reveal reveal-delay-1" style="color:rgba(255,255,255,0.45);max-width:500px;margin-top:1.5rem;" data-i18n="aksalSub"></p>
+          <div class="reveal reveal-delay-2" style="margin-top:3rem;display:flex;gap:1rem;flex-wrap:wrap;">
+            <!-- Official Apple App Store badge -->
+            <a href="#" aria-label="Download on the App Store" style="display:inline-block;text-decoration:none;">
+              <svg xmlns="http://www.w3.org/2000/svg" width="140" height="42" viewBox="0 0 564 168" role="img" aria-label="Download on the App Store">
+                <rect width="564" height="168" rx="22" fill="#000"/>
+                <rect x="1.5" y="1.5" width="561" height="165" rx="20.5" fill="none" stroke="#a6a6a6" stroke-width="3"/>
+                <!-- Apple logo -->
+                <path d="M114.5 84.3c-.2-19.4 15.9-28.8 16.6-29.2-9-13.3-23.1-15.1-28.1-15.3-11.9-1.2-23.3 7-29.3 7-6.1 0-15.4-6.8-25.4-6.6-13 .2-25 7.6-31.7 19.2-13.6 23.6-3.5 58.5 9.7 77.6 6.5 9.3 14.1 19.8 24.2 19.4 9.7-.4 13.4-6.2 25.1-6.2 11.7 0 15.1 6.2 25.3 6 10.5-.2 17.1-9.4 23.5-18.8 7.5-10.8 10.6-21.3 10.7-21.9-.2-.1-20.5-7.9-20.6-31.2z" fill="#fff"/>
+                <path d="M95.1 27.5c5.3-6.6 8.9-15.6 7.9-24.7-7.6.3-17 5.1-22.5 11.6-4.9 5.7-9.2 14.9-8.1 23.7 8.6.6 17.3-4.3 22.7-10.6z" fill="#fff"/>
+                <!-- "Download on the" text -->
+                <text x="172" y="62" font-family="-apple-system,Helvetica Neue,Arial,sans-serif" font-size="24" fill="#fff" font-weight="300" letter-spacing="1">Download on the</text>
+                <!-- "App Store" text -->
+                <text x="170" y="118" font-family="-apple-system,Helvetica Neue,Arial,sans-serif" font-size="54" fill="#fff" font-weight="600" letter-spacing="-1">App Store</text>
+              </svg>
+            </a>
+            <!-- Official Google Play badge -->
+            <a href="#" aria-label="Get it on Google Play" style="display:inline-block;text-decoration:none;">
+              <svg xmlns="http://www.w3.org/2000/svg" width="140" height="42" viewBox="0 0 564 168" role="img" aria-label="Get it on Google Play">
+                <rect width="564" height="168" rx="22" fill="#000"/>
+                <rect x="1.5" y="1.5" width="561" height="165" rx="20.5" fill="none" stroke="#a6a6a6" stroke-width="3"/>
+                <!-- Play triangle -->
+                <path d="M48 34 L48 134 L118 84 Z" fill="url(#gp-grad)"/>
+                <defs>
+                  <linearGradient id="gp-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stop-color="#00d2ff"/>
+                    <stop offset="50%" stop-color="#a5f542"/>
+                    <stop offset="100%" stop-color="#ffec00"/>
+                  </linearGradient>
+                </defs>
+                <text x="142" y="62" font-family="-apple-system,Helvetica Neue,Arial,sans-serif" font-size="24" fill="#fff" font-weight="300" letter-spacing="1">Get it on</text>
+                <text x="140" y="118" font-family="-apple-system,Helvetica Neue,Arial,sans-serif" font-size="54" fill="#fff" font-weight="600" letter-spacing="-1">Google Play</text>
+              </svg>
+            </a>
+          </div>
+          <p style="font-size:0.7rem;color:rgba(255,255,255,0.2);margin-top:1rem;letter-spacing:0.05em;">Disponible sur iOS et Android · Gratuit</p>
+        </div>
+        <!-- App Mockup -->
+        <div class="aksal-app-preview reveal reveal-delay-3" style="display:flex;gap:1rem;justify-content:center;align-items:flex-end;">
+          <div class="aksal-phone">
+            <div class="aksal-phone__screen">
+              <div class="aksal-phone__logo">AB</div>
+              <p class="aksal-phone__text">AKSAL BLACK</p>
+              <hr style="border:none;border-top:1px solid rgba(201,169,110,0.2);width:100%;margin:0.5rem 0;">
+              <p style="font-size:0.55rem;color:rgba(255,255,255,0.3);text-align:center;line-height:1.6;">Bonjour,<br>Mohammed A.</p>
+              <div style="font-family:var(--font-display);font-size:2rem;color:var(--gold);margin:0.25rem 0;">2,450</div>
+              <p style="font-size:0.5rem;color:rgba(255,255,255,0.25);letter-spacing:0.1em;text-transform:uppercase;">Points Fidélité</p>
+            </div>
+          </div>
+          <div class="aksal-phone aksal-phone--secondary">
+            <div class="aksal-phone__screen">
+              <p style="font-size:0.55rem;color:var(--gold);letter-spacing:0.1em;text-transform:uppercase;text-align:center;margin-bottom:0.5rem;">Mes Offres</p>
+              <div style="display:flex;flex-direction:column;gap:0.4rem;width:100%;">
+                <div style="background:rgba(201,169,110,0.1);border:1px solid rgba(201,169,110,0.2);border-radius:4px;padding:0.4rem 0.5rem;font-size:0.5rem;color:rgba(255,255,255,0.6);">-20% chez Zara</div>
+                <div style="background:rgba(201,169,110,0.1);border:1px solid rgba(201,169,110,0.2);border-radius:4px;padding:0.4rem 0.5rem;font-size:0.5rem;color:rgba(255,255,255,0.6);">-15% chez Sephora</div>
+                <div style="background:rgba(201,169,110,0.1);border:1px solid rgba(201,169,110,0.2);border-radius:4px;padding:0.4rem 0.5rem;font-size:0.5rem;color:rgba(255,255,255,0.6);">Cashback 5% H&M</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Features Grid -->
+  <section style="padding:clamp(4rem,8vw,7rem) 0;">
+    <div class="container">
+      <div class="reveal" style="margin-bottom:3rem;text-align:center;">
+        <p class="heading-sm" style="color:var(--gold);margin-bottom:0.75rem;">Vos Avantages</p>
+        <h2 class="display-md" style="color:var(--gold-light);">Pourquoi Aksal Black ?</h2>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr;gap:1.5rem;" class="features-grid reveal">
+        <div class="ab-feature"><div class="ab-feature__icon">%</div><div class="ab-feature__title">Réductions Exclusives</div><div class="ab-feature__desc">Bénéficiez de remises exclusives chez plus de 200 enseignes partenaires tout au long de l'année. Des économies substantielles sur vos achats préférés.</div></div>
+        <div class="ab-feature"><div class="ab-feature__icon">💰</div><div class="ab-feature__title">Cashback sur chaque achat</div><div class="ab-feature__desc">Gagnez des points à chaque passage en caisse. Vos points se convertissent en cashback utilisable dans tout Morocco Mall.</div></div>
+        <div class="ab-feature"><div class="ab-feature__icon">⚡</div><div class="ab-feature__title">Accès Prioritaire</div><div class="ab-feature__desc">Skip the queue chez nos partenaires sélectionnés. Profitez d'une expérience premium sans attente inutile.</div></div>
+        <div class="ab-feature"><div class="ab-feature__icon">🎉</div><div class="ab-feature__title">Invitations VIP</div><div class="ab-feature__desc">Accès aux événements exclusifs, ouvertures privées et avant-premières. Vivez Morocco Mall comme un véritable VIP.</div></div>
+        <div class="ab-feature"><div class="ab-feature__icon">🎁</div><div class="ab-feature__title">Offres d'anniversaire</div><div class="ab-feature__desc">Un cadeau spécial chaque année pour fêter votre anniversaire avec Morocco Mall.</div></div>
+        <div class="ab-feature"><div class="ab-feature__icon">🗺</div><div class="ab-feature__title">Navigation Intégrée</div><div class="ab-feature__desc">Trouvez facilement tous vos magasins préférés grâce à la carte interactive intégrée dans l'application.</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Partner Brands -->
+  <section style="padding:clamp(3rem,6vw,5rem) 0;border-top:1px solid rgba(201,169,110,0.1);">
+    <div class="container">
+      <div class="reveal" style="margin-bottom:2.5rem;">
+        <p class="heading-sm" style="color:var(--gold);margin-bottom:0.75rem;">Marques Partenaires</p>
+        <h2 class="display-md" style="color:var(--gold-light);">+200 Enseignes</h2>
+        <p style="color:rgba(255,255,255,0.35);font-size:0.85rem;max-width:450px;margin-top:0.75rem;">Utilisez Aksal Black dans toutes ces enseignes et bien plus encore.</p>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:rgba(201,169,110,0.1);" class="reveal">
+        <div class="ab-partner">Zara</div>
+        <div class="ab-partner">H&amp;M</div>
+        <div class="ab-partner">Mango</div>
+        <div class="ab-partner">Sephora</div>
+        <div class="ab-partner">Nike</div>
+        <div class="ab-partner">Adidas</div>
+        <div class="ab-partner">Massimo Dutti</div>
+        <div class="ab-partner">Pull &amp; Bear</div>
+        <div class="ab-partner">Bershka</div>
+        <div class="ab-partner">L'Occitane</div>
+        <div class="ab-partner">Yves Rocher</div>
+        <div class="ab-partner">Fnac</div>
+        <div class="ab-partner">Decathlon</div>
+        <div class="ab-partner">Zara Home</div>
+        <div class="ab-partner">iStore</div>
+        <div class="ab-partner">Oysho</div>
+        <div class="ab-partner">Stradivarius</div>
+        <div class="ab-partner">+ 183 autres</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Download CTA -->
+  <section style="padding:clamp(4rem,8vw,7rem) 0;text-align:center;">
+    <div class="container">
+      <div class="reveal">
+        <h2 class="display-md" style="color:var(--gold-light);margin-bottom:1.5rem;" data-i18n="downloadApp"></h2>
+        <p style="color:rgba(255,255,255,0.4);font-size:0.9rem;max-width:400px;margin:0 auto 2.5rem;line-height:1.7;">Rejoignez la communauté Aksal Black et commencez à économiser dès aujourd'hui.</p>
+        <div style="display:flex;gap:1.25rem;flex-wrap:wrap;justify-content:center;">
+          <a href="#" aria-label="Download on the App Store" style="display:inline-block;text-decoration:none;">
+            <svg xmlns="http://www.w3.org/2000/svg" width="152" height="46" viewBox="0 0 564 168">
+              <rect width="564" height="168" rx="22" fill="#000"/>
+              <rect x="1.5" y="1.5" width="561" height="165" rx="20.5" fill="none" stroke="#a6a6a6" stroke-width="3"/>
+              <path d="M114.5 84.3c-.2-19.4 15.9-28.8 16.6-29.2-9-13.3-23.1-15.1-28.1-15.3-11.9-1.2-23.3 7-29.3 7-6.1 0-15.4-6.8-25.4-6.6-13 .2-25 7.6-31.7 19.2-13.6 23.6-3.5 58.5 9.7 77.6 6.5 9.3 14.1 19.8 24.2 19.4 9.7-.4 13.4-6.2 25.1-6.2 11.7 0 15.1 6.2 25.3 6 10.5-.2 17.1-9.4 23.5-18.8 7.5-10.8 10.6-21.3 10.7-21.9-.2-.1-20.5-7.9-20.6-31.2z" fill="#fff"/>
+              <path d="M95.1 27.5c5.3-6.6 8.9-15.6 7.9-24.7-7.6.3-17 5.1-22.5 11.6-4.9 5.7-9.2 14.9-8.1 23.7 8.6.6 17.3-4.3 22.7-10.6z" fill="#fff"/>
+              <text x="172" y="62" font-family="-apple-system,Helvetica Neue,Arial,sans-serif" font-size="24" fill="#fff" font-weight="300" letter-spacing="1">Download on the</text>
+              <text x="170" y="118" font-family="-apple-system,Helvetica Neue,Arial,sans-serif" font-size="54" fill="#fff" font-weight="600" letter-spacing="-1">App Store</text>
+            </svg>
+          </a>
+          <a href="#" aria-label="Get it on Google Play" style="display:inline-block;text-decoration:none;">
+            <svg xmlns="http://www.w3.org/2000/svg" width="152" height="46" viewBox="0 0 564 168">
+              <rect width="564" height="168" rx="22" fill="#000"/>
+              <rect x="1.5" y="1.5" width="561" height="165" rx="20.5" fill="none" stroke="#a6a6a6" stroke-width="3"/>
+              <path d="M48 34 L48 134 L118 84 Z" fill="url(#gp2)"/>
+              <defs><linearGradient id="gp2" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#00d2ff"/><stop offset="50%" stop-color="#a5f542"/><stop offset="100%" stop-color="#ffec00"/></linearGradient></defs>
+              <text x="142" y="62" font-family="-apple-system,Helvetica Neue,Arial,sans-serif" font-size="24" fill="#fff" font-weight="300" letter-spacing="1">Get it on</text>
+              <text x="140" y="118" font-family="-apple-system,Helvetica Neue,Arial,sans-serif" font-size="54" fill="#fff" font-weight="600" letter-spacing="-1">Google Play</text>
+            </svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+<script src="../js/seo.js"></script>
+<script src="../js/translations.js"></script>
+<script src="../js/app.js"></script>
+<script>
+// 2-col grid on tablet+
+document.addEventListener('DOMContentLoaded', () => {
+  const grid = document.querySelector('.features-grid');
+  if (grid && window.innerWidth >= 640) grid.style.gridTemplateColumns = 'repeat(2,1fr)';
+  if (grid && window.innerWidth >= 1024) grid.style.gridTemplateColumns = 'repeat(3,1fr)';
+  const heroGrid = document.querySelector('.aksal-hero-grid');
+  if (heroGrid && window.innerWidth >= 768) heroGrid.style.gridTemplateColumns = '1fr 1fr';
+});
+</script>
+</body>
+</html>

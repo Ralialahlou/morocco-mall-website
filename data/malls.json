@@ -1,0 +1,81 @@
+{
+  "_comment": "Morocco Mall locations. Edit name, description, hours and coordinates here.",
+  "malls": [
+    {
+      "id": "casablanca",
+      "slug": "casablanca-bay",
+      "name": { "fr": "Casablanca Bay", "en": "Casablanca Bay", "ar": "كازابلانكا باي" },
+      "city": { "fr": "Casablanca", "en": "Casablanca", "ar": "الدار البيضاء" },
+      "tag": { "fr": "Vue mer", "en": "Oceanfront", "ar": "الواجهة البحرية" },
+      "description": {
+        "fr": "Une destination côtière vibrante alliant shopping, gastronomie et lifestyle au bord de l'océan.",
+        "en": "A vibrant coastal destination combining shopping, dining and lifestyle experiences by the ocean.",
+        "ar": "وجهة ساحلية نابضة تجمع التسوق والمطاعم وتجارب أسلوب الحياة على شاطئ المحيط."
+      },
+      "address": "Bd de la Corniche, Casablanca",
+      "phone": "+212 522 000 111",
+      "coordinates": { "lat": 33.5731, "lng": -7.5898 },
+      "color": "#001a2e",
+      "heroGradient": "linear-gradient(145deg,#001a2e,#003050)",
+      "image": "assets/luxury-2.jpg",
+      "features": ["SeaDream Aquarium", "Rose Boulevard", "Bay Food Hall", "Seaview Dining", "Fontaine Musicale"]
+    },
+    {
+      "id": "marrakech",
+      "slug": "marrakech-garden",
+      "name": { "fr": "Marrakech Garden", "en": "Marrakech Garden", "ar": "مراكش غاردن" },
+      "city": { "fr": "Marrakech", "en": "Marrakech", "ar": "مراكش" },
+      "tag": { "fr": "Héritage", "en": "Heritage", "ar": "التراث" },
+      "description": {
+        "fr": "Une oasis de mode, gastronomie et découverte inspirée des jardins de Marrakech.",
+        "en": "A lush oasis of fashion, dining and discovery inspired by the vibrant gardens of Marrakech.",
+        "ar": "واحة خضراء من الموضة والمطاعم والاكتشاف مستوحاة من حدائق مراكش النابضة بالحياة."
+      },
+      "address": "Route de l'Aéroport, Marrakech",
+      "phone": "+212 524 000 111",
+      "coordinates": { "lat": 31.6295, "lng": -7.9811 },
+      "color": "#2e1000",
+      "heroGradient": "linear-gradient(145deg,#2e1000,#4a1800)",
+      "image": "assets/luxury-1.jpg",
+      "features": ["Rose Boulevard", "Cinema", "Adventure Land"]
+    },
+    {
+      "id": "rabat",
+      "slug": "rabat-valley",
+      "name": { "fr": "Rabat Valley", "en": "Rabat Valley", "ar": "رباط فالي" },
+      "city": { "fr": "Rabat", "en": "Rabat", "ar": "الرباط" },
+      "tag": { "fr": "Capitale", "en": "Capital", "ar": "العاصمة" },
+      "description": {
+        "fr": "Une destination shopping élégante alliant commerce moderne et atmosphère de vallée apaisante.",
+        "en": "An elegant shopping destination blending modern retail, dining and a relaxed valley atmosphere.",
+        "ar": "وجهة تسوق أنيقة تمزج بين التجزئة الحديثة والمطاعم وأجواء الوادي المريحة."
+      },
+      "address": "Avenue Mohammed VI, Rabat",
+      "phone": "+212 537 000 111",
+      "coordinates": { "lat": 33.9716, "lng": -6.8498 },
+      "color": "#001a0e",
+      "heroGradient": "linear-gradient(145deg,#001a0e,#003018)",
+      "image": "assets/luxury-3.jpg",
+      "features": ["Cinema", "Hello Park", "Rose Boulevard"]
+    },
+    {
+      "id": "bouskoura",
+      "slug": "bouskoura-forest",
+      "name": { "fr": "Bouskoura Forest", "en": "Bouskoura Forest", "ar": "بوسكورة فورست" },
+      "city": { "fr": "Bouskoura", "en": "Bouskoura", "ar": "بوسكورة" },
+      "tag": { "fr": "Nature", "en": "Nature", "ar": "الطبيعة" },
+      "description": {
+        "fr": "Un mall inspiré par la nature, entouré de verdure, offrant mode, gastronomie et loisirs.",
+        "en": "A nature-inspired shopping destination surrounded by greenery, offering fashion, dining and leisure.",
+        "ar": "وجهة تسوق مستوحاة من الطبيعة محاطة بالخضرة تقدم الموضة والمطاعم والترفيه."
+      },
+      "address": "Bouskoura, Casablanca",
+      "phone": "+212 522 000 222",
+      "coordinates": { "lat": 33.4393, "lng": -7.6526 },
+      "color": "#0e1a00",
+      "heroGradient": "linear-gradient(145deg,#0e1a00,#182800)",
+      "image": "assets/luxury-4.jpg",
+      "features": ["Cinema", "Hello Park"]
+    }
+  ]
+}

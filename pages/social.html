@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="fr" dir="ltr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Morocco Mall Social — Follow us on Instagram, Facebook, TikTok and YouTube." />
+  <title>Social — Morocco Mall</title>
+  <link rel="icon" href="../assets/logo.png" type="image/png" />
+  <link rel="stylesheet" href="../css/main.css" />
+  <style>
+    .social-channel-card {
+      border: 1px solid var(--gray-200);
+      padding: 2rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1rem;
+      text-align: center;
+      cursor: pointer;
+      transition: border-color 0.2s, background 0.2s;
+      text-decoration: none;
+      color: inherit;
+    }
+    .social-channel-card:hover { border-color: var(--black); background: var(--cream); }
+    .social-channel-card__icon { font-size: 2.5rem; }
+    .social-channel-card__handle { font-size: 0.9rem; font-weight: 500; }
+    .social-channel-card__followers { font-size: 0.72rem; color: var(--gray-400); }
+    .social-channel-card__desc { font-size: 0.78rem; color: var(--gray-600); line-height: 1.6; }
+    .social-channel-card__btn {
+      display: inline-block;
+      padding: 0.5rem 1.25rem;
+      border: 1px solid var(--black);
+      font-size: 0.65rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      font-family: var(--font-body);
+      font-weight: 500;
+      margin-top: 0.5rem;
+      cursor: pointer;
+      transition: background 0.2s, color 0.2s;
+      background: none; color: var(--black);
+    }
+    .social-channel-card__btn:hover { background: var(--black); color: var(--white); }
+  </style>
+</head>
+<body>
+<main id="main-content">
+
+  <!-- Page Hero -->
+  <div class="page-hero" style="background:var(--black);">
+    <div class="container page-hero__content">
+      <nav class="page-hero__breadcrumb">
+        <a href="../index.html">Morocco Mall</a>
+        <span>›</span>
+        <span data-i18n="socialTitle"></span>
+      </nav>
+      <h1 class="page-hero__title">Follow Our<br><em>Story</em></h1>
+      <p class="page-hero__subtitle">Stay connected with the latest moments, events, and inspirations from Morocco Mall.</p>
+    </div>
+  </div>
+
+  <!-- Social Channels -->
+  <section class="section">
+    <div class="container">
+      <div class="section__header reveal">
+        <div><p class="section__eyebrow">Nos réseaux</p><h2 class="section__title">Suivez-nous</h2></div>
+      </div>
+      <div class="grid-4 reveal" style="gap:1rem;background:none;">
+        <a class="social-channel-card" href="#" target="_blank" rel="noopener">
+          <div class="social-channel-card__icon">📸</div>
+          <div class="social-channel-card__handle">@moroccomall</div>
+          <div class="social-channel-card__followers">185K abonnés</div>
+          <div class="social-channel-card__desc">Inspirations mode, moments lifestyle et coulisses des événements.</div>
+          <button class="social-channel-card__btn">Instagram</button>
+        </a>
+        <a class="social-channel-card" href="#" target="_blank" rel="noopener">
+          <div class="social-channel-card__icon">👍</div>
+          <div class="social-channel-card__handle">Morocco Mall Official</div>
+          <div class="social-channel-card__followers">240K abonnés</div>
+          <div class="social-channel-card__desc">Actualités, événements et offres exclusives en avant-première.</div>
+          <button class="social-channel-card__btn">Facebook</button>
+        </a>
+        <a class="social-channel-card" href="#" target="_blank" rel="noopener">
+          <div class="social-channel-card__icon">🎵</div>
+          <div class="social-channel-card__handle">@moroccomall</div>
+          <div class="social-channel-card__followers">95K abonnés</div>
+          <div class="social-channel-card__desc">Tendances, challenges et contenus créatifs pour la génération Z.</div>
+          <button class="social-channel-card__btn">TikTok</button>
+        </a>
+        <a class="social-channel-card" href="#" target="_blank" rel="noopener">
+          <div class="social-channel-card__icon">▶</div>
+          <div class="social-channel-card__handle">Morocco Mall</div>
+          <div class="social-channel-card__followers">52K abonnés</div>
+          <div class="social-channel-card__desc">Reportages événements, vlogs shopping et interviews exclusives.</div>
+          <button class="social-channel-card__btn">YouTube</button>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Instagram Wall -->
+  <section class="section section--cream" style="padding-top:0;">
+    <div class="container" style="margin-bottom:2rem;">
+      <div class="section__header reveal">
+        <div>
+          <p class="section__eyebrow">Instagram</p>
+          <h2 class="section__title">@moroccomall</h2>
+        </div>
+        <a class="section__link btn-arrow" href="#" target="_blank" rel="noopener">
+          <span>Voir le profil</span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+      </div>
+    </div>
+    <div class="social-wall reveal">
+      <div class="social-post"><div class="social-post__placeholder" style="background:linear-gradient(135deg,#1a0a2e,#2e1040);">✨</div><div class="social-post__overlay"><div class="social-post__likes">❤ 1.2k</div></div></div>
+      <div class="social-post"><div class="social-post__placeholder" style="background:linear-gradient(135deg,#001a2e,#002a4a);">🌊</div><div class="social-post__overlay"><div class="social-post__likes">❤ 856</div></div></div>
+      <div class="social-post"><div class="social-post__placeholder" style="background:linear-gradient(135deg,#2e1000,#4a1a00);">🌹</div><div class="social-post__overlay"><div class="social-post__likes">❤ 2.4k</div></div></div>
+      <div class="social-post"><div class="social-post__placeholder" style="background:linear-gradient(135deg,#0a1a0a,#102010);">🌿</div><div class="social-post__overlay"><div class="social-post__likes">❤ 643</div></div></div>
+      <div class="social-post"><div class="social-post__placeholder" style="background:linear-gradient(135deg,#1a1a00,#2e2a00);">🎭</div><div class="social-post__overlay"><div class="social-post__likes">❤ 1.8k</div></div></div>
+      <div class="social-post"><div class="social-post__placeholder" style="background:linear-gradient(135deg,#2e0a0a,#4a1010);">🍽</div><div class="social-post__overlay"><div class="social-post__likes">❤ 934</div></div></div>
+      <div class="social-post"><div class="social-post__placeholder" style="background:linear-gradient(135deg,#0a0a2e,#101050);">💫</div><div class="social-post__overlay"><div class="social-post__likes">❤ 1.1k</div></div></div>
+      <div class="social-post"><div class="social-post__placeholder" style="background:linear-gradient(135deg,#1a0a0a,#2e1010);">👗</div><div class="social-post__overlay"><div class="social-post__likes">❤ 723</div></div></div>
+      <div class="social-post"><div class="social-post__placeholder" style="background:linear-gradient(135deg,#001010,#002020);">🐠</div><div class="social-post__overlay"><div class="social-post__likes">❤ 1.6k</div></div></div>
+      <div class="social-post"><div class="social-post__placeholder" style="background:linear-gradient(135deg,#2e2e00,#3a3800);">🌟</div><div class="social-post__overlay"><div class="social-post__likes">❤ 445</div></div></div>
+      <div class="social-post"><div class="social-post__placeholder" style="background:linear-gradient(135deg,#0a2e1a,#103a20);">🎪</div><div class="social-post__overlay"><div class="social-post__likes">❤ 2.1k</div></div></div>
+      <div class="social-post"><div class="social-post__placeholder" style="background:linear-gradient(135deg,#1a0a1a,#2e102e);">💍</div><div class="social-post__overlay"><div class="social-post__likes">❤ 895</div></div></div>
+    </div>
+  </section>
+
+  <!-- Newsletter -->
+  <section class="newsletter-section">
+    <div class="container">
+      <div class="reveal">
+        <h2 class="display-md" style="max-width:500px;margin:0 auto 0.75rem;" data-i18n="newsletterTitle"></h2>
+        <p class="body-md" style="max-width:420px;margin:0 auto;" data-i18n="newsletterSub"></p>
+        <form class="newsletter-form" onsubmit="handleNewsletter(event)">
+          <input class="newsletter-input" type="email" required data-i18n-placeholder="emailPlaceholder" />
+          <button class="newsletter-btn" type="submit" data-i18n="subscribe"></button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+</main>
+<script src="../js/seo.js"></script>
+<script src="../js/translations.js"></script>
+<script src="../js/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,918 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FAQ – Questions Fréquentes – Morocco Mall</title>
+  <link rel="stylesheet" href="../css/main.css" />
+  <script src="../js/translations.js" defer></script>
+  <script src="../js/app.js" defer></script>
+  <style>
+    /* ── Reset ── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Arial', Helvetica, sans-serif;
+      background: #f9f6f1;
+      color: #1a1a1a;
+      line-height: 1.7;
+    }
+
+    /* ── Hero ── */
+    .hero {
+      background: #000;
+      color: #fff;
+      text-align: center;
+      padding: 80px 24px 60px;
+    }
+
+    .hero__eyebrow {
+      font-size: 0.72rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: #b89a5a;
+      margin-bottom: 16px;
+    }
+
+    .hero__title {
+      font-family: 'Georgia', serif;
+      font-size: clamp(1.8rem, 4vw, 3rem);
+      font-weight: 400;
+      letter-spacing: 0.04em;
+      margin-bottom: 14px;
+    }
+
+    .hero__sub {
+      font-size: 0.95rem;
+      color: #aaa;
+      max-width: 520px;
+      margin: 0 auto;
+    }
+
+    /* ── Page wrapper ── */
+    .page-wrapper {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 48px 24px 96px;
+    }
+
+    /* ── Search bar ── */
+    .search-wrap {
+      position: relative;
+      margin-bottom: 36px;
+    }
+
+    .search-wrap svg {
+      position: absolute;
+      left: 16px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #b89a5a;
+      pointer-events: none;
+      width: 20px;
+      height: 20px;
+    }
+
+    #faq-search {
+      width: 100%;
+      padding: 16px 20px 16px 48px;
+      border: 1.5px solid #d4c9b8;
+      border-radius: 4px;
+      font-size: 1rem;
+      background: #fff;
+      color: #1a1a1a;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    #faq-search:focus {
+      border-color: #b89a5a;
+    }
+
+    #faq-search::placeholder {
+      color: #aaa;
+    }
+
+    /* ── Category tabs ── */
+    .cat-tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 36px;
+    }
+
+    .cat-tab {
+      padding: 8px 18px;
+      border: 1.5px solid #d4c9b8;
+      border-radius: 50px;
+      font-size: 0.85rem;
+      background: #fff;
+      color: #555;
+      cursor: pointer;
+      transition: all 0.2s;
+      white-space: nowrap;
+      font-family: 'Arial', sans-serif;
+    }
+
+    .cat-tab:hover {
+      border-color: #b89a5a;
+      color: #b89a5a;
+    }
+
+    .cat-tab.active {
+      background: #b89a5a;
+      border-color: #b89a5a;
+      color: #fff;
+      font-weight: 600;
+    }
+
+    /* ── No results ── */
+    #no-results {
+      text-align: center;
+      padding: 40px 20px;
+      color: #888;
+      font-size: 0.95rem;
+      display: none;
+    }
+
+    /* ── FAQ accordion ── */
+    .faq-list {
+      list-style: none;
+    }
+
+    .faq-item {
+      margin-bottom: 0;
+      transition: opacity 0.15s;
+    }
+
+    .faq-item.hidden {
+      display: none;
+    }
+
+    .faq-item:nth-child(odd) details {
+      background: #fff;
+    }
+
+    .faq-item:nth-child(even) details {
+      background: #f3ede3;
+    }
+
+    details {
+      border: 1px solid #e0d8cc;
+      border-bottom: none;
+    }
+
+    .faq-list .faq-item:last-child details,
+    .faq-list .faq-item:last-of-type details {
+      border-bottom: 1px solid #e0d8cc;
+    }
+
+    /* ensure last visible item has bottom border */
+    .faq-item:not(.hidden) details {
+      border-bottom: 1px solid #e0d8cc;
+    }
+
+    .faq-item details {
+      border-bottom: none !important;
+    }
+
+    .faq-item + .faq-item details {
+      border-top: none;
+      border-bottom: none !important;
+    }
+
+    /* simpler approach: always show border-bottom on each item */
+    .faq-item details {
+      border: 1px solid #e0d8cc;
+      margin-bottom: -1px;
+    }
+
+    summary {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 18px 24px;
+      cursor: pointer;
+      list-style: none;
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: #1a1a1a;
+      user-select: none;
+    }
+
+    summary::-webkit-details-marker { display: none; }
+
+    .q-icon {
+      flex-shrink: 0;
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      background: #b89a5a;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.7rem;
+      font-weight: 700;
+      margin-top: 1px;
+    }
+
+    .q-text {
+      flex: 1;
+      line-height: 1.5;
+    }
+
+    .chevron {
+      flex-shrink: 0;
+      width: 18px;
+      height: 18px;
+      color: #b89a5a;
+      transition: transform 0.3s ease;
+      margin-top: 3px;
+    }
+
+    details[open] .chevron {
+      transform: rotate(180deg);
+    }
+
+    details[open] summary {
+      border-bottom: 1px solid #e0d8cc;
+    }
+
+    .answer {
+      padding: 18px 24px 22px 58px;
+      font-size: 0.9rem;
+      color: #3a3a3a;
+      line-height: 1.8;
+    }
+
+    .answer p + p {
+      margin-top: 10px;
+    }
+
+    .answer a {
+      color: #b89a5a;
+      text-decoration: none;
+    }
+
+    .answer a:hover {
+      text-decoration: underline;
+    }
+
+    /* ── Category label badge ── */
+    .cat-badge {
+      font-size: 0.68rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #b89a5a;
+      font-weight: 700;
+      border: 1px solid #b89a5a;
+      border-radius: 3px;
+      padding: 2px 7px;
+      margin-left: 8px;
+      vertical-align: middle;
+      white-space: nowrap;
+      display: inline-block;
+      margin-top: -2px;
+    }
+
+    /* ── Search highlight ── */
+    mark {
+      background: #fde68a;
+      color: inherit;
+      border-radius: 2px;
+      padding: 0 1px;
+    }
+
+    /* ── Footer ── */
+    .page-footer {
+      margin-top: 56px;
+      padding-top: 24px;
+      border-top: 1px solid #e0d8cc;
+      font-size: 0.82rem;
+      color: #888;
+      text-align: center;
+    }
+
+    .page-footer a {
+      color: #b89a5a;
+      text-decoration: none;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ── Hero ── -->
+  <section class="hero">
+    <p class="hero__eyebrow">Morocco Mall · Casablanca</p>
+    <h1 class="hero__title">Questions Fréquentes</h1>
+    <p class="hero__sub">Retrouvez toutes les réponses à vos questions sur le Morocco Mall,
+      nos services, horaires et programmes exclusifs.</p>
+  </section>
+
+  <!-- ── Main ── -->
+  <main class="page-wrapper">
+
+    <!-- Search bar -->
+    <div class="search-wrap">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="11" cy="11" r="8"></circle>
+        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+      </svg>
+      <input
+        type="search"
+        id="faq-search"
+        placeholder="Rechercher une question…"
+        autocomplete="off"
+        aria-label="Rechercher dans la FAQ"
+      />
+    </div>
+
+    <!-- Category tabs -->
+    <div class="cat-tabs" role="tablist">
+      <button class="cat-tab active" data-cat="all" role="tab" aria-selected="true">Toutes</button>
+      <button class="cat-tab" data-cat="general" role="tab">General</button>
+      <button class="cat-tab" data-cat="horaires" role="tab">Horaires</button>
+      <button class="cat-tab" data-cat="services" role="tab">Services</button>
+      <button class="cat-tab" data-cat="reservations" role="tab">Reservations</button>
+      <button class="cat-tab" data-cat="aksal-black" role="tab">Aksal Black</button>
+      <button class="cat-tab" data-cat="presse" role="tab">Presse</button>
+    </div>
+
+    <!-- No results -->
+    <div id="no-results" role="status">
+      Aucune question ne correspond à votre recherche. Contactez-nous à
+      <a href="mailto:contact@moroccomall.ma">contact@moroccomall.ma</a>.
+    </div>
+
+    <!-- FAQ list -->
+    <ul class="faq-list" id="faq-list">
+
+      <!-- 1 · Horaires -->
+      <li class="faq-item" data-cat="horaires" data-question="Quels sont les horaires d'ouverture du Morocco Mall ?">
+        <details>
+          <summary>
+            <span class="q-icon">Q</span>
+            <span class="q-text">
+              Quels sont les horaires d'ouverture du Morocco Mall ?
+              <span class="cat-badge">Horaires</span>
+            </span>
+            <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+          </summary>
+          <div class="answer">
+            <p>Le Morocco Mall est ouvert <strong>7 jours sur 7</strong>, de <strong>10h à 22h</strong> du lundi au jeudi, et de <strong>10h à 23h</strong> le vendredi, le samedi et les jours fériés. Ces horaires peuvent varier lors de périodes spéciales (Ramadan, fêtes nationales). Consultez notre page d'accueil pour les horaires actuels.</p>
+          </div>
+        </details>
+      </li>
+
+      <!-- 2 · Horaires -->
+      <li class="faq-item" data-cat="horaires" data-question="Le mall est-il ouvert pendant le Ramadan ?">
+        <details>
+          <summary>
+            <span class="q-icon">Q</span>
+            <span class="q-text">
+              Le mall est-il ouvert pendant le Ramadan ?
+              <span class="cat-badge">Horaires</span>
+            </span>
+            <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+          </summary>
+          <div class="answer">
+            <p>Oui, le Morocco Mall reste ouvert pendant tout le mois de Ramadan avec des <strong>horaires ajustés</strong>. En général, le mall ouvre à partir de 15h et ferme après Ftour, vers 1h du matin. Les horaires exacts sont publiés en début de Ramadan sur notre site et nos réseaux sociaux.</p>
+          </div>
+        </details>
+      </li>
+
+      <!-- 3 · Services -->
+      <li class="faq-item" data-cat="services" data-question="Y a-t-il du WiFi gratuit au Morocco Mall ?">
+        <details>
+          <summary>
+            <span class="q-icon">Q</span>
+            <span class="q-text">
+              Y a-t-il du WiFi gratuit au Morocco Mall ?
+              <span class="cat-badge">Services</span>
+            </span>
+            <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+          </summary>
+          <div class="answer">
+            <p>Oui, le Morocco Mall propose un <strong>accès WiFi gratuit</strong> dans toutes les zones communes du centre. Connectez-vous au réseau <strong>"MoroccoMall_Guest"</strong> et suivez les instructions à l'écran. La connexion est limitée à 2 heures par visite, renouvelable avec une nouvelle authentification.</p>
+          </div>
+        </details>
+      </li>
+
+      <!-- 4 · Reservations -->
+      <li class="faq-item" data-cat="reservations" data-question="Comment s'inscrire à un événement RSVP du Morocco Mall ?">
+        <details>
+          <summary>
+            <span class="q-icon">Q</span>
+            <span class="q-text">
+              Comment s'inscrire à un événement RSVP du Morocco Mall ?
+              <span class="cat-badge">Reservations</span>
+            </span>
+            <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+          </summary>
+          <div class="answer">
+            <p>Pour les événements nécessitant une inscription, rendez-vous sur la page de l'événement concerné sur notre site. Cliquez sur <strong>"Je participe"</strong>, renseignez vos coordonnées et confirmez votre inscription. Vous recevrez un email de confirmation avec votre <strong>QR code d'accès</strong> à présenter à l'entrée.</p>
+          </div>
+        </details>
+      </li>
+
+      <!-- 5 · Reservations -->
+      <li class="faq-item" data-cat="reservations" data-question="Je n'ai pas reçu mon QR code après inscription à un événement. Que faire ?">
+        <details>
+          <summary>
+            <span class="q-icon">Q</span>
+            <span class="q-text">
+              Je n'ai pas reçu mon QR code après inscription à un événement. Que faire ?
+              <span class="cat-badge">Reservations</span>
+            </span>
+            <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+          </summary>
+          <div class="answer">
+            <p>Vérifiez d'abord votre dossier spam ou courriers indésirables. Si l'email n'y figure pas, connectez-vous à votre espace membre sur notre site — votre QR code y est toujours disponible. Pour toute assistance, contactez <a href="mailto:events@moroccomall.ma">events@moroccomall.ma</a> en précisant votre nom et l'événement concerné.</p>
+          </div>
+        </details>
+      </li>
+
+      <!-- 6 · General -->
+      <li class="faq-item" data-cat="general" data-question="Comment s'inscrire à la newsletter du Morocco Mall ?">
+        <details>
+          <summary>
+            <span class="q-icon">Q</span>
+            <span class="q-text">
+              Comment s'inscrire à la newsletter du Morocco Mall ?
+              <span class="cat-badge">General</span>
+            </span>
+            <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+          </summary>
+          <div class="answer">
+            <p>Inscrivez-vous en bas de notre page d'accueil via le formulaire dédié. Saisissez votre adresse email, validez et confirmez votre abonnement via le lien reçu par email. Vous recevrez nos actualités, offres exclusives et invitations aux événements du Morocco Mall.</p>
+          </div>
+        </details>
+      </li>
+
+      <!-- 7 · Aksal Black -->
+      <li class="faq-item" data-cat="aksal-black" data-question="Comment rejoindre le programme Aksal Black ?">
+        <details>
+          <summary>
+            <span class="q-icon">Q</span>
+            <span class="q-text">
+              Comment rejoindre le programme Aksal Black ?
+              <span class="cat-badge">Aksal Black</span>
+            </span>
+            <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+          </summary>
+          <div class="answer">
+            <p><strong>Aksal Black</strong> est le programme de fidélité premium du Morocco Mall. Pour vous inscrire, rendez-vous au comptoir d'accueil principal (niveau 0) avec une pièce d'identité valide, ou faites votre demande en ligne via la section <em>Aksal Black</em> de notre site. L'adhésion est soumise à des conditions d'éligibilité basées sur le volume d'achats annuel.</p>
+          </div>
+        </details>
+      </li>
+
+      <!-- 8 · Aksal Black -->
+      <li class="faq-item" data-cat="aksal-black" data-question="Quels sont les avantages du programme Aksal Black ?">
+        <details>
+          <summary>
+            <span class="q-icon">Q</span>
+            <span class="q-text">
+              Quels sont les avantages du programme Aksal Black ?
+              <span class="cat-badge">Aksal Black</span>
+            </span>
+            <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+          </summary>
+          <div class="answer">
+            <p>Les membres Aksal Black bénéficient d'avantages exclusifs : accès au <strong>Lounge privé</strong>, service de <strong>valet parking VIP</strong>, invitations prioritaires aux événements et avant-premières, remises chez des enseignes partenaires, et un service de conciergerie dédié. Les avantages varient selon votre niveau d'adhésion (Silver, Gold, Platinum).</p>
+          </div>
+        </details>
+      </li>
+
+      <!-- 9 · Aksal Black -->
+      <li class="faq-item" data-cat="aksal-black" data-question="Comment accéder au Lounge Aksal Black ?">
+        <details>
+          <summary>
+            <span class="q-icon">Q</span>
+            <span class="q-text">
+              Comment accéder au Lounge Aksal Black ?
+              <span class="cat-badge">Aksal Black</span>
+            </span>
+            <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+          </summary>
+          <div class="answer">
+            <p>Le Lounge Aksal Black est situé au <strong>niveau 2, aile Est</strong>. L'accès est réservé aux membres actifs du programme. Présentez votre carte membre ou flashez votre QR code membre à l'entrée. Le Lounge est ouvert aux mêmes horaires que le mall.</p>
+          </div>
+        </details>
+      </li>
+
+      <!-- 10 · Services -->
+      <li class="faq-item" data-cat="services" data-question="Le Morocco Mall propose-t-il le service tax-free pour les touristes ?">
+        <details>
+          <summary>
+            <span class="q-icon">Q</span>
+            <span class="q-text">
+              Le Morocco Mall propose-t-il le service tax-free pour les touristes ?
+              <span class="cat-badge">Services</span>
+            </span>
+            <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+          </summary>
+          <div class="answer">
+            <p>Oui, un service de <strong>remboursement de TVA (Tax Refund)</strong> est disponible pour les visiteurs non-résidents. Rendez-vous au comptoir Tax Free situé au niveau 0, près de l'entrée principale, avec vos tickets de caisse et votre passeport. Le remboursement s'effectue selon les modalités en vigueur à la date de votre visite.</p>
+          </div>
+        </details>
+      </li>
+
+      <!-- 11 · Services -->
+      <li class="faq-item" data-cat="services" data-question="Que faire en cas de perte d'un objet au Morocco Mall ?">
+        <details>
+          <summary>
+            <span class="q-icon">Q</span>
+            <span class="q-text">
+              Que faire en cas de perte d'un objet au Morocco Mall ?
+              <span class="cat-badge">Services</span>
+            </span>
+            <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+          </summary>
+          <div class="answer">
+            <p>Signalez immédiatement la perte à l'un de nos agents de sécurité ou rendez-vous directement au <strong>bureau des objets trouvés</strong>, situé à l'accueil principal (niveau 0). Vous pouvez également nous contacter par email à <a href="mailto:securite@moroccomall.ma">securite@moroccomall.ma</a> en décrivant l'objet perdu et l'endroit approximatif de la perte.</p>
+          </div>
+        </details>
+      </li>
+
+      <!-- 12 · Services -->
+      <li class="faq-item" data-cat="services" data-question="Le Morocco Mall est-il accessible aux personnes à mobilité réduite ?">
+        <details>
+          <summary>
+            <span class="q-icon">Q</span>
+            <span class="q-text">
+              Le Morocco Mall est-il accessible aux personnes à mobilité réduite ?
+              <span class="cat-badge">Services</span>
+            </span>
+            <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+          </summary>
+          <div class="answer">
+            <p>Oui, le Morocco Mall est entièrement conçu pour être accessible. Le centre dispose d'<strong>ascenseurs panoramiques</strong> à chaque niveau, de <strong>rampes d'accès</strong> à toutes les entrées, de <strong>places de parking réservées PMR</strong> au niveau -1 et d'une signalétique adaptée. Des fauteuils roulants sont disponibles gratuitement à l'accueil sur présentation d'une pièce d'identité.</p>
+          </div>
+        </details>
+      </li>
+
+      <!-- 13 · Services -->
+      <li class="faq-item" data-cat="services" data-question="Y a-t-il des espaces bébé / nurseries au Morocco Mall ?">
+        <details>
+          <summary>
+            <span class="q-icon">Q</span>
+            <span class="q-text">
+              Y a-t-il des espaces bébé / nurseries au Morocco Mall ?
+              <span class="cat-badge">Services</span>
+            </span>
+            <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+          </summary>
+          <div class="answer">
+            <p>Le Morocco Mall dispose de <strong>3 espaces nurserie</strong> entièrement équipés (tables à langer, chaises d'allaitement, espace chauffage biberon) situés aux niveaux 0, 1 et 2. Ces espaces sont accessibles gratuitement et indiqués par la signalétique du mall.</p>
+          </div>
+        </details>
+      </li>
+
+      <!-- 14 · Services -->
+      <li class="faq-item" data-cat="services" data-question="À quelle heure est le spectacle de la fontaine ?">
+        <details>
+          <summary>
+            <span class="q-icon">Q</span>
+            <span class="q-text">
+              À quelle heure est le spectacle de la fontaine ?
+              <span class="cat-badge">Services</span>
+            </span>
+            <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+          </summary>
+          <div class="answer">
+            <p>Le spectacle de la <strong>Fontaine de Morocco Mall</strong>, l'une des plus grandes fontaines dansantes au monde, est programmé plusieurs fois par jour. Du lundi au jeudi : <strong>14h, 17h, 19h30 et 21h</strong>. Le vendredi et le samedi : horaires supplémentaires à <strong>22h</strong>. Le programme peut varier lors des événements spéciaux.</p>
+          </div>
+        </details>
+      </li>
+
+      <!-- 15 · Reservations -->
+      <li class="faq-item" data-cat="reservations" data-question="Comment réserver des billets pour le cinéma du Morocco Mall ?">
+        <details>
+          <summary>
+            <span class="q-icon">Q</span>
+            <span class="q-text">
+              Comment réserver des billets pour le cinéma du Morocco Mall ?
+              <span class="cat-badge">Reservations</span>
+            </span>
+            <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+          </summary>
+          <div class="answer">
+            <p>Les billets pour le <strong>Cine Atlas</strong>, cinéma situé au niveau 3 du mall, peuvent être réservés directement aux guichets ou en ligne sur le site de Cine Atlas. Les membres Aksal Black bénéficient d'une réduction tarifaire sur présentation de leur carte membre.</p>
+          </div>
+        </details>
+      </li>
+
+      <!-- 16 · Reservations -->
+      <li class="faq-item" data-cat="reservations" data-question="Comment acheter des billets pour Sea Dream Aquarium ?">
+        <details>
+          <summary>
+            <span class="q-icon">Q</span>
+            <span class="q-text">
+              Comment acheter des billets pour Sea Dream Aquarium ?
+              <span class="cat-badge">Reservations</span>
+            </span>
+            <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+          </summary>
+          <div class="answer">
+            <p>Les billets pour le <strong>Sea Dream Aquarium</strong>, le plus grand aquarium d'Afrique situé au niveau -1 du Morocco Mall, s'achètent aux caisses de l'aquarium ou en pré-vente sur notre site. Des tarifs réduits sont disponibles pour les enfants de moins de 12 ans, les groupes et les membres Aksal Black.</p>
+          </div>
+        </details>
+      </li>
+
+      <!-- 17 · General -->
+      <li class="faq-item" data-cat="general" data-question="Comment venir au Morocco Mall en transport en commun ?">
+        <details>
+          <summary>
+            <span class="q-icon">Q</span>
+            <span class="q-text">
+              Comment venir au Morocco Mall en transport en commun ?
+              <span class="cat-badge">General</span>
+            </span>
+            <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+          </summary>
+          <div class="answer">
+            <p>Le Morocco Mall est accessible par plusieurs lignes de bus RATC depuis le centre-ville de Casablanca (lignes 9, 15 et 36). Un service de navette est également assuré depuis la place Mohammed V les week-ends. En tramway, descendez à l'arrêt <strong>Val Fleuri</strong> puis prenez un taxi pour les derniers kilomètres. Des places de dépose minute sont disponibles à toutes les entrées.</p>
+          </div>
+        </details>
+      </li>
+
+      <!-- 18 · Services -->
+      <li class="faq-item" data-cat="services" data-question="Combien coûte le parking et y a-t-il un parking VIP ?">
+        <details>
+          <summary>
+            <span class="q-icon">Q</span>
+            <span class="q-text">
+              Combien coûte le parking et y a-t-il un parking VIP ?
+              <span class="cat-badge">Services</span>
+            </span>
+            <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+          </summary>
+          <div class="answer">
+            <p>Le parking du Morocco Mall dispose de <strong>plus de 2 500 places</strong> sur 4 niveaux. Tarif : gratuit les 30 premières minutes, puis 5 DH par heure. Une zone <strong>Parking VIP</strong> avec valet est réservée aux membres Aksal Black Gold et Platinum. La validation du ticket de parking en caisse offre 1h supplémentaire gratuite pour tout achat minimum de 200 DH.</p>
+          </div>
+        </details>
+      </li>
+
+      <!-- 19 · Aksal Black -->
+      <li class="faq-item" data-cat="aksal-black" data-question="Puis-je utiliser le service Valet Parking sans être membre Aksal Black ?">
+        <details>
+          <summary>
+            <span class="q-icon">Q</span>
+            <span class="q-text">
+              Puis-je utiliser le service Valet Parking sans être membre Aksal Black ?
+              <span class="cat-badge">Aksal Black</span>
+            </span>
+            <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+          </summary>
+          <div class="answer">
+            <p>Le service de <strong>Valet Parking</strong> est en principe réservé aux membres Aksal Black de niveau Gold et Platinum. Cependant, lors de certains événements spéciaux, un service de valet payant peut être proposé à tous les visiteurs. Renseignez-vous à l'accueil lors de votre visite.</p>
+          </div>
+        </details>
+      </li>
+
+      <!-- 20 · Presse -->
+      <li class="faq-item" data-cat="presse" data-question="Comment contacter le service presse / relations médias du Morocco Mall ?">
+        <details>
+          <summary>
+            <span class="q-icon">Q</span>
+            <span class="q-text">
+              Comment contacter le service presse / relations médias du Morocco Mall ?
+              <span class="cat-badge">Presse</span>
+            </span>
+            <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+          </summary>
+          <div class="answer">
+            <p>Pour toute demande d'accréditation, interview, tournage ou partenariat médias, contactez notre service presse à l'adresse <a href="mailto:presse@moroccomall.ma">presse@moroccomall.ma</a>. Joignez un brief de votre projet et les dates souhaitées. Notre équipe vous répondra dans un délai de <strong>48 heures ouvrées</strong>.</p>
+          </div>
+        </details>
+      </li>
+
+      <!-- 21 · Presse -->
+      <li class="faq-item" data-cat="presse" data-question="Comment rejoindre le Morocco Mall en tant que marque ou enseigne ?">
+        <details>
+          <summary>
+            <span class="q-icon">Q</span>
+            <span class="q-text">
+              Comment rejoindre le Morocco Mall en tant que marque ou enseigne ?
+              <span class="cat-badge">Presse</span>
+            </span>
+            <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+          </summary>
+          <div class="answer">
+            <p>Vous souhaitez ouvrir une boutique au Morocco Mall ? Adressez votre dossier de candidature (présentation de la marque, concept, chiffres clés) à notre équipe commerciale : <a href="mailto:leasing@moroccomall.ma">leasing@moroccomall.ma</a>. Notre équipe Leasing étudiera votre demande et vous contactera pour une présentation.</p>
+          </div>
+        </details>
+      </li>
+
+      <!-- 22 · General -->
+      <li class="faq-item" data-cat="general" data-question="Existe-t-il une application mobile pour les locataires et enseignes du mall ?">
+        <details>
+          <summary>
+            <span class="q-icon">Q</span>
+            <span class="q-text">
+              Existe-t-il une application mobile pour les locataires et enseignes du mall ?
+              <span class="cat-badge">General</span>
+            </span>
+            <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+          </summary>
+          <div class="answer">
+            <p>Oui, AKSAL met à disposition de ses locataires une <strong>application Tenant Portal</strong> permettant de suivre les indicateurs de performance, les données de trafic, les communications internes et de gérer les demandes de service. Pour obtenir vos identifiants d'accès, contactez votre gestionnaire de compte AKSAL.</p>
+          </div>
+        </details>
+      </li>
+
+      <!-- 23 · General -->
+      <li class="faq-item" data-cat="general" data-question="Le Morocco Mall dispose-t-il d'une salle de prière ?">
+        <details>
+          <summary>
+            <span class="q-icon">Q</span>
+            <span class="q-text">
+              Le Morocco Mall dispose-t-il d'une salle de prière ?
+              <span class="cat-badge">General</span>
+            </span>
+            <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+          </summary>
+          <div class="answer">
+            <p>Oui, le Morocco Mall dispose de <strong>deux salles de prière</strong> (une pour les hommes, une pour les femmes) équipées d'espaces d'ablutions, situées au niveau 1. Elles sont accessibles librement pendant les horaires d'ouverture du mall.</p>
+          </div>
+        </details>
+      </li>
+
+      <!-- 24 · Services -->
+      <li class="faq-item" data-cat="services" data-question="Y a-t-il un service de livraison ou click-and-collect au Morocco Mall ?">
+        <details>
+          <summary>
+            <span class="q-icon">Q</span>
+            <span class="q-text">
+              Y a-t-il un service de livraison ou click-and-collect au Morocco Mall ?
+              <span class="cat-badge">Services</span>
+            </span>
+            <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+          </summary>
+          <div class="answer">
+            <p>Certaines enseignes du Morocco Mall proposent leur propre service de <strong>click-and-collect</strong> ou de livraison à domicile. Renseignez-vous directement auprès des boutiques concernées ou consultez leurs sites officiels. Le Morocco Mall en tant que centre propose également un service de <strong>bagagerie</strong> pour faciliter vos achats.</p>
+          </div>
+        </details>
+      </li>
+
+      <!-- 25 · General -->
+      <li class="faq-item" data-cat="general" data-question="Comment contacter le service client du Morocco Mall ?">
+        <details>
+          <summary>
+            <span class="q-icon">Q</span>
+            <span class="q-text">
+              Comment contacter le service client du Morocco Mall ?
+              <span class="cat-badge">General</span>
+            </span>
+            <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+          </summary>
+          <div class="answer">
+            <p>Notre service client est disponible :</p>
+            <ul style="margin:8px 0 0 16px; font-size:0.9rem;">
+              <li><strong>Sur place :</strong> accueil principal, niveau 0, pendant les heures d'ouverture.</li>
+              <li><strong>Par email :</strong> <a href="mailto:contact@moroccomall.ma">contact@moroccomall.ma</a></li>
+              <li><strong>Par téléphone :</strong> +212 5 22 97 97 97 (lun–sam 9h–20h)</li>
+              <li><strong>Sur les réseaux sociaux :</strong> @MoroccoMall (Instagram, Facebook, X)</li>
+            </ul>
+          </div>
+        </details>
+      </li>
+
+    </ul>
+
+    <p class="page-footer">
+      Vous n'avez pas trouvé votre réponse ?
+      <a href="mailto:contact@moroccomall.ma">Contactez-nous</a> &mdash;
+      &copy; 2026 AKSAL S.A. – Morocco Mall.
+    </p>
+
+  </main>
+
+  <!-- ── JavaScript: search + category filter ── -->
+  <script>
+    (function () {
+      'use strict';
+
+      const searchInput  = document.getElementById('faq-search');
+      const catTabs      = document.querySelectorAll('.cat-tab');
+      const faqItems     = document.querySelectorAll('.faq-item');
+      const noResults    = document.getElementById('no-results');
+
+      let currentCat     = 'all';
+      let currentQuery   = '';
+
+      /* ── Normalize string for comparison ── */
+      function normalize(str) {
+        return str
+          .toLowerCase()
+          .normalize('NFD')
+          .replace(/[̀-ͯ]/g, '')
+          .trim();
+      }
+
+      /* ── Apply filters ── */
+      function applyFilters() {
+        const q         = normalize(currentQuery);
+        let visibleCount = 0;
+
+        faqItems.forEach(function (item) {
+          const cat      = item.getAttribute('data-cat');
+          const question = normalize(item.getAttribute('data-question') || '');
+          const answer   = normalize(item.querySelector('.answer') ? item.querySelector('.answer').textContent : '');
+
+          const catMatch  = (currentCat === 'all') || (cat === currentCat);
+          const textMatch = (q === '') || question.includes(q) || answer.includes(q);
+
+          if (catMatch && textMatch) {
+            item.classList.remove('hidden');
+            visibleCount++;
+
+            /* Highlight matching text in question */
+            const qTextEl = item.querySelector('.q-text');
+            if (qTextEl) {
+              const originalText = item.getAttribute('data-question') || '';
+              if (q !== '') {
+                qTextEl.childNodes[0].textContent = '';
+                const span = document.createElement('span');
+                span.innerHTML = highlightText(originalText, currentQuery);
+                qTextEl.insertBefore(span, qTextEl.firstChild);
+              } else {
+                /* Restore original */
+                const span = qTextEl.querySelector('span:not(.cat-badge)');
+                if (span) { span.remove(); }
+                if (!qTextEl.childNodes[0] || qTextEl.childNodes[0].nodeType !== 3) {
+                  qTextEl.insertBefore(document.createTextNode(originalText), qTextEl.firstChild);
+                } else {
+                  qTextEl.childNodes[0].textContent = originalText;
+                }
+              }
+            }
+          } else {
+            item.classList.add('hidden');
+          }
+        });
+
+        noResults.style.display = visibleCount === 0 ? 'block' : 'none';
+      }
+
+      /* ── Highlight helper ── */
+      function highlightText(text, query) {
+        if (!query) return escapeHTML(text);
+        const escaped = escapeRegExp(query);
+        const re = new RegExp('(' + escaped + ')', 'gi');
+        return escapeHTML(text).replace(re, '<mark>$1</mark>');
+      }
+
+      function escapeHTML(str) {
+        return str
+          .replace(/&/g, '&amp;')
+          .replace(/</g, '&lt;')
+          .replace(/>/g, '&gt;');
+      }
+
+      function escapeRegExp(str) {
+        return str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+      }
+
+      /* ── Initialise question text nodes ── */
+      faqItems.forEach(function (item) {
+        const q       = item.getAttribute('data-question') || '';
+        const qTextEl = item.querySelector('.q-text');
+        if (qTextEl) {
+          /* Ensure the text node is first child, before the badge */
+          const badge = qTextEl.querySelector('.cat-badge');
+          qTextEl.innerHTML = '';
+          qTextEl.appendChild(document.createTextNode(q));
+          if (badge) qTextEl.appendChild(badge);
+        }
+      });
+
+      /* ── Category tab click ── */
+      catTabs.forEach(function (tab) {
+        tab.addEventListener('click', function () {
+          catTabs.forEach(function (t) {
+            t.classList.remove('active');
+            t.setAttribute('aria-selected', 'false');
+          });
+          tab.classList.add('active');
+          tab.setAttribute('aria-selected', 'true');
+          currentCat = tab.getAttribute('data-cat');
+          applyFilters();
+        });
+      });
+
+      /* ── Search input ── */
+      searchInput.addEventListener('input', function () {
+        currentQuery = searchInput.value;
+        applyFilters();
+      });
+
+      /* ── Initial render ── */
+      applyFilters();
+
+    })();
+  </script>
+
+</body>
+</html>

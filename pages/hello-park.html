@@ -1,0 +1,1133 @@
+<!DOCTYPE html>
+<html lang="fr" dir="ltr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Hello Park — le paradis des enfants au Morocco Mall. Aire de jeux indoor pour les 3 à 12 ans avec 6 zones thématiques, fêtes d'anniversaire et animations." />
+  <title>Hello Park — Morocco Mall</title>
+  <link rel="icon" href="../assets/logo.png" type="image/png" />
+  <link rel="stylesheet" href="../css/main.css" />
+  <style>
+    /* ============================================================
+       HELLO PARK PAGE — Scoped Styles
+       ============================================================ */
+
+    /* Hero */
+    .hp-hero {
+      position: relative;
+      height: 100vh;
+      min-height: 620px;
+      display: flex;
+      align-items: flex-end;
+      overflow: hidden;
+    }
+    .hp-hero__bg {
+      position: absolute;
+      inset: 0;
+      background-image: url('https://images.unsplash.com/photo-1566041510394-cf7c1b1b14e7?w=1920&h=1080&fit=crop');
+      background-size: cover;
+      background-position: center;
+      transform: scale(1.05);
+      transition: transform 8s ease-out;
+    }
+    .hp-hero__bg.loaded { transform: scale(1); }
+    .hp-hero__overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        to top,
+        rgba(10, 32, 18, 0.92) 0%,
+        rgba(10, 32, 18, 0.55) 45%,
+        rgba(10, 32, 18, 0.2) 100%
+      );
+    }
+    .hp-hero__content {
+      position: relative;
+      z-index: 2;
+      padding-bottom: clamp(3rem, 8vh, 6rem);
+      color: var(--white);
+    }
+    .hp-hero__breadcrumb {
+      font-family: var(--font-body);
+      font-size: 0.65rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.45);
+      margin-bottom: 2rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .hp-hero__breadcrumb a {
+      color: rgba(255, 255, 255, 0.45);
+      transition: color 0.2s;
+    }
+    .hp-hero__breadcrumb a:hover { color: var(--white); }
+    .hp-hero__eyebrow {
+      font-family: var(--font-body);
+      font-size: 0.65rem;
+      font-weight: 500;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 1.25rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    .hp-hero__eyebrow::before {
+      content: '';
+      display: block;
+      width: 2rem;
+      height: 1px;
+      background: var(--gold);
+    }
+    .hp-hero__title {
+      font-family: var(--font-display);
+      font-size: clamp(3.5rem, 9vw, 7.5rem);
+      font-weight: 300;
+      line-height: 1;
+      letter-spacing: -0.01em;
+      margin-bottom: 1.25rem;
+    }
+    .hp-hero__title em {
+      font-style: italic;
+      color: #7ED89A;
+    }
+    .hp-hero__subtitle {
+      font-size: clamp(0.9rem, 1.5vw, 1.1rem);
+      line-height: 1.7;
+      color: rgba(255, 255, 255, 0.7);
+      max-width: 520px;
+      margin-bottom: 2.5rem;
+    }
+    .hp-hero__badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      background: linear-gradient(135deg, var(--gold) 0%, var(--gold-dark) 100%);
+      color: var(--white);
+      font-family: var(--font-body);
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 0.6rem 1.4rem;
+      border-radius: 2rem;
+    }
+    .hp-hero__badge svg { width: 1rem; height: 1rem; flex-shrink: 0; }
+    .hp-hero__scroll {
+      margin-top: 2.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      font-family: var(--font-body);
+      font-size: 0.65rem;
+      font-weight: 500;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.5);
+    }
+    .hp-hero__scroll-line {
+      width: 1px;
+      height: 3rem;
+      background: rgba(255, 255, 255, 0.3);
+      position: relative;
+      overflow: hidden;
+    }
+    .hp-hero__scroll-line::after {
+      content: '';
+      position: absolute;
+      top: -100%;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: #7ED89A;
+      animation: scroll-line 2s ease-in-out infinite;
+    }
+    @keyframes scroll-line {
+      0% { top: -100%; }
+      100% { top: 100%; }
+    }
+
+    /* Key Info Strip */
+    .info-strip {
+      background: #0D2314;
+      padding: 2rem 0;
+      border-bottom: 1px solid rgba(126, 216, 154, 0.15);
+    }
+    .info-strip__grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 0;
+    }
+    @media (min-width: 768px) {
+      .info-strip__grid { grid-template-columns: repeat(4, 1fr); }
+    }
+    .info-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+      padding: 1.25rem 1.5rem;
+      border-right: 1px solid rgba(255, 255, 255, 0.07);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+    }
+    .info-item:nth-child(2n) { border-right: none; }
+    @media (min-width: 768px) {
+      .info-item { border-bottom: none; }
+      .info-item:nth-child(2n) { border-right: 1px solid rgba(255, 255, 255, 0.07); }
+      .info-item:last-child { border-right: none; }
+    }
+    .info-item__icon {
+      width: 2.5rem;
+      height: 2.5rem;
+      background: rgba(126, 216, 154, 0.12);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      color: #7ED89A;
+    }
+    .info-item__icon svg { width: 1.1rem; height: 1.1rem; }
+    .info-item__label {
+      font-family: var(--font-body);
+      font-size: 0.6rem;
+      font-weight: 500;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.4);
+      margin-bottom: 0.35rem;
+    }
+    .info-item__value {
+      font-family: var(--font-display);
+      font-size: 1.1rem;
+      font-weight: 400;
+      color: var(--white);
+      line-height: 1.3;
+    }
+
+    /* Section common */
+    .section {
+      padding: clamp(4rem, 8vw, 7rem) 0;
+    }
+    .section--cream {
+      background: var(--cream);
+    }
+    .section--dark {
+      background: #0D2314;
+      color: var(--white);
+    }
+    .section-label {
+      font-family: var(--font-body);
+      font-size: 0.65rem;
+      font-weight: 500;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    .section-label::before {
+      content: '';
+      display: block;
+      width: 2rem;
+      height: 1px;
+      background: var(--gold);
+    }
+    .section-title {
+      font-family: var(--font-display);
+      font-size: clamp(2.2rem, 5vw, 4rem);
+      font-weight: 300;
+      line-height: 1.1;
+      letter-spacing: -0.01em;
+      margin-bottom: 1.5rem;
+    }
+    .section-title em { font-style: italic; color: #7ED89A; }
+    .section-title--white { color: var(--white); }
+    .section-desc {
+      font-size: 0.95rem;
+      line-height: 1.8;
+      color: var(--gray-600);
+      max-width: 620px;
+      margin-bottom: 3.5rem;
+    }
+    .section-desc--light { color: rgba(255, 255, 255, 0.65); }
+
+    /* Zones Grid */
+    .zones-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+    }
+    @media (min-width: 600px) {
+      .zones-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (min-width: 1024px) {
+      .zones-grid { grid-template-columns: repeat(3, 1fr); }
+    }
+    .zone-card {
+      border-radius: 4px;
+      overflow: hidden;
+      position: relative;
+      min-height: 260px;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 2rem;
+      transition: transform 0.35s var(--ease-out), box-shadow 0.35s var(--ease-out);
+    }
+    .zone-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 20px 50px rgba(0,0,0,0.22);
+    }
+    /* Zone cards — gradient overlay on top of a real Unsplash image */
+    .zone-card--jungle {
+      background:
+        linear-gradient(145deg, rgba(26,77,46,0.72) 0%, rgba(15,46,28,0.82) 100%),
+        url('https://images.unsplash.com/photo-1525878016228-b45b34e2b2ca?w=500&h=500&fit=crop&q=75') center/cover;
+    }
+    .zone-card--creative {
+      background:
+        linear-gradient(145deg, rgba(107,63,160,0.72) 0%, rgba(61,31,110,0.82) 100%),
+        url('https://images.unsplash.com/photo-1513364776144-60967b0f800f?w=500&h=500&fit=crop&q=75') center/cover;
+    }
+    .zone-card--kart {
+      background:
+        linear-gradient(145deg, rgba(179,74,26,0.72) 0%, rgba(122,46,14,0.82) 100%),
+        url('https://images.unsplash.com/photo-1591115765373-5207764f72e7?w=500&h=500&fit=crop&q=75') center/cover;
+    }
+    .zone-card--balls {
+      background:
+        linear-gradient(145deg, rgba(26,107,179,0.70) 0%, rgba(14,63,122,0.80) 100%),
+        url('https://images.unsplash.com/photo-1515879218367-8466d910aaa4?w=500&h=500&fit=crop&q=75') center/cover;
+    }
+    .zone-card--labyrinth {
+      background:
+        linear-gradient(145deg, rgba(60,0,120,0.70) 0%, rgba(20,0,60,0.85) 100%),
+        url('https://images.unsplash.com/photo-1531498352491-042fbae4cf57?w=500&h=500&fit=crop&q=75') center/cover;
+    }
+    .zone-card--theatre {
+      background:
+        linear-gradient(145deg, rgba(179,26,74,0.70) 0%, rgba(122,14,46,0.82) 100%),
+        url('https://images.unsplash.com/photo-1542751371-adc38448a05e?w=500&h=500&fit=crop&q=75') center/cover;
+    }
+    .zone-card__icon {
+      font-size: 2.8rem;
+      margin-bottom: 1.25rem;
+      display: block;
+      line-height: 1;
+    }
+    .zone-card__age {
+      display: inline-block;
+      font-family: var(--font-body);
+      font-size: 0.6rem;
+      font-weight: 600;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      background: rgba(255,255,255,0.15);
+      color: rgba(255,255,255,0.85);
+      padding: 0.3rem 0.8rem;
+      border-radius: 2rem;
+      margin-bottom: 0.75rem;
+      border: 1px solid rgba(255,255,255,0.2);
+    }
+    .zone-card__name {
+      font-family: var(--font-display);
+      font-size: 1.75rem;
+      font-weight: 400;
+      color: var(--white);
+      margin-bottom: 0.6rem;
+      line-height: 1.1;
+    }
+    .zone-card__desc {
+      font-size: 0.82rem;
+      line-height: 1.6;
+      color: rgba(255,255,255,0.65);
+    }
+    .zone-card__shine {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(255,255,255,0.06) 0%, transparent 60%);
+      pointer-events: none;
+    }
+
+    /* Birthday packages */
+    .packages-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 2rem;
+      margin-top: 3.5rem;
+    }
+    @media (min-width: 768px) {
+      .packages-grid { grid-template-columns: repeat(3, 1fr); }
+    }
+    .pkg-card {
+      background: var(--white);
+      border: 1px solid var(--gray-200);
+      padding: 2.5rem 2rem;
+      position: relative;
+      transition: transform 0.3s var(--ease-out), box-shadow 0.3s var(--ease-out), border-color 0.3s;
+    }
+    .pkg-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 16px 40px rgba(0,0,0,0.1);
+      border-color: var(--gold);
+    }
+    .pkg-card--featured {
+      border-color: var(--gold);
+      box-shadow: 0 12px 40px rgba(201,169,110,0.18);
+    }
+    .pkg-card__badge {
+      position: absolute;
+      top: -1px;
+      left: 2rem;
+      background: var(--gold);
+      color: var(--white);
+      font-family: var(--font-body);
+      font-size: 0.6rem;
+      font-weight: 600;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      padding: 0.35rem 0.9rem;
+    }
+    .pkg-card__name {
+      font-family: var(--font-display);
+      font-size: 1.6rem;
+      font-weight: 400;
+      margin-bottom: 0.5rem;
+      letter-spacing: -0.01em;
+    }
+    .pkg-card__price {
+      font-family: var(--font-display);
+      font-size: 2.6rem;
+      font-weight: 300;
+      color: #1a4d2e;
+      line-height: 1;
+      margin-bottom: 0.3rem;
+    }
+    .pkg-card__price-note {
+      font-size: 0.7rem;
+      color: var(--gray-400);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 2rem;
+    }
+    .pkg-card__divider {
+      width: 2rem;
+      height: 1px;
+      background: var(--gold);
+      margin: 1.5rem 0;
+    }
+    .pkg-card__list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.85rem;
+      margin-bottom: 2rem;
+    }
+    .pkg-card__list-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.75rem;
+      font-size: 0.85rem;
+      line-height: 1.5;
+      color: var(--gray-600);
+    }
+    .pkg-card__check {
+      width: 1.1rem;
+      height: 1.1rem;
+      background: #e8f5ed;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      margin-top: 0.1rem;
+      color: #1a4d2e;
+    }
+    .pkg-card__check svg { width: 0.6rem; height: 0.6rem; }
+    .pkg-cta {
+      display: inline-block;
+      width: 100%;
+      text-align: center;
+      padding: 0.85rem 1.5rem;
+      font-family: var(--font-body);
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      border: 1.5px solid var(--gray-800);
+      color: var(--gray-800);
+      transition: background 0.25s, color 0.25s, border-color 0.25s;
+    }
+    .pkg-cta:hover,
+    .pkg-card--featured .pkg-cta {
+      background: #1a4d2e;
+      border-color: #1a4d2e;
+      color: var(--white);
+    }
+
+    /* Tickets */
+    .tickets-wrap {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+      margin-top: 3.5rem;
+    }
+    @media (min-width: 768px) {
+      .tickets-wrap { grid-template-columns: repeat(3, 1fr); }
+    }
+    .ticket-card {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      padding: 2.5rem 2rem;
+      text-align: center;
+      position: relative;
+      transition: background 0.3s, border-color 0.3s, transform 0.3s var(--ease-out);
+    }
+    .ticket-card:hover {
+      background: rgba(126,216,154,0.08);
+      border-color: rgba(126,216,154,0.35);
+      transform: translateY(-4px);
+    }
+    .ticket-card--featured {
+      background: rgba(126,216,154,0.1);
+      border-color: rgba(126,216,154,0.4);
+    }
+    .ticket-card__icon {
+      font-size: 2.2rem;
+      margin-bottom: 1.25rem;
+      display: block;
+    }
+    .ticket-card__name {
+      font-family: var(--font-body);
+      font-size: 0.65rem;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.55);
+      margin-bottom: 1rem;
+    }
+    .ticket-card__price {
+      font-family: var(--font-display);
+      font-size: 3.5rem;
+      font-weight: 300;
+      color: #7ED89A;
+      line-height: 1;
+      margin-bottom: 0.3rem;
+    }
+    .ticket-card__currency {
+      font-size: 1.4rem;
+      vertical-align: super;
+      font-weight: 400;
+    }
+    .ticket-card__unit {
+      font-size: 0.7rem;
+      color: rgba(255,255,255,0.4);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 1.5rem;
+    }
+    .ticket-card__desc {
+      font-size: 0.82rem;
+      line-height: 1.6;
+      color: rgba(255,255,255,0.5);
+    }
+
+    /* Safety section */
+    .safety-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 2rem;
+      margin-top: 3rem;
+    }
+    @media (min-width: 768px) {
+      .safety-grid { grid-template-columns: repeat(4, 1fr); }
+    }
+    .safety-item {
+      text-align: center;
+    }
+    .safety-item__icon {
+      width: 3.5rem;
+      height: 3.5rem;
+      background: #e8f5ed;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 1.25rem;
+      color: #1a4d2e;
+    }
+    .safety-item__icon svg { width: 1.5rem; height: 1.5rem; }
+    .safety-item__title {
+      font-family: var(--font-display);
+      font-size: 1.15rem;
+      font-weight: 400;
+      margin-bottom: 0.5rem;
+    }
+    .safety-item__desc {
+      font-size: 0.82rem;
+      line-height: 1.65;
+      color: var(--gray-600);
+    }
+
+    /* Related pages */
+    .related-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+      margin-top: 3rem;
+    }
+    @media (min-width: 640px) {
+      .related-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    .related-card {
+      position: relative;
+      min-height: 320px;
+      overflow: hidden;
+      display: flex;
+      align-items: flex-end;
+      border-radius: 4px;
+    }
+    .related-card__bg {
+      position: absolute;
+      inset: 0;
+      background-size: cover;
+      background-position: center;
+      transition: transform 0.7s var(--ease-out);
+    }
+    .related-card:hover .related-card__bg { transform: scale(1.05); }
+    .related-card__overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, transparent 60%);
+    }
+    .related-card__body {
+      position: relative;
+      z-index: 2;
+      padding: 2rem;
+      color: var(--white);
+    }
+    .related-card__eyebrow {
+      font-family: var(--font-body);
+      font-size: 0.6rem;
+      font-weight: 500;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 0.6rem;
+    }
+    .related-card__title {
+      font-family: var(--font-display);
+      font-size: 1.9rem;
+      font-weight: 300;
+      margin-bottom: 0.75rem;
+    }
+    .related-card__link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-family: var(--font-body);
+      font-size: 0.65rem;
+      font-weight: 500;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.6);
+      transition: color 0.25s, gap 0.25s;
+    }
+    .related-card__link:hover { color: var(--white); gap: 0.9rem; }
+    .related-card__link-line {
+      width: 1.5rem;
+      height: 1px;
+      background: currentColor;
+      transition: width 0.25s;
+      flex-shrink: 0;
+    }
+    .related-card__link:hover .related-card__link-line { width: 2rem; }
+
+    /* Reveal */
+    .reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.7s var(--ease-out), transform 0.7s var(--ease-out);
+    }
+    .reveal.in-view { opacity: 1; transform: translateY(0); }
+    .reveal-delay-1 { transition-delay: 0.1s; }
+    .reveal-delay-2 { transition-delay: 0.2s; }
+    .reveal-delay-3 { transition-delay: 0.3s; }
+    .reveal-delay-4 { transition-delay: 0.4s; }
+    .reveal-delay-5 { transition-delay: 0.5s; }
+    .reveal-delay-6 { transition-delay: 0.6s; }
+  </style>
+</head>
+<body>
+
+<main id="main-content">
+
+  <!-- ============================================================
+       HERO
+       ============================================================ -->
+  <section class="hp-hero" aria-label="Hello Park hero">
+    <div class="hp-hero__bg" id="heroBg"></div>
+    <div class="hp-hero__overlay"></div>
+    <div class="container hp-hero__content">
+      <nav class="hp-hero__breadcrumb" aria-label="Fil d'Ariane">
+        <a href="../index.html">Morocco Mall</a>
+        <span aria-hidden="true">›</span>
+        <a href="entertainment.html">Entertainment</a>
+        <span aria-hidden="true">›</span>
+        <span>Hello Park</span>
+      </nav>
+      <p class="hp-hero__eyebrow">Aire de jeux indoor</p>
+      <h1 class="hp-hero__title">Hello<br><em>Park</em></h1>
+      <p class="hp-hero__subtitle">
+        Le paradis des enfants au cœur du Morocco Mall. Un monde de jeux, d'aventures et de découvertes pensé pour les petits explorateurs.
+      </p>
+      <div class="hp-hero__badge" aria-label="Tranche d'âge : 3 à 12 ans">
+        <svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z"/></svg>
+        3 à 12 ans
+      </div>
+      <div class="hp-hero__scroll" aria-hidden="true">
+        <div class="hp-hero__scroll-line"></div>
+        Explorer
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       KEY INFO STRIP
+       ============================================================ -->
+  <div class="info-strip" role="complementary" aria-label="Informations pratiques">
+    <div class="container">
+      <div class="info-strip__grid">
+        <div class="info-item">
+          <div class="info-item__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          </div>
+          <div>
+            <div class="info-item__label">Horaires</div>
+            <div class="info-item__value">10:00 – 21:00</div>
+          </div>
+        </div>
+        <div class="info-item">
+          <div class="info-item__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          </div>
+          <div>
+            <div class="info-item__label">Localisation</div>
+            <div class="info-item__value">Niveau 2 · Tous les malls</div>
+          </div>
+        </div>
+        <div class="info-item">
+          <div class="info-item__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>
+          </div>
+          <div>
+            <div class="info-item__label">Capacité</div>
+            <div class="info-item__value">200 enfants</div>
+          </div>
+        </div>
+        <div class="info-item">
+          <div class="info-item__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+          </div>
+          <div>
+            <div class="info-item__label">Certification</div>
+            <div class="info-item__value">Équipements certifiés CE</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       ZONES DE JEU
+       ============================================================ -->
+  <!-- Immersive experience banner — House of Hype style -->
+  <section style="padding:0;background:var(--black);overflow:hidden;">
+    <div style="display:grid;grid-template-columns:1fr 1fr;min-height:420px;" class="hp-hype-grid">
+      <div style="position:relative;overflow:hidden;min-height:280px;">
+        <img src="https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?w=700&h=500&fit=crop&q=80"
+          alt="Hello Park immersive experience"
+          style="width:100%;height:100%;object-fit:cover;transition:transform .6s ease;"
+          onmouseover="this.style.transform='scale(1.04)'" onmouseout="this.style.transform='scale(1)'" />
+        <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,0.6) 0%,transparent 60%);"></div>
+        <div style="position:absolute;bottom:1.5rem;left:1.5rem;color:white;">
+          <p style="font-size:0.58rem;letter-spacing:0.2em;text-transform:uppercase;color:rgba(255,255,255,0.5);margin-bottom:0.3rem;">Attractions</p>
+          <p style="font-family:var(--font-display);font-size:1.4rem;font-weight:300;">Jeux & Sensations</p>
+        </div>
+      </div>
+      <div style="position:relative;overflow:hidden;min-height:280px;">
+        <img src="https://images.unsplash.com/photo-1593508512255-86ab42a8e620?w=700&h=500&fit=crop&q=80"
+          alt="Hello Park VR and interactive experiences"
+          style="width:100%;height:100%;object-fit:cover;transition:transform .6s ease;"
+          onmouseover="this.style.transform='scale(1.04)'" onmouseout="this.style.transform='scale(1)'" />
+        <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,0.6) 0%,transparent 60%);"></div>
+        <div style="position:absolute;bottom:1.5rem;left:1.5rem;color:white;">
+          <p style="font-size:0.58rem;letter-spacing:0.2em;text-transform:uppercase;color:rgba(255,255,255,0.5);margin-bottom:0.3rem;">Innovation</p>
+          <p style="font-family:var(--font-display);font-size:1.4rem;font-weight:300;">Expériences Immersives</p>
+        </div>
+      </div>
+    </div>
+    <div style="background:linear-gradient(135deg,#0a1a05,#050f02);padding:clamp(2rem,4vw,3rem) var(--pad-x);text-align:center;">
+      <p style="font-size:0.62rem;letter-spacing:0.22em;text-transform:uppercase;color:rgba(100,200,80,0.7);margin-bottom:0.75rem;">Hello Park · Morocco Mall</p>
+      <p style="font-family:var(--font-display);font-size:clamp(1.4rem,3vw,2.2rem);font-weight:300;color:rgba(255,255,255,0.9);max-width:700px;margin:0 auto;line-height:1.2;">
+        6 zones thématiques. Des centaines de sourires.<br><em style="font-style:italic;color:rgba(100,220,80,0.8);">L'aventure commence ici.</em>
+      </p>
+    </div>
+    <style>
+      @media (max-width: 640px) { .hp-hype-grid { grid-template-columns: 1fr !important; } }
+    </style>
+  </section>
+
+  <section class="section" aria-labelledby="zones-title">
+    <div class="container">
+      <p class="section-label reveal">6 espaces thématiques</p>
+      <h2 class="section-title reveal reveal-delay-1" id="zones-title">
+        Nos zones<br><em>d'aventure</em>
+      </h2>
+      <p class="section-desc reveal reveal-delay-2">
+        Chaque espace Hello Park est conçu pour stimuler la créativité, le développement moteur et la socialisation des enfants dans un environnement sécurisé et encadré.
+      </p>
+
+      <div class="zones-grid">
+
+        <!-- La Jungle -->
+        <div class="zone-card zone-card--jungle reveal reveal-delay-1" role="article">
+          <div class="zone-card__shine" aria-hidden="true"></div>
+          <span class="zone-card__icon" aria-hidden="true">🌿</span>
+          <span class="zone-card__age">4 – 12 ans</span>
+          <h3 class="zone-card__name">La Jungle</h3>
+          <p class="zone-card__desc">Structures d'escalade multi-niveaux, filets suspendus et tyroliennes dans un décor forestier immersif. Développe la motricité et le sens de l'équilibre.</p>
+        </div>
+
+        <!-- Zone Créative -->
+        <div class="zone-card zone-card--creative reveal reveal-delay-2" role="article">
+          <div class="zone-card__shine" aria-hidden="true"></div>
+          <span class="zone-card__icon" aria-hidden="true">🎨</span>
+          <span class="zone-card__age">3 – 10 ans</span>
+          <h3 class="zone-card__name">Zone Créative</h3>
+          <p class="zone-card__desc">Ateliers arts plastiques, peinture, modelage et création libre. Animateurs diplômés présents en permanence pour guider les petits artistes.</p>
+        </div>
+
+        <!-- Circuit Kart -->
+        <div class="zone-card zone-card--kart reveal reveal-delay-3" role="article">
+          <div class="zone-card__shine" aria-hidden="true"></div>
+          <span class="zone-card__icon" aria-hidden="true">🏎️</span>
+          <span class="zone-card__age">5 – 12 ans</span>
+          <h3 class="zone-card__name">Circuit Kart</h3>
+          <p class="zone-card__desc">Piste de kart électrique avec véhicules adaptés à l'âge de l'enfant. Apprentissage de la conduite en toute sécurité avec équipements homologués.</p>
+        </div>
+
+        <!-- Piscine à Balles -->
+        <div class="zone-card zone-card--balls reveal reveal-delay-4" role="article">
+          <div class="zone-card__shine" aria-hidden="true"></div>
+          <span class="zone-card__icon" aria-hidden="true">🎱</span>
+          <span class="zone-card__age">3 – 8 ans</span>
+          <h3 class="zone-card__name">Piscine à Balles</h3>
+          <p class="zone-card__desc">Immense piscine de 50 000 balles multicolores avec toboggans et canons à balles. Un classique revisité dans un espace hygiénisé quotidiennement.</p>
+        </div>
+
+        <!-- Labyrinthe -->
+        <div class="zone-card zone-card--labyrinth reveal reveal-delay-5" role="article">
+          <div class="zone-card__shine" aria-hidden="true"></div>
+          <span class="zone-card__icon" aria-hidden="true">🔀</span>
+          <span class="zone-card__age">4 – 12 ans</span>
+          <h3 class="zone-card__name">Labyrinthe</h3>
+          <p class="zone-card__desc">Labyrinthe géant interactif avec miroirs, illusions d'optique et défis sensoriels. Parcours chronométré pour les plus courageux avec classement en temps réel.</p>
+        </div>
+
+        <!-- Théâtre -->
+        <div class="zone-card zone-card--theatre reveal reveal-delay-6" role="article">
+          <div class="zone-card__shine" aria-hidden="true"></div>
+          <span class="zone-card__icon" aria-hidden="true">🎭</span>
+          <span class="zone-card__age">3 – 10 ans</span>
+          <h3 class="zone-card__name">Théâtre</h3>
+          <p class="zone-card__desc">Scène dédiée aux spectacles de marionnettes, pièces de théâtre et représentations musicales. Programmation hebdomadaire avec artistes professionnels.</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       BIRTHDAY PACKAGES
+       ============================================================ -->
+  <section class="section section--cream" aria-labelledby="birthday-title">
+    <div class="container">
+      <p class="section-label reveal">Célébrations</p>
+      <h2 class="section-title reveal reveal-delay-1" id="birthday-title">
+        Fêtes<br><em>d'anniversaire</em>
+      </h2>
+      <p class="section-desc reveal reveal-delay-2">
+        Offrez à votre enfant un anniversaire inoubliable avec nos formules tout-compris. De la salle décorée au gâteau personnalisé, nous prenons en charge chaque détail.
+      </p>
+
+      <div class="packages-grid">
+
+        <!-- Basique -->
+        <div class="pkg-card reveal reveal-delay-1">
+          <h3 class="pkg-card__name">Basique</h3>
+          <div class="pkg-card__price"><span class="pkg-card__currency">MAD </span>1 500</div>
+          <div class="pkg-card__price-note">jusqu'à 10 enfants</div>
+          <div class="pkg-card__divider" aria-hidden="true"></div>
+          <ul class="pkg-card__list" aria-label="Inclus dans le forfait Basique">
+            <li class="pkg-card__list-item">
+              <span class="pkg-card__check" aria-hidden="true"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="2 6 5 9 10 3"/></svg></span>
+              2h d'accès libre aux zones
+            </li>
+            <li class="pkg-card__list-item">
+              <span class="pkg-card__check" aria-hidden="true"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="2 6 5 9 10 3"/></svg></span>
+              Salle privée 1h avec décoration standard
+            </li>
+            <li class="pkg-card__list-item">
+              <span class="pkg-card__check" aria-hidden="true"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="2 6 5 9 10 3"/></svg></span>
+              Jus de fruits et mignardises
+            </li>
+            <li class="pkg-card__list-item">
+              <span class="pkg-card__check" aria-hidden="true"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="2 6 5 9 10 3"/></svg></span>
+              Invitation numérique personnalisée
+            </li>
+          </ul>
+          <a href="#contact" class="pkg-cta">Réserver</a>
+        </div>
+
+        <!-- Anniversaire -->
+        <div class="pkg-card pkg-card--featured reveal reveal-delay-2">
+          <div class="pkg-card__badge">Populaire</div>
+          <h3 class="pkg-card__name">Anniversaire</h3>
+          <div class="pkg-card__price"><span class="pkg-card__currency">MAD </span>2 500</div>
+          <div class="pkg-card__price-note">jusqu'à 15 enfants</div>
+          <div class="pkg-card__divider" aria-hidden="true"></div>
+          <ul class="pkg-card__list" aria-label="Inclus dans le forfait Anniversaire">
+            <li class="pkg-card__list-item">
+              <span class="pkg-card__check" aria-hidden="true"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="2 6 5 9 10 3"/></svg></span>
+              3h d'accès prioritaire toutes zones
+            </li>
+            <li class="pkg-card__list-item">
+              <span class="pkg-card__check" aria-hidden="true"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="2 6 5 9 10 3"/></svg></span>
+              Salle privée 2h avec décoration thème au choix
+            </li>
+            <li class="pkg-card__list-item">
+              <span class="pkg-card__check" aria-hidden="true"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="2 6 5 9 10 3"/></svg></span>
+              Gâteau d'anniversaire personnalisé
+            </li>
+            <li class="pkg-card__list-item">
+              <span class="pkg-card__check" aria-hidden="true"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="2 6 5 9 10 3"/></svg></span>
+              Animation clown ou magicien (45 min)
+            </li>
+            <li class="pkg-card__list-item">
+              <span class="pkg-card__check" aria-hidden="true"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="2 6 5 9 10 3"/></svg></span>
+              Buffet enfants complet
+            </li>
+            <li class="pkg-card__list-item">
+              <span class="pkg-card__check" aria-hidden="true"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="2 6 5 9 10 3"/></svg></span>
+              Sachet surprise pour chaque enfant
+            </li>
+          </ul>
+          <a href="#contact" class="pkg-cta">Réserver</a>
+        </div>
+
+        <!-- VIP -->
+        <div class="pkg-card reveal reveal-delay-3">
+          <h3 class="pkg-card__name">VIP</h3>
+          <div class="pkg-card__price"><span class="pkg-card__currency">MAD </span>4 000</div>
+          <div class="pkg-card__price-note">jusqu'à 25 enfants</div>
+          <div class="pkg-card__divider" aria-hidden="true"></div>
+          <ul class="pkg-card__list" aria-label="Inclus dans le forfait VIP">
+            <li class="pkg-card__list-item">
+              <span class="pkg-card__check" aria-hidden="true"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="2 6 5 9 10 3"/></svg></span>
+              Accès exclusif à Hello Park pendant 4h
+            </li>
+            <li class="pkg-card__list-item">
+              <span class="pkg-card__check" aria-hidden="true"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="2 6 5 9 10 3"/></svg></span>
+              Grande salle VIP entièrement privatisée
+            </li>
+            <li class="pkg-card__list-item">
+              <span class="pkg-card__check" aria-hidden="true"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="2 6 5 9 10 3"/></svg></span>
+              Décoration premium sur mesure
+            </li>
+            <li class="pkg-card__list-item">
+              <span class="pkg-card__check" aria-hidden="true"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="2 6 5 9 10 3"/></svg></span>
+              Gâteau pâtissier multi-étages personnalisé
+            </li>
+            <li class="pkg-card__list-item">
+              <span class="pkg-card__check" aria-hidden="true"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="2 6 5 9 10 3"/></svg></span>
+              Animation show complet 1h30
+            </li>
+            <li class="pkg-card__list-item">
+              <span class="pkg-card__check" aria-hidden="true"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="2 6 5 9 10 3"/></svg></span>
+              Buffet gastronomique enfants &amp; parents
+            </li>
+            <li class="pkg-card__list-item">
+              <span class="pkg-card__check" aria-hidden="true"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="2 6 5 9 10 3"/></svg></span>
+              Séance photo professionnelle souvenir
+            </li>
+          </ul>
+          <a href="#contact" class="pkg-cta">Réserver</a>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       TICKETS / TARIFS
+       ============================================================ -->
+  <section class="section section--dark" aria-labelledby="tickets-title">
+    <div class="container">
+      <p class="section-label reveal">Tarification</p>
+      <h2 class="section-title section-title--white reveal reveal-delay-1" id="tickets-title">
+        Entrées<br><em>&amp; Pass</em>
+      </h2>
+      <p class="section-desc section-desc--light reveal reveal-delay-2">
+        Choisissez la formule adaptée à votre visite. Tous les tarifs incluent l'accès à l'ensemble des zones et équipements Hello Park.
+      </p>
+
+      <div class="tickets-wrap">
+        <div class="ticket-card reveal reveal-delay-1">
+          <span class="ticket-card__icon" aria-hidden="true">🎫</span>
+          <div class="ticket-card__name">Entrée simple</div>
+          <div class="ticket-card__price"><span class="ticket-card__currency">MAD </span>80</div>
+          <div class="ticket-card__unit">par enfant</div>
+          <p class="ticket-card__desc">Accès libre à toutes les zones sans limite de durée lors de votre visite. Valable pour un enfant accompagné d'un adulte.</p>
+        </div>
+        <div class="ticket-card ticket-card--featured reveal reveal-delay-2">
+          <span class="ticket-card__icon" aria-hidden="true">⏱️</span>
+          <div class="ticket-card__name">Pass 2 heures</div>
+          <div class="ticket-card__price"><span class="ticket-card__currency">MAD </span>120</div>
+          <div class="ticket-card__unit">par enfant</div>
+          <p class="ticket-card__desc">2 heures d'accès prioritaire incluant l'atelier créatif et une animation spéciale. Idéal pour une après-midi en famille.</p>
+        </div>
+        <div class="ticket-card reveal reveal-delay-3">
+          <span class="ticket-card__icon" aria-hidden="true">📅</span>
+          <div class="ticket-card__name">Pass mensuel</div>
+          <div class="ticket-card__price"><span class="ticket-card__currency">MAD </span>350</div>
+          <div class="ticket-card__unit">par enfant / mois</div>
+          <p class="ticket-card__desc">Visites illimitées pendant 30 jours. La formule idéale pour les familles qui souhaitent profiter de Hello Park régulièrement.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       SAFETY
+       ============================================================ -->
+  <section class="section" aria-labelledby="safety-title">
+    <div class="container">
+      <p class="section-label reveal">Notre engagement</p>
+      <h2 class="section-title reveal reveal-delay-1" id="safety-title">
+        Sécurité<br><em>&amp; bien-être</em>
+      </h2>
+      <p class="section-desc reveal reveal-delay-2">
+        La sécurité de vos enfants est notre priorité absolue. Hello Park respecte les normes les plus strictes pour garantir un environnement sain et sans risque.
+      </p>
+
+      <div class="safety-grid">
+        <div class="safety-item reveal reveal-delay-1">
+          <div class="safety-item__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+          </div>
+          <h3 class="safety-item__title">Équipements CE</h3>
+          <p class="safety-item__desc">Tous les jeux et structures portent la certification européenne CE et sont inspectés mensuellement par des experts indépendants.</p>
+        </div>
+        <div class="safety-item reveal reveal-delay-2">
+          <div class="safety-item__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>
+          </div>
+          <h3 class="safety-item__title">Encadrement qualifié</h3>
+          <p class="safety-item__desc">Ratio animateur/enfant de 1 pour 10. Tout le personnel est titulaire du BAFA et d'une formation premiers secours pédiatriques.</p>
+        </div>
+        <div class="safety-item reveal reveal-delay-3">
+          <div class="safety-item__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          </div>
+          <h3 class="safety-item__title">Hygiène renforcée</h3>
+          <p class="safety-item__desc">Désinfection complète des équipements trois fois par jour. Protocoles d'hygiène stricts et station de lavage des mains à chaque entrée de zone.</p>
+        </div>
+        <div class="safety-item reveal reveal-delay-4">
+          <div class="safety-item__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+          </div>
+          <h3 class="safety-item__title">Vidéosurveillance</h3>
+          <p class="safety-item__desc">L'ensemble du parc est couvert par un système de vidéosurveillance HD. Bracelet d'identification pour chaque enfant dès l'entrée.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       RELATED PAGES
+       ============================================================ -->
+  <section class="section section--cream" aria-labelledby="related-title">
+    <div class="container">
+      <p class="section-label reveal">À découvrir aussi</p>
+      <h2 class="section-title reveal reveal-delay-1" id="related-title">Autres <em>expériences</em></h2>
+
+      <div class="related-grid">
+        <a href="adventure-land.html" class="related-card reveal reveal-delay-1" aria-label="Découvrir Adventure Land">
+          <div class="related-card__bg" style="background-image: url('https://images.unsplash.com/photo-1556740738-b6a63e27c4df?w=800&h=600&fit=crop');" aria-hidden="true"></div>
+          <div class="related-card__overlay" aria-hidden="true"></div>
+          <div class="related-card__body">
+            <p class="related-card__eyebrow">Parc d'attractions indoor</p>
+            <h3 class="related-card__title">Adventure Land</h3>
+            <span class="related-card__link">
+              <span class="related-card__link-line" aria-hidden="true"></span>
+              Découvrir
+            </span>
+          </div>
+        </a>
+        <a href="cinema.html" class="related-card reveal reveal-delay-2" aria-label="Découvrir le cinéma">
+          <div class="related-card__bg" style="background-image: url('https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?w=800&h=600&fit=crop');" aria-hidden="true"></div>
+          <div class="related-card__overlay" aria-hidden="true"></div>
+          <div class="related-card__body">
+            <p class="related-card__eyebrow">7 salles · Dolby Atmos</p>
+            <h3 class="related-card__title">Cinéma</h3>
+            <span class="related-card__link">
+              <span class="related-card__link-line" aria-hidden="true"></span>
+              Découvrir
+            </span>
+          </div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<script src="../js/seo.js"></script>
+<script src="../js/translations.js"></script>
+<script src="../js/app.js"></script>
+<script>
+  // Hero image parallax load
+  (function () {
+    var bg = document.getElementById('heroBg');
+    if (bg) {
+      var img = new Image();
+      img.onload = function () { bg.classList.add('loaded'); };
+      img.src = bg.style.backgroundImage
+        ? bg.style.backgroundImage.replace(/url\(['"]?(.*?)['"]?\)/, '$1')
+        : 'https://images.unsplash.com/photo-1566041510394-cf7c1b1b14e7?w=1920&h=1080&fit=crop';
+      bg.classList.add('loaded');
+    }
+  })();
+
+  // Intersection Observer for reveal animations
+  (function () {
+    var elements = document.querySelectorAll('.reveal');
+    if (!elements.length) return;
+    var observer = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in-view');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12 });
+    elements.forEach(function (el) { observer.observe(el); });
+  })();
+</script>
+</body>
+</html>
