@@ -570,20 +570,23 @@ function showRSVPModal(eventName, eventDate) {
   document.body.style.overflow = 'hidden';
   applyTranslations();
 
-  // 4. Enhancement: try to upgrade to a real scannable QR in the background
+  // 4. Try to upgrade to a real scannable QR using qrcode.js
+  // Draw in a TEMP container first — only replace if it actually succeeds.
+  // This ensures the canvas QR from step 2 stays visible if qrcode.js fails.
   if (typeof QRCode !== 'undefined') {
     try {
-      target.innerHTML = '';
-      const wrap = document.createElement('div');
-      wrap.style.cssText = 'display:flex;justify-content:center;';
-      target.appendChild(wrap);
-      new QRCode(wrap, { text: qrData, width: 200, height: 200, colorDark: '#0A0A0A', colorLight: '#FFFFFF' });
-      setTimeout(function() {
-        var el = wrap.querySelector('canvas,img');
-        if (el) el.style.cssText = 'display:block;border:6px solid #fff;box-shadow:0 3px 16px rgba(0,0,0,0.18);';
-      }, 60);
+      const tmp = document.createElement('div');
+      tmp.style.cssText = 'display:flex;justify-content:center;';
+      new QRCode(tmp, { text: qrData, width: 200, height: 200, colorDark: '#0A0A0A', colorLight: '#FFFFFF' });
+      // qrcode.js is synchronous — if we reach here it worked
+      const el = tmp.querySelector('canvas,img');
+      if (el) {
+        el.style.cssText = 'display:block;border:6px solid #fff;box-shadow:0 3px 16px rgba(0,0,0,0.18);';
+        target.innerHTML = '';   // safe to clear now
+        target.appendChild(el);
+      }
     } catch(e) {
-      // If qrcode.js fails, the canvas QR is already showing — do nothing
+      // qrcode.js failed — canvas QR drawn in step 2 is still visible, keep it
     }
     return;
   }

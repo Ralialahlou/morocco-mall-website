@@ -199,7 +199,7 @@
       background: var(--white);
       border-bottom: 1px solid var(--gray-200);
       position: relative;
-      top: calc(var(--bar-h) + var(--nav-h));
+      /* top removed — was pushing element down 112px */
       z-index: 100;
     }
     .filter-section__inner {
@@ -698,16 +698,77 @@
   <!-- ═══════════════════════════════════════════════════════════
        NEW ARRIVALS BAR
   ═══════════════════════════════════════════════════════════ -->
-  <div class="arrivals-bar" role="complementary" aria-label="New arrivals">
-    <div class="arrivals-bar__inner">
-      <p class="arrivals-bar__label">Nouveautés · New to Morocco Mall</p>
-      <div class="arrivals-bar__divider" aria-hidden="true"></div>
-      <div class="arrivals-bar__pills">
-        <button class="arrivals-pill" onclick="filterByBrand('Chanel')">Chanel</button>
-        <button class="arrivals-pill" onclick="filterByBrand('Mango')">Mango</button>
-        <button class="arrivals-pill" onclick="filterByBrand('New Look')">New Look</button>
-        <button class="arrivals-pill" onclick="filterByBrand('iStore')">iStore</button>
-      </div>
+  <!-- Brand logo marquee ticker — auto-scrolling publicity strip -->
+  <div class="brand-ticker" aria-hidden="true" style="background:var(--black);overflow:hidden;padding:.75rem 0;border-bottom:1px solid rgba(255,255,255,.07);">
+    <style>
+      .brand-ticker-track {
+        display: flex; gap: 0;
+        animation: brandTicker 35s linear infinite;
+        width: max-content;
+      }
+      .brand-ticker-track:hover { animation-play-state: paused; }
+      @keyframes brandTicker {
+        from { transform: translateX(0); }
+        to   { transform: translateX(-50%); }
+      }
+      .brand-ticker-item {
+        display: inline-flex; align-items: center;
+        padding: 0 2.5rem;
+        font-family: var(--font-body);
+        font-size: .62rem; font-weight: 500;
+        letter-spacing: .22em; text-transform: uppercase;
+        color: rgba(255,255,255,.35);
+        white-space: nowrap;
+        border-right: 1px solid rgba(255,255,255,.08);
+        transition: color .2s;
+      }
+      .brand-ticker-item:hover { color: var(--gold); }
+      .brand-ticker-item.luxury { color: rgba(201,169,110,.55); }
+      .brand-ticker-item.luxury:hover { color: var(--gold); }
+    </style>
+    <div class="brand-ticker-track">
+      <!-- Set 1 -->
+      <span class="brand-ticker-item luxury">Louis Vuitton</span>
+      <span class="brand-ticker-item">Zara</span>
+      <span class="brand-ticker-item luxury">Dior</span>
+      <span class="brand-ticker-item">H&amp;M</span>
+      <span class="brand-ticker-item luxury">Hermès</span>
+      <span class="brand-ticker-item">Massimo Dutti</span>
+      <span class="brand-ticker-item luxury">Cartier</span>
+      <span class="brand-ticker-item">Mango</span>
+      <span class="brand-ticker-item luxury">Chanel</span>
+      <span class="brand-ticker-item">Sephora</span>
+      <span class="brand-ticker-item luxury">Gucci</span>
+      <span class="brand-ticker-item">Nike</span>
+      <span class="brand-ticker-item luxury">Tiffany &amp; Co.</span>
+      <span class="brand-ticker-item">Adidas</span>
+      <span class="brand-ticker-item luxury">Bulgari</span>
+      <span class="brand-ticker-item">Pull &amp; Bear</span>
+      <span class="brand-ticker-item luxury">Christian Louboutin</span>
+      <span class="brand-ticker-item">Fnac</span>
+      <span class="brand-ticker-item luxury">Chopard</span>
+      <span class="brand-ticker-item">Bershka</span>
+      <!-- Set 2 (duplicate for seamless loop) -->
+      <span class="brand-ticker-item luxury">Louis Vuitton</span>
+      <span class="brand-ticker-item">Zara</span>
+      <span class="brand-ticker-item luxury">Dior</span>
+      <span class="brand-ticker-item">H&amp;M</span>
+      <span class="brand-ticker-item luxury">Hermès</span>
+      <span class="brand-ticker-item">Massimo Dutti</span>
+      <span class="brand-ticker-item luxury">Cartier</span>
+      <span class="brand-ticker-item">Mango</span>
+      <span class="brand-ticker-item luxury">Chanel</span>
+      <span class="brand-ticker-item">Sephora</span>
+      <span class="brand-ticker-item luxury">Gucci</span>
+      <span class="brand-ticker-item">Nike</span>
+      <span class="brand-ticker-item luxury">Tiffany &amp; Co.</span>
+      <span class="brand-ticker-item">Adidas</span>
+      <span class="brand-ticker-item luxury">Bulgari</span>
+      <span class="brand-ticker-item">Pull &amp; Bear</span>
+      <span class="brand-ticker-item luxury">Christian Louboutin</span>
+      <span class="brand-ticker-item">Fnac</span>
+      <span class="brand-ticker-item luxury">Chopard</span>
+      <span class="brand-ticker-item">Bershka</span>
     </div>
   </div>
 
