@@ -15,8 +15,10 @@
     /* Hero */
     .ent-hero {
       position: relative;
-      height: 100vh;
-      min-height: 600px;
+      /* 78vh so the filter bar peeks into view — user sees it without scrolling */
+      height: 78vh;
+      min-height: 520px;
+      max-height: 860px;
       display: flex;
       align-items: flex-end;
       overflow: hidden;
@@ -136,9 +138,7 @@
 
     /* Filter Bar */
     .filter-bar-wrap {
-      position: relative;
-      /* top removed — was pushing element DOWN 112px creating a white gap */
-      z-index: 100;
+      /* No position/z-index — sits in normal flow, no stacking context */
       background: var(--white);
       border-bottom: 1px solid var(--gray-200);
     }
@@ -175,7 +175,7 @@
     }
 
     /* Section layout helpers */
-    .section { padding: clamp(2rem, 4vw, 3.5rem) 0; }
+    .section { padding: clamp(2.5rem, 5vw, 4rem) 0; }
     .section--cream { background: var(--cream); }
     .section--dark { background: var(--black); color: var(--white); }
 
@@ -703,7 +703,7 @@
       >
         <img
           class="venue-card__img"
-          src="https://images.unsplash.com/photo-1566041510394-cf7c1b1b14e7?w=600&h=700&fit=crop"
+          src="../assets/hello-park.jpg"
           alt="Hello Park — aire de jeux pour enfants"
           loading="lazy"
         />
