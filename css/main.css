@@ -639,7 +639,8 @@ ul { list-style: none; }
   /* default: no animation, starts only when slide is active */
   animation: none;
 }
-.hero-slide--active .hero-slide__kb-img {
+.hero-slide--active .hero-slide__kb-img,
+.swiper-slide-active .hero-slide__kb-img {
   animation: kenburns 9s ease-out forwards;
 }
 @keyframes kenburns {
@@ -664,10 +665,16 @@ ul { list-style: none; }
   transform: translateY(18px);
   transition: opacity 0.7s var(--ease-out), transform 0.7s var(--ease-out);
 }
+/* Legacy fallback (non-Swiper) */
 .hero-slide--active .hero-slide__content > *:nth-child(1) { opacity:1; transform:translateY(0); transition-delay: 0.2s; }
 .hero-slide--active .hero-slide__content > *:nth-child(2) { opacity:1; transform:translateY(0); transition-delay: 0.35s; }
 .hero-slide--active .hero-slide__content > *:nth-child(3) { opacity:1; transform:translateY(0); transition-delay: 0.5s; }
 .hero-slide--active .hero-slide__content > *:nth-child(4) { opacity:1; transform:translateY(0); transition-delay: 0.65s; }
+/* Swiper: active slide class is .swiper-slide-active, not .hero-slide--active */
+.swiper-slide-active .hero-slide__content > *:nth-child(1) { opacity:1; transform:translateY(0); transition-delay: 0.2s; }
+.swiper-slide-active .hero-slide__content > *:nth-child(2) { opacity:1; transform:translateY(0); transition-delay: 0.35s; }
+.swiper-slide-active .hero-slide__content > *:nth-child(3) { opacity:1; transform:translateY(0); transition-delay: 0.5s; }
+.swiper-slide-active .hero-slide__content > *:nth-child(4) { opacity:1; transform:translateY(0); transition-delay: 0.65s; }
 
 /* Shared typography reused from old system */
 .hero__eyebrow {

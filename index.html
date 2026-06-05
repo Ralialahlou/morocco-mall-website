@@ -14,7 +14,8 @@
   <style>
     /* ── Swiper hero overrides ── */
     .hero-swiper { height: 100svh; min-height: 600px; max-height: 960px; }
-    .hero-swiper .swiper-slide { position: relative; height: 100%; }
+    /* Swiper sets position:absolute on slides for fade — don't override it */
+    .hero-swiper .swiper-slide { height: 100%; }
     /* Kill Swiper's default nav arrows (we use our own) */
     .hero-swiper .swiper-button-next,
     .hero-swiper .swiper-button-prev { display: none !important; }

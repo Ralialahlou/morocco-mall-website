@@ -67,21 +67,21 @@
     );
   }
 
-  // Patch heroGoTo to trigger GSAP animation
+  // Patch heroGoTo (non-Swiper fallback)
   var _origHeroGoTo = window.heroGoTo;
   if (typeof _origHeroGoTo === 'function') {
     window.heroGoTo = function (idx) {
       _origHeroGoTo(idx);
-      // Animate the newly-active slide after transition begins
       setTimeout(function () {
-        var active = document.querySelector('.hero-slide--active');
+        // Works with both old system (.hero-slide--active) and Swiper (.swiper-slide-active)
+        var active = document.querySelector('.hero-slide--active, .swiper-slide-active');
         if (active) animateHeroContent(active);
-      }, 100);
+      }, 120);
     };
   }
-  // Initial hero slide animation
+  // Initial slide animation: works with both class names
   window.addEventListener('load', function () {
-    var first = document.querySelector('.hero-slide--active');
+    var first = document.querySelector('.hero-slide--active, .swiper-slide-active');
     if (first) animateHeroContent(first);
   });
 
@@ -462,6 +462,14 @@
       },
 
       on: {
+        // Animate the first slide as soon as Swiper finishes initialising
+        afterInit: function () {
+          var first = this.slides[this.activeIndex];
+          if (first) {
+            // Small delay so the fade transition doesn't fight the entrance
+            setTimeout(function () { animateHeroContent(first); }, 200);
+          }
+        },
         // Animate incoming slide's content
         slideChange: function () {
           var slide = this.slides[this.activeIndex];
