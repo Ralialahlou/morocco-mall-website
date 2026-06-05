@@ -1,6 +1,5 @@
 /* ============================================================
-   MOROCCO MALL — GSAP + Lenis Animation System
-   Requires: gsap.min.js, ScrollTrigger.min.js, lenis.min.js
+   MOROCCO MALL — GSAP + Lenis + Swiper + GLightbox
    ============================================================ */
 
 (function () {
@@ -422,6 +421,122 @@
         scrollTrigger: { trigger: '.newsletter-dark', start: 'top 75%', once: true }
       }
     );
+  }
+
+  /* ══════════════════════════════════════════════════════════
+     SWIPER — Hero carousel
+     ════════════════════════════════════════════════════════ */
+  if (typeof Swiper !== 'undefined') {
+
+    // ── Hero Swiper ─────────────────────────────────────────
+    window._heroSwiper = new Swiper('.hero-swiper', {
+      effect:     'fade',
+      fadeEffect: { crossFade: true },
+      speed:      1100,
+      loop:       true,
+      grabCursor: true,
+      touchRatio: 1,
+      allowTouchMove: true,
+
+      autoplay: {
+        delay:                 6500,
+        disableOnInteraction:  false,
+        pauseOnMouseEnter:     true,
+      },
+
+      // Inject pagination bullets into our custom container
+      pagination: {
+        el:          '.hero-swiper-pagination',
+        clickable:   true,
+        bulletClass: 'hero-dot',
+        bulletActiveClass: 'active',
+        renderBullet: function (i, cls) {
+          return '<button class="' + cls + '" aria-label="Slide ' + (i + 1) + '"></button>';
+        }
+      },
+
+      // Wire to our custom prev/next buttons
+      navigation: {
+        nextEl: '#hero-next',
+        prevEl: '#hero-prev',
+      },
+
+      on: {
+        // Animate incoming slide's content
+        slideChange: function () {
+          var slide = this.slides[this.activeIndex];
+          if (slide) animateHeroContent(slide);
+          // Play video in active slide
+          var vid = slide && slide.querySelector('video');
+          if (vid) { vid.currentTime = 0; vid.play().catch(function(){}); }
+          // Pause videos in other slides
+          this.slides.forEach(function(s, i) {
+            if (i !== this.activeIndex) {
+              var v = s.querySelector('video');
+              if (v) v.pause();
+            }
+          }, this);
+          // Restart Ken Burns on image slide
+          var kb = slide && slide.querySelector('.hero-slide__kb-img');
+          if (kb) {
+            kb.style.animation = 'none';
+            void kb.offsetWidth; // reflow
+            kb.style.animation = 'kenburns 9s ease-out forwards';
+          }
+        },
+
+        // Drive the progress bar using Swiper's autoplay timing
+        autoplayTimeLeft: function (s, time, progress) {
+          var bar = document.getElementById('hero-progress-bar');
+          if (!bar) return;
+          bar.style.transition = 'none';
+          bar.style.width = ((1 - progress) * 100) + '%';
+        }
+      }
+    });
+
+    // Patch app.js hero functions to delegate to Swiper
+    window.heroSliderNext = function () { window._heroSwiper && window._heroSwiper.slideNext(); };
+    window.heroSliderPrev = function () { window._heroSwiper && window._heroSwiper.slidePrev(); };
+    window.heroGoTo       = function (n) { window._heroSwiper && window._heroSwiper.slideTo(n + 1); };
+
+    // ── Brand Carousel Swiper ──────────────────────────────
+    window._brandsSwiper = new Swiper('.brands-swiper', {
+      slidesPerView:  'auto',
+      grabCursor:     true,
+      speed:          700,
+      resistance:     true,
+      resistanceRatio: 0.55,
+      mousewheel:     { forceToAxis: true, sensitivity: 0.8 },
+      freeMode: {
+        enabled:        true,
+        momentum:       true,
+        momentumRatio:  0.8,
+        momentumBounce: false,
+      },
+    });
+  }
+
+  /* ══════════════════════════════════════════════════════════
+     GLIGHTBOX — Social wall + gallery lightbox
+     ════════════════════════════════════════════════════════ */
+  if (typeof GLightbox !== 'undefined') {
+
+    // Social wall gallery
+    GLightbox({
+      selector:        '.glightbox',
+      touchNavigation: true,
+      loop:            true,
+      zoomable:        true,
+      openEffect:      'fade',
+      closeEffect:     'fade',
+      slideEffect:     'slide',
+      moreLength:      0,
+      skin:            'clean',
+      plyr: {
+        css: '', js: '', config: {}
+      }
+    });
   }
 
 })();
