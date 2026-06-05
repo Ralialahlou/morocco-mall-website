@@ -375,17 +375,6 @@ function renderFooter() {
   document.body.appendChild(wrapper);
 }
 
-// Inject Lenis CDN once on every sub-page (index.html loads it directly)
-function injectLenisCDN() {
-  if (document.getElementById('mm-lenis-cdn')) return;
-  if (typeof Lenis !== 'undefined') return; // already loaded
-  const s = document.createElement('script');
-  s.id = 'mm-lenis-cdn';
-  s.src = 'https://cdn.jsdelivr.net/npm/lenis@1.1.9/dist/lenis.min.js';
-  s.onload = function() { setTimeout(initGlobalLenis, 0); };
-  document.head.appendChild(s);
-}
-
 function renderAll() {
   renderChrome();
   renderFooter();
@@ -393,8 +382,11 @@ function renderAll() {
   highlightActiveNav();
   initScrollBehavior();
   if (typeof injectSEO === 'function') injectSEO();
-  // Silky smooth scroll on every page
-  injectLenisCDN();
+  // NOTE: Lenis is NOT injected here. It runs only on index.html where it is
+  // explicitly loaded alongside GSAP (which drives its rAF tick).
+  // Injecting Lenis globally blocked scroll on all sub-pages because Lenis
+  // intercepts wheel/touch events with preventDefault() but has no GSAP
+  // ticker to actually animate them — causing a frozen-scroll bug.
 }
 
 // ─── Translations application ─────────────────────────────────
@@ -715,16 +707,8 @@ function initRevealAnimations() {
 }
 
 // ─── Global Lenis smooth scroll (non-homepage pages) ──────────
-// On pages that don't load animations.js, initialise a lightweight Lenis
-// so every page gets the silky scroll feel.
-function initGlobalLenis() {
-  if (typeof Lenis === 'undefined') return;
-  if (window._lenisInstance) return; // already initialised by animations.js
-  var l = new Lenis({ duration: 1.2, smoothWheel: true, smoothTouch: false });
-  function raf(t) { l.raf(t); requestAnimationFrame(raf); }
-  requestAnimationFrame(raf);
-  window._lenisInstance = l;
-}
+// (initGlobalLenis removed — caused frozen scroll on sub-pages.
+//  Lenis now only runs on index.html via its own CDN script tag.)
 
 // ─── Hero slides ──────────────────────────────────────────────
 // ─── Hero Slider ──────────────────────────────────────────────
@@ -938,8 +922,6 @@ function initApp() {
   initHeroSlider();
   initCategoryFilter();
   initStickyBars();
-  // Lenis smooth scroll on every page that doesn't already have animations.js
-  setTimeout(initGlobalLenis, 50);
   // Show mall selector on first visit
   if (!localStorage.getItem('mm_visited')) {
     setTimeout(() => {

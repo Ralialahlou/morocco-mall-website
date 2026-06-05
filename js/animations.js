@@ -509,13 +509,15 @@
     window.heroGoTo       = function (n) { window._heroSwiper && window._heroSwiper.slideTo(n + 1); };
 
     // ── Brand Carousel Swiper ──────────────────────────────
+    // NOTE: mousewheel removed — forceToAxis was hijacking vertical
+    // scroll whenever the cursor was over the brands section.
     window._brandsSwiper = new Swiper('.brands-swiper', {
       slidesPerView:  'auto',
       grabCursor:     true,
       speed:          700,
       resistance:     true,
       resistanceRatio: 0.55,
-      mousewheel:     { forceToAxis: true, sensitivity: 0.8 },
+      // No mousewheel — drag only. Prevents scroll hijacking.
       freeMode: {
         enabled:        true,
         momentum:       true,
