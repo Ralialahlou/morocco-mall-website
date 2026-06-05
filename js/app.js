@@ -707,8 +707,6 @@ function initRevealAnimations() {
 }
 
 // ─── Global Lenis smooth scroll (non-homepage pages) ──────────
-// (initGlobalLenis removed — caused frozen scroll on sub-pages.
-//  Lenis now only runs on index.html via its own CDN script tag.)
 
 // ─── Hero slides ──────────────────────────────────────────────
 // ─── Hero Slider ──────────────────────────────────────────────
@@ -716,9 +714,6 @@ const HERO_DURATION = 6500; // ms per slide
 const _hero = { current: 0, total: 0, timer: null };
 
 function initHeroSlider() {
-  // Swiper takes over on pages that load swiper-bundle.min.js
-  if (typeof Swiper !== 'undefined') return;
-
   const slides = document.querySelectorAll('.hero-slide');
   const dots   = document.querySelectorAll('.hero-dot');
   if (!slides.length) return;

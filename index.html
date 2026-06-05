@@ -7,40 +7,7 @@
   <title>Morocco Mall</title>
   <link rel="icon" href="assets/logo.png" type="image/png" />
   <link rel="stylesheet" href="css/main.css" />
-  <!-- Swiper CSS -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
-  <!-- GLightbox CSS -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glightbox/dist/css/glightbox.min.css" />
   <style>
-    /* ── Swiper hero overrides ── */
-    .hero-swiper { height: 100svh; min-height: 600px; max-height: 960px; }
-    /* Swiper sets position:absolute on slides for fade — don't override it */
-    .hero-swiper .swiper-slide { height: 100%; }
-    /* Kill Swiper's default nav arrows (we use our own) */
-    .hero-swiper .swiper-button-next,
-    .hero-swiper .swiper-button-prev { display: none !important; }
-    /* Custom pagination bullets → hero-dot style */
-    .hero-swiper .swiper-pagination { bottom: clamp(1.25rem,3vh,2rem); }
-    .hero-swiper .swiper-pagination-bullet {
-      width: 28px; height: 2px; border-radius: 2px;
-      background: rgba(255,255,255,.3); opacity: 1;
-      transition: background .25s, width .25s;
-      margin: 0 4px !important;
-    }
-    .hero-swiper .swiper-pagination-bullet-active {
-      background: #fff; width: 44px;
-    }
-    /* ── Swiper brand picks overrides ── */
-    .brands-swiper { overflow: hidden; }
-    .brands-swiper .swiper-slide { width: auto; }
-    .brands-swiper .swiper-wrapper { gap: 2px; align-items: stretch; background: var(--gray-200); }
-    /* ── GLightbox custom theme ── */
-    .glightbox-clean .gslide-description { background: var(--black); }
-    .glightbox-clean .gdesc-inner { padding: 1rem 1.5rem; }
-    .glightbox-clean .gslide-title { font-family: var(--font-display); font-size: 1.1rem; font-weight: 300; color: var(--white); }
-    .glightbox-clean .gslide-desc  { font-size: .75rem; color: rgba(255,255,255,.45); letter-spacing: .08em; }
-    .glightbox-clean .gnext, .glightbox-clean .gprev { background: rgba(0,0,0,.5); border: 1px solid rgba(255,255,255,.2); border-radius: 50%; }
-  </style>
     /* ── Homepage-specific editorial styles ──────────────────── */
 
     /* Manifesto */
@@ -359,73 +326,68 @@
 
   <!-- ═══ HERO SLIDER ══════════════════════════════════════════ -->
   <!-- ═══ HERO — Swiper carousel (fade, touch, autoplay) ══════ -->
-  <section class="hero hero-swiper swiper" id="hero" aria-label="Hero banner">
+  <section class="hero" id="hero" aria-label="Hero banner">
 
-    <div class="swiper-wrapper">
-
-      <!-- Slide 1 · Shopping & Style -->
-      <div class="swiper-slide hero-slide" data-slide="0">
-        <video class="hero-slide__media" autoplay muted loop playsinline
-          poster="assets/luxury-2.jpg" style="object-position:center top;">
-          <source src="https://assets.mixkit.co/videos/preview/mixkit-woman-shopping-bags-in-mall-42823-large.mp4" type="video/mp4"/>
-        </video>
-        <div class="hero-slide__overlay"></div>
-        <div class="hero-slide__content container">
-          <p class="hero__eyebrow" data-i18n="heroEyebrow"></p>
-          <h1 class="hero__title">Style.<br><em>Dining.</em><br>Experiences.</h1>
-          <p class="hero__subtitle" data-i18n="heroSubtitle"></p>
-          <div class="hero__actions">
-            <a class="btn btn--outline-white btn--lg" href="pages/shopping.html" data-i18n="discoverMore"></a>
-            <a class="btn btn--gold btn--lg" href="#locations-section" data-i18n="planVisit"></a>
-          </div>
+    <div class="hero-slide hero-slide--active" data-slide="0">
+      <video class="hero-slide__media" autoplay muted loop playsinline
+        poster="assets/luxury-2.jpg" style="object-position:center top;">
+        <source src="https://assets.mixkit.co/videos/preview/mixkit-woman-shopping-bags-in-mall-42823-large.mp4" type="video/mp4"/>
+      </video>
+      <div class="hero-slide__overlay"></div>
+      <div class="hero-slide__content container">
+        <p class="hero__eyebrow" data-i18n="heroEyebrow"></p>
+        <h1 class="hero__title">Style.<br><em>Dining.</em><br>Experiences.</h1>
+        <p class="hero__subtitle" data-i18n="heroSubtitle"></p>
+        <div class="hero__actions">
+          <a class="btn btn--outline-white btn--lg" href="pages/shopping.html" data-i18n="discoverMore"></a>
+          <a class="btn btn--gold btn--lg" href="#locations-section" data-i18n="planVisit"></a>
         </div>
       </div>
+    </div>
 
-      <!-- Slide 2 · Rose Boulevard (Ken Burns) -->
-      <div class="swiper-slide hero-slide" data-slide="1">
-        <div class="hero-slide__kenburns">
-          <img class="hero-slide__kb-img" src="assets/luxury-1.jpg"
-            alt="Rose Boulevard — Dior boutique" loading="eager" style="object-position:center;" />
-        </div>
-        <div class="hero-slide__overlay hero-slide__overlay--rose"></div>
-        <div class="hero-slide__content container">
-          <p class="hero__eyebrow" style="color:var(--gold);">Rose Boulevard</p>
-          <h1 class="hero__title">An Exclusive<br><em>World of Luxury</em></h1>
-          <p class="hero__subtitle">Les plus grandes maisons internationales réunies dans un espace d'exception unique au Maroc.</p>
-          <div class="hero__actions">
-            <a class="btn btn--gold btn--lg" href="pages/rose-boulevard.html" data-i18n="discoverMore"></a>
-          </div>
+    <div class="hero-slide" data-slide="1">
+      <div class="hero-slide__kenburns">
+        <img class="hero-slide__kb-img" src="assets/luxury-1.jpg"
+          alt="Rose Boulevard — Dior boutique" loading="eager" style="object-position:center;" />
+      </div>
+      <div class="hero-slide__overlay hero-slide__overlay--rose"></div>
+      <div class="hero-slide__content container">
+        <p class="hero__eyebrow" style="color:var(--gold);">Rose Boulevard</p>
+        <h1 class="hero__title">An Exclusive<br><em>World of Luxury</em></h1>
+        <p class="hero__subtitle">Les plus grandes maisons internationales réunies dans un espace d'exception unique au Maroc.</p>
+        <div class="hero__actions">
+          <a class="btn btn--gold btn--lg" href="pages/rose-boulevard.html" data-i18n="discoverMore"></a>
         </div>
       </div>
+    </div>
 
-      <!-- Slide 3 · Entertainment & Events -->
-      <div class="swiper-slide hero-slide" data-slide="2">
-        <video class="hero-slide__media" muted loop playsinline
-          poster="assets/luxury-4.jpg" style="object-position:right center;">
-          <source src="https://assets.mixkit.co/videos/preview/mixkit-light-show-in-a-night-park-display-47500-large.mp4" type="video/mp4"/>
-        </video>
-        <div class="hero-slide__overlay"></div>
-        <div class="hero-slide__content container">
-          <p class="hero__eyebrow">Divertissement &amp; Événements</p>
-          <h1 class="hero__title">Unforgettable<br><em>Experiences</em></h1>
-          <p class="hero__subtitle">Sea Dream Aquarium, Cinéma, Hello Park, Adventure Land &amp; Fontaine Musicale.</p>
-          <div class="hero__actions">
-            <a class="btn btn--outline-white btn--lg" href="pages/entertainment.html" data-i18n="entertainment"></a>
-            <a class="btn btn--gold btn--lg" href="pages/events.html" data-i18n="events"></a>
-          </div>
+    <div class="hero-slide" data-slide="2">
+      <video class="hero-slide__media" muted loop playsinline
+        poster="assets/luxury-4.jpg" style="object-position:right center;">
+        <source src="https://assets.mixkit.co/videos/preview/mixkit-light-show-in-a-night-park-display-47500-large.mp4" type="video/mp4"/>
+      </video>
+      <div class="hero-slide__overlay"></div>
+      <div class="hero-slide__content container">
+        <p class="hero__eyebrow">Divertissement &amp; Événements</p>
+        <h1 class="hero__title">Unforgettable<br><em>Experiences</em></h1>
+        <p class="hero__subtitle">Sea Dream Aquarium, Cinéma, Hello Park, Adventure Land &amp; Fontaine Musicale.</p>
+        <div class="hero__actions">
+          <a class="btn btn--outline-white btn--lg" href="pages/entertainment.html" data-i18n="entertainment"></a>
+          <a class="btn btn--gold btn--lg" href="pages/events.html" data-i18n="events"></a>
         </div>
       </div>
+    </div>
 
-    </div><!-- /swiper-wrapper -->
-
-    <!-- Custom prev/next arrows (Swiper links to these) -->
     <div class="hero__controls">
-      <button class="hero-arrow hero-arrow--prev" id="hero-prev" aria-label="Slide précédente">
+      <button class="hero-arrow hero-arrow--prev" onclick="heroSliderPrev()" aria-label="Slide précédente">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
       </button>
-      <!-- Swiper injects bullets here -->
-      <div class="swiper-pagination hero-swiper-pagination"></div>
-      <button class="hero-arrow hero-arrow--next" id="hero-next" aria-label="Slide suivante">
+      <div class="hero__dots">
+        <button class="hero-dot active" data-slide-target="0" aria-label="Slide 1"></button>
+        <button class="hero-dot" data-slide-target="1" aria-label="Slide 2"></button>
+        <button class="hero-dot" data-slide-target="2" aria-label="Slide 3"></button>
+      </div>
+      <button class="hero-arrow hero-arrow--next" onclick="heroSliderNext()" aria-label="Slide suivante">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
       </button>
     </div>
@@ -548,61 +510,47 @@
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
       </a>
     </div>
-    <!-- Swiper brand carousel: touch/drag, momentum, free-scroll -->
-    <!-- data-lenis-prevent tells Lenis not to intercept scroll on this element -->
-    <div class="swiper brands-swiper reveal" data-lenis-prevent>
-      <div class="swiper-wrapper">
-        <div class="swiper-slide"><a class="brand-pick" href="pages/shopping.html">
-          <img src="https://images.unsplash.com/photo-1483985988355-763728e1935b?w=500&h=660&fit=crop&q=80" alt="Zara" loading="lazy"/>
-          <div class="brand-pick__overlay"></div>
-          <div class="brand-pick__body"><p class="brand-pick__cat">Mode</p><p class="brand-pick__name">Zara</p><span class="brand-pick__tag">Niv. 1</span></div>
-        </a></div>
-        <div class="swiper-slide"><a class="brand-pick" href="pages/shopping.html">
-          <img src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=500&h=660&fit=crop&q=80" alt="Massimo Dutti" loading="lazy"/>
-          <div class="brand-pick__overlay"></div>
-          <div class="brand-pick__body"><p class="brand-pick__cat">Mode</p><p class="brand-pick__name">Massimo Dutti</p><span class="brand-pick__tag">Niv. 2</span></div>
-        </a></div>
-        <div class="swiper-slide"><a class="brand-pick" href="pages/rose-boulevard.html">
-          <img src="assets/luxury-1.jpg" alt="Louis Vuitton" loading="lazy" style="object-position:center;"/>
-          <div class="brand-pick__overlay"></div>
-          <div class="brand-pick__body"><p class="brand-pick__cat">Luxe · Rose Boulevard</p><p class="brand-pick__name">Louis Vuitton</p><span class="brand-pick__tag">Niv. 2</span></div>
-        </a></div>
-        <div class="swiper-slide"><a class="brand-pick" href="pages/shopping.html">
-          <img src="https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?w=500&h=660&fit=crop&q=80" alt="Sephora" loading="lazy"/>
-          <div class="brand-pick__overlay"></div>
-          <div class="brand-pick__body"><p class="brand-pick__cat">Beauté</p><p class="brand-pick__name">Sephora</p><span class="brand-pick__tag">Niv. 1</span></div>
-        </a></div>
-        <div class="swiper-slide"><a class="brand-pick" href="pages/shopping.html">
-          <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=500&h=660&fit=crop&q=80" alt="Nike" loading="lazy"/>
-          <div class="brand-pick__overlay"></div>
-          <div class="brand-pick__body"><p class="brand-pick__cat">Sport</p><p class="brand-pick__name">Nike</p><span class="brand-pick__tag">Niv. 1</span></div>
-        </a></div>
-        <div class="swiper-slide"><a class="brand-pick" href="pages/rose-boulevard.html">
-          <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=500&h=660&fit=crop&q=80" alt="Cartier" loading="lazy"/>
-          <div class="brand-pick__overlay"></div>
-          <div class="brand-pick__body"><p class="brand-pick__cat">Joaillerie · Rose Boulevard</p><p class="brand-pick__name">Cartier</p><span class="brand-pick__tag">Niv. 2</span></div>
-        </a></div>
-        <div class="swiper-slide"><a class="brand-pick" href="pages/shopping.html">
-          <img src="https://images.unsplash.com/photo-1509631179647-0177331693ae?w=500&h=660&fit=crop&q=80" alt="Mango" loading="lazy"/>
-          <div class="brand-pick__overlay"></div>
-          <div class="brand-pick__body"><p class="brand-pick__cat">Mode</p><p class="brand-pick__name">Mango</p><span class="brand-pick__tag">Niv. 1</span></div>
-        </a></div>
-        <div class="swiper-slide"><a class="brand-pick" href="pages/shopping.html">
-          <img src="https://images.unsplash.com/photo-1556906781-9a412961a28c?w=500&h=660&fit=crop&q=80" alt="Adidas" loading="lazy"/>
-          <div class="brand-pick__overlay"></div>
-          <div class="brand-pick__body"><p class="brand-pick__cat">Sport</p><p class="brand-pick__name">Adidas</p><span class="brand-pick__tag">Niv. 1</span></div>
-        </a></div>
-        <div class="swiper-slide"><a class="brand-pick" href="pages/rose-boulevard.html">
-          <img src="assets/luxury-2.jpg" alt="Hermès" loading="lazy" style="object-position:center top;"/>
-          <div class="brand-pick__overlay"></div>
-          <div class="brand-pick__body"><p class="brand-pick__cat">Luxe · Rose Boulevard</p><p class="brand-pick__name">Hermès</p><span class="brand-pick__tag">Niv. 2</span></div>
-        </a></div>
-        <div class="swiper-slide"><a class="brand-pick" href="pages/rose-boulevard.html">
-          <img src="assets/luxury-4.jpg" alt="Chloé" loading="lazy" style="object-position:right center;"/>
-          <div class="brand-pick__overlay"></div>
-          <div class="brand-pick__body"><p class="brand-pick__cat">Mode · Rose Boulevard</p><p class="brand-pick__name">Chloé</p><span class="brand-pick__tag">Niv. 2</span></div>
-        </a></div>
-      </div>
+    <div class="picks-scroll reveal">
+      <a class="brand-pick" href="pages/shopping.html">
+        <img src="https://images.unsplash.com/photo-1483985988355-763728e1935b?w=500&h=660&fit=crop&q=80" alt="Zara" loading="lazy"/>
+        <div class="brand-pick__overlay"></div>
+        <div class="brand-pick__body"><p class="brand-pick__cat">Mode</p><p class="brand-pick__name">Zara</p><span class="brand-pick__tag">Niv. 1</span></div>
+      </a>
+      <a class="brand-pick" href="pages/shopping.html">
+        <img src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=500&h=660&fit=crop&q=80" alt="Massimo Dutti" loading="lazy"/>
+        <div class="brand-pick__overlay"></div>
+        <div class="brand-pick__body"><p class="brand-pick__cat">Mode</p><p class="brand-pick__name">Massimo Dutti</p><span class="brand-pick__tag">Niv. 2</span></div>
+      </a>
+      <a class="brand-pick" href="pages/rose-boulevard.html">
+        <img src="assets/luxury-1.jpg" alt="Louis Vuitton" loading="lazy" style="object-position:center;"/>
+        <div class="brand-pick__overlay"></div>
+        <div class="brand-pick__body"><p class="brand-pick__cat">Luxe · Rose Boulevard</p><p class="brand-pick__name">Louis Vuitton</p><span class="brand-pick__tag">Niv. 2</span></div>
+      </a>
+      <a class="brand-pick" href="pages/shopping.html">
+        <img src="https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?w=500&h=660&fit=crop&q=80" alt="Sephora" loading="lazy"/>
+        <div class="brand-pick__overlay"></div>
+        <div class="brand-pick__body"><p class="brand-pick__cat">Beauté</p><p class="brand-pick__name">Sephora</p><span class="brand-pick__tag">Niv. 1</span></div>
+      </a>
+      <a class="brand-pick" href="pages/shopping.html">
+        <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=500&h=660&fit=crop&q=80" alt="Nike" loading="lazy"/>
+        <div class="brand-pick__overlay"></div>
+        <div class="brand-pick__body"><p class="brand-pick__cat">Sport</p><p class="brand-pick__name">Nike</p><span class="brand-pick__tag">Niv. 1</span></div>
+      </a>
+      <a class="brand-pick" href="pages/rose-boulevard.html">
+        <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=500&h=660&fit=crop&q=80" alt="Cartier" loading="lazy"/>
+        <div class="brand-pick__overlay"></div>
+        <div class="brand-pick__body"><p class="brand-pick__cat">Joaillerie · Rose Boulevard</p><p class="brand-pick__name">Cartier</p><span class="brand-pick__tag">Niv. 2</span></div>
+      </a>
+      <a class="brand-pick" href="pages/shopping.html">
+        <img src="https://images.unsplash.com/photo-1509631179647-0177331693ae?w=500&h=660&fit=crop&q=80" alt="Mango" loading="lazy"/>
+        <div class="brand-pick__overlay"></div>
+        <div class="brand-pick__body"><p class="brand-pick__cat">Mode</p><p class="brand-pick__name">Mango</p><span class="brand-pick__tag">Niv. 1</span></div>
+      </a>
+      <a class="brand-pick" href="pages/shopping.html">
+        <img src="https://images.unsplash.com/photo-1556906781-9a412961a28c?w=500&h=660&fit=crop&q=80" alt="Adidas" loading="lazy"/>
+        <div class="brand-pick__overlay"></div>
+        <div class="brand-pick__body"><p class="brand-pick__cat">Sport</p><p class="brand-pick__name">Adidas</p><span class="brand-pick__tag">Niv. 1</span></div>
+      </a>
     </div>
   </section>
 
@@ -857,29 +805,29 @@
         </a>
       </div>
     </div>
-    <!-- GLightbox: clicking a post opens it full-screen in the lightbox gallery -->
+
     <div class="social-wall reveal">
-      <a class="social-post glightbox" href="https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=1200&h=1200&fit=crop&q=85" data-gallery="social" data-glightbox="title: Morocco Mall · Shopping; description: @moroccomall">
+      <a class="social-post" href="https://www.instagram.com/moroccomall" target="_blank" rel="noopener">
         <img class="social-post__img" src="https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=400&h=400&fit=crop&q=80" alt="Morocco Mall shopping" loading="lazy"/>
         <div class="social-post__overlay"><div class="social-post__likes">♥ 1.2k</div></div>
       </a>
-      <a class="social-post glightbox" href="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=1200&h=1200&fit=crop&q=85" data-gallery="social" data-glightbox="title: Rose Boulevard · Fashion; description: @moroccomall">
+      <a class="social-post" href="https://www.instagram.com/moroccomall" target="_blank" rel="noopener">
         <img class="social-post__img" src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=400&h=400&fit=crop&q=80" alt="Fashion editorial" loading="lazy"/>
         <div class="social-post__overlay"><div class="social-post__likes">♥ 2.4k</div></div>
       </a>
-      <a class="social-post glightbox" href="https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=1200&h=1200&fit=crop&q=85" data-gallery="social" data-glightbox="title: Joaillerie · Cartier; description: @moroccomall">
+      <a class="social-post" href="https://www.instagram.com/moroccomall" target="_blank" rel="noopener">
         <img class="social-post__img" src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=400&h=400&fit=crop&q=80" alt="Luxury watches" loading="lazy"/>
         <div class="social-post__overlay"><div class="social-post__likes">♥ 3.1k</div></div>
       </a>
-      <a class="social-post glightbox" href="assets/aquarium-1.jpg" data-gallery="social" data-glightbox="title: Sea Dream Aquarium; description: @moroccomall">
+      <a class="social-post" href="https://www.instagram.com/moroccomall" target="_blank" rel="noopener">
         <img class="social-post__img" src="assets/aquarium-1.jpg" alt="Sea Dream Aquarium" loading="lazy" style="object-position:center;"/>
         <div class="social-post__overlay"><div class="social-post__likes">♥ 4.8k</div></div>
       </a>
-      <a class="social-post glightbox" href="https://images.unsplash.com/photo-1584917865442-de89df76afd3?w=1200&h=1200&fit=crop&q=85" data-gallery="social" data-glightbox="title: Luxe · Rose Boulevard; description: @moroccomall">
+      <a class="social-post" href="https://www.instagram.com/moroccomall" target="_blank" rel="noopener">
         <img class="social-post__img" src="https://images.unsplash.com/photo-1584917865442-de89df76afd3?w=400&h=400&fit=crop&q=80" alt="Luxury bags" loading="lazy"/>
         <div class="social-post__overlay"><div class="social-post__likes">♥ 1.8k</div></div>
       </a>
-      <a class="social-post glightbox" href="assets/fountain-1.jpg" data-gallery="social" data-glightbox="title: Fontaine Musicale · Spectacle; description: @moroccomall">
+      <a class="social-post" href="https://www.instagram.com/moroccomall" target="_blank" rel="noopener">
         <img class="social-post__img" src="assets/fountain-1.jpg" alt="Fontaine Musicale" loading="lazy" style="object-position:center top;"/>
         <div class="social-post__overlay"><div class="social-post__likes">♥ 5.2k</div></div>
       </a>
@@ -905,19 +853,11 @@
 
 </main>
 
-<!-- CDN libraries — load before app.js -->
-<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.9/dist/lenis.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/glightbox/dist/js/glightbox.min.js"></script>
-
 <!-- Core scripts -->
 <script src="js/seo.js"></script>
 <script src="js/translations.js"></script>
 <script src="js/app.js"></script>
 <!-- Animations: runs after app.js initialises DOM -->
-<script src="js/animations.js"></script>
 <script>
 // Aksal Black perks
 document.addEventListener('DOMContentLoaded', function() {
