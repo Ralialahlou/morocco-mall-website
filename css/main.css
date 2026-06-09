@@ -1225,6 +1225,7 @@ ul { list-style: none; }
   background-repeat: repeat;
   pointer-events: none;
   z-index: 0;
+  opacity: 0.2;
 }
 .aksal-section__glow {
   position: absolute;
@@ -1594,7 +1595,7 @@ ul { list-style: none; }
   background-repeat: repeat;
   pointer-events: none;
   z-index: 0;
-  opacity: 0.32;
+  opacity: 0.15;
 }
 .page-hero__content { position: relative; z-index: 1; }
 .page-hero__breadcrumb {
