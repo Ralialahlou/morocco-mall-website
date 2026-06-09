@@ -137,11 +137,13 @@
       max-width: var(--max-w); margin: 0 auto clamp(2rem,4vw,3rem);
       padding: 0 var(--pad-x);
       display: flex; align-items: flex-end; justify-content: space-between; flex-wrap: wrap; gap: 1rem;
+      position: relative; z-index: 1;
     }
     .ent-mag {
       display: grid;
       grid-template-columns: 1fr;
       gap: 2px; background: #111;
+      position: relative; z-index: 1;
     }
     @media(min-width:900px) {
       .ent-mag {
@@ -326,82 +328,80 @@
     .newsletter-dark-form button:hover { background: var(--gold-dark); }
     .newsletter-dark__note { font-size: .68rem; color: rgba(255,255,255,.2); margin-top: .75rem; }
 
-    /* ── MM typographic texture ─────────────────────────────────────
-       "MM" in Cormorant Garamond renders as a soft background brand mark.
-       Gold/beige on dark sections; near-black on cream/white sections.
-       pointer-events:none, user-select:none — purely decorative.
-       Desktop size kept intentionally restrained (max ~130px).
-    ─────────────────────────────────────────────────────────────── */
+    /* ── MM brand filigrane — SVG pattern fills dark section backgrounds ──
+       Beige/gold version: transparent bg + gold zigzag stripes at 45% opacity.
+       Full section coverage via background-image repeat on ::before pseudo-element.
+       Light sections keep the subtle text watermark approach.
+    ─────────────────────────────────────────────────────────────────────── */
 
-    /* Shared MM pseudo-element base */
+    /* Dark sections → SVG filigrane fills the entire background */
     .manifesto::before,
     .ent-editorial::before,
-    .newsletter-dark::before,
-    .rose-fullbleed::after,
-    .events-editorial::before,
-    .ed-split__copy::before {
+    .newsletter-dark::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: url('assets/mm-filigrane-gold.svg');
+      background-size: 320px auto;
+      background-repeat: repeat;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .ent-editorial { position: relative; overflow: hidden; }
+
+    /* Rose: has photo background — keep subtle text mark above the image overlay */
+    .rose-fullbleed::after {
+      content: 'MM';
+      position: absolute;
+      top: 50%; right: 8%;
+      transform: translateY(-50%);
       font-family: 'Cormorant Garamond', serif;
       font-weight: 300;
+      font-size: clamp(64px, 9vw, 120px);
       letter-spacing: 0.18em;
       line-height: 1;
-      position: absolute;
+      color: rgba(232,213,176,0.10);
       pointer-events: none;
       user-select: none;
       white-space: nowrap;
       z-index: 0;
     }
 
-    /* ── Dark sections → gold/beige MM ── */
-    .manifesto::before {
-      content: 'MM';
-      top: 50%; left: 50%;
-      transform: translate(-50%, -50%);
-      font-size: clamp(72px, 10vw, 130px);
-      color: rgba(201,169,110,0.09);
-    }
-
-    .ent-editorial { position: relative; overflow: hidden; }
-    .ent-editorial::before {
-      content: 'MM';
-      top: 50%; right: 6%;
-      transform: translateY(-50%);
-      font-size: clamp(64px, 9vw, 118px);
-      color: rgba(201,169,110,0.08);
-    }
-
-    .newsletter-dark::before {
-      content: 'MM';
-      top: 50%; left: 50%;
-      transform: translate(-50%, -50%);
-      font-size: clamp(72px, 10vw, 130px);
-      color: rgba(201,169,110,0.08);
-    }
-
-    /* Rose: ::after so it renders above the bg overlay, below the text (z-index:1) */
-    .rose-fullbleed::after {
-      content: 'MM';
-      top: 50%; right: 8%;
-      transform: translateY(-50%);
-      font-size: clamp(64px, 9vw, 120px);
-      color: rgba(232,213,176,0.10);
-    }
-
-    /* ── Cream/light sections → near-black MM ── */
+    /* Cream/light sections → near-black text watermark */
     .events-editorial { position: relative; overflow: hidden; }
     .events-editorial::before {
       content: 'MM';
+      position: absolute;
       top: 50%; right: 4%;
       transform: translateY(-50%);
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 300;
       font-size: clamp(56px, 7vw, 100px);
+      letter-spacing: 0.18em;
+      line-height: 1;
       color: rgba(10,10,10,0.05);
+      pointer-events: none;
+      user-select: none;
+      white-space: nowrap;
+      z-index: 0;
     }
 
     .ed-split__copy { position: relative; overflow: hidden; }
     .ed-split__copy::before {
       content: 'MM';
+      position: absolute;
       bottom: 8%; right: 6%;
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 300;
       font-size: clamp(48px, 6vw, 86px);
+      letter-spacing: 0.18em;
+      line-height: 1;
       color: rgba(10,10,10,0.05);
+      pointer-events: none;
+      user-select: none;
+      white-space: nowrap;
+      z-index: 0;
     }
 
     /* ── MM Brand Mark — visible logo stamp (not the ghost watermark) ─
