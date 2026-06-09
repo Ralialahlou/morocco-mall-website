@@ -103,7 +103,7 @@ const NAV_HTML = () => `
       <a class="nav__link" href="${rootPath()}pages/services.html" role="listitem" data-i18n="services"></a>
     </div>
     <div class="nav__actions">
-      <button class="nav__search-btn" onclick="toggleSearch()" aria-label="Search">
+      <button class="nav__search-btn" onclick="toggleSearch()" aria-label="Rechercher">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
           <circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/>
         </svg>
@@ -361,7 +361,7 @@ function renderChrome() {
   chrome.id = 'mm-chrome';
   // Height = bar + nav so this div acts as a spacer pushing <main> below the fixed bars
   chrome.style.cssText = 'height:calc(var(--bar-h) + var(--nav-h));flex-shrink:0;';
-  chrome.innerHTML = LOCATION_BAR_HTML() + NAV_HTML() + MOBILE_MENU_HTML() + SEARCH_OVERLAY_HTML() + MALL_MODAL_HTML() + QR_MODAL_HTML() + TOAST_CONTAINER_HTML;
+  chrome.innerHTML = '<a class="skip-link" href="#main-content">Passer au contenu principal</a>' + LOCATION_BAR_HTML() + NAV_HTML() + MOBILE_MENU_HTML() + SEARCH_OVERLAY_HTML() + MALL_MODAL_HTML() + QR_MODAL_HTML() + TOAST_CONTAINER_HTML;
 
   document.body.insertBefore(chrome, document.body.firstChild);
 }

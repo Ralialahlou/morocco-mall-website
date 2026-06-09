@@ -466,14 +466,21 @@
         afterInit: function () {
           var first = this.slides[this.activeIndex];
           if (first) {
-            // Small delay so the fade transition doesn't fight the entrance
             setTimeout(function () { animateHeroContent(first); }, 200);
           }
+          // Set aria-hidden on inactive slides (WCAG 1.3.1)
+          this.slides.forEach(function(s, i) {
+            s.setAttribute('aria-hidden', i !== this.activeIndex ? 'true' : 'false');
+          }, this);
         },
         // Animate incoming slide's content
         slideChange: function () {
           var slide = this.slides[this.activeIndex];
           if (slide) animateHeroContent(slide);
+          // Update aria-hidden on all slides (WCAG 1.3.1)
+          this.slides.forEach(function(s, i) {
+            s.setAttribute('aria-hidden', i !== this.activeIndex ? 'true' : 'false');
+          }, this);
           // Play video in active slide
           var vid = slide && slide.querySelector('video');
           if (vid) { vid.currentTime = 0; vid.play().catch(function(){}); }

@@ -90,12 +90,12 @@
           <p class="heading-sm" style="margin-bottom:1.5rem;color:var(--gray-400);">Formulaire de contact</p>
           <form id="leasing-form" onsubmit="handleLeasingForm(event)" style="background:var(--white);padding:2.5rem;border:1px solid var(--gray-200);">
             <div class="form-group">
-              <label class="form-label" data-i18n="brandName"></label>
-              <input class="form-input" type="text" required placeholder="ex : Marque ABC" />
+              <label class="form-label" for="ju-brand" data-i18n="brandName"></label>
+              <input class="form-input" type="text" id="ju-brand" required placeholder="ex : Marque ABC" />
             </div>
             <div class="form-group">
-              <label class="form-label" data-i18n="mallInterest"></label>
-              <select class="form-select" required>
+              <label class="form-label" for="ju-mall" data-i18n="mallInterest"></label>
+              <select class="form-select" id="ju-mall" required>
                 <option value="">Sélectionner un mall…</option>
                 <option value="casablanca">Casablanca Bay</option>
                 <option value="marrakech">Marrakech Garden</option>
@@ -105,8 +105,8 @@
               </select>
             </div>
             <div class="form-group">
-              <label class="form-label" data-i18n="category"></label>
-              <select class="form-select" required>
+              <label class="form-label" for="ju-category" data-i18n="category"></label>
+              <select class="form-select" id="ju-category" required>
                 <option value="">Sélectionner une catégorie…</option>
                 <option>Mode femme</option>
                 <option>Mode homme</option>
@@ -124,21 +124,21 @@
             </div>
             <div style="display:grid;grid-template-columns:1fr;gap:0;" id="name-email-grid">
               <div class="form-group">
-                <label class="form-label" data-i18n="contactName"></label>
-                <input class="form-input" type="text" required placeholder="Prénom Nom" />
+                <label class="form-label" for="ju-contact-name" data-i18n="contactName"></label>
+                <input class="form-input" type="text" id="ju-contact-name" required placeholder="Prénom Nom" autocomplete="name" />
               </div>
               <div class="form-group">
-                <label class="form-label" data-i18n="email"></label>
-                <input class="form-input" type="email" required placeholder="nom@marque.com" />
+                <label class="form-label" for="ju-email" data-i18n="email"></label>
+                <input class="form-input" type="email" id="ju-email" required placeholder="nom@marque.com" autocomplete="email" />
               </div>
             </div>
             <div class="form-group">
-              <label class="form-label" data-i18n="phone"></label>
-              <input class="form-input" type="tel" placeholder="+212 6XX XXX XXX" />
+              <label class="form-label" for="ju-phone" data-i18n="phone"></label>
+              <input class="form-input" type="tel" id="ju-phone" placeholder="+212 6XX XXX XXX" autocomplete="tel" />
             </div>
             <div class="form-group">
-              <label class="form-label" data-i18n="message"></label>
-              <textarea class="form-textarea" placeholder="Décrivez votre marque, le type de surface souhaitée, ou toute autre information utile…"></textarea>
+              <label class="form-label" for="ju-message" data-i18n="message"></label>
+              <textarea class="form-textarea" id="ju-message" placeholder="Décrivez votre marque, le type de surface souhaitée, ou toute autre information utile…"></textarea>
             </div>
 
             <!-- ── Documents requis ── -->

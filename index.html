@@ -450,7 +450,7 @@
       </div>
     </div>
 
-    <div class="hero-slide" data-slide="1">
+    <div class="hero-slide" data-slide="1" aria-hidden="true">
       <div class="hero-slide__kenburns">
         <img class="hero-slide__kb-img" src="assets/luxury-1.jpg"
           alt="Rose Boulevard — Dior boutique" loading="eager" style="object-position:center;" />
@@ -458,7 +458,7 @@
       <div class="hero-slide__overlay hero-slide__overlay--rose"></div>
       <div class="hero-slide__content container">
         <p class="hero__eyebrow" style="color:var(--gold);">Rose Boulevard</p>
-        <h1 class="hero__title">An Exclusive<br><em>World of Luxury</em></h1>
+        <h2 class="hero__title">An Exclusive<br><em>World of Luxury</em></h2>
         <p class="hero__subtitle">Les plus grandes maisons internationales réunies dans un espace d'exception unique au Maroc.</p>
         <div class="hero__actions">
           <a class="btn btn--gold btn--lg" href="pages/rose-boulevard.html" data-i18n="discoverMore"></a>
@@ -466,7 +466,7 @@
       </div>
     </div>
 
-    <div class="hero-slide" data-slide="2">
+    <div class="hero-slide" data-slide="2" aria-hidden="true">
       <video class="hero-slide__media" muted loop playsinline
         poster="assets/luxury-4.jpg" style="object-position:right center;">
         <source src="https://assets.mixkit.co/videos/preview/mixkit-light-show-in-a-night-park-display-47500-large.mp4" type="video/mp4"/>
@@ -474,7 +474,7 @@
       <div class="hero-slide__overlay"></div>
       <div class="hero-slide__content container">
         <p class="hero__eyebrow">Divertissement &amp; Événements</p>
-        <h1 class="hero__title">Unforgettable<br><em>Experiences</em></h1>
+        <h2 class="hero__title">Unforgettable<br><em>Experiences</em></h2>
         <p class="hero__subtitle">Sea Dream Aquarium, Cinéma, Hello Park, Adventure Land &amp; Fontaine Musicale.</p>
         <div class="hero__actions">
           <a class="btn btn--outline-white btn--lg" href="pages/entertainment.html" data-i18n="entertainment"></a>
@@ -952,7 +952,7 @@
         <h2 class="newsletter-dark__title">Restez dans<br><em>l'univers Morocco Mall</em></h2>
         <p class="newsletter-dark__sub" data-i18n="newsletterSub"></p>
         <form class="newsletter-dark-form" onsubmit="handleNewsletter(event)">
-          <input type="email" required placeholder="Votre adresse email" data-i18n-placeholder="emailPlaceholder"/>
+          <input type="email" required placeholder="Votre adresse email" data-i18n-placeholder="emailPlaceholder" aria-label="Adresse email" autocomplete="email" />
           <button type="submit" data-i18n="subscribe"></button>
         </form>
         <p class="newsletter-dark__note" data-i18n="newsletterNote"></p>

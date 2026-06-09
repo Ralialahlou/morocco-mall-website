@@ -338,11 +338,11 @@
 
   <!-- Tabs — fixed under nav -->
   <div class="res-tabs" id="res-tabs">
-    <button class="res-tab active" onclick="switchTab('aquarium',this)">
-      🎟 Billets Aquarium
+    <button type="button" class="res-tab active" onclick="switchTab('aquarium',this)" aria-selected="true" role="tab">
+      Billets Aquarium
     </button>
-    <button class="res-tab" onclick="switchTab('restaurant',this)">
-      🍽 Restaurant Ocean Kitchen
+    <button type="button" class="res-tab" onclick="switchTab('restaurant',this)" aria-selected="false" role="tab">
+      Restaurant Ocean Kitchen
     </button>
   </div>
   <!-- Spacer pushes content below the fixed tab bar -->
@@ -377,7 +377,7 @@
     <!-- ── STEP 1: Date & Time ── -->
     <div class="step-panel active" id="aq-step-1">
       <div class="section-card">
-        <h3>Choisissez votre date</h3>
+        <h3><label for="aq-date">Choisissez votre date</label></h3>
         <input class="date-input" type="date" id="aq-date"
           min="" placeholder="Sélectionner une date" />
 
@@ -511,17 +511,17 @@
       <div class="section-card">
         <h3>Vos coordonnées</h3>
         <div class="form-group">
-          <label class="form-label">Prénom et Nom *</label>
-          <input class="form-input" type="text" id="aq-name" placeholder="Mohammed Al-Fassi" required />
+          <label class="form-label" for="aq-name">Prénom et Nom *</label>
+          <input class="form-input" type="text" id="aq-name" placeholder="Mohammed Al-Fassi" required autocomplete="name" />
         </div>
         <div class="form-group">
-          <label class="form-label">Adresse email *</label>
-          <input class="form-input" type="email" id="aq-email" placeholder="email@exemple.com" required />
+          <label class="form-label" for="aq-email">Adresse email *</label>
+          <input class="form-input" type="email" id="aq-email" placeholder="email@exemple.com" required autocomplete="email" />
           <p style="font-size:.7rem;color:var(--gray-400);margin-top:.4rem;">Votre billet sera envoyé à cette adresse</p>
         </div>
         <div class="form-group">
-          <label class="form-label">Téléphone</label>
-          <input class="form-input" type="tel" id="aq-phone" placeholder="+212 6XX XXX XXX" />
+          <label class="form-label" for="aq-phone">Téléphone</label>
+          <input class="form-input" type="tel" id="aq-phone" placeholder="+212 6XX XXX XXX" autocomplete="tel" />
         </div>
       </div>
 
@@ -534,20 +534,20 @@
           <span class="card-icon">PayPal</span>
         </div>
         <div class="form-group">
-          <label class="form-label">Numéro de carte *</label>
+          <label class="form-label" for="aq-card">Numéro de carte *</label>
           <input class="form-input" type="text" id="aq-card"
             placeholder="1234 5678 9012 3456" maxlength="19"
             oninput="formatCard(this)" />
         </div>
         <div class="card-field-row">
           <div class="form-group">
-            <label class="form-label">Date d'expiration *</label>
+            <label class="form-label" for="aq-expiry">Date d'expiration *</label>
             <input class="form-input" type="text" id="aq-expiry"
               placeholder="MM/AA" maxlength="5"
               oninput="formatExpiry(this)" />
           </div>
           <div class="form-group">
-            <label class="form-label">CVV *</label>
+            <label class="form-label" for="aq-cvv">CVV *</label>
             <input class="form-input" type="password" id="aq-cvv"
               placeholder="•••" maxlength="4" />
           </div>
@@ -669,7 +669,7 @@
       <h3>Choisissez votre service</h3>
 
       <div class="form-group">
-        <label class="form-label">Date *</label>
+        <label class="form-label" for="rst-date">Date *</label>
         <input class="date-input" type="date" id="rst-date" min="" />
       </div>
 
@@ -731,19 +731,19 @@
     <div class="section-card">
       <h3>Vos coordonnées</h3>
       <div class="form-group">
-        <label class="form-label">Prénom et Nom *</label>
-        <input class="form-input" type="text" id="rst-name" placeholder="Mohammed Al-Fassi" required />
+        <label class="form-label" for="rst-name">Prénom et Nom *</label>
+        <input class="form-input" type="text" id="rst-name" placeholder="Mohammed Al-Fassi" required autocomplete="name" />
       </div>
       <div class="form-group">
-        <label class="form-label">Email *</label>
-        <input class="form-input" type="email" id="rst-email" placeholder="email@exemple.com" required />
+        <label class="form-label" for="rst-email">Email *</label>
+        <input class="form-input" type="email" id="rst-email" placeholder="email@exemple.com" required autocomplete="email" />
       </div>
       <div class="form-group">
-        <label class="form-label">Téléphone *</label>
-        <input class="form-input" type="tel" id="rst-phone" placeholder="+212 6XX XXX XXX" required />
+        <label class="form-label" for="rst-phone">Téléphone *</label>
+        <input class="form-input" type="tel" id="rst-phone" placeholder="+212 6XX XXX XXX" required autocomplete="tel" />
       </div>
       <div class="form-group">
-        <label class="form-label">Demandes spéciales</label>
+        <label class="form-label" for="rst-requests">Demandes spéciales</label>
         <textarea class="form-textarea" id="rst-requests" placeholder="Allergies, occasion spéciale, chaise haute, vue sur le requin…"></textarea>
       </div>
     </div>
@@ -759,12 +759,13 @@
 </main>
 
 <!-- Restaurant confirmation modal -->
-<div id="rst-confirm-modal" class="res-confirm-modal">
+<div id="rst-confirm-modal" class="res-confirm-modal" role="dialog" aria-modal="true" aria-labelledby="rst-modal-title">
   <div class="res-confirm-panel">
-    <button onclick="document.getElementById('rst-confirm-modal').style.display='none'"
+    <button type="button" onclick="document.getElementById('rst-confirm-modal').style.display='none'"
+      aria-label="Fermer"
       style="position:absolute;top:1rem;right:1rem;background:none;border:none;cursor:pointer;font-size:1.2rem;color:var(--gray-400);">&#215;</button>
-    <div class="res-confirm-panel__icon">🌊</div>
-    <h3>Réservation confirmée !</h3>
+    <div class="res-confirm-panel__icon" aria-hidden="true">🌊</div>
+    <h3 id="rst-modal-title">Réservation confirmée !</h3>
     <p id="rst-confirm-msg">Votre table est réservée.</p>
     <div style="margin-top:1.5rem;padding:1rem;background:var(--cream);border-radius:2px;font-size:.82rem;">
       <div id="rst-confirm-details" style="color:var(--gray-600);line-height:1.9;"></div>
@@ -774,7 +775,7 @@
       Questions ? <a href="mailto:restaurant@seadream.ma" style="color:var(--ocean);">restaurant@seadream.ma</a>
     </p>
     <div style="margin-top:1.5rem;">
-      <button class="btn btn--dark" style="width:100%" onclick="document.getElementById('rst-confirm-modal').style.display='none'">Fermer</button>
+      <button type="button" class="btn btn--dark" style="width:100%" onclick="document.getElementById('rst-confirm-modal').style.display='none'">Fermer</button>
     </div>
   </div>
 </div>

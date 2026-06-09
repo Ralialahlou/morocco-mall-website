@@ -417,6 +417,7 @@
           </svg>
           <input class="ev-search-input" type="search" id="ev-search"
             placeholder="Rechercher un événement…"
+            aria-label="Rechercher un événement"
             oninput="filterEvents()" />
         </div>
         <span class="ev-results-count" id="ev-count"></span>
@@ -425,13 +426,13 @@
       <!-- Type filter tabs -->
       <div class="ev-type-row" role="tablist" aria-label="Type d'événement">
         <button class="ev-type-btn active" data-type="all" onclick="setType(this)" role="tab" aria-selected="true">Tous</button>
-        <button class="ev-type-btn" data-type="fashion" onclick="setType(this)" role="tab">Fashion</button>
-        <button class="ev-type-btn" data-type="food" onclick="setType(this)" role="tab">Gastronomie</button>
-        <button class="ev-type-btn" data-type="kids" onclick="setType(this)" role="tab">Famille</button>
-        <button class="ev-type-btn" data-type="culture" onclick="setType(this)" role="tab">Culture</button>
-        <button class="ev-type-btn" data-type="opening" onclick="setType(this)" role="tab">Ouvertures</button>
-        <button class="ev-type-btn" data-type="music" onclick="setType(this)" role="tab">Musique</button>
-        <button class="ev-type-btn" data-type="seasonal" onclick="setType(this)" role="tab">Saisonnier</button>
+        <button class="ev-type-btn" data-type="fashion" onclick="setType(this)" role="tab" aria-selected="false">Fashion</button>
+        <button class="ev-type-btn" data-type="food" onclick="setType(this)" role="tab" aria-selected="false">Gastronomie</button>
+        <button class="ev-type-btn" data-type="kids" onclick="setType(this)" role="tab" aria-selected="false">Famille</button>
+        <button class="ev-type-btn" data-type="culture" onclick="setType(this)" role="tab" aria-selected="false">Culture</button>
+        <button class="ev-type-btn" data-type="opening" onclick="setType(this)" role="tab" aria-selected="false">Ouvertures</button>
+        <button class="ev-type-btn" data-type="music" onclick="setType(this)" role="tab" aria-selected="false">Musique</button>
+        <button class="ev-type-btn" data-type="seasonal" onclick="setType(this)" role="tab" aria-selected="false">Saisonnier</button>
       </div>
 
       <!-- Month filter chips -->
@@ -679,7 +680,7 @@
         <p class="heading-sm" style="color:var(--gray-400);margin-bottom:0.75rem;">Ne manquez rien</p>
         <h2 class="display-md" style="max-width:500px;margin:0 auto 0.75rem;">Restez informé des événements</h2>
         <form class="newsletter-form" onsubmit="handleNewsletter(event)">
-          <input class="newsletter-input" type="email" required placeholder="Votre adresse email" />
+          <input class="newsletter-input" type="email" required placeholder="Votre adresse email" aria-label="Adresse email" autocomplete="email" />
           <button class="newsletter-btn" type="submit">S'inscrire</button>
         </form>
       </div>
@@ -689,21 +690,23 @@
 </main>
 
 <!-- RSVP name form modal -->
-<div id="rsvp-name-modal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.7);backdrop-filter:blur(4px);z-index:900;align-items:center;justify-content:center;">
+<div id="rsvp-name-modal" role="dialog" aria-modal="true" aria-labelledby="rsvp-modal-title"
+  style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.7);backdrop-filter:blur(4px);z-index:900;align-items:center;justify-content:center;">
   <div class="rsvp-form-panel">
-    <button onclick="document.getElementById('rsvp-name-modal').style.display='none'"
+    <button type="button" onclick="document.getElementById('rsvp-name-modal').style.display='none'"
+      aria-label="Fermer"
       style="position:absolute;top:1rem;right:1rem;background:none;border:none;cursor:pointer;font-size:1.2rem;color:var(--gray-400);">&#215;</button>
-    <h3>Confirmer votre présence</h3>
+    <h3 id="rsvp-modal-title">Confirmer votre présence</h3>
     <p>Entrez vos coordonnées pour recevoir votre QR code d'entrée pour <strong id="rsvp-event-label-text"></strong>.</p>
     <div class="form-group">
-      <label class="form-label">Prénom et Nom</label>
-      <input type="text" class="form-input" id="rsvp-name-field" placeholder="Mohammed Al-Fassi" required />
+      <label class="form-label" for="rsvp-name-field">Prénom et Nom</label>
+      <input type="text" class="form-input" id="rsvp-name-field" placeholder="Mohammed Al-Fassi" required autocomplete="name" />
     </div>
     <div class="form-group">
-      <label class="form-label">Email</label>
-      <input type="email" class="form-input" id="rsvp-email-field" placeholder="email@exemple.com" required />
+      <label class="form-label" for="rsvp-email-field">Email</label>
+      <input type="email" class="form-input" id="rsvp-email-field" placeholder="email@exemple.com" required autocomplete="email" />
     </div>
-    <button class="btn btn--dark" style="width:100%" onclick="confirmRSVP()">Confirmer et recevoir mon QR Code</button>
+    <button type="button" class="btn btn--dark" style="width:100%" onclick="confirmRSVP()">Confirmer et recevoir mon QR Code</button>
   </div>
 </div>
 
@@ -717,8 +720,12 @@ var searchQuery = '';
 var pendingEvent = null;
 
 function setType(btn) {
-  document.querySelectorAll('.ev-type-btn').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('.ev-type-btn').forEach(b => {
+    b.classList.remove('active');
+    b.setAttribute('aria-selected', 'false');
+  });
   btn.classList.add('active');
+  btn.setAttribute('aria-selected', 'true');
   activeType = btn.dataset.type;
   filterEvents();
 }
