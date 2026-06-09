@@ -260,12 +260,17 @@
       background: var(--white); display: flex; flex-direction: column;
       cursor: pointer; text-decoration: none; color: inherit;
       transition: background .2s;
+      height: 100%; /* fill grid cell so flex children measure correctly */
     }
     .ev-ed-card:hover { background: #FAFAF8; }
     .ev-ed-card__media {
+      /* aspect-ratio alone sets height; img is absolutely inset so it
+         never feeds back into the container's height calculation */
       aspect-ratio: 16/9; overflow: hidden; position: relative;
+      flex-shrink: 0; /* never compress the image area */
     }
     .ev-ed-card__media img {
+      position: absolute; inset: 0;
       width: 100%; height: 100%; object-fit: cover;
       transition: transform .6s var(--ease);
     }
@@ -282,7 +287,8 @@
     .ev-ed-card__title { font-family: var(--font-display); font-size: 1.3rem; font-weight: 400; line-height: 1.2; margin-bottom: .5rem; }
     .ev-ed-card__meta { font-size: .75rem; color: var(--gray-400); margin-bottom: .75rem; }
     .ev-ed-card__desc { font-size: .8rem; color: var(--gray-600); line-height: 1.65; flex: 1; }
-    .ev-ed-card__footer { display:flex; align-items:center; justify-content:space-between; margin-top:1.25rem; padding-top:1rem; border-top:1px solid var(--gray-100); }
+    /* margin-top: auto pushes footer to the card bottom across all 3 columns */
+    .ev-ed-card__footer { display:flex; align-items:center; justify-content:space-between; margin-top: auto; padding-top:1rem; border-top:1px solid var(--gray-100); }
 
     /* Newsletter dark */
     .newsletter-dark {
@@ -794,7 +800,7 @@
       </a>
       <a class="ev-ed-card" href="pages/events.html#event-4">
         <div class="ev-ed-card__media">
-          <img src="assets/luxury-1.jpg" alt="Dior Opening" loading="lazy" style="object-position:center top;"/>
+          <img src="assets/luxury-1.jpg" alt="Dior Opening" loading="lazy" style="object-position:center 35%;"/>
           <span class="ev-ed-card__cat ev-ed-card__cat--gold">Ouverture</span>
         </div>
         <div class="ev-ed-card__body">
