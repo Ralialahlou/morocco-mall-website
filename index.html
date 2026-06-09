@@ -319,6 +319,104 @@
     }
     .newsletter-dark-form button:hover { background: var(--gold-dark); }
     .newsletter-dark__note { font-size: .68rem; color: rgba(255,255,255,.2); margin-top: .75rem; }
+
+    /* ── MM Logo Watermark Texture ─────────────────────────────────
+       Subtle brand texture applied to key sections.
+       Dark bg → white ghost (filter: invert).
+       Light bg → dark ghost (filter: brightness(0)).
+       Always pointer-events:none so it never blocks interaction.
+    ─────────────────────────────────────────────────────────────── */
+
+    /* Manifesto — large centred white ghost */
+    .manifesto::before {
+      content: '';
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      width: clamp(260px, 38vw, 500px);
+      height: clamp(260px, 38vw, 500px);
+      background: url('assets/logo.png') center / contain no-repeat;
+      filter: brightness(0) invert(1);
+      opacity: 0.05;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* Entertainment editorial — top-right corner ghost */
+    .ent-editorial { position: relative; overflow: hidden; }
+    .ent-editorial::before {
+      content: '';
+      position: absolute;
+      top: -50px; right: -50px;
+      width: clamp(220px, 28vw, 420px);
+      height: clamp(220px, 28vw, 420px);
+      background: url('assets/logo.png') center / contain no-repeat;
+      filter: brightness(0) invert(1);
+      opacity: 0.04;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* Newsletter dark — centred ghost */
+    .newsletter-dark::before {
+      content: '';
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      width: clamp(240px, 34vw, 460px);
+      height: clamp(240px, 34vw, 460px);
+      background: url('assets/logo.png') center / contain no-repeat;
+      filter: brightness(0) invert(1);
+      opacity: 0.04;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* Rose fullbleed — logo above overlay, below text (::after) */
+    .rose-fullbleed::after {
+      content: '';
+      position: absolute;
+      top: 50%; right: -30px;
+      transform: translateY(-50%);
+      width: clamp(240px, 32vw, 460px);
+      height: clamp(240px, 32vw, 460px);
+      background: url('assets/logo.png') center / contain no-repeat;
+      filter: brightness(0) invert(1);
+      opacity: 0.06;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* Events editorial (cream bg) — soft dark ghost, right side */
+    .events-editorial { position: relative; overflow: hidden; }
+    .events-editorial::before {
+      content: '';
+      position: absolute;
+      top: 50%; right: -20px;
+      transform: translateY(-50%);
+      width: clamp(160px, 22vw, 320px);
+      height: clamp(160px, 22vw, 320px);
+      background: url('assets/logo.png') center / contain no-repeat;
+      filter: brightness(0);
+      opacity: 0.04;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* Editorial split copy panel (cream bg) — bottom-right dark ghost */
+    .ed-split__copy { position: relative; overflow: hidden; }
+    .ed-split__copy::before {
+      content: '';
+      position: absolute;
+      bottom: -10px; right: -10px;
+      width: clamp(120px, 15vw, 210px);
+      height: clamp(120px, 15vw, 210px);
+      background: url('assets/logo.png') center / contain no-repeat;
+      filter: brightness(0);
+      opacity: 0.05;
+      pointer-events: none;
+      z-index: 0;
+    }
   </style>
 </head>
 <body>
