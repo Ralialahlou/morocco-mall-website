@@ -423,6 +423,26 @@
       pointer-events: none;
       z-index: 0;
     }
+
+    /* ── MM Brand Mark — visible logo stamp (not the ghost watermark) ─
+       Gold/beige on dark sections; black on light sections. Sparse use.
+    ─────────────────────────────────────────────────────────────────── */
+    .mm-mark {
+      display: block;
+      object-fit: contain;
+      flex-shrink: 0;
+    }
+    .mm-mark--center { margin-left: auto; margin-right: auto; }
+    /* Gold/beige: used on black/dark sections */
+    .mm-mark--gold {
+      filter: brightness(0) invert(1) sepia(1) saturate(2) hue-rotate(350deg);
+      opacity: .75;
+    }
+    /* Black: used on cream/white sections */
+    .mm-mark--black {
+      filter: brightness(0);
+      opacity: .55;
+    }
   </style>
 </head>
 <body>
@@ -504,6 +524,7 @@
   <section class="manifesto">
     <div class="manifesto__glow"></div>
     <div class="container" style="position:relative;z-index:1;">
+      <img src="assets/logo.png" alt="" aria-hidden="true" class="mm-mark mm-mark--center mm-mark--gold" style="width:52px;height:52px;margin-bottom:1.5rem;" />
       <div class="manifesto__rule"></div>
       <p class="manifesto__tag">Morocco Mall · Depuis 2009</p>
       <h2 class="manifesto__title reveal">
@@ -606,6 +627,7 @@
   <section class="brands-section">
     <div class="brands-section__header">
       <div class="reveal">
+        <img src="assets/logo.png" alt="" aria-hidden="true" class="mm-mark mm-mark--black" style="width:32px;height:32px;margin-bottom:.6rem;" />
         <p class="brands-eyebrow" data-i18n="shop"></p>
         <h2 class="brands-title">Editor's Picks</h2>
       </div>
@@ -726,6 +748,7 @@
     <div class="rose-fullbleed__pattern"></div>
     <div class="container rose-fullbleed__inner">
       <div class="reveal" style="max-width:700px;">
+        <img src="assets/logo.png" alt="" aria-hidden="true" class="mm-mark mm-mark--gold" style="width:44px;height:44px;margin-bottom:1.5rem;" />
         <p class="tag tag--gold" style="margin-bottom:1.5rem;">Rose Boulevard</p>
         <h2 style="font-family:var(--font-display);font-size:clamp(2.8rem,6vw,6rem);font-weight:300;line-height:.95;color:var(--gold-light);margin-bottom:1.25rem;" data-i18n="roseTitle"></h2>
         <p style="font-size:.9rem;color:rgba(255,255,255,.45);max-width:520px;line-height:1.8;margin-bottom:2.5rem;" data-i18n="roseSub"></p>
@@ -809,7 +832,7 @@
           <p class="ev-ed-card__meta">Casablanca Bay · Sur invitation</p>
           <p class="ev-ed-card__desc">Soirée inaugurale de la boutique Dior au cœur de Rose Boulevard.</p>
           <div class="ev-ed-card__footer">
-            <a class="btn btn--outline" style="padding:.5rem 1rem;font-size:.6rem;" href="pages/events.html#event-4">Détails</a>
+            <span class="btn btn--outline" style="padding:.5rem 1rem;font-size:.6rem;">Détails</span>
             <div style="color:var(--gray-400);"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="width:18px;height:18px;"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
           </div>
         </div>
@@ -943,7 +966,8 @@
     <div class="newsletter-dark__glow"></div>
     <div class="container" style="position:relative;z-index:1;">
       <div class="reveal">
-        <p style="font-size:.6rem;letter-spacing:.25em;text-transform:uppercase;color:rgba(255,255,255,.25);margin-bottom:1.5rem;">Newsletter</p>
+        <img src="assets/logo.png" alt="" aria-hidden="true" class="mm-mark mm-mark--center mm-mark--gold" style="width:44px;height:44px;margin-bottom:1.5rem;" />
+        <p style="font-size:.6rem;letter-spacing:.25em;text-transform:uppercase;color:rgba(255,255,255,.25);margin-bottom:.75rem;">Newsletter</p>
         <h2 class="newsletter-dark__title">Restez dans<br><em>l'univers Morocco Mall</em></h2>
         <p class="newsletter-dark__sub" data-i18n="newsletterSub"></p>
         <form class="newsletter-dark-form" onsubmit="handleNewsletter(event)">
