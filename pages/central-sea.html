@@ -1,0 +1,634 @@
+<!DOCTYPE html>
+<html lang="fr" dir="ltr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Central Sea — Le club de plage au cœur du mall. Piscine à vagues, beach chairs et beach kitchen. Exclusivement au Morocco Mall Marrakech Garden." />
+  <title>Central Sea — Morocco Mall Marrakech</title>
+  <link rel="icon" href="../assets/logo.png" type="image/png" />
+  <link rel="stylesheet" href="../css/main.css" />
+  <style>
+    /* ── Base ── */
+    body { background: var(--black, #0A0A0A); color: #fff; }
+
+    /* ── Skip link ── */
+    .skip-link {
+      position: absolute;
+      top: -999px;
+      left: 1rem;
+      background: var(--gold, #C9A96E);
+      color: #000;
+      padding: 0.5rem 1rem;
+      font-size: 0.85rem;
+      font-weight: 600;
+      text-decoration: none;
+      z-index: 9999;
+      border-radius: 0 0 4px 4px;
+    }
+    .skip-link:focus { top: 0; }
+
+    /* ── Hero ── */
+    .cs-hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 0 var(--pad-x, 2rem) clamp(3rem, 8vw, 6rem);
+      position: relative;
+      overflow: hidden;
+    }
+    .cs-hero__media {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+    }
+    .cs-hero__media img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      display: block;
+    }
+    .cs-hero__overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        to bottom,
+        rgba(0, 30, 60, 0.55) 0%,
+        rgba(0, 40, 80, 0.75) 50%,
+        rgba(0, 20, 50, 0.93) 100%
+      );
+      z-index: 1;
+    }
+    .cs-hero__content {
+      position: relative;
+      z-index: 2;
+      max-width: var(--max-w, 1280px);
+      margin: 0 auto;
+      width: 100%;
+    }
+    .cs-hero__eyebrow {
+      display: inline-block;
+      font-size: 0.65rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--gold, #C9A96E);
+      margin-bottom: 1.2rem;
+      font-family: var(--font-body, 'DM Sans', sans-serif);
+    }
+    .cs-hero h1 {
+      font-family: var(--font-display, 'Cormorant Garamond', serif);
+      font-size: clamp(3.5rem, 10vw, 8rem);
+      font-weight: 300;
+      letter-spacing: -0.02em;
+      line-height: 1;
+      color: #fff;
+      margin: 0 0 1.5rem;
+    }
+    .cs-hero__subtitle {
+      font-family: var(--font-display, 'Cormorant Garamond', serif);
+      font-size: clamp(1rem, 2.5vw, 1.5rem);
+      font-weight: 300;
+      font-style: italic;
+      color: rgba(255, 255, 255, 0.72);
+      max-width: 540px;
+    }
+
+    /* ── Section wrapper util ── */
+    .cs-section {
+      padding: clamp(4rem, 9vw, 8rem) var(--pad-x, 2rem);
+    }
+    .cs-inner {
+      max-width: var(--max-w, 1280px);
+      margin: 0 auto;
+    }
+    .cs-label {
+      font-size: 0.6rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--gold, #C9A96E);
+      margin-bottom: 1rem;
+      font-family: var(--font-body, 'DM Sans', sans-serif);
+      display: block;
+    }
+    .cs-heading {
+      font-family: var(--font-display, 'Cormorant Garamond', serif);
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      font-weight: 300;
+      line-height: 1.15;
+      letter-spacing: -0.01em;
+    }
+
+    /* ── Concept split ── */
+    .cs-concept {
+      background: var(--cream, #F9F7F3);
+      color: var(--black, #0A0A0A);
+    }
+    .cs-concept__grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+      align-items: center;
+    }
+    @media (max-width: 860px) {
+      .cs-concept__grid { grid-template-columns: 1fr; gap: 2.5rem; }
+    }
+    .cs-concept__img-wrap {
+      position: relative;
+      overflow: hidden;
+      border-radius: 2px;
+    }
+    .cs-concept__img-wrap img {
+      width: 100%;
+      height: 480px;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.6s ease;
+    }
+    .cs-concept__img-wrap:hover img { transform: scale(1.04); }
+    .cs-concept__body .cs-label { color: #b8924f; }
+    .cs-concept__body .cs-heading { color: var(--black, #0A0A0A); margin-bottom: 1.5rem; }
+    .cs-concept__body p {
+      font-family: var(--font-body, 'DM Sans', sans-serif);
+      font-size: 1rem;
+      line-height: 1.85;
+      color: rgba(10, 10, 10, 0.72);
+      margin-bottom: 1.2rem;
+    }
+    .cs-concept__badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      border: 1px solid rgba(10, 10, 10, 0.18);
+      padding: 0.5rem 1rem;
+      font-size: 0.7rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      font-family: var(--font-body, 'DM Sans', sans-serif);
+      color: #b8924f;
+      margin-top: 1rem;
+    }
+
+    /* ── Horaires section ── */
+    .cs-horaires {
+      background: #0d1a2e;
+    }
+    .cs-horaires .cs-heading { color: #fff; margin-bottom: 2.5rem; }
+    .cs-horaires-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: rgba(201, 169, 110, 0.2);
+    }
+    @media (max-width: 860px) {
+      .cs-horaires-grid { grid-template-columns: 1fr; }
+    }
+    .cs-horaires-card {
+      background: #0d1a2e;
+      padding: 2.5rem 2rem;
+      transition: background 0.3s;
+    }
+    .cs-horaires-card:hover { background: rgba(201, 169, 110, 0.06); }
+    .cs-horaires-card__icon {
+      font-size: 1.8rem;
+      margin-bottom: 1.2rem;
+    }
+    .cs-horaires-card__type {
+      font-size: 0.6rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold, #C9A96E);
+      margin-bottom: 0.6rem;
+      font-family: var(--font-body, 'DM Sans', sans-serif);
+    }
+    .cs-horaires-card__time {
+      font-family: var(--font-display, 'Cormorant Garamond', serif);
+      font-size: 1.5rem;
+      font-weight: 300;
+      color: #fff;
+      margin-bottom: 0.4rem;
+      line-height: 1.3;
+    }
+    .cs-horaires-card__note {
+      font-family: var(--font-body, 'DM Sans', sans-serif);
+      font-size: 0.78rem;
+      color: rgba(255, 255, 255, 0.45);
+      line-height: 1.5;
+    }
+
+    /* ── Beach Kitchen / Food section ── */
+    .cs-kitchen {
+      background: #0a0a0a;
+    }
+    .cs-kitchen .cs-heading { color: #fff; margin-bottom: 0.75rem; }
+    .cs-kitchen__intro {
+      font-family: var(--font-body, 'DM Sans', sans-serif);
+      font-size: 1rem;
+      color: rgba(255, 255, 255, 0.55);
+      max-width: 520px;
+      line-height: 1.7;
+      margin-bottom: 3rem;
+    }
+    .cs-food-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.5rem;
+    }
+    @media (max-width: 1024px) { .cs-food-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 540px)  { .cs-food-grid { grid-template-columns: 1fr; } }
+    .cs-food-card {
+      background: #141414;
+      overflow: hidden;
+      border-radius: 2px;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .cs-food-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.5);
+    }
+    .cs-food-card__img {
+      overflow: hidden;
+      aspect-ratio: 4 / 3;
+    }
+    .cs-food-card__img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.5s ease;
+    }
+    .cs-food-card:hover .cs-food-card__img img { transform: scale(1.07); }
+    .cs-food-card__body {
+      padding: 1.25rem 1.25rem 1.5rem;
+    }
+    .cs-food-card__name {
+      font-family: var(--font-display, 'Cormorant Garamond', serif);
+      font-size: 1.3rem;
+      font-weight: 300;
+      color: #fff;
+      margin-bottom: 0.35rem;
+    }
+    .cs-food-card__desc {
+      font-family: var(--font-body, 'DM Sans', sans-serif);
+      font-size: 0.82rem;
+      color: rgba(255, 255, 255, 0.45);
+      line-height: 1.6;
+    }
+
+    /* ── Wave Pool section ── */
+    .cs-wave {
+      background: var(--black, #0A0A0A);
+      position: relative;
+      overflow: hidden;
+    }
+    .cs-wave__img-wrap {
+      position: relative;
+      width: 100%;
+      max-height: 560px;
+      overflow: hidden;
+      margin-bottom: 4rem;
+    }
+    .cs-wave__img-wrap img {
+      width: 100%;
+      height: 560px;
+      object-fit: cover;
+      display: block;
+    }
+    .cs-wave__img-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        to bottom,
+        transparent 40%,
+        rgba(10, 10, 10, 0.85) 100%
+      );
+    }
+    .cs-wave__body {
+      max-width: 720px;
+    }
+    .cs-wave .cs-heading { color: #fff; margin-bottom: 1.5rem; }
+    .cs-wave__copy {
+      font-family: var(--font-body, 'DM Sans', sans-serif);
+      font-size: 1rem;
+      color: rgba(255, 255, 255, 0.6);
+      line-height: 1.85;
+      margin-bottom: 2rem;
+    }
+    .cs-wave__list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 0.85rem;
+    }
+    .cs-wave__list li {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      font-family: var(--font-body, 'DM Sans', sans-serif);
+      font-size: 0.9rem;
+      color: rgba(255, 255, 255, 0.72);
+    }
+    .cs-wave__list li::before {
+      content: '';
+      display: block;
+      width: 20px;
+      height: 1px;
+      background: var(--gold, #C9A96E);
+      flex-shrink: 0;
+    }
+
+    /* ── Infos pratiques ── */
+    .cs-infos {
+      background: #0d1a2e;
+    }
+    .cs-infos .cs-heading { color: #fff; margin-bottom: 2.5rem; }
+    .cs-infos-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+    }
+    @media (max-width: 768px) { .cs-infos-grid { grid-template-columns: 1fr; } }
+    .cs-info-item {
+      border-left: 1px solid rgba(201, 169, 110, 0.3);
+      padding-left: 1.5rem;
+    }
+    .cs-info-item__label {
+      font-size: 0.6rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold, #C9A96E);
+      margin-bottom: 0.5rem;
+      font-family: var(--font-body, 'DM Sans', sans-serif);
+    }
+    .cs-info-item__value {
+      font-family: var(--font-display, 'Cormorant Garamond', serif);
+      font-size: 1.1rem;
+      font-weight: 300;
+      color: rgba(255, 255, 255, 0.88);
+      line-height: 1.5;
+    }
+
+    /* ── CTA section ── */
+    .cs-cta {
+      background: var(--black, #0A0A0A);
+      text-align: center;
+    }
+    .cs-cta__inner {
+      max-width: 640px;
+      margin: 0 auto;
+    }
+    .cs-cta .cs-heading { color: #fff; margin-bottom: 0.75rem; }
+    .cs-cta__sub {
+      font-family: var(--font-display, 'Cormorant Garamond', serif);
+      font-size: 1.1rem;
+      font-style: italic;
+      font-weight: 300;
+      color: rgba(255, 255, 255, 0.5);
+      margin-bottom: 2.5rem;
+    }
+    .cs-btn-gold {
+      display: inline-block;
+      background: var(--gold, #C9A96E);
+      color: #000;
+      font-family: var(--font-body, 'DM Sans', sans-serif);
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      text-decoration: none;
+      padding: 1rem 2.5rem;
+      transition: background 0.25s, color 0.25s;
+    }
+    .cs-btn-gold:hover {
+      background: #b8924f;
+      color: #fff;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Skip to content -->
+  <a class="skip-link" href="#main-content">Aller au contenu principal</a>
+
+  <!-- Chrome (nav + footer injected by app.js) -->
+  <div id="chrome-mount"></div>
+
+  <main id="main-content">
+
+    <!-- ══ 1. HERO ══════════════════════════════════════════════════════════ -->
+    <section class="cs-hero" aria-label="Présentation Central Sea">
+      <div class="cs-hero__media">
+        <img
+          src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=1600&h=900&fit=crop"
+          alt="Plage ensoleillée avec vagues — Central Sea"
+          loading="eager"
+          fetchpriority="high"
+        />
+      </div>
+      <div class="cs-hero__overlay" aria-hidden="true"></div>
+      <div class="cs-hero__content">
+        <span class="cs-hero__eyebrow">Morocco Mall Marrakech Garden &middot; Exclusif</span>
+        <h1>Central Sea</h1>
+        <p class="cs-hero__subtitle">Le club de plage au c&oelig;ur du mall</p>
+      </div>
+    </section>
+
+    <!-- ══ 2. CONCEPT ════════════════════════════════════════════════════════ -->
+    <section class="cs-section cs-concept" aria-labelledby="concept-heading">
+      <div class="cs-inner">
+        <div class="cs-concept__grid">
+          <div class="cs-concept__img-wrap">
+            <img
+              src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=800&h=600&fit=crop"
+              alt="Vagues et plage — ambiance Central Sea"
+              loading="lazy"
+            />
+          </div>
+          <div class="cs-concept__body">
+            <span class="cs-label">Le Concept</span>
+            <h2 class="cs-heading" id="concept-heading">Une plage privée,<br />au cœur de Marrakech</h2>
+            <p>
+              Imaginez une journée de plage sans quitter la ville — soleil artificiel, sable fin, transats et vagues. Central Sea réinvente le beach club à la manière des adresses emblématiques de Dubaï, transposé au cœur du Morocco Mall Marrakech Garden.
+            </p>
+            <p>
+              Une piscine à vagues grandeur nature, une ambiance méditerranéenne et un service beach club haut de gamme : tout ce qu&rsquo;il faut pour s&rsquo;évader le temps d&rsquo;un après-midi sans prendre l&rsquo;avion.
+            </p>
+            <p>
+              Expérience unique au Maroc, Central Sea est une destination à part entière, exclusivement disponible au Morocco Mall Marrakech Garden.
+            </p>
+            <span class="cs-concept__badge">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>
+              Exclusivement Marrakech Garden
+            </span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══ 3. HORAIRES ═══════════════════════════════════════════════════════ -->
+    <section class="cs-section cs-horaires" aria-labelledby="horaires-heading">
+      <div class="cs-inner">
+        <span class="cs-label">Horaires d&rsquo;ouverture</span>
+        <h2 class="cs-heading" id="horaires-heading">Quand nous rendre visite</h2>
+        <div class="cs-horaires-grid" role="list">
+          <div class="cs-horaires-card" role="listitem">
+            <div class="cs-horaires-card__icon" aria-hidden="true">&#9728;</div>
+            <div class="cs-horaires-card__type">Horaires standards</div>
+            <div class="cs-horaires-card__time">11h00 – 23h00</div>
+            <div class="cs-horaires-card__note">Tous les jours, toute l&rsquo;année</div>
+          </div>
+          <div class="cs-horaires-card" role="listitem">
+            <div class="cs-horaires-card__icon" aria-hidden="true">&#9790;</div>
+            <div class="cs-horaires-card__type">Ramadan</div>
+            <div class="cs-horaires-card__time">11h00 – 16h00<br />20h00 – 00h00</div>
+            <div class="cs-horaires-card__note">Deux sessions quotidiennes pendant le mois sacré</div>
+          </div>
+          <div class="cs-horaires-card" role="listitem">
+            <div class="cs-horaires-card__icon" aria-hidden="true">&#9729;</div>
+            <div class="cs-horaires-card__type">Saison estivale</div>
+            <div class="cs-horaires-card__time">10h00 – 22h00</div>
+            <div class="cs-horaires-card__note">1er juin – 30 septembre · Horaires étendus</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══ 4. BEACH KITCHEN ══════════════════════════════════════════════════ -->
+    <section class="cs-section cs-kitchen" aria-labelledby="kitchen-heading">
+      <div class="cs-inner">
+        <span class="cs-label">Restauration</span>
+        <h2 class="cs-heading" id="kitchen-heading">Beach Kitchen</h2>
+        <p class="cs-kitchen__intro">
+          Une carte décontractée et généreuse pour se restaurer entre deux plongeons. Burgers généreux, pizzas croustillantes, tacos et hot dogs — la cuisine de plage dans toute sa convivialité.
+        </p>
+        <div class="cs-food-grid">
+          <!-- Burger -->
+          <article class="cs-food-card">
+            <div class="cs-food-card__img">
+              <img
+                src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=400&h=300&fit=crop"
+                alt="Burger artisanal — Beach Kitchen"
+                loading="lazy"
+              />
+            </div>
+            <div class="cs-food-card__body">
+              <h3 class="cs-food-card__name">Burger</h3>
+              <p class="cs-food-card__desc">Steak haché maison, cheddar fondu, légumes frais et sauce secrète sur un bun brioché toasté.</p>
+            </div>
+          </article>
+          <!-- Pizza -->
+          <article class="cs-food-card">
+            <div class="cs-food-card__img">
+              <img
+                src="https://images.unsplash.com/photo-1513104890138-7c749659a591?w=400&h=300&fit=crop"
+                alt="Pizza napolitaine — Beach Kitchen"
+                loading="lazy"
+              />
+            </div>
+            <div class="cs-food-card__body">
+              <h3 class="cs-food-card__name">Pizza</h3>
+              <p class="cs-food-card__desc">Pâte fine au feu de bois, sauce tomate maison et garnitures généreuses — à partager ou à dévorer seul.</p>
+            </div>
+          </article>
+          <!-- Tacos -->
+          <article class="cs-food-card">
+            <div class="cs-food-card__img">
+              <img
+                src="https://images.unsplash.com/photo-1565299585323-38d6b0865b47?w=400&h=300&fit=crop"
+                alt="Tacos frais — Beach Kitchen"
+                loading="lazy"
+              />
+            </div>
+            <div class="cs-food-card__body">
+              <h3 class="cs-food-card__name">Tacos</h3>
+              <p class="cs-food-card__desc">Tortillas moelleuses garnies de viande marinée, guacamole, pico de gallo et jalapeños craquants.</p>
+            </div>
+          </article>
+          <!-- Hot Dog -->
+          <article class="cs-food-card">
+            <div class="cs-food-card__img">
+              <img
+                src="https://images.unsplash.com/photo-1585325701165-8b7a57df6af3?w=400&h=300&fit=crop"
+                alt="Hot Dog — Beach Kitchen"
+                loading="lazy"
+              />
+            </div>
+            <div class="cs-food-card__body">
+              <h3 class="cs-food-card__name">Hot Dog</h3>
+              <p class="cs-food-card__desc">Saucisse fumée dans un pain moelleux, moutarde à l&rsquo;ancienne, ketchup maison et oignons caramélisés.</p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══ 5. WAVE POOL ══════════════════════════════════════════════════════ -->
+    <section class="cs-section cs-wave" aria-labelledby="wave-heading">
+      <div class="cs-inner">
+        <div class="cs-wave__img-wrap">
+          <img
+            src="https://images.unsplash.com/photo-1520531158340-44015069e78e?w=1200&h=600&fit=crop"
+            alt="Piscine à vagues — Central Sea"
+            loading="lazy"
+          />
+          <div class="cs-wave__img-overlay" aria-hidden="true"></div>
+        </div>
+        <div class="cs-wave__body">
+          <span class="cs-label">La Vague</span>
+          <h2 class="cs-heading" id="wave-heading">Une exp&eacute;rience unique<br />en son genre au Maroc</h2>
+          <p class="cs-wave__copy">
+            Au cœur de Central Sea, la piscine à vagues génère des déferlantes régulières qui recréent la sensation de l&rsquo;océan en plein mall. Une prouesse technique au service du plaisir, pensée pour tous — des plus petits aux adultes en quête de sensations.
+          </p>
+          <ul class="cs-wave__list" aria-label="Caractéristiques de la piscine à vagues">
+            <li>Piscine &agrave; vagues professionnelle en fonctionnement continu</li>
+            <li>Surveillance permanente par des ma&icirc;tres-nageurs certifi&eacute;s</li>
+            <li>Zone enfants s&eacute;curis&eacute;e avec vagues douces et pataugeoire</li>
+            <li>Zone adultes avec vagues puissantes et bodyboard</li>
+            <li>Transats et parasols en location sur place</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══ 6. INFOS PRATIQUES ════════════════════════════════════════════════ -->
+    <section class="cs-section cs-infos" aria-labelledby="infos-heading">
+      <div class="cs-inner">
+        <span class="cs-label">Informations</span>
+        <h2 class="cs-heading" id="infos-heading">Infos pratiques</h2>
+        <div class="cs-infos-grid">
+          <div class="cs-info-item">
+            <div class="cs-info-item__label">Emplacement</div>
+            <div class="cs-info-item__value">Niveau 0<br />Morocco Mall Marrakech Garden</div>
+          </div>
+          <div class="cs-info-item">
+            <div class="cs-info-item__label">R&eacute;servation</div>
+            <div class="cs-info-item__value">Walk-in &amp; r&eacute;servation sur place<br />Pas de r&eacute;servation en ligne requise</div>
+          </div>
+          <div class="cs-info-item">
+            <div class="cs-info-item__label">Public</div>
+            <div class="cs-info-item__value">Tous &acirc;ges<br />Id&eacute;al pour les familles avec enfants</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══ 7. CTA ════════════════════════════════════════════════════════════ -->
+    <section class="cs-section cs-cta" aria-labelledby="cta-heading">
+      <div class="cs-cta__inner">
+        <span class="cs-label" style="text-align:center; display:block;">Marrakech Garden</span>
+        <h2 class="cs-heading" id="cta-heading">D&eacute;couvrez tout<br />Marrakech Garden</h2>
+        <p class="cs-cta__sub">Bien plus qu&rsquo;un mall — une destination &agrave; part enti&egrave;re</p>
+        <a href="../pages/about.html" class="cs-btn-gold">Explorer Marrakech Garden</a>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Scripts -->
+  <script src="../js/seo.js"></script>
+  <script src="../js/translations.js"></script>
+  <script src="../js/app.js"></script>
+</body>
+</html>

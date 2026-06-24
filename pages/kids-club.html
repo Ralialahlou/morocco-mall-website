@@ -1,0 +1,973 @@
+<!DOCTYPE html>
+<html lang="fr" dir="ltr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Kids Club — Morocco Mall. Espace dédié aux enfants de 3 à 14 ans : jeux interactifs, ateliers créatifs, zone sportive et arcade. Niveau 2, tous les malls." />
+  <title>Kids Club — Morocco Mall</title>
+  <link rel="icon" href="../assets/logo.png" type="image/png" />
+  <link rel="stylesheet" href="../css/main.css" />
+  <style>
+    /* ============================================================
+       KIDS CLUB PAGE — Scoped Styles (prefix: kc-)
+       ============================================================ */
+
+    /* ── Skip link ── */
+    .skip-link {
+      position: absolute;
+      top: -999px;
+      left: 1rem;
+      background: var(--gold, #C9A96E);
+      color: #000;
+      padding: 0.5rem 1rem;
+      font-size: 0.85rem;
+      font-weight: 600;
+      text-decoration: none;
+      z-index: 9999;
+      border-radius: 0 0 4px 4px;
+    }
+    .skip-link:focus { top: 0; }
+
+    /* ── Accent palette ── */
+    :root {
+      --kc-coral:       #E85A4F;
+      --kc-coral-dark:  #A33A31;
+      --kc-coral-light: #F5A99F;
+      --kc-navy:        #0D1B2A;
+      --kc-navy-mid:    #162232;
+      --kc-navy-light:  #1E2F42;
+    }
+
+    /* ── Hero ── */
+    .kc-hero {
+      position: relative;
+      height: 100vh;
+      min-height: 620px;
+      display: flex;
+      align-items: flex-end;
+      overflow: hidden;
+    }
+    .kc-hero__bg {
+      position: absolute;
+      inset: 0;
+      background-image: url('https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?w=1920&h=1080&fit=crop');
+      background-size: cover;
+      background-position: center top;
+      transform: scale(1.05);
+      transition: transform 8s ease-out;
+    }
+    .kc-hero__bg.loaded { transform: scale(1); }
+    .kc-hero__overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        to top,
+        rgba(13, 27, 42, 0.96) 0%,
+        rgba(13, 27, 42, 0.60) 40%,
+        rgba(13, 27, 42, 0.20) 100%
+      );
+    }
+    .kc-hero__overlay-gold {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        135deg,
+        rgba(201, 169, 110, 0.12) 0%,
+        transparent 60%
+      );
+      pointer-events: none;
+    }
+    .kc-hero__content {
+      position: relative;
+      z-index: 2;
+      padding-bottom: clamp(3rem, 8vh, 6rem);
+      color: var(--white, #fff);
+    }
+    .kc-hero__breadcrumb {
+      font-family: var(--font-body);
+      font-size: 0.65rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.45);
+      margin-bottom: 2rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .kc-hero__breadcrumb a {
+      color: rgba(255, 255, 255, 0.45);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .kc-hero__breadcrumb a:hover { color: var(--white, #fff); }
+    .kc-hero__eyebrow {
+      font-family: var(--font-body);
+      font-size: 0.65rem;
+      font-weight: 500;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--gold, #C9A96E);
+      margin-bottom: 1.25rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    .kc-hero__eyebrow::before {
+      content: '';
+      display: block;
+      width: 2rem;
+      height: 1px;
+      background: var(--gold, #C9A96E);
+      flex-shrink: 0;
+    }
+    .kc-hero__title {
+      font-family: var(--font-display);
+      font-size: clamp(3.5rem, 10vw, 8rem);
+      font-weight: 300;
+      line-height: 0.95;
+      letter-spacing: -0.02em;
+      margin-bottom: 1.5rem;
+    }
+    .kc-hero__title em {
+      font-style: italic;
+      color: var(--gold-light, #E8D5B0);
+    }
+    .kc-hero__subtitle {
+      font-size: clamp(0.9rem, 1.5vw, 1.05rem);
+      line-height: 1.75;
+      color: rgba(255, 255, 255, 0.70);
+      max-width: 500px;
+      margin-bottom: 2.5rem;
+    }
+    .kc-hero__tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+    }
+    .kc-hero__tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: rgba(201, 169, 110, 0.15);
+      border: 1px solid rgba(201, 169, 110, 0.38);
+      color: var(--gold-light, #E8D5B0);
+      font-family: var(--font-body);
+      font-size: 0.62rem;
+      font-weight: 500;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      padding: 0.5rem 1.1rem;
+      backdrop-filter: blur(6px);
+    }
+    .kc-hero__scroll {
+      margin-top: 2.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      font-family: var(--font-body);
+      font-size: 0.62rem;
+      font-weight: 500;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.45);
+    }
+    .kc-hero__scroll-line {
+      width: 1px;
+      height: 3rem;
+      background: rgba(255, 255, 255, 0.25);
+      position: relative;
+      overflow: hidden;
+    }
+    .kc-hero__scroll-line::after {
+      content: '';
+      position: absolute;
+      top: -100%;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: var(--gold, #C9A96E);
+      animation: kc-scroll-line 2s ease-in-out infinite;
+    }
+    @keyframes kc-scroll-line {
+      0%   { top: -100%; }
+      100% { top: 100%; }
+    }
+
+    /* ── Section commons ── */
+    .kc-section {
+      padding: clamp(4.5rem, 9vw, 7.5rem) 0;
+    }
+    .kc-section--cream { background: var(--cream, #F9F7F3); }
+    .kc-section--dark  {
+      background: var(--black, #0A0A0A);
+      color: var(--white, #fff);
+    }
+    .kc-section--navy  {
+      background: var(--kc-navy);
+      color: var(--white, #fff);
+    }
+    .kc-label {
+      font-family: var(--font-body);
+      font-size: 0.63rem;
+      font-weight: 500;
+      letter-spacing: 0.26em;
+      text-transform: uppercase;
+      color: var(--gold, #C9A96E);
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    .kc-label::before {
+      content: '';
+      display: block;
+      width: 2rem;
+      height: 1px;
+      background: var(--gold, #C9A96E);
+      flex-shrink: 0;
+    }
+    .kc-title {
+      font-family: var(--font-display);
+      font-size: clamp(2.4rem, 5.5vw, 4.2rem);
+      font-weight: 300;
+      line-height: 1.08;
+      letter-spacing: -0.015em;
+      margin-bottom: 1.5rem;
+    }
+    .kc-title em { font-style: italic; color: var(--gold, #C9A96E); }
+    .kc-title--white { color: var(--white, #fff); }
+    .kc-title--white em { color: var(--gold-light, #E8D5B0); }
+
+    /* ── Concept split ── */
+    .kc-concept {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0;
+    }
+    @media (min-width: 900px) {
+      .kc-concept { grid-template-columns: 1fr 1fr; }
+    }
+    .kc-concept__image {
+      position: relative;
+      min-height: 380px;
+      overflow: hidden;
+    }
+    @media (min-width: 900px) {
+      .kc-concept__image { min-height: 540px; }
+    }
+    .kc-concept__image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.9s ease-out;
+    }
+    .kc-concept:hover .kc-concept__image img { transform: scale(1.04); }
+    .kc-concept__body {
+      padding: clamp(3rem, 6vw, 5.5rem);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      background: var(--cream, #F9F7F3);
+    }
+    .kc-concept__text {
+      font-size: clamp(0.92rem, 1.2vw, 1rem);
+      line-height: 1.85;
+      color: #444;
+      max-width: 500px;
+      margin-bottom: 2.5rem;
+    }
+    .kc-concept__stats {
+      display: flex;
+      gap: 2.5rem;
+      flex-wrap: wrap;
+      margin-top: 0.5rem;
+    }
+    .kc-stat {
+      display: flex;
+      flex-direction: column;
+    }
+    .kc-stat__value {
+      font-family: var(--font-display);
+      font-size: 2.8rem;
+      font-weight: 300;
+      color: var(--black, #0A0A0A);
+      line-height: 1;
+    }
+    .kc-stat__label {
+      font-family: var(--font-body);
+      font-size: 0.6rem;
+      font-weight: 500;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: #888;
+      margin-top: 0.3rem;
+    }
+
+    /* ── Activities grid ── */
+    .kc-activities-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+      margin-top: 3.5rem;
+    }
+    @media (min-width: 640px) {
+      .kc-activities-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (min-width: 1100px) {
+      .kc-activities-grid { grid-template-columns: repeat(4, 1fr); }
+    }
+    .kc-activity-card {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.10);
+      padding: 2.25rem 2rem;
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.35s ease-out, border-color 0.35s, background 0.35s;
+    }
+    .kc-activity-card::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 3px;
+      background: var(--gold, #C9A96E);
+      transition: width 0.4s ease-out;
+    }
+    .kc-activity-card:hover {
+      transform: translateY(-6px);
+      border-color: rgba(201, 169, 110, 0.4);
+      background: rgba(255, 255, 255, 0.08);
+    }
+    .kc-activity-card:hover::after { width: 100%; }
+    .kc-activity-card__icon {
+      width: 3rem;
+      height: 3rem;
+      background: rgba(201, 169, 110, 0.15);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 1.5rem;
+      color: var(--gold, #C9A96E);
+    }
+    .kc-activity-card__icon svg {
+      width: 1.4rem;
+      height: 1.4rem;
+    }
+    .kc-activity-card__name {
+      font-family: var(--font-display);
+      font-size: 1.5rem;
+      font-weight: 300;
+      color: var(--white, #fff);
+      margin-bottom: 0.75rem;
+      line-height: 1.15;
+    }
+    .kc-activity-card__desc {
+      font-size: 0.83rem;
+      line-height: 1.7;
+      color: rgba(255, 255, 255, 0.58);
+    }
+
+    /* ── Horaires cards ── */
+    .kc-horaires-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+      margin-top: 3.5rem;
+    }
+    @media (min-width: 640px) {
+      .kc-horaires-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (min-width: 960px) {
+      .kc-horaires-grid { grid-template-columns: repeat(3, 1fr); }
+    }
+    .kc-horaire-card {
+      background: var(--kc-navy-light);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      padding: 2.25rem 2rem;
+      position: relative;
+      transition: border-color 0.3s, transform 0.3s;
+    }
+    .kc-horaire-card:hover {
+      border-color: rgba(201, 169, 110, 0.35);
+      transform: translateY(-4px);
+    }
+    .kc-horaire-card__badge {
+      display: inline-block;
+      font-family: var(--font-body);
+      font-size: 0.58rem;
+      font-weight: 600;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      padding: 0.28rem 0.85rem;
+      margin-bottom: 1.5rem;
+      background: rgba(201, 169, 110, 0.18);
+      color: var(--gold-light, #E8D5B0);
+      border: 1px solid rgba(201, 169, 110, 0.3);
+    }
+    .kc-horaire-card__title {
+      font-family: var(--font-display);
+      font-size: 1.35rem;
+      font-weight: 300;
+      color: var(--white, #fff);
+      margin-bottom: 1.25rem;
+      line-height: 1.2;
+    }
+    .kc-horaire-card__times {
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+    }
+    .kc-horaire-card__time-row {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    .kc-horaire-card__time-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--gold, #C9A96E);
+      flex-shrink: 0;
+    }
+    .kc-horaire-card__time {
+      font-family: var(--font-display);
+      font-size: 1.55rem;
+      font-weight: 300;
+      color: var(--gold-light, #E8D5B0);
+      line-height: 1;
+    }
+    .kc-horaire-card__session {
+      font-family: var(--font-body);
+      font-size: 0.62rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.4);
+      margin-top: 0.25rem;
+    }
+
+    /* ── Info pratiques grid ── */
+    .kc-info-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+      margin-top: 3.5rem;
+    }
+    @media (min-width: 640px) {
+      .kc-info-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (min-width: 960px) {
+      .kc-info-grid { grid-template-columns: repeat(4, 1fr); }
+    }
+    .kc-info-item {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 1rem;
+      padding: 2rem 1.75rem;
+      border: 1px solid var(--gold-light, #E8D5B0);
+      background: var(--white, #fff);
+      transition: box-shadow 0.3s, transform 0.3s;
+    }
+    .kc-info-item:hover {
+      box-shadow: 0 8px 28px rgba(0, 0, 0, 0.08);
+      transform: translateY(-3px);
+    }
+    .kc-info-item__icon {
+      width: 3rem;
+      height: 3rem;
+      background: rgba(201, 169, 110, 0.12);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--gold, #C9A96E);
+    }
+    .kc-info-item__icon svg {
+      width: 1.25rem;
+      height: 1.25rem;
+    }
+    .kc-info-item__label {
+      font-family: var(--font-body);
+      font-size: 0.6rem;
+      font-weight: 500;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: #999;
+      margin-bottom: 0.25rem;
+    }
+    .kc-info-item__value {
+      font-family: var(--font-display);
+      font-size: 1.15rem;
+      font-weight: 400;
+      color: var(--black, #0A0A0A);
+      line-height: 1.3;
+    }
+    .kc-info-item__sub {
+      font-size: 0.78rem;
+      color: #777;
+      line-height: 1.5;
+    }
+
+    /* ── CTA section ── */
+    .kc-cta {
+      background: var(--black, #0A0A0A);
+      padding: clamp(5rem, 10vw, 8rem) 0;
+      text-align: center;
+    }
+    .kc-cta__label {
+      font-family: var(--font-body);
+      font-size: 0.63rem;
+      font-weight: 500;
+      letter-spacing: 0.26em;
+      text-transform: uppercase;
+      color: var(--gold, #C9A96E);
+      margin-bottom: 1.25rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.75rem;
+    }
+    .kc-cta__label::before,
+    .kc-cta__label::after {
+      content: '';
+      display: block;
+      width: 2rem;
+      height: 1px;
+      background: var(--gold, #C9A96E);
+    }
+    .kc-cta__title {
+      font-family: var(--font-display);
+      font-size: clamp(2.4rem, 6vw, 4.5rem);
+      font-weight: 300;
+      color: var(--white, #fff);
+      line-height: 1.05;
+      letter-spacing: -0.015em;
+      margin-bottom: 1.5rem;
+    }
+    .kc-cta__title em {
+      font-style: italic;
+      color: var(--gold-light, #E8D5B0);
+    }
+    .kc-cta__desc {
+      font-size: 0.95rem;
+      color: rgba(255, 255, 255, 0.55);
+      line-height: 1.75;
+      max-width: 440px;
+      margin: 0 auto 3rem;
+    }
+    .kc-cta__actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      justify-content: center;
+    }
+    .kc-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-family: var(--font-body);
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      text-decoration: none;
+      padding: 1rem 2.25rem;
+      transition: background 0.3s, color 0.3s, border-color 0.3s, transform 0.25s;
+    }
+    .kc-btn:hover { transform: translateY(-2px); }
+    .kc-btn--gold {
+      background: var(--gold, #C9A96E);
+      color: var(--black, #0A0A0A);
+      border: 2px solid var(--gold, #C9A96E);
+    }
+    .kc-btn--gold:hover {
+      background: var(--gold-light, #E8D5B0);
+      border-color: var(--gold-light, #E8D5B0);
+    }
+    .kc-btn--outline {
+      background: transparent;
+      color: var(--white, #fff);
+      border: 2px solid rgba(255, 255, 255, 0.3);
+    }
+    .kc-btn--outline:hover {
+      border-color: var(--white, #fff);
+      background: rgba(255, 255, 255, 0.07);
+    }
+
+    /* ── Reveal animation ── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.75s ease-out, transform 0.75s ease-out;
+    }
+    .reveal.in-view { opacity: 1; transform: translateY(0); }
+    .reveal-delay-1 { transition-delay: 0.1s; }
+    .reveal-delay-2 { transition-delay: 0.2s; }
+    .reveal-delay-3 { transition-delay: 0.3s; }
+    .reveal-delay-4 { transition-delay: 0.4s; }
+    .reveal-delay-5 { transition-delay: 0.5s; }
+    .reveal-delay-6 { transition-delay: 0.6s; }
+  </style>
+</head>
+<body>
+
+  <!-- Skip to content -->
+  <a class="skip-link" href="#main-content">Aller au contenu principal</a>
+
+  <!-- Chrome (nav + footer injected by app.js) -->
+  <div id="chrome-mount"></div>
+
+  <main id="main-content">
+
+    <!-- ============================================================
+         1. HERO
+         ============================================================ -->
+    <section class="kc-hero" aria-label="Kids Club hero">
+      <div class="kc-hero__bg" id="kcHeroBg"></div>
+      <div class="kc-hero__overlay" aria-hidden="true"></div>
+      <div class="kc-hero__overlay-gold" aria-hidden="true"></div>
+
+      <div class="container kc-hero__content">
+        <nav class="kc-hero__breadcrumb" aria-label="Fil d'Ariane">
+          <a href="../index.html">Morocco Mall</a>
+          <span aria-hidden="true">›</span>
+          <a href="entertainment.html">Entertainment</a>
+          <span aria-hidden="true">›</span>
+          <span aria-current="page">Kids Club</span>
+        </nav>
+
+        <p class="kc-hero__eyebrow">Divertissement · Pour les enfants</p>
+
+        <h1 class="kc-hero__title">Kids<br><em>Club</em></h1>
+
+        <p class="kc-hero__subtitle">
+          Un univers entièrement dédié aux enfants de 3 à 14 ans — jeux, créativité et découvertes dans un espace sûr et moderne au cœur du Morocco Mall.
+        </p>
+
+        <div class="kc-hero__tags" aria-label="Informations clés">
+          <span class="kc-hero__tag">3 – 14 ans</span>
+          <span class="kc-hero__tag">Niveau 2</span>
+          <span class="kc-hero__tag">Tous les malls</span>
+          <span class="kc-hero__tag">10h00 – 22h00</span>
+        </div>
+
+        <div class="kc-hero__scroll" aria-hidden="true">
+          <div class="kc-hero__scroll-line"></div>
+          Découvrir
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         2. CONCEPT — two-column split
+         ============================================================ -->
+    <section class="kc-section kc-section--cream" aria-labelledby="kc-concept-title" style="padding:0;">
+      <div class="kc-concept">
+
+        <!-- Image left -->
+        <div class="kc-concept__image">
+          <img
+            src="https://images.unsplash.com/photo-1566737236500-c8ac43014a67?w=900&h=720&fit=crop"
+            alt="Enfants jouant dans une zone de jeux colorée et moderne"
+            loading="lazy"
+            width="900"
+            height="720"
+          />
+        </div>
+
+        <!-- Text right -->
+        <div class="kc-concept__body">
+          <p class="kc-label reveal">Notre concept</p>
+          <h2 class="kc-title reveal reveal-delay-1" id="kc-concept-title">
+            Un espace pensé<br><em>pour eux</em>
+          </h2>
+          <p class="kc-concept__text reveal reveal-delay-2">
+            Morocco Mall a imaginé un espace entièrement dédié aux enfants — un univers de jeux, de créativité et de découvertes pour les 3 à 14 ans. Un lieu où chaque enfant peut s'exprimer, apprendre et s'amuser en toute sécurité, pendant que les parents profitent pleinement du mall.
+          </p>
+          <div class="kc-concept__stats reveal reveal-delay-3" aria-label="Chiffres clés">
+            <div class="kc-stat">
+              <span class="kc-stat__value">3–14</span>
+              <span class="kc-stat__label">Ans</span>
+            </div>
+            <div class="kc-stat">
+              <span class="kc-stat__value">4</span>
+              <span class="kc-stat__label">Zones d'activités</span>
+            </div>
+            <div class="kc-stat">
+              <span class="kc-stat__value">Niv. 2</span>
+              <span class="kc-stat__label">Localisation</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ============================================================
+         3. ACTIVITIES GRID
+         ============================================================ -->
+    <section class="kc-section kc-section--dark" aria-labelledby="kc-activities-title">
+      <div class="container">
+
+        <p class="kc-label reveal">Nos activités</p>
+        <h2 class="kc-title kc-title--white reveal reveal-delay-1" id="kc-activities-title">
+          Des expériences<br><em>pour chaque enfant</em>
+        </h2>
+        <p class="reveal reveal-delay-2" style="font-size:0.93rem;line-height:1.8;color:rgba(255,255,255,0.58);max-width:560px;margin-bottom:0;">
+          Quatre univers complémentaires pour stimuler la curiosité, l'énergie et la créativité de vos enfants.
+        </p>
+
+        <div class="kc-activities-grid" role="list">
+
+          <!-- Jeux interactifs -->
+          <article class="kc-activity-card reveal reveal-delay-1" role="listitem">
+            <div class="kc-activity-card__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="2" y="6" width="20" height="12" rx="3"/>
+                <path d="M12 12h.01M8 10v4M6 12h4"/>
+                <circle cx="16" cy="11" r="1" fill="currentColor" stroke="none"/>
+                <circle cx="18" cy="13" r="1" fill="currentColor" stroke="none"/>
+              </svg>
+            </div>
+            <h3 class="kc-activity-card__name">Jeux interactifs</h3>
+            <p class="kc-activity-card__desc">
+              Écrans tactiles géants, jeux de simulation et tables interactives pour une immersion numérique ludique et éducative.
+            </p>
+          </article>
+
+          <!-- Ateliers créatifs -->
+          <article class="kc-activity-card reveal reveal-delay-2" role="listitem">
+            <div class="kc-activity-card__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 20h9"/>
+                <path d="M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z"/>
+              </svg>
+            </div>
+            <h3 class="kc-activity-card__name">Ateliers créatifs</h3>
+            <p class="kc-activity-card__desc">
+              Peinture, bricolage, modelage et arts plastiques encadrés par des animateurs pour libérer la créativité de chaque enfant.
+            </p>
+          </article>
+
+          <!-- Zone sportive -->
+          <article class="kc-activity-card reveal reveal-delay-3" role="listitem">
+            <div class="kc-activity-card__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="5" r="1"/>
+                <path d="M9 20l1-6-3-3 2-5 3 3 3-3 2 5-3 3 1 6"/>
+              </svg>
+            </div>
+            <h3 class="kc-activity-card__name">Zone sportive</h3>
+            <p class="kc-activity-card__desc">
+              Mini mur d'escalade, structures gonflables et parcours de parkour adaptés pour dépenser de l'énergie en toute sécurité.
+            </p>
+          </article>
+
+          <!-- Jeux de société & arcade -->
+          <article class="kc-activity-card reveal reveal-delay-4" role="listitem">
+            <div class="kc-activity-card__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="3" y="3" width="7" height="7" rx="1"/>
+                <rect x="14" y="3" width="7" height="7" rx="1"/>
+                <rect x="3" y="14" width="7" height="7" rx="1"/>
+                <rect x="14" y="14" width="7" height="7" rx="1"/>
+              </svg>
+            </div>
+            <h3 class="kc-activity-card__name">Jeux de société &amp; arcade</h3>
+            <p class="kc-activity-card__desc">
+              Jeux de plateau, bornes d'arcade rétro et consoles de jeux vidéo pour des moments de jeu collectifs inoubliables.
+            </p>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         4. HORAIRES
+         ============================================================ -->
+    <section class="kc-section kc-section--navy" aria-labelledby="kc-horaires-title">
+      <div class="container">
+
+        <p class="kc-label reveal">Ouverture</p>
+        <h2 class="kc-title kc-title--white reveal reveal-delay-1" id="kc-horaires-title">
+          Horaires<br><em>d'ouverture</em>
+        </h2>
+        <p class="reveal reveal-delay-2" style="font-size:0.93rem;line-height:1.8;color:rgba(255,255,255,0.55);max-width:500px;margin-bottom:0;">
+          Le Kids Club accueille vos enfants toute l'année, avec des créneaux adaptés aux fêtes et à la saison estivale.
+        </p>
+
+        <div class="kc-horaires-grid">
+
+          <!-- Horaires standards -->
+          <div class="kc-horaire-card reveal reveal-delay-1">
+            <span class="kc-horaire-card__badge">Toute l'année</span>
+            <h3 class="kc-horaire-card__title">Horaires standards</h3>
+            <div class="kc-horaire-card__times">
+              <div class="kc-horaire-card__time-row">
+                <div class="kc-horaire-card__time-dot" aria-hidden="true"></div>
+                <div>
+                  <div class="kc-horaire-card__time">10h00 – 22h00</div>
+                  <div class="kc-horaire-card__session">Ouverture continue</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Ramadan -->
+          <div class="kc-horaire-card reveal reveal-delay-2">
+            <span class="kc-horaire-card__badge">Ramadan</span>
+            <h3 class="kc-horaire-card__title">Horaires Ramadan</h3>
+            <div class="kc-horaire-card__times">
+              <div class="kc-horaire-card__time-row">
+                <div class="kc-horaire-card__time-dot" aria-hidden="true"></div>
+                <div>
+                  <div class="kc-horaire-card__time">11h00 – 16h00</div>
+                  <div class="kc-horaire-card__session">Session matinée</div>
+                </div>
+              </div>
+              <div class="kc-horaire-card__time-row" style="margin-top:0.75rem;">
+                <div class="kc-horaire-card__time-dot" aria-hidden="true"></div>
+                <div>
+                  <div class="kc-horaire-card__time">20h00 – 00h00</div>
+                  <div class="kc-horaire-card__session">Session soirée</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Été -->
+          <div class="kc-horaire-card reveal reveal-delay-3">
+            <span class="kc-horaire-card__badge">1er juin – 30 sept.</span>
+            <h3 class="kc-horaire-card__title">Horaires d'été</h3>
+            <div class="kc-horaire-card__times">
+              <div class="kc-horaire-card__time-row">
+                <div class="kc-horaire-card__time-dot" aria-hidden="true"></div>
+                <div>
+                  <div class="kc-horaire-card__time">10h00 – 22h00</div>
+                  <div class="kc-horaire-card__session">Ouverture continue</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         5. INFOS PRATIQUES
+         ============================================================ -->
+    <section class="kc-section kc-section--cream" aria-labelledby="kc-infos-title">
+      <div class="container">
+
+        <p class="kc-label reveal">À savoir</p>
+        <h2 class="kc-title reveal reveal-delay-1" id="kc-infos-title">
+          Infos<br><em>pratiques</em>
+        </h2>
+
+        <div class="kc-info-grid">
+
+          <!-- Localisation -->
+          <div class="kc-info-item reveal reveal-delay-1">
+            <div class="kc-info-item__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0118 0z"/>
+                <circle cx="12" cy="10" r="3"/>
+              </svg>
+            </div>
+            <div>
+              <div class="kc-info-item__label">Localisation</div>
+              <div class="kc-info-item__value">Niveau 2</div>
+              <div class="kc-info-item__sub">Accessible par les escalators et ascenseurs centraux</div>
+            </div>
+          </div>
+
+          <!-- Tranche d'âge -->
+          <div class="kc-info-item reveal reveal-delay-2">
+            <div class="kc-info-item__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/>
+                <circle cx="9" cy="7" r="4"/>
+                <path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/>
+              </svg>
+            </div>
+            <div>
+              <div class="kc-info-item__label">Tranche d'âge</div>
+              <div class="kc-info-item__value">3 – 14 ans</div>
+              <div class="kc-info-item__sub">Les enfants de moins de 5 ans doivent être accompagnés d'un adulte</div>
+            </div>
+          </div>
+
+          <!-- Encadrement -->
+          <div class="kc-info-item reveal reveal-delay-3">
+            <div class="kc-info-item__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+              </svg>
+            </div>
+            <div>
+              <div class="kc-info-item__label">Encadrement</div>
+              <div class="kc-info-item__value">Staff qualifié</div>
+              <div class="kc-info-item__sub">Animateurs diplômés et formés à la petite enfance présents en permanence</div>
+            </div>
+          </div>
+
+          <!-- Disponibilité -->
+          <div class="kc-info-item reveal reveal-delay-4">
+            <div class="kc-info-item__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+                <line x1="16" y1="2" x2="16" y2="6"/>
+                <line x1="8" y1="2" x2="8" y2="6"/>
+                <line x1="3" y1="10" x2="21" y2="10"/>
+                <path d="M8 14h.01M12 14h.01M16 14h.01M8 18h.01M12 18h.01"/>
+              </svg>
+            </div>
+            <div>
+              <div class="kc-info-item__label">Disponibilité</div>
+              <div class="kc-info-item__value">Tous les malls</div>
+              <div class="kc-info-item__sub">Morocco Mall Casablanca, Rabat et autres centres AKSAL</div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         6. CTA
+         ============================================================ -->
+    <section class="kc-cta" aria-labelledby="kc-cta-title">
+      <div class="container">
+        <p class="kc-cta__label reveal">Rejoignez-nous</p>
+        <h2 class="kc-cta__title reveal reveal-delay-1" id="kc-cta-title">
+          Offrez-leur une<br><em>journée inoubliable</em>
+        </h2>
+        <p class="kc-cta__desc reveal reveal-delay-2">
+          Réservez dès maintenant une session au Kids Club et laissez vos enfants explorer, créer et s'amuser.
+        </p>
+        <div class="kc-cta__actions reveal reveal-delay-3">
+          <a href="#" class="kc-btn kc-btn--gold">Réserver</a>
+          <a href="../index.html" class="kc-btn kc-btn--outline">Explorer le Mall</a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <script src="../js/seo.js"></script>
+  <script src="../js/translations.js"></script>
+  <script src="../js/app.js"></script>
+  <script>
+    // Hero image load
+    (function () {
+      var bg = document.getElementById('kcHeroBg');
+      if (bg) { bg.classList.add('loaded'); }
+    })();
+  </script>
+</body>
+</html>
