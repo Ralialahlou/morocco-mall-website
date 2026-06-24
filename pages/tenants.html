@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="fr" dir="ltr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Rejoignez Rose Boulevard — Ouvrez votre boutique au sein du premier espace luxe d'Afrique, au cœur de Morocco Mall Casablanca Bay. Candidature tenant disponible." />
+  <title>Rejoignez Rose Boulevard — Tenant Morocco Mall</title>
+  <link rel="icon" href="../assets/logo.png" type="image/png" />
+  <link rel="stylesheet" href="../css/main.css" />
+  <style>
+    body { background: #0A0A0A; color: #fff; }
+
+    /* ── Hero ── */
+    .tn-hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 0 var(--pad-x) clamp(3.5rem, 9vw, 6rem);
+      position: relative;
+      overflow: hidden;
+    }
+    .tn-hero__bg {
+      position: absolute; inset: 0;
+      background-image: url('https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=1800&h=1000&fit=crop');
+      background-size: cover; background-position: center 35%;
+      opacity: 0.35; z-index: 0;
+    }
+    .tn-hero__gradient {
+      position: absolute; inset: 0;
+      background: linear-gradient(to top, #0A0A0A 25%, rgba(10,10,10,0.5) 65%, transparent 100%);
+      z-index: 1;
+    }
+    .tn-hero__content { position: relative; z-index: 2; max-width: 860px; }
+    .tn-hero__eyebrow {
+      font-size: 0.65rem; letter-spacing: 0.28em; text-transform: uppercase;
+      color: var(--gold, #C9A96E); margin-bottom: 1.2rem;
+    }
+    .tn-hero__title {
+      font-size: clamp(3.2rem, 10vw, 9rem);
+      font-weight: 200; line-height: 0.9; letter-spacing: -0.04em; margin-bottom: 2rem;
+    }
+    .tn-hero__title em { font-style: italic; display: block; color: var(--gold-light, #E8D5B0); }
+    .tn-hero__sub {
+      font-size: clamp(0.92rem, 2vw, 1.1rem);
+      color: rgba(255,255,255,0.52); max-width: 560px; line-height: 1.75; margin-bottom: 3rem;
+    }
+    .tn-hero__cta {
+      display: inline-flex; align-items: center; gap: 0.75rem;
+      background: linear-gradient(135deg, var(--gold, #C9A96E), var(--gold-light, #E8D5B0));
+      color: #0A0A0A; font-size: 0.8rem; font-weight: 700;
+      letter-spacing: 0.16em; text-transform: uppercase; text-decoration: none;
+      padding: 1.1rem 2.6rem; transition: opacity 0.3s;
+    }
+    .tn-hero__cta:hover { opacity: 0.85; }
+
+    /* ── Why section ── */
+    .tn-why {
+      background: var(--cream, #F9F7F3); color: #0A0A0A;
+      padding: clamp(5rem, 12vw, 9rem) var(--pad-x);
+    }
+    .tn-why__grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: clamp(4rem, 8vw, 9rem); align-items: start;
+    }
+    @media (max-width: 768px) { .tn-why__grid { grid-template-columns: 1fr; } }
+    .tn-why__label {
+      font-size: 0.65rem; letter-spacing: 0.24em; text-transform: uppercase;
+      color: var(--gold, #C9A96E); margin-bottom: 1rem;
+    }
+    .tn-why__title {
+      font-size: clamp(2.5rem, 6vw, 5rem); font-weight: 200;
+      line-height: 1; letter-spacing: -0.04em; margin-bottom: 1.5rem;
+    }
+    .tn-why__title em { font-style: italic; color: var(--gold, #C9A96E); }
+    .tn-why__body { font-size: 0.92rem; color: rgba(10,10,10,0.6); line-height: 1.85; }
+    .tn-why__body p + p { margin-top: 1.1rem; }
+    .tn-why__stats {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 1px;
+      background: rgba(10,10,10,0.08); margin-top: 3rem;
+    }
+    .tn-why__stat {
+      background: var(--cream, #F9F7F3); padding: 1.8rem 1.5rem;
+      transition: background 0.25s;
+    }
+    .tn-why__stat:hover { background: #fff; }
+    .tn-why__stat-val {
+      font-size: clamp(2rem, 4vw, 3rem); font-weight: 200;
+      color: var(--gold, #C9A96E); line-height: 1; margin-bottom: 0.3rem;
+    }
+    .tn-why__stat-lbl {
+      font-size: 0.62rem; letter-spacing: 0.14em; text-transform: uppercase;
+      color: rgba(10,10,10,0.42);
+    }
+
+    /* ── Rose Boulevard strip ── */
+    .tn-rose {
+      background: #0A0A0A; color: #fff;
+      padding: clamp(4rem, 9vw, 7rem) var(--pad-x);
+      position: relative; overflow: hidden;
+    }
+    .tn-rose::before {
+      content: 'ROSE';
+      position: absolute; right: -0.02em; top: 50%; transform: translateY(-50%);
+      font-size: clamp(8rem, 20vw, 18rem); font-weight: 800;
+      color: rgba(201,169,110,0.04); line-height: 1; pointer-events: none;
+    }
+    .tn-rose__grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: clamp(3rem, 7vw, 7rem); align-items: center; position: relative; z-index: 1;
+    }
+    @media (max-width: 768px) { .tn-rose__grid { grid-template-columns: 1fr; } }
+    .tn-rose__label {
+      font-size: 0.65rem; letter-spacing: 0.24em; text-transform: uppercase;
+      color: var(--gold, #C9A96E); margin-bottom: 1rem;
+    }
+    .tn-rose__title {
+      font-size: clamp(2.2rem, 5vw, 4rem); font-weight: 200;
+      letter-spacing: -0.03em; line-height: 1.05; margin-bottom: 1.2rem;
+    }
+    .tn-rose__title em { font-style: italic; color: var(--gold-light, #E8D5B0); }
+    .tn-rose__body { font-size: 0.9rem; color: rgba(255,255,255,0.5); line-height: 1.8; margin-bottom: 1.8rem; }
+    .tn-rose__brands {
+      display: flex; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 2rem;
+    }
+    .tn-rose__brand {
+      font-size: 0.65rem; letter-spacing: 0.12em; text-transform: uppercase;
+      color: rgba(255,255,255,0.4); border: 1px solid rgba(255,255,255,0.1);
+      padding: 0.3rem 0.8rem; border-radius: 2rem;
+    }
+    .tn-rose__img {
+      width: 100%; aspect-ratio: 4/5; object-fit: cover;
+      box-shadow: 0 24px 60px rgba(0,0,0,0.5);
+    }
+
+    /* ── Benefits ── */
+    .tn-benefits {
+      background: var(--cream, #F9F7F3); color: #0A0A0A;
+      padding: clamp(4rem, 9vw, 7rem) var(--pad-x);
+    }
+    .tn-benefits__header { max-width: 680px; margin-bottom: clamp(3rem, 6vw, 5rem); }
+    .tn-benefits__label {
+      font-size: 0.65rem; letter-spacing: 0.24em; text-transform: uppercase;
+      color: var(--gold, #C9A96E); margin-bottom: 0.8rem;
+    }
+    .tn-benefits__title {
+      font-size: clamp(2.2rem, 5vw, 4rem); font-weight: 200; letter-spacing: -0.03em;
+    }
+    .tn-benefits__title em { font-style: italic; color: var(--gold, #C9A96E); }
+    .tn-benefits__grid {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 1px; background: rgba(10,10,10,0.08);
+    }
+    @media (max-width: 768px) { .tn-benefits__grid { grid-template-columns: 1fr; } }
+    .tn-benefit {
+      background: var(--cream, #F9F7F3); padding: 2.5rem 2rem;
+      transition: background 0.3s;
+    }
+    .tn-benefit:hover { background: #fff; }
+    .tn-benefit__line { width: 36px; height: 1px; background: var(--gold, #C9A96E); margin-bottom: 1.5rem; }
+    .tn-benefit__title { font-size: 1rem; font-weight: 400; margin-bottom: 0.5rem; }
+    .tn-benefit__desc { font-size: 0.82rem; color: rgba(10,10,10,0.5); line-height: 1.7; }
+
+    /* ── Process steps ── */
+    .tn-process {
+      background: #0A0A0A; color: #fff;
+      padding: clamp(4rem, 9vw, 7rem) var(--pad-x);
+    }
+    .tn-process__header { margin-bottom: clamp(3rem, 6vw, 5rem); }
+    .tn-process__label {
+      font-size: 0.65rem; letter-spacing: 0.24em; text-transform: uppercase;
+      color: var(--gold, #C9A96E); margin-bottom: 0.8rem;
+    }
+    .tn-process__title {
+      font-size: clamp(2.2rem, 5vw, 4rem); font-weight: 200; letter-spacing: -0.03em;
+    }
+    .tn-process__title em { font-style: italic; color: var(--gold-light, #E8D5B0); }
+    .tn-process__steps {
+      display: grid; grid-template-columns: repeat(4, 1fr); gap: 2px;
+    }
+    @media (max-width: 768px) { .tn-process__steps { grid-template-columns: 1fr 1fr; } }
+    @media (max-width: 480px) { .tn-process__steps { grid-template-columns: 1fr; } }
+    .tn-step {
+      padding: 2.5rem 2rem; border: 1px solid rgba(255,255,255,0.06);
+      transition: border-color 0.3s;
+    }
+    .tn-step:hover { border-color: rgba(201,169,110,0.3); }
+    .tn-step__num {
+      font-size: 2.5rem; font-weight: 200; color: rgba(201,169,110,0.25);
+      line-height: 1; margin-bottom: 1.5rem;
+    }
+    .tn-step__title { font-size: 0.92rem; font-weight: 500; color: rgba(255,255,255,0.9); margin-bottom: 0.5rem; }
+    .tn-step__desc { font-size: 0.8rem; color: rgba(255,255,255,0.38); line-height: 1.65; }
+
+    /* ── Contact / Form ── */
+    .tn-contact {
+      background: var(--cream, #F9F7F3); color: #0A0A0A;
+      padding: clamp(5rem, 12vw, 9rem) var(--pad-x);
+    }
+    .tn-contact__grid {
+      display: grid; grid-template-columns: 1fr 1.2fr;
+      gap: clamp(4rem, 8vw, 8rem); align-items: start;
+    }
+    @media (max-width: 860px) { .tn-contact__grid { grid-template-columns: 1fr; } }
+    .tn-contact__label {
+      font-size: 0.65rem; letter-spacing: 0.24em; text-transform: uppercase;
+      color: var(--gold, #C9A96E); margin-bottom: 1rem;
+    }
+    .tn-contact__title {
+      font-size: clamp(2.2rem, 5vw, 4rem); font-weight: 200;
+      letter-spacing: -0.03em; line-height: 1.05; margin-bottom: 1.2rem;
+    }
+    .tn-contact__title em { font-style: italic; color: var(--gold, #C9A96E); }
+    .tn-contact__body { font-size: 0.9rem; color: rgba(10,10,10,0.55); line-height: 1.8; margin-bottom: 2rem; }
+    .tn-contact__detail { display: flex; flex-direction: column; gap: 0.75rem; }
+    .tn-contact__item {
+      display: flex; align-items: center; gap: 0.85rem;
+      font-size: 0.85rem; color: rgba(10,10,10,0.65);
+    }
+    .tn-contact__item::before {
+      content: ''; display: block; width: 1.1rem; height: 1px;
+      background: var(--gold, #C9A96E); flex-shrink: 0;
+    }
+    .tn-contact__item a { color: inherit; text-decoration: none; }
+    .tn-contact__item a:hover { color: var(--gold, #C9A96E); }
+    /* Form */
+    .tn-form { display: flex; flex-direction: column; gap: 1rem; }
+    .tn-form__row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    @media (max-width: 480px) { .tn-form__row { grid-template-columns: 1fr; } }
+    .tn-form__group { display: flex; flex-direction: column; gap: 0.35rem; }
+    .tn-form__label { font-size: 0.62rem; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(10,10,10,0.45); }
+    .tn-form__input,
+    .tn-form__select,
+    .tn-form__textarea {
+      background: #fff; border: 1px solid rgba(10,10,10,0.12); color: #0A0A0A;
+      font-size: 0.88rem; padding: 0.85rem 1rem; outline: none;
+      transition: border-color 0.2s; font-family: inherit; resize: none;
+    }
+    .tn-form__input:focus,
+    .tn-form__select:focus,
+    .tn-form__textarea:focus { border-color: var(--gold, #C9A96E); }
+    .tn-form__textarea { min-height: 110px; }
+    .tn-form__select { appearance: none; cursor: pointer; }
+    .tn-form__submit {
+      display: inline-flex; align-items: center; gap: 0.75rem;
+      background: #0A0A0A; color: #fff; border: none; cursor: pointer;
+      font-size: 0.8rem; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase;
+      padding: 1.1rem 2.4rem; margin-top: 0.5rem; transition: background 0.25s;
+      font-family: inherit;
+    }
+    .tn-form__submit:hover { background: var(--gold, #C9A96E); color: #0A0A0A; }
+
+    /* ── Reveal ── */
+    .reveal { opacity: 0; transform: translateY(1.6rem); transition: opacity 0.7s ease, transform 0.7s ease; }
+    .reveal.in-view { opacity: 1; transform: none; }
+    .reveal-d1 { transition-delay: 0.12s; }
+    .reveal-d2 { transition-delay: 0.24s; }
+    .reveal-d3 { transition-delay: 0.36s; }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main-content">Passer au contenu</a>
+  <div id="chrome-mount"></div>
+
+  <main id="main-content">
+
+    <!-- ================================================================
+         HERO
+    ================================================================ -->
+    <section class="tn-hero" aria-label="Rejoignez Rose Boulevard en tant que tenant">
+      <div class="tn-hero__bg" aria-hidden="true"></div>
+      <div class="tn-hero__gradient" aria-hidden="true"></div>
+      <div class="tn-hero__content">
+        <p class="tn-hero__eyebrow">Morocco Mall · Rose Boulevard · Candidature tenant</p>
+        <h1 class="tn-hero__title">
+          Rejoignez<br>
+          <em>Rose Boulevard</em>
+        </h1>
+        <p class="tn-hero__sub">
+          Installez votre boutique au sein du premier espace luxe d'Afrique — 40 millions de visiteurs par an, une clientèle premium, une adresse incomparable.
+        </p>
+        <a href="#candidature" class="tn-hero__cta">
+          Soumettre ma candidature
+          <svg width="18" height="8" viewBox="0 0 18 8" fill="none" aria-hidden="true">
+            <path d="M0 4H16M16 4L12.5 1M16 4L12.5 7" stroke="currentColor" stroke-width="1.3"/>
+          </svg>
+        </a>
+      </div>
+    </section>
+
+
+    <!-- ================================================================
+         WHY MOROCCO MALL
+    ================================================================ -->
+    <section class="tn-why" aria-label="Pourquoi ouvrir à Morocco Mall">
+      <div class="tn-why__grid">
+        <div class="reveal">
+          <p class="tn-why__label">L'adresse</p>
+          <h2 class="tn-why__title">
+            La vitrine<br><em>la plus vue</em><br>d'Afrique
+          </h2>
+          <div class="tn-why__body">
+            <p>Morocco Mall Casablanca Bay est le plus grand centre commercial du continent africain. Avec 350 000 m² et une façade Atlantique unique, il attire chaque année plus de 40 millions de visiteurs — une clientèle locale haut de gamme et internationale.</p>
+            <p>Ouvert en 2011 par le Groupe AKSAL, il est aujourd'hui le lieu de référence du shopping premium et de l'expérience de loisirs au Maroc. S'y implanter, c'est rejoindre les plus grandes maisons mondiales et bénéficier d'une visibilité exceptionnelle dans un marché en forte croissance.</p>
+          </div>
+        </div>
+        <div class="reveal reveal-d1">
+          <div class="tn-why__stats">
+            <div class="tn-why__stat">
+              <div class="tn-why__stat-val">40M+</div>
+              <div class="tn-why__stat-lbl">visiteurs / an</div>
+            </div>
+            <div class="tn-why__stat">
+              <div class="tn-why__stat-val">350+</div>
+              <div class="tn-why__stat-lbl">boutiques</div>
+            </div>
+            <div class="tn-why__stat">
+              <div class="tn-why__stat-val">350k</div>
+              <div class="tn-why__stat-lbl">m² de surface</div>
+            </div>
+            <div class="tn-why__stat">
+              <div class="tn-why__stat-val">N°1</div>
+              <div class="tn-why__stat-lbl">en Afrique</div>
+            </div>
+            <div class="tn-why__stat">
+              <div class="tn-why__stat-val">3</div>
+              <div class="tn-why__stat-lbl">niveaux + terrasses</div>
+            </div>
+            <div class="tn-why__stat">
+              <div class="tn-why__stat-val">10k</div>
+              <div class="tn-why__stat-lbl">places de parking</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ================================================================
+         ROSE BOULEVARD
+    ================================================================ -->
+    <section class="tn-rose" aria-label="Rose Boulevard — l'avenue du luxe">
+      <div class="tn-rose__grid">
+        <div class="reveal">
+          <p class="tn-rose__label">Rose Boulevard</p>
+          <h2 class="tn-rose__title">
+            L'avenue<br>du <em>luxe</em>
+          </h2>
+          <p class="tn-rose__body">
+            Rose Boulevard est l'espace luxe exclusif de Morocco Mall — une avenue entièrement dédiée aux grandes maisons de mode, bijouterie et accessoires. Conçue pour offrir une expérience shopping au niveau des plus grandes artères mondiales, elle accueille les marques les plus désirables dans un environnement architectural unique.
+          </p>
+          <div class="tn-rose__brands" aria-label="Maisons présentes sur Rose Boulevard">
+            <span class="tn-rose__brand">Gucci</span>
+            <span class="tn-rose__brand">Dior</span>
+            <span class="tn-rose__brand">Balenciaga</span>
+            <span class="tn-rose__brand">Bottega Veneta</span>
+            <span class="tn-rose__brand">Fendi</span>
+            <span class="tn-rose__brand">Givenchy</span>
+            <span class="tn-rose__brand">Off-White</span>
+            <span class="tn-rose__brand">Ralph Lauren</span>
+            <span class="tn-rose__brand">La Martina</span>
+          </div>
+          <p class="tn-rose__body" style="font-size:0.8rem;color:rgba(255,255,255,0.35);">
+            Des emplacements premium sont disponibles sur Rose Boulevard. Les candidatures sont examinées par notre équipe de développement commercial.
+          </p>
+        </div>
+        <div class="reveal reveal-d1">
+          <img
+            class="tn-rose__img"
+            src="https://images.unsplash.com/photo-1567401893414-76b7b1e5a7a5?w=700&h=875&fit=crop"
+            alt="Rose Boulevard — Morocco Mall luxury avenue"
+            loading="lazy"
+          />
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ================================================================
+         BENEFITS
+    ================================================================ -->
+    <section class="tn-benefits" aria-label="Avantages pour les tenants">
+      <div class="tn-benefits__header reveal">
+        <p class="tn-benefits__label">Ce que nous offrons</p>
+        <h2 class="tn-benefits__title">
+          Des avantages<br><em>exceptionnels</em>
+        </h2>
+      </div>
+      <div class="tn-benefits__grid">
+        <div class="tn-benefit reveal">
+          <div class="tn-benefit__line"></div>
+          <h3 class="tn-benefit__title">Visibilité premium</h3>
+          <p class="tn-benefit__desc">40 millions de visiteurs par an, une clientèle locale aisée et une forte fréquentation touristique internationale. Votre boutique au cœur d'un trafic exceptionnel.</p>
+        </div>
+        <div class="tn-benefit reveal reveal-d1">
+          <div class="tn-benefit__line"></div>
+          <h3 class="tn-benefit__title">Programme Aksal Black</h3>
+          <p class="tn-benefit__desc">Intégration au programme de fidélité premium d'Aksal Black — accès à une base clientèle Diamond, Platinum, Gold et Silver avec cashback, remises et invitations VIP.</p>
+        </div>
+        <div class="tn-benefit reveal reveal-d2">
+          <div class="tn-benefit__line"></div>
+          <h3 class="tn-benefit__title">Architecture signature</h3>
+          <p class="tn-benefit__desc">Des unités conçues pour recevoir des aménagements sur mesure, dans un environnement architectural de premier plan — dôme de verre, atrium central, matériaux nobles.</p>
+        </div>
+        <div class="tn-benefit reveal">
+          <div class="tn-benefit__line"></div>
+          <h3 class="tn-benefit__title">Événements &amp; Activations</h3>
+          <p class="tn-benefit__desc">Accès aux plateformes événementielles du mall — lancements, showcases, avant-premières — et inclusion dans les campagnes marketing de Morocco Mall.</p>
+        </div>
+        <div class="tn-benefit reveal reveal-d1">
+          <div class="tn-benefit__line"></div>
+          <h3 class="tn-benefit__title">Support opérationnel</h3>
+          <p class="tn-benefit__desc">Équipes dédiées à la sécurité, au nettoyage, à la gestion du parking et aux services clients. Vous vous concentrez sur votre business, nous gérons l'environnement.</p>
+        </div>
+        <div class="tn-benefit reveal reveal-d2">
+          <div class="tn-benefit__line"></div>
+          <h3 class="tn-benefit__title">Expansion AKSAL</h3>
+          <p class="tn-benefit__desc">Accès privilégié aux futures destinations Morocco Mall (Marrakech Garden, Rabat, Bouskoura) — un partenariat pensé pour grandir ensemble dans tout le Royaume.</p>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ================================================================
+         PROCESS
+    ================================================================ -->
+    <section class="tn-process" aria-label="Processus de candidature">
+      <div class="tn-process__header reveal">
+        <p class="tn-process__label">Le processus</p>
+        <h2 class="tn-process__title">
+          4 étapes vers<br><em>votre ouverture</em>
+        </h2>
+      </div>
+      <div class="tn-process__steps">
+        <div class="tn-step reveal">
+          <div class="tn-step__num">01</div>
+          <h3 class="tn-step__title">Candidature</h3>
+          <p class="tn-step__desc">Soumettez votre dossier via le formulaire ci-dessous : concept de marque, positionnement, superficie souhaitée.</p>
+        </div>
+        <div class="tn-step reveal reveal-d1">
+          <div class="tn-step__num">02</div>
+          <h3 class="tn-step__title">Étude &amp; rencontre</h3>
+          <p class="tn-step__desc">Notre équipe de leasing étudie votre dossier et vous invite à une présentation dans nos bureaux à Morocco Mall.</p>
+        </div>
+        <div class="tn-step reveal reveal-d2">
+          <div class="tn-step__num">03</div>
+          <h3 class="tn-step__title">Proposition commerciale</h3>
+          <p class="tn-step__desc">Attribution d'un emplacement adapté à votre concept, négociation des conditions commerciales et signature du bail.</p>
+        </div>
+        <div class="tn-step reveal reveal-d3">
+          <div class="tn-step__num">04</div>
+          <h3 class="tn-step__title">Ouverture</h3>
+          <p class="tn-step__desc">Accompagnement des travaux d'aménagement, intégration aux systèmes du mall et lancement officiel de votre boutique.</p>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ================================================================
+         CONTACT / FORM
+    ================================================================ -->
+    <section class="tn-contact" id="candidature" aria-label="Formulaire de candidature tenant">
+      <div class="tn-contact__grid">
+        <div class="reveal">
+          <p class="tn-contact__label">Nous contacter</p>
+          <h2 class="tn-contact__title">
+            Déposez votre<br><em>candidature</em>
+          </h2>
+          <p class="tn-contact__body">
+            Notre équipe de développement commercial est disponible pour étudier votre projet et vous accompagner dans votre implantation sur Rose Boulevard.
+          </p>
+          <div class="tn-contact__detail">
+            <div class="tn-contact__item">
+              <a href="mailto:leasing@moroccomall.ma">leasing@moroccomall.ma</a>
+            </div>
+            <div class="tn-contact__item">
+              <a href="tel:+212522000112">+212 522 000 112</a>
+            </div>
+            <div class="tn-contact__item">
+              Boulevard de la Corniche, Ain Diab · Casablanca
+            </div>
+          </div>
+        </div>
+        <div class="reveal reveal-d1">
+          <form
+            class="tn-form"
+            onsubmit="handleTenantForm(event)"
+            aria-label="Formulaire de candidature tenant Morocco Mall"
+          >
+            <div class="tn-form__row">
+              <div class="tn-form__group">
+                <label class="tn-form__label" for="tn-fname">Prénom</label>
+                <input class="tn-form__input" type="text" id="tn-fname" name="fname" required placeholder="Votre prénom" />
+              </div>
+              <div class="tn-form__group">
+                <label class="tn-form__label" for="tn-lname">Nom</label>
+                <input class="tn-form__input" type="text" id="tn-lname" name="lname" required placeholder="Votre nom" />
+              </div>
+            </div>
+            <div class="tn-form__group">
+              <label class="tn-form__label" for="tn-brand">Nom de la marque / enseigne</label>
+              <input class="tn-form__input" type="text" id="tn-brand" name="brand" required placeholder="Ex. Maison Dupont" />
+            </div>
+            <div class="tn-form__row">
+              <div class="tn-form__group">
+                <label class="tn-form__label" for="tn-email">Email</label>
+                <input class="tn-form__input" type="email" id="tn-email" name="email" required placeholder="contact@votrebrand.com" />
+              </div>
+              <div class="tn-form__group">
+                <label class="tn-form__label" for="tn-phone">Téléphone</label>
+                <input class="tn-form__input" type="tel" id="tn-phone" name="phone" placeholder="+212 6XX XXX XXX" />
+              </div>
+            </div>
+            <div class="tn-form__group">
+              <label class="tn-form__label" for="tn-zone">Zone souhaitée</label>
+              <select class="tn-form__select" id="tn-zone" name="zone" required>
+                <option value="" disabled selected>Sélectionner une zone</option>
+                <option value="rose-boulevard">Rose Boulevard — Luxe &amp; Prestige</option>
+                <option value="shopping">Galerie Shopping principale</option>
+                <option value="dining">Espace Restauration</option>
+                <option value="entertainment">Zone Entertainment</option>
+                <option value="flexible">Flexible — sur recommandation</option>
+              </select>
+            </div>
+            <div class="tn-form__group">
+              <label class="tn-form__label" for="tn-surface">Surface souhaitée (m²)</label>
+              <select class="tn-form__select" id="tn-surface" name="surface">
+                <option value="" disabled selected>Surface estimée</option>
+                <option value="50-100">50 – 100 m²</option>
+                <option value="100-200">100 – 200 m²</option>
+                <option value="200-500">200 – 500 m²</option>
+                <option value="500+">500 m² et plus</option>
+              </select>
+            </div>
+            <div class="tn-form__group">
+              <label class="tn-form__label" for="tn-msg">Décrivez votre concept</label>
+              <textarea class="tn-form__textarea" id="tn-msg" name="message" required placeholder="Positionnement de la marque, univers, gamme de prix, présence internationale…"></textarea>
+            </div>
+            <button type="submit" class="tn-form__submit">
+              Envoyer ma candidature
+              <svg width="16" height="7" viewBox="0 0 16 7" fill="none" aria-hidden="true">
+                <path d="M0 3.5H14M14 3.5L10.5 1M14 3.5L10.5 6" stroke="currentColor" stroke-width="1.2"/>
+              </svg>
+            </button>
+          </form>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <script src="../js/seo.js"></script>
+  <script src="../js/translations.js"></script>
+  <script src="../js/app.js"></script>
+  <script>
+    var reveals = document.querySelectorAll('.reveal');
+    var obs = new IntersectionObserver(function(entries) {
+      entries.forEach(function(e) {
+        if (e.isIntersecting) { e.target.classList.add('in-view'); obs.unobserve(e.target); }
+      });
+    }, { threshold: 0.06 });
+    reveals.forEach(function(el) { obs.observe(el); });
+
+    function handleTenantForm(e) {
+      e.preventDefault();
+      var btn = e.target.querySelector('.tn-form__submit');
+      btn.textContent = 'Candidature envoyée ✓';
+      btn.style.background = '#2E7D32';
+      btn.disabled = true;
+      if (typeof showToast === 'function') {
+        showToast('Votre candidature a bien été reçue. Nous vous contacterons sous 5 jours ouvrables.', 'success');
+      }
+    }
+  </script>
+</body>
+</html>

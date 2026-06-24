@@ -339,6 +339,32 @@ ul { list-style: none; }
 }
 .nav__link--rose { color: var(--gold-dark); }
 .nav__link--rose:hover { color: var(--gold); background: rgba(201,169,110,0.08); }
+/* Hidden until desktop breakpoint — lives in nav__actions so it always has room */
+.nav__aksal-black-btn {
+  display: none;
+}
+.nav__link--aksal-black {
+  color: #0A0A0A !important;
+  background: linear-gradient(135deg, #C9A96E 0%, #E8D5B0 100%);
+  font-weight: 700;
+  font-size: 0.6rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  border: none;
+  padding: 0.5rem 1.1rem !important;
+  border-radius: 2px;
+  white-space: nowrap;
+  text-decoration: none;
+  transition: opacity 0.2s, transform 0.2s;
+  box-shadow: 0 2px 12px rgba(201,169,110,0.35);
+}
+.nav__link--aksal-black:hover {
+  opacity: 0.85;
+  transform: translateY(-1px);
+  color: #0A0A0A !important;
+  background: linear-gradient(135deg, #C9A96E 0%, #E8D5B0 100%);
+}
+.nav.transparent .nav__link--aksal-black { color: #0A0A0A !important; }
 .nav__actions {
   display: flex;
   align-items: center;
@@ -364,6 +390,7 @@ ul { list-style: none; }
 @media (min-width: 1100px) {
   .nav__links { display: flex; }
   .nav__menu-btn { display: none; }
+  .nav__aksal-black-btn { display: inline-flex; align-items: center; }
 }
 
 /* Mobile Menu */
@@ -591,6 +618,12 @@ ul { list-style: none; }
 /* ============================================================
    HERO SECTION
    ============================================================ */
+/* ── Page hero full-bleed: pull up behind fixed nav so background fills viewport from top ── */
+.ent-hero, .cin-hero, .sd-hero, .hp-hero, .al-hero, .fm-hero,
+.kc-hero, .cs-hero, .os-hero, .pd-hero, .rb-hero, .ag-hero {
+  margin-top: calc(-1 * (var(--bar-h) + var(--nav-h)));
+}
+
 /* ── Hero container ─────────────────────────────────────────── */
 .hero {
   position: relative;
@@ -1373,7 +1406,8 @@ ul { list-style: none; }
   border: 1px solid rgba(201,169,110,0.15);
   border-radius: 8px;
 }
-.aksal-perk__icon { font-size: 1.4rem; margin-bottom: 0.5rem; }
+.aksal-perk__icon { width: 32px; height: 32px; margin-bottom: 0.85rem; display: flex; align-items: center; }
+.aksal-perk__icon svg { width: 28px; height: 28px; flex-shrink: 0; }
 .aksal-perk__title {
   font-size: 0.72rem;
   font-weight: 500;
@@ -1512,7 +1546,7 @@ ul { list-style: none; }
   padding-bottom: 3rem;
 }
 @media (min-width: 640px) { .footer__grid { grid-template-columns: 1fr 1fr; } }
-@media (min-width: 1024px) { .footer__grid { grid-template-columns: 2fr 1fr 1fr 1fr; } }
+@media (min-width: 1024px) { .footer__grid { grid-template-columns: 2fr 1fr 1fr 1fr 1fr; } }
 .footer__brand {}
 .footer__logo { height: 48px; width: auto; filter: invert(1); margin-bottom: 1.5rem; }
 .footer__tagline {

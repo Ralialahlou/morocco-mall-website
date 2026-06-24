@@ -1,0 +1,809 @@
+<!DOCTYPE html>
+<html lang="fr" dir="ltr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Morocco Mall — Le plus grand centre commercial d'Afrique. Découvrez l'histoire, les chiffres clés, l'architecture et les 4 destinations Morocco Mall au Maroc." />
+  <title>About Morocco Mall — Le plus grand mall d'Afrique</title>
+  <link rel="icon" href="../assets/logo.png" type="image/png" />
+  <link rel="stylesheet" href="../css/main.css" />
+  <style>
+    body { background: var(--cream, #F9F7F3); color: var(--black, #0A0A0A); }
+
+    /* ── Hero ── */
+    .amm-hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 0 var(--pad-x) clamp(3.5rem, 9vw, 6rem);
+      position: relative;
+      overflow: hidden;
+      background: #0A0A0A;
+    }
+    .amm-hero__img {
+      position: absolute;
+      inset: 0;
+      background-image: url('https://images.unsplash.com/photo-1519567241046-7f570eee3514?w=1800&h=1000&fit=crop');
+      background-size: cover;
+      background-position: center 40%;
+      opacity: 0.45;
+      z-index: 0;
+    }
+    .amm-hero__gradient {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, #0A0A0A 20%, rgba(10,10,10,0.4) 60%, transparent 100%);
+      z-index: 1;
+    }
+    .amm-hero__content { position: relative; z-index: 2; max-width: 900px; color: #fff; }
+    .amm-hero__eyebrow {
+      font-size: 0.65rem;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: var(--gold, #C9A96E);
+      margin-bottom: 1.2rem;
+    }
+    .amm-hero__title {
+      font-size: clamp(3.2rem, 10vw, 8.5rem);
+      font-weight: 200;
+      line-height: 0.9;
+      letter-spacing: -0.04em;
+      margin-bottom: 2rem;
+    }
+    .amm-hero__title em { font-style: italic; display: block; }
+    .amm-hero__sub {
+      font-size: clamp(0.92rem, 2vw, 1.1rem);
+      color: rgba(255,255,255,0.55);
+      max-width: 540px;
+      line-height: 1.75;
+      margin-bottom: 2.5rem;
+    }
+    .amm-hero__stat-row {
+      display: flex;
+      gap: clamp(2rem, 5vw, 4rem);
+      flex-wrap: wrap;
+    }
+    .amm-hero__stat-val {
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 200;
+      color: var(--gold, #C9A96E);
+      line-height: 1;
+      margin-bottom: 0.2rem;
+    }
+    .amm-hero__stat-lbl {
+      font-size: 0.6rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.35);
+    }
+
+    /* ── Section utility ── */
+    .amm-label {
+      font-size: 0.65rem;
+      letter-spacing: 0.24em;
+      text-transform: uppercase;
+      color: var(--gold, #C9A96E);
+      margin-bottom: 1rem;
+    }
+
+    /* ── Numbers strip ── */
+    .amm-numbers {
+      background: #0A0A0A;
+      color: #fff;
+      padding: clamp(3.5rem, 8vw, 6rem) var(--pad-x);
+    }
+    .amm-numbers__grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 0;
+      border: 1px solid rgba(201,169,110,0.15);
+    }
+    .amm-numbers__item {
+      padding: 2rem 1.5rem;
+      border-right: 1px solid rgba(201,169,110,0.1);
+      border-bottom: 1px solid rgba(201,169,110,0.1);
+      text-align: center;
+    }
+    .amm-numbers__item:last-child { border-right: none; }
+    .amm-numbers__val {
+      font-size: clamp(2rem, 4vw, 3.2rem);
+      font-weight: 200;
+      color: var(--gold, #C9A96E);
+      line-height: 1;
+      margin-bottom: 0.4rem;
+    }
+    .amm-numbers__lbl {
+      font-size: 0.62rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.38);
+    }
+
+    /* ── Story ── */
+    .amm-story {
+      padding: clamp(5rem, 12vw, 9rem) var(--pad-x);
+      background: var(--cream, #F9F7F3);
+    }
+    .amm-story__grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: clamp(4rem, 8vw, 9rem);
+      align-items: start;
+    }
+    @media (max-width: 768px) { .amm-story__grid { grid-template-columns: 1fr; } }
+    .amm-story__title {
+      font-size: clamp(2.5rem, 6vw, 5rem);
+      font-weight: 200;
+      line-height: 1;
+      letter-spacing: -0.04em;
+      margin-bottom: 1.5rem;
+    }
+    .amm-story__title em { font-style: italic; color: var(--gold, #C9A96E); }
+    .amm-story__pullquote {
+      font-size: clamp(1.1rem, 2.5vw, 1.5rem);
+      font-weight: 300;
+      font-style: italic;
+      line-height: 1.55;
+      color: #1a1a1a;
+      border-left: 2px solid var(--gold, #C9A96E);
+      padding-left: 1.5rem;
+      margin-bottom: 2rem;
+    }
+    .amm-story__body {
+      font-size: 0.92rem;
+      line-height: 1.85;
+      color: rgba(10,10,10,0.62);
+    }
+    .amm-story__body p + p { margin-top: 1.1rem; }
+    .amm-story__img {
+      width: 100%;
+      aspect-ratio: 4/5;
+      object-fit: cover;
+      object-position: center;
+    }
+
+    /* ── Opening ── */
+    .amm-opening {
+      background: #0A0A0A;
+      color: #fff;
+      padding: clamp(4rem, 9vw, 7rem) var(--pad-x);
+      position: relative;
+      overflow: hidden;
+    }
+    .amm-opening::before {
+      content: '2011';
+      position: absolute;
+      right: -0.05em;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: clamp(10rem, 25vw, 22rem);
+      font-weight: 800;
+      color: rgba(201,169,110,0.04);
+      line-height: 1;
+      pointer-events: none;
+      user-select: none;
+    }
+    .amm-opening__grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: clamp(3rem, 7vw, 7rem);
+      align-items: center;
+      position: relative;
+      z-index: 1;
+    }
+    @media (max-width: 768px) { .amm-opening__grid { grid-template-columns: 1fr; } }
+    .amm-opening__title {
+      font-size: clamp(2.2rem, 5vw, 4rem);
+      font-weight: 200;
+      letter-spacing: -0.03em;
+      line-height: 1.05;
+      margin-bottom: 1.5rem;
+    }
+    .amm-opening__title em { font-style: italic; color: var(--gold, #C9A96E); }
+    .amm-opening__milestones { display: flex; flex-direction: column; gap: 1.8rem; }
+    .amm-opening__milestone { display: flex; gap: 1.5rem; align-items: flex-start; }
+    .amm-opening__year {
+      font-size: 0.6rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--gold, #C9A96E);
+      min-width: 3.5rem;
+      padding-top: 0.15rem;
+      flex-shrink: 0;
+    }
+    .amm-opening__milestone-title {
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: rgba(255,255,255,0.9);
+      margin-bottom: 0.2rem;
+    }
+    .amm-opening__milestone-desc {
+      font-size: 0.8rem;
+      color: rgba(255,255,255,0.4);
+      line-height: 1.6;
+    }
+
+    /* ── Architecture ── */
+    .amm-arch {
+      background: var(--cream, #F9F7F3);
+      padding: clamp(4rem, 9vw, 7rem) var(--pad-x);
+    }
+    .amm-arch__header { max-width: 680px; margin-bottom: clamp(3rem, 6vw, 5rem); }
+    .amm-arch__title {
+      font-size: clamp(2.2rem, 5vw, 4rem);
+      font-weight: 200;
+      letter-spacing: -0.03em;
+      line-height: 1.05;
+    }
+    .amm-arch__title em { font-style: italic; color: var(--gold, #C9A96E); }
+    .amm-arch__grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: rgba(10,10,10,0.08);
+    }
+    @media (max-width: 640px) { .amm-arch__grid { grid-template-columns: 1fr; } }
+    .amm-arch__card {
+      background: var(--cream, #F9F7F3);
+      padding: 2.5rem 2rem;
+      transition: background 0.3s;
+    }
+    .amm-arch__card:hover { background: #fff; }
+    .amm-arch__card-icon {
+      width: 40px;
+      height: 1px;
+      background: var(--gold, #C9A96E);
+      margin-bottom: 1.5rem;
+    }
+    .amm-arch__card-title {
+      font-size: 1rem;
+      font-weight: 400;
+      margin-bottom: 0.6rem;
+    }
+    .amm-arch__card-desc {
+      font-size: 0.82rem;
+      color: rgba(10,10,10,0.5);
+      line-height: 1.7;
+    }
+
+    /* ── The 4 malls ── */
+    .amm-malls {
+      background: #0A0A0A;
+      color: #fff;
+      padding: clamp(5rem, 12vw, 9rem) var(--pad-x);
+    }
+    .amm-malls__header { margin-bottom: clamp(3rem, 6vw, 5rem); }
+    .amm-malls__title {
+      font-size: clamp(2.5rem, 6vw, 5rem);
+      font-weight: 200;
+      letter-spacing: -0.04em;
+      line-height: 0.95;
+    }
+    .amm-malls__title em { font-style: italic; color: var(--gold, #C9A96E); }
+    .amm-malls__sub { font-size: 0.9rem; color: rgba(255,255,255,0.38); margin-top: 1rem; max-width: 520px; }
+    .amm-malls__grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 2px;
+    }
+    @media (max-width: 640px) { .amm-malls__grid { grid-template-columns: 1fr; } }
+    .amm-mall-card {
+      position: relative;
+      overflow: hidden;
+      min-height: 480px;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 2.5rem;
+      text-decoration: none;
+      color: #fff;
+    }
+    .amm-mall-card--dimmed { opacity: 0.6; pointer-events: none; }
+    .amm-mall-card__bg {
+      position: absolute;
+      inset: 0;
+      background-size: cover;
+      background-position: center;
+      transition: transform 0.7s cubic-bezier(.25,.8,.25,1);
+      z-index: 0;
+    }
+    .amm-mall-card:hover .amm-mall-card__bg { transform: scale(1.04); }
+    .amm-mall-card__overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(0,0,0,0.85) 30%, rgba(0,0,0,0.25) 70%, transparent 100%);
+      z-index: 1;
+    }
+    .amm-mall-card__content { position: relative; z-index: 2; }
+    .amm-mall-card__status {
+      display: inline-block;
+      font-size: 0.58rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      padding: 0.3rem 0.75rem;
+      border-radius: 2rem;
+      margin-bottom: 0.8rem;
+    }
+    .amm-mall-card__status--open { background: rgba(201,169,110,0.2); color: var(--gold, #C9A96E); border: 1px solid rgba(201,169,110,0.4); }
+    .amm-mall-card__status--soon { background: rgba(255,255,255,0.08); color: rgba(255,255,255,0.5); border: 1px solid rgba(255,255,255,0.15); }
+    .amm-mall-card__city { font-size: 0.65rem; letter-spacing: 0.22em; text-transform: uppercase; opacity: 0.5; margin-bottom: 0.3rem; }
+    .amm-mall-card__name { font-size: clamp(1.6rem, 3vw, 2.4rem); font-weight: 200; letter-spacing: -0.02em; line-height: 1.05; margin-bottom: 0.8rem; }
+    .amm-mall-card__detail { font-size: 0.78rem; color: rgba(255,255,255,0.5); line-height: 1.6; }
+    .amm-mall-card__arrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.68rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--gold, #C9A96E);
+      margin-top: 1.2rem;
+      opacity: 0;
+      transform: translateX(-8px);
+      transition: opacity 0.3s, transform 0.3s;
+    }
+    .amm-mall-card:hover .amm-mall-card__arrow { opacity: 1; transform: none; }
+
+    /* ── Experiences ── */
+    .amm-exp {
+      background: var(--cream, #F9F7F3);
+      padding: clamp(4rem, 9vw, 7rem) var(--pad-x);
+    }
+    .amm-exp__header { max-width: 680px; margin-bottom: clamp(3rem, 6vw, 5rem); }
+    .amm-exp__title { font-size: clamp(2.2rem, 5vw, 4rem); font-weight: 200; letter-spacing: -0.03em; }
+    .amm-exp__title em { font-style: italic; color: var(--gold, #C9A96E); }
+    .amm-exp__grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1.5rem;
+    }
+    .amm-exp__item {
+      background: #fff;
+      padding: 2.5rem 2rem;
+      border-bottom: 2px solid transparent;
+      transition: border-color 0.3s;
+    }
+    .amm-exp__item:hover { border-color: var(--gold, #C9A96E); }
+    .amm-exp__item-num {
+      font-size: 0.58rem;
+      letter-spacing: 0.2em;
+      color: var(--gold, #C9A96E);
+      margin-bottom: 1rem;
+    }
+    .amm-exp__item-title { font-size: 1.1rem; font-weight: 400; margin-bottom: 0.5rem; }
+    .amm-exp__item-desc { font-size: 0.82rem; color: rgba(10,10,10,0.5); line-height: 1.7; }
+
+    /* ── CTA ── */
+    .amm-cta {
+      background: #0A0A0A;
+      color: #fff;
+      padding: clamp(5rem, 12vw, 9rem) var(--pad-x);
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .amm-cta::before {
+      content:'';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 60% 50% at 50% 100%, rgba(201,169,110,0.08), transparent);
+    }
+    .amm-cta__title {
+      font-size: clamp(2.5rem, 7vw, 6rem);
+      font-weight: 200;
+      letter-spacing: -0.04em;
+      line-height: 1;
+      margin-bottom: 1rem;
+      position: relative;
+    }
+    .amm-cta__title em { font-style: italic; color: var(--gold, #C9A96E); }
+    .amm-cta__sub { font-size: 0.9rem; color: rgba(255,255,255,0.38); margin-bottom: 3rem; position: relative; }
+    .amm-cta__row { display: flex; justify-content: center; gap: 1.2rem; flex-wrap: wrap; position: relative; }
+    .amm-cta__btn {
+      display: inline-flex; align-items: center; gap: 0.75rem;
+      background: linear-gradient(135deg, var(--gold, #C9A96E) 0%, var(--gold-light, #E8D5B0) 100%);
+      color: #0A0A0A; font-size: 0.8rem; font-weight: 700;
+      letter-spacing: 0.16em; text-transform: uppercase; text-decoration: none;
+      padding: 1.1rem 2.4rem; transition: opacity 0.3s;
+    }
+    .amm-cta__btn:hover { opacity: 0.85; }
+    .amm-cta__btn-out {
+      display: inline-flex; align-items: center; gap: 0.75rem;
+      border: 1px solid rgba(201,169,110,0.35); color: var(--gold-light, #E8D5B0);
+      font-size: 0.8rem; letter-spacing: 0.16em; text-transform: uppercase; text-decoration: none;
+      padding: 1.1rem 2.4rem; transition: border-color 0.3s, color 0.3s;
+    }
+    .amm-cta__btn-out:hover { border-color: var(--gold, #C9A96E); color: var(--gold, #C9A96E); }
+
+    /* ── Reveal ── */
+    .reveal { opacity: 0; transform: translateY(1.6rem); transition: opacity 0.7s ease, transform 0.7s ease; }
+    .reveal.in-view { opacity: 1; transform: none; }
+    .reveal-d1 { transition-delay: 0.12s; }
+    .reveal-d2 { transition-delay: 0.24s; }
+    .reveal-d3 { transition-delay: 0.36s; }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main-content">Passer au contenu</a>
+  <div id="chrome-mount"></div>
+
+  <main id="main-content">
+
+    <!-- ================================================================
+         HERO
+    ================================================================ -->
+    <section class="amm-hero" aria-label="About Morocco Mall">
+      <div class="amm-hero__img" aria-hidden="true"></div>
+      <div class="amm-hero__gradient" aria-hidden="true"></div>
+      <div class="amm-hero__content">
+        <p class="amm-hero__eyebrow">Depuis 2011 · Casablanca Bay</p>
+        <h1 class="amm-hero__title">
+          Morocco<br>
+          <em>Mall</em>
+        </h1>
+        <p class="amm-hero__sub">
+          Le plus grand centre commercial d'Afrique, ancré à Casablanca Bay. Une vision portée par le Groupe AKSAL pour redéfinir l'expérience de shopping, de loisirs et de gastronomie au Maroc.
+        </p>
+        <div class="amm-hero__stat-row" aria-label="Chiffres clés">
+          <div>
+            <div class="amm-hero__stat-val">350k</div>
+            <div class="amm-hero__stat-lbl">m² de surface</div>
+          </div>
+          <div>
+            <div class="amm-hero__stat-val">350+</div>
+            <div class="amm-hero__stat-lbl">boutiques</div>
+          </div>
+          <div>
+            <div class="amm-hero__stat-val">40M+</div>
+            <div class="amm-hero__stat-lbl">visiteurs / an</div>
+          </div>
+          <div>
+            <div class="amm-hero__stat-val">N°1</div>
+            <div class="amm-hero__stat-lbl">en Afrique</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ================================================================
+         KEY NUMBERS
+    ================================================================ -->
+    <section class="amm-numbers" aria-label="Chiffres clés Morocco Mall">
+      <div class="amm-numbers__grid">
+        <div class="amm-numbers__item reveal">
+          <div class="amm-numbers__val">350 000</div>
+          <div class="amm-numbers__lbl">m² de surface totale</div>
+        </div>
+        <div class="amm-numbers__item reveal reveal-d1">
+          <div class="amm-numbers__val">250 000</div>
+          <div class="amm-numbers__lbl">m² commerciaux (GLA)</div>
+        </div>
+        <div class="amm-numbers__item reveal reveal-d2">
+          <div class="amm-numbers__val">350+</div>
+          <div class="amm-numbers__lbl">boutiques et enseignes</div>
+        </div>
+        <div class="amm-numbers__item reveal reveal-d3">
+          <div class="amm-numbers__val">40M+</div>
+          <div class="amm-numbers__lbl">visiteurs par année</div>
+        </div>
+        <div class="amm-numbers__item reveal">
+          <div class="amm-numbers__val">3</div>
+          <div class="amm-numbers__lbl">niveaux commerciaux</div>
+        </div>
+        <div class="amm-numbers__item reveal reveal-d1">
+          <div class="amm-numbers__val">10 000</div>
+          <div class="amm-numbers__lbl">places de parking</div>
+        </div>
+        <div class="amm-numbers__item reveal reveal-d2">
+          <div class="amm-numbers__val">4</div>
+          <div class="amm-numbers__lbl">destinations Morocco Mall</div>
+        </div>
+        <div class="amm-numbers__item reveal reveal-d3">
+          <div class="amm-numbers__val">2011</div>
+          <div class="amm-numbers__lbl">ouverture · Casablanca</div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ================================================================
+         STORY
+    ================================================================ -->
+    <section class="amm-story" aria-label="L'histoire de Morocco Mall">
+      <div class="amm-story__grid">
+        <div class="reveal">
+          <p class="amm-label">L'histoire</p>
+          <h2 class="amm-story__title">
+            Une vision<br><em>inédite</em><br>pour le Maroc
+          </h2>
+          <blockquote class="amm-story__pullquote">
+            "Élargir le champ de vision, permettre une nouvelle approche, créer de nouvelles habitudes, introduire de nouvelles perspectives en matière de commerce et d'expériences de consommation."
+          </blockquote>
+          <div class="amm-story__body">
+            <p>Morocco Mall naît d'une ambition : faire de Casablanca une capitale du shopping au niveau mondial. Porté par le Groupe AKSAL, pionnier du retail moderne en Afrique, le projet est conçu dès l'origine pour dépasser le simple centre commercial — il est une destination à part entière.</p>
+            <p>Inauguré le 1er décembre 2011, Morocco Mall s'installe sur les bords de l'Atlantique, à Casablanca Bay (Ain Diab), sur un terrain de 22 hectares face à l'océan. Sa surface totale de 350 000 m² en fait le plus grand centre commercial d'Afrique à son ouverture — un record qu'il conserve.</p>
+            <p>Ses 350 boutiques, cinq zones de restauration, l'aquarium géant Sea Dream, le cinéma IMAX, la piste de glace, la fontaine musicale et la Grande Roue en font bien plus qu'un lieu de shopping : une expérience sensorielle et culturelle sans équivalent sur le continent.</p>
+          </div>
+        </div>
+        <div class="reveal reveal-d1">
+          <img
+            class="amm-story__img"
+            src="https://images.unsplash.com/photo-1555529669-e69e7aa0ba9a?w=800&h=1000&fit=crop"
+            alt="Interior of Morocco Mall — grand atrium"
+            loading="lazy"
+          />
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ================================================================
+         TIMELINE / OPENING
+    ================================================================ -->
+    <section class="amm-opening" aria-label="Grandes dates Morocco Mall">
+      <div class="amm-opening__grid">
+        <div class="reveal">
+          <p class="amm-label" style="color:var(--gold,#C9A96E);">Grandes dates</p>
+          <h2 class="amm-opening__title">
+            Une décennie<br>de <em>croissance</em>
+          </h2>
+        </div>
+        <div class="amm-opening__milestones reveal reveal-d1">
+          <div class="amm-opening__milestone">
+            <span class="amm-opening__year">2001</span>
+            <div>
+              <p class="amm-opening__milestone-title">Création du Groupe AKSAL</p>
+              <p class="amm-opening__milestone-desc">Fondé à Casablanca, AKSAL introduit les premières grandes enseignes internationales du fast-fashion en Afrique.</p>
+            </div>
+          </div>
+          <div class="amm-opening__milestone">
+            <span class="amm-opening__year">2004</span>
+            <div>
+              <p class="amm-opening__milestone-title">Premier Zara d'Afrique</p>
+              <p class="amm-opening__milestone-desc">Ouverture du premier Zara africain à Casablanca, un tournant dans le paysage commercial marocain.</p>
+            </div>
+          </div>
+          <div class="amm-opening__milestone">
+            <span class="amm-opening__year">2009</span>
+            <div>
+              <p class="amm-opening__milestone-title">Lancement du projet Morocco Mall</p>
+              <p class="amm-opening__milestone-desc">Démarrage des travaux sur les 22 hectares de Casablanca Bay, face à l'Atlantique.</p>
+            </div>
+          </div>
+          <div class="amm-opening__milestone" style="border-left: 2px solid var(--gold,#C9A96E); padding-left: 1.5rem; margin-left: calc(3.5rem + 1.5rem);">
+            <span class="amm-opening__year" style="opacity:1; font-weight:600;">1 déc. 2011</span>
+            <div>
+              <p class="amm-opening__milestone-title" style="color:var(--gold,#C9A96E);">Inauguration de Morocco Mall</p>
+              <p class="amm-opening__milestone-desc">Ouverture au public du plus grand centre commercial d'Afrique — 350 boutiques, 40 000 visiteurs le premier week-end.</p>
+            </div>
+          </div>
+          <div class="amm-opening__milestone">
+            <span class="amm-opening__year">2017</span>
+            <div>
+              <p class="amm-opening__milestone-title">Lancement de Yan&amp;One</p>
+              <p class="amm-opening__milestone-desc">Création de la division cosmétiques du Groupe AKSAL, intégrée à l'offre Morocco Mall.</p>
+            </div>
+          </div>
+          <div class="amm-opening__milestone">
+            <span class="amm-opening__year">En cours</span>
+            <div>
+              <p class="amm-opening__milestone-title">Morocco Mall Marrakech Garden</p>
+              <p class="amm-opening__milestone-desc">Deuxième destination Morocco Mall, en développement à Marrakech — une nouvelle adresse de prestige dans la ville ocre.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ================================================================
+         ARCHITECTURE
+    ================================================================ -->
+    <section class="amm-arch" aria-label="Architecture et design">
+      <div class="amm-arch__header reveal">
+        <p class="amm-label">Architecture &amp; Design</p>
+        <h2 class="amm-arch__title">
+          Un monument<br><em>contemporain</em>
+        </h2>
+        <p style="font-size:0.9rem;color:rgba(10,10,10,0.5);margin-top:0.8rem;line-height:1.75;max-width:520px;">
+          Conçu par les architectes de Benoy (Londres) et réalisé sur 22 hectares face à l'Atlantique, Morocco Mall intègre lumière naturelle, volumes spectaculaires et références à l'esthétique arabe contemporaine.
+        </p>
+      </div>
+      <div class="amm-arch__grid">
+        <div class="amm-arch__card reveal">
+          <div class="amm-arch__card-icon"></div>
+          <h3 class="amm-arch__card-title">L'atrium central</h3>
+          <p class="amm-arch__card-desc">Un dôme de verre monumental de 57 mètres de hauteur baigne l'atrium d'une lumière naturelle zénithale. Il abrite la Grande Roue intérieure, unique en Afrique.</p>
+        </div>
+        <div class="amm-arch__card reveal reveal-d1">
+          <div class="amm-arch__card-icon"></div>
+          <h3 class="amm-arch__card-title">Casablanca Bay</h3>
+          <p class="amm-arch__card-desc">Implanté face à l'Atlantique à Ain Diab, le mall bénéficie d'une orientation océane unique — les terrasses, restaurants et espaces extérieurs jouissent d'une vue mer permanente.</p>
+        </div>
+        <div class="amm-arch__card reveal reveal-d2">
+          <div class="amm-arch__card-icon"></div>
+          <h3 class="amm-arch__card-title">Zones thématiques</h3>
+          <p class="amm-arch__card-desc">Cinq univers distincts — Rose Boulevard (luxe), Oriental Street, food courts, Entertainment District et Casablanca Bay terrasse — structurent un parcours varié sur 3 niveaux.</p>
+        </div>
+        <div class="amm-arch__card reveal">
+          <div class="amm-arch__card-icon"></div>
+          <h3 class="amm-arch__card-title">Fontaine musicale</h3>
+          <p class="amm-arch__card-desc">L'une des plus grandes fontaines musicales du Maroc, illuminée chaque soir, transforme le parvis en spectacle gratuit ouvert à tous.</p>
+        </div>
+        <div class="amm-arch__card reveal reveal-d1">
+          <div class="amm-arch__card-icon"></div>
+          <h3 class="amm-arch__card-title">Parking 10 000 places</h3>
+          <p class="amm-arch__card-desc">Le plus grand parking couvert de la région, avec accès dédiés, valet rose Boulevard, zones PMR et signalétique lumineuse guidée.</p>
+        </div>
+        <div class="amm-arch__card reveal reveal-d2">
+          <div class="amm-arch__card-icon"></div>
+          <h3 class="amm-arch__card-title">Durabilité</h3>
+          <p class="amm-arch__card-desc">Captation de lumière naturelle, récupération d'eau de pluie, gestion centralisée de l'énergie et certification environnementale intégrées dès la conception.</p>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ================================================================
+         THE 4 MALLS
+    ================================================================ -->
+    <section class="amm-malls" id="malls" aria-label="Les 4 destinations Morocco Mall">
+      <div class="amm-malls__header reveal">
+        <p class="amm-label">Nos destinations</p>
+        <h2 class="amm-malls__title">
+          4 destinations<br><em>Morocco Mall</em>
+        </h2>
+        <p class="amm-malls__sub">De Casablanca à Marrakech, une vision commune du commerce de prestige, déclinée dans chaque ville selon son identité propre.</p>
+      </div>
+
+      <div class="amm-malls__grid">
+
+        <!-- Casablanca -->
+        <a href="../index.html" class="amm-mall-card reveal" aria-label="Morocco Mall Casablanca Bay">
+          <div class="amm-mall-card__bg" style="background-image:url('https://images.unsplash.com/photo-1519567241046-7f570eee3514?w=800&h=600&fit=crop');" aria-hidden="true"></div>
+          <div class="amm-mall-card__overlay" aria-hidden="true"></div>
+          <div class="amm-mall-card__content">
+            <span class="amm-mall-card__status amm-mall-card__status--open">Ouvert</span>
+            <p class="amm-mall-card__city">Casablanca · Ain Diab</p>
+            <h3 class="amm-mall-card__name">Morocco Mall<br>Casablanca Bay</h3>
+            <p class="amm-mall-card__detail">
+              350 000 m² · 350+ boutiques<br>
+              1er d'Afrique · Ouvert depuis 2011<br>
+              Face à l'Atlantique
+            </p>
+            <span class="amm-mall-card__arrow" aria-hidden="true">
+              Explorer
+              <svg width="16" height="6" viewBox="0 0 16 6" fill="none"><path d="M0 3h14M14 3L11 1M14 3L11 5" stroke="currentColor" stroke-width="1.2"/></svg>
+            </span>
+          </div>
+        </a>
+
+        <!-- Marrakech -->
+        <div class="amm-mall-card reveal reveal-d1" aria-label="Morocco Mall Marrakech Garden — ouverture prochaine">
+          <div class="amm-mall-card__bg" style="background-image:url('https://images.unsplash.com/photo-1539020140153-e479b8c22e70?w=800&h=600&fit=crop');" aria-hidden="true"></div>
+          <div class="amm-mall-card__overlay" aria-hidden="true"></div>
+          <div class="amm-mall-card__content">
+            <span class="amm-mall-card__status amm-mall-card__status--soon">Ouverture prochaine</span>
+            <p class="amm-mall-card__city">Marrakech</p>
+            <h3 class="amm-mall-card__name">Morocco Mall<br>Marrakech Garden</h3>
+            <p class="amm-mall-card__detail">
+              Nouvelle destination prestige<br>
+              Jardins intérieurs · Architecture riyadh contemporaine<br>
+              Au cœur de la ville ocre
+            </p>
+          </div>
+        </div>
+
+        <!-- Rabat -->
+        <div class="amm-mall-card amm-mall-card--dimmed reveal reveal-d2" aria-label="Morocco Mall Rabat — à venir">
+          <div class="amm-mall-card__bg" style="background-image:url('https://images.unsplash.com/photo-1588072432836-e10032774350?w=800&h=600&fit=crop');" aria-hidden="true"></div>
+          <div class="amm-mall-card__overlay" aria-hidden="true"></div>
+          <div class="amm-mall-card__content">
+            <span class="amm-mall-card__status amm-mall-card__status--soon">À venir</span>
+            <p class="amm-mall-card__city">Rabat</p>
+            <h3 class="amm-mall-card__name">Morocco Mall<br>Rabat</h3>
+            <p class="amm-mall-card__detail">
+              La capitale du Royaume<br>
+              Nouvelle adresse prestige en développement
+            </p>
+          </div>
+        </div>
+
+        <!-- Bouskoura -->
+        <div class="amm-mall-card amm-mall-card--dimmed reveal reveal-d3" aria-label="Morocco Mall Bouskoura — à venir">
+          <div class="amm-mall-card__bg" style="background-image:url('https://images.unsplash.com/photo-1555529669-e69e7aa0ba9a?w=800&h=600&fit=crop');" aria-hidden="true"></div>
+          <div class="amm-mall-card__overlay" aria-hidden="true"></div>
+          <div class="amm-mall-card__content">
+            <span class="amm-mall-card__status amm-mall-card__status--soon">À venir</span>
+            <p class="amm-mall-card__city">Bouskoura · Grand Casablanca</p>
+            <h3 class="amm-mall-card__name">Morocco Mall<br>Bouskoura</h3>
+            <p class="amm-mall-card__detail">
+              Nouvelle destination dans le Grand Casablanca<br>
+              Projet en développement
+            </p>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+
+    <!-- ================================================================
+         EXPERIENCES
+    ================================================================ -->
+    <section class="amm-exp" aria-label="Expériences uniques Morocco Mall">
+      <div class="amm-exp__header reveal">
+        <p class="amm-label">Ce qui nous rend unique</p>
+        <h2 class="amm-exp__title">
+          Bien plus qu'un<br><em>shopping mall</em>
+        </h2>
+      </div>
+      <div class="amm-exp__grid">
+        <div class="amm-exp__item reveal">
+          <p class="amm-exp__item-num">01</p>
+          <h3 class="amm-exp__item-title">Sea Dream Aquarium</h3>
+          <p class="amm-exp__item-desc">Le plus grand aquarium du Maroc — 3 millions de litres d'eau, des centaines d'espèces marines, des requins, des raies et des plongées professionnelles face aux visiteurs.</p>
+        </div>
+        <div class="amm-exp__item reveal reveal-d1">
+          <p class="amm-exp__item-num">02</p>
+          <h3 class="amm-exp__item-title">Cinéma IMAX</h3>
+          <p class="amm-exp__item-desc">Le seul cinéma IMAX du Maroc, avec 14 salles dont une salle IMAX immersive de 500 places — l'expérience cinéma la plus complète du pays.</p>
+        </div>
+        <div class="amm-exp__item reveal reveal-d2">
+          <p class="amm-exp__item-num">03</p>
+          <h3 class="amm-exp__item-title">Rose Boulevard</h3>
+          <p class="amm-exp__item-desc">L'avenue du luxe de Morocco Mall — Gucci, Dior, Balenciaga, Fendi, Givenchy, Bottega Veneta, Ralph Lauren. Un espace signature premium dédié aux plus grandes maisons.</p>
+        </div>
+        <div class="amm-exp__item reveal">
+          <p class="amm-exp__item-num">04</p>
+          <h3 class="amm-exp__item-title">Piste de glace</h3>
+          <p class="amm-exp__item-desc">La première piste de glace permanente en intérieur du Maroc — ouverte à tous, avec location de patins et séances pédagogiques, au cœur du mall.</p>
+        </div>
+        <div class="amm-exp__item reveal reveal-d1">
+          <p class="amm-exp__item-num">05</p>
+          <h3 class="amm-exp__item-title">Grande Roue intérieure</h3>
+          <p class="amm-exp__item-desc">Installée dans l'atrium central sous le dôme de verre, la Grande Roue offre une vue panoramique à 360° sur l'intérieur du plus grand mall d'Afrique.</p>
+        </div>
+        <div class="amm-exp__item reveal reveal-d2">
+          <p class="amm-exp__item-num">06</p>
+          <h3 class="amm-exp__item-title">Gastronomie &amp; Dining</h3>
+          <p class="amm-exp__item-desc">5 espaces dédiés à la restauration — du street food au restaurant gastronomique, avec une terrasse panoramique face à l'Atlantique et des tables internationales inédites au Maroc.</p>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ================================================================
+         CTA
+    ================================================================ -->
+    <section class="amm-cta" aria-label="Planifier une visite à Morocco Mall">
+      <h2 class="amm-cta__title reveal">
+        Vivez l'expérience<br><em>Morocco Mall</em>
+      </h2>
+      <p class="amm-cta__sub reveal reveal-d1">
+        Boulevard de la Corniche · Casablanca Bay · 10h – 23h
+      </p>
+      <div class="amm-cta__row reveal reveal-d2">
+        <a href="../pages/services.html" class="amm-cta__btn">Préparer ma visite →</a>
+        <a href="../pages/about.html" class="amm-cta__btn-out">Groupe AKSAL</a>
+      </div>
+    </section>
+
+  </main>
+
+  <script src="../js/seo.js"></script>
+  <script src="../js/translations.js"></script>
+  <script src="../js/app.js"></script>
+  <script>
+    var reveals = document.querySelectorAll('.reveal');
+    var obs = new IntersectionObserver(function(entries) {
+      entries.forEach(function(e) {
+        if (e.isIntersecting) { e.target.classList.add('in-view'); obs.unobserve(e.target); }
+      });
+    }, { threshold: 0.06 });
+    reveals.forEach(function(el) { obs.observe(el); });
+  </script>
+</body>
+</html>

@@ -1,0 +1,875 @@
+<!DOCTYPE html>
+<html lang="fr" dir="ltr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="The Padel Club — Premier club de padel vue mer à Casablanca. 2 terrains panoramiques au Morocco Mall Casablanca Bay. Réservation en ligne, tarifs par terrain, minimum 2 heures." />
+  <title>The Padel Club — Morocco Mall Casablanca Bay</title>
+  <link rel="icon" href="../assets/logo.png" type="image/png" />
+  <link rel="stylesheet" href="../css/main.css" />
+  <style>
+    /* ── Base ── */
+    :root {
+      --ocean-deep: #040E1C;
+      --ocean-mid: #0A2540;
+      --ocean-accent: #1A6B8A;
+      --court-green: #2E8B57;
+      --court-green-dim: rgba(46, 139, 87, 0.18);
+    }
+    body { background: var(--ocean-deep); color: #fff; }
+
+    /* ── Hero ── */
+    .pd-hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 0 var(--pad-x) clamp(3rem, 8vw, 6rem);
+      position: relative;
+      overflow: hidden;
+    }
+    .pd-hero__bg {
+      position: absolute;
+      inset: 0;
+      background-image: url('https://images.unsplash.com/photo-1554068865-24cecd4e34b8?w=1600&h=900&fit=crop');
+      background-size: cover;
+      background-position: center 40%;
+      z-index: 0;
+    }
+    .pd-hero__overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        160deg,
+        rgba(4, 14, 28, 0.55) 0%,
+        rgba(10, 37, 64, 0.75) 40%,
+        rgba(4, 14, 28, 0.97) 100%
+      );
+      z-index: 1;
+    }
+    .pd-hero__content {
+      position: relative;
+      z-index: 2;
+      max-width: 780px;
+    }
+    .pd-hero__eyebrow {
+      font-size: clamp(0.7rem, 1.5vw, 0.82rem);
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+    .pd-hero__eyebrow::before {
+      content: '';
+      display: block;
+      width: 2.5rem;
+      height: 1px;
+      background: var(--gold);
+      opacity: 0.6;
+    }
+    .pd-hero__title {
+      font-size: clamp(3rem, 9vw, 7.5rem);
+      font-weight: 300;
+      line-height: 0.92;
+      letter-spacing: -0.03em;
+      margin-bottom: 2rem;
+    }
+    .pd-hero__title em {
+      font-style: italic;
+      color: var(--gold-light);
+      display: block;
+    }
+    .pd-hero__desc {
+      font-size: clamp(1rem, 2vw, 1.2rem);
+      color: rgba(255,255,255,0.72);
+      max-width: 540px;
+      line-height: 1.65;
+      margin-bottom: 2.5rem;
+    }
+    .pd-hero__badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.7rem;
+      margin-bottom: 2.5rem;
+    }
+    .pd-hero__badge {
+      background: rgba(201, 169, 110, 0.12);
+      border: 1px solid rgba(201, 169, 110, 0.28);
+      color: var(--gold-light);
+      font-size: 0.78rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 0.4rem 1rem;
+      border-radius: 2rem;
+    }
+    .pd-hero__cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.75rem;
+      background: var(--gold);
+      color: #0A0A0A;
+      font-size: 0.82rem;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      text-decoration: none;
+      padding: 1rem 2rem;
+      transition: background 0.3s ease, gap 0.3s ease;
+    }
+    .pd-hero__cta:hover { background: var(--gold-light); gap: 1.1rem; }
+
+    /* ── Section Labels ── */
+    .section-label {
+      font-size: 0.72rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 1rem;
+    }
+
+    /* ── Concept Section ── */
+    .pd-concept {
+      padding: clamp(4rem, 10vw, 8rem) var(--pad-x);
+      background: var(--ocean-mid);
+      position: relative;
+      overflow: hidden;
+    }
+    .pd-concept__filigrane {
+      position: absolute;
+      right: -4rem;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 42%;
+      opacity: 0.06;
+      pointer-events: none;
+      user-select: none;
+    }
+    .pd-concept__grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+      align-items: center;
+      position: relative;
+      z-index: 1;
+    }
+    .pd-concept__title {
+      font-size: clamp(2.2rem, 5vw, 3.8rem);
+      font-weight: 300;
+      line-height: 1.05;
+      letter-spacing: -0.02em;
+      margin-bottom: 1.8rem;
+    }
+    .pd-concept__title em { font-style: italic; color: var(--gold-light); }
+    .pd-concept__body {
+      color: rgba(255,255,255,0.68);
+      font-size: 1.05rem;
+      line-height: 1.75;
+    }
+    .pd-concept__body p + p { margin-top: 1.2rem; }
+    .pd-concept__stat-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+    }
+    .pd-concept__stat {
+      border-top: 1px solid rgba(201, 169, 110, 0.25);
+      padding-top: 1.2rem;
+    }
+    .pd-concept__stat-num {
+      font-size: 2.8rem;
+      font-weight: 200;
+      color: var(--gold);
+      line-height: 1;
+      margin-bottom: 0.4rem;
+    }
+    .pd-concept__stat-label {
+      font-size: 0.78rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.45);
+    }
+    @media (max-width: 768px) {
+      .pd-concept__grid { grid-template-columns: 1fr; gap: 3rem; }
+      .pd-concept__stat-grid { grid-template-columns: 1fr 1fr; }
+    }
+
+    /* ── Courts Section ── */
+    .pd-courts {
+      padding: clamp(4rem, 10vw, 8rem) var(--pad-x);
+      background: var(--ocean-deep);
+    }
+    .pd-courts__header {
+      text-align: center;
+      margin-bottom: 4rem;
+    }
+    .pd-courts__title {
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 300;
+      letter-spacing: -0.02em;
+      margin-bottom: 0.8rem;
+    }
+    .pd-courts__title em { font-style: italic; color: var(--gold-light); }
+    .pd-courts__subtitle {
+      color: rgba(255,255,255,0.5);
+      font-size: 1rem;
+    }
+    .pd-courts__grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    .pd-court-card {
+      background: var(--ocean-mid);
+      border: 1px solid rgba(201, 169, 110, 0.15);
+      overflow: hidden;
+      position: relative;
+      transition: border-color 0.3s ease;
+    }
+    .pd-court-card:hover { border-color: rgba(201, 169, 110, 0.45); }
+    .pd-court-card__img-wrap {
+      position: relative;
+      overflow: hidden;
+      height: 240px;
+    }
+    .pd-court-card__img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.6s ease;
+    }
+    .pd-court-card:hover .pd-court-card__img { transform: scale(1.06); }
+    .pd-court-card__img-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(4,14,28,0.85) 0%, transparent 60%);
+    }
+    .pd-court-card__num {
+      position: absolute;
+      top: 1.2rem;
+      left: 1.4rem;
+      font-size: 0.7rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold);
+      background: rgba(4,14,28,0.75);
+      padding: 0.3rem 0.8rem;
+      border: 1px solid rgba(201,169,110,0.3);
+    }
+    .pd-court-card__body {
+      padding: 2rem;
+    }
+    .pd-court-card__name {
+      font-size: 1.6rem;
+      font-weight: 300;
+      letter-spacing: -0.01em;
+      margin-bottom: 0.4rem;
+    }
+    .pd-court-card__desc {
+      color: rgba(255,255,255,0.55);
+      font-size: 0.92rem;
+      line-height: 1.6;
+      margin-bottom: 1.8rem;
+    }
+    .pd-court-card__pricing {
+      border-top: 1px solid rgba(201, 169, 110, 0.18);
+      padding-top: 1.5rem;
+      margin-bottom: 1.8rem;
+    }
+    .pd-court-card__pricing-title {
+      font-size: 0.7rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.4);
+      margin-bottom: 1rem;
+    }
+    .pd-court-card__price-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 0.6rem;
+    }
+    .pd-court-card__price-label {
+      font-size: 0.85rem;
+      color: rgba(255,255,255,0.62);
+    }
+    .pd-court-card__price-value {
+      font-size: 1.1rem;
+      font-weight: 500;
+      color: #fff;
+    }
+    .pd-court-card__price-value span {
+      font-size: 0.75rem;
+      font-weight: 300;
+      color: rgba(255,255,255,0.45);
+    }
+    .pd-court-card__min {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      background: rgba(46, 139, 87, 0.15);
+      border: 1px solid rgba(46, 139, 87, 0.3);
+      color: #6dd48e;
+      font-size: 0.72rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 0.35rem 0.85rem;
+      border-radius: 2rem;
+      margin-bottom: 1.5rem;
+    }
+    .pd-court-card__cta {
+      display: block;
+      text-align: center;
+      background: var(--gold);
+      color: #0A0A0A;
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      text-decoration: none;
+      padding: 0.95rem 1.5rem;
+      transition: background 0.3s ease;
+    }
+    .pd-court-card__cta:hover { background: var(--gold-light); }
+    @media (max-width: 768px) {
+      .pd-courts__grid { grid-template-columns: 1fr; }
+    }
+
+    /* ── Atmosphere Section ── */
+    .pd-atmosphere {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      min-height: 70vh;
+    }
+    .pd-atmosphere__visual {
+      position: relative;
+      overflow: hidden;
+    }
+    .pd-atmosphere__img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .pd-atmosphere__content {
+      background: linear-gradient(140deg, #0A2540 0%, #040E1C 100%);
+      padding: clamp(3rem, 7vw, 6rem);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .pd-atmosphere__title {
+      font-size: clamp(1.8rem, 4vw, 3rem);
+      font-weight: 300;
+      line-height: 1.1;
+      margin-bottom: 1.5rem;
+    }
+    .pd-atmosphere__title em { font-style: italic; color: var(--gold-light); }
+    .pd-atmosphere__body {
+      color: rgba(255,255,255,0.62);
+      font-size: 1rem;
+      line-height: 1.75;
+      margin-bottom: 2.5rem;
+    }
+    .pd-atmosphere__features {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 0.85rem;
+    }
+    .pd-atmosphere__features li {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      font-size: 0.92rem;
+      color: rgba(255,255,255,0.72);
+    }
+    .pd-atmosphere__features li::before {
+      content: '';
+      display: block;
+      width: 1.5rem;
+      height: 1px;
+      background: var(--gold);
+      flex-shrink: 0;
+    }
+    @media (max-width: 900px) {
+      .pd-atmosphere { grid-template-columns: 1fr; }
+      .pd-atmosphere__visual { min-height: 40vw; }
+    }
+
+    /* ── Horaires Section ── */
+    .pd-hours {
+      padding: clamp(4rem, 10vw, 7rem) var(--pad-x);
+      background: #050D18;
+    }
+    .pd-hours__grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+      max-width: 900px;
+      margin: 3rem auto 0;
+    }
+    .pd-hours__card {
+      border: 1px solid rgba(201, 169, 110, 0.18);
+      padding: 2rem 1.6rem;
+      text-align: center;
+    }
+    .pd-hours__card-icon {
+      font-size: 1.8rem;
+      margin-bottom: 1rem;
+    }
+    .pd-hours__card-label {
+      font-size: 0.68rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 0.6rem;
+    }
+    .pd-hours__card-value {
+      font-size: 1.35rem;
+      font-weight: 300;
+      color: #fff;
+      line-height: 1.3;
+      margin-bottom: 0.4rem;
+    }
+    .pd-hours__card-sub {
+      font-size: 0.75rem;
+      color: rgba(255,255,255,0.38);
+      line-height: 1.5;
+    }
+    @media (max-width: 700px) {
+      .pd-hours__grid { grid-template-columns: 1fr; max-width: 360px; }
+    }
+
+    /* ── Infos Section ── */
+    .pd-infos {
+      padding: clamp(4rem, 10vw, 7rem) var(--pad-x);
+      background: var(--ocean-mid);
+    }
+    .pd-infos__grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.5rem;
+      margin-top: 3rem;
+    }
+    .pd-info-card {
+      border-top: 1px solid rgba(201, 169, 110, 0.25);
+      padding-top: 1.4rem;
+    }
+    .pd-info-card__icon {
+      font-size: 1.4rem;
+      margin-bottom: 0.8rem;
+    }
+    .pd-info-card__title {
+      font-size: 0.7rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 0.5rem;
+    }
+    .pd-info-card__value {
+      font-size: 1.05rem;
+      font-weight: 400;
+      margin-bottom: 0.3rem;
+    }
+    .pd-info-card__sub {
+      font-size: 0.8rem;
+      color: rgba(255,255,255,0.42);
+      line-height: 1.5;
+    }
+    @media (max-width: 900px) {
+      .pd-infos__grid { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 500px) {
+      .pd-infos__grid { grid-template-columns: 1fr; }
+    }
+
+    /* ── CTA Section ── */
+    .pd-cta {
+      padding: clamp(5rem, 12vw, 9rem) var(--pad-x);
+      background: var(--ocean-deep);
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .pd-cta::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 70% 50% at 50% 100%, rgba(26,107,138,0.2), transparent);
+    }
+    .pd-cta__title {
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      font-weight: 300;
+      line-height: 1.1;
+      margin-bottom: 1.2rem;
+      position: relative;
+    }
+    .pd-cta__title em { font-style: italic; color: var(--gold-light); }
+    .pd-cta__sub {
+      color: rgba(255,255,255,0.5);
+      font-size: 1rem;
+      margin-bottom: 3rem;
+      position: relative;
+    }
+    .pd-cta__actions {
+      display: flex;
+      justify-content: center;
+      gap: 1.2rem;
+      flex-wrap: wrap;
+      position: relative;
+    }
+    .pd-cta__btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.75rem;
+      background: var(--gold);
+      color: #0A0A0A;
+      font-size: 0.82rem;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      text-decoration: none;
+      padding: 1.1rem 2.2rem;
+      transition: background 0.3s ease;
+    }
+    .pd-cta__btn-primary:hover { background: var(--gold-light); }
+    .pd-cta__btn-secondary {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.75rem;
+      border: 1px solid rgba(201,169,110,0.4);
+      color: var(--gold-light);
+      font-size: 0.82rem;
+      font-weight: 400;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      text-decoration: none;
+      padding: 1.1rem 2.2rem;
+      transition: border-color 0.3s ease, color 0.3s ease;
+    }
+    .pd-cta__btn-secondary:hover { border-color: var(--gold); color: var(--gold); }
+
+    /* ── Reveal ── */
+    .reveal { opacity: 0; transform: translateY(2rem); transition: opacity 0.7s ease, transform 0.7s ease; }
+    .reveal.in-view { opacity: 1; transform: none; }
+    .reveal-delay-1 { transition-delay: 0.12s; }
+    .reveal-delay-2 { transition-delay: 0.24s; }
+    .reveal-delay-3 { transition-delay: 0.36s; }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main-content">Passer au contenu</a>
+  <div id="chrome-mount"></div>
+
+  <main id="main-content">
+
+    <!-- ============================================================
+         HERO
+         ============================================================ -->
+    <section class="pd-hero" aria-label="The Padel Club">
+      <div class="pd-hero__bg" role="img" aria-label="Terrains de padel vue mer, The Padel Club Morocco Mall"></div>
+      <div class="pd-hero__overlay"></div>
+      <div class="pd-hero__content">
+        <p class="pd-hero__eyebrow">Casablanca Bay · Premier à Casablanca</p>
+        <h1 class="pd-hero__title">
+          The Padel<br>
+          <em>Club</em>
+        </h1>
+        <p class="pd-hero__desc">
+          Deux terrains de padel panoramiques avec vue directe sur la mer. Une expérience sportive unique, à la frontière entre l'Atlantique et le meilleur du mall.
+        </p>
+        <div class="pd-hero__badges">
+          <span class="pd-hero__badge">2 Terrains</span>
+          <span class="pd-hero__badge">Vue Mer</span>
+          <span class="pd-hero__badge">Premier à Casablanca</span>
+          <span class="pd-hero__badge">Réservation en ligne</span>
+        </div>
+        <a href="#book" class="pd-hero__cta">
+          Réserver un terrain
+          <svg width="18" height="8" viewBox="0 0 18 8" fill="none" aria-hidden="true">
+            <path d="M0 4H16M16 4L12 1M16 4L12 7" stroke="currentColor" stroke-width="1.2"/>
+          </svg>
+        </a>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         CONCEPT
+         ============================================================ -->
+    <section class="pd-concept" aria-label="Le concept Padel Club">
+      <img src="../assets/mm-filigrane-gold.svg" alt="" class="pd-concept__filigrane" aria-hidden="true" />
+      <div class="pd-concept__grid">
+        <div>
+          <p class="section-label reveal">Notre concept</p>
+          <h2 class="pd-concept__title reveal reveal-delay-1">
+            Vue mer,<br><em>niveau supérieur</em>
+          </h2>
+          <div class="pd-concept__body reveal reveal-delay-2">
+            <p>
+              The Padel Club est la première installation de padel vue mer à Casablanca — deux terrains panoramiques offrant une expérience sportive sans équivalent dans la métropole.
+            </p>
+            <p>
+              Conçu pour les joueurs de tous niveaux, le club accueille aussi bien les débutants que les compétiteurs confirmés. Raquettes, équipements et coaching disponibles sur place.
+            </p>
+            <p>
+              Situé au Morocco Mall Casablanca Bay, il s'inscrit dans une vision unique : allier sport, shopping et panorama océanique en un seul lieu.
+            </p>
+          </div>
+        </div>
+        <div class="pd-concept__stat-grid reveal reveal-delay-1">
+          <div class="pd-concept__stat">
+            <div class="pd-concept__stat-num">2</div>
+            <div class="pd-concept__stat-label">Terrains panoramiques</div>
+          </div>
+          <div class="pd-concept__stat">
+            <div class="pd-concept__stat-num">1er</div>
+            <div class="pd-concept__stat-label">Club padel vue mer à Casa</div>
+          </div>
+          <div class="pd-concept__stat">
+            <div class="pd-concept__stat-num">2h</div>
+            <div class="pd-concept__stat-label">Durée minimum de réservation</div>
+          </div>
+          <div class="pd-concept__stat">
+            <div class="pd-concept__stat-num">∞</div>
+            <div class="pd-concept__stat-label">Vue sur l'Atlantique</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         COURTS — Réservation & Tarifs
+         ============================================================ -->
+    <section class="pd-courts" id="book" aria-label="Réservation des terrains">
+      <div class="pd-courts__header">
+        <p class="section-label reveal" style="text-align:center;">Terrains &amp; Tarifs</p>
+        <h2 class="pd-courts__title reveal reveal-delay-1">
+          Choisissez<br><em>votre terrain</em>
+        </h2>
+        <p class="pd-courts__subtitle reveal reveal-delay-2">Réservation en ligne · Minimum 2 heures · 2 joueurs ou plus</p>
+      </div>
+      <div class="pd-courts__grid">
+
+        <!-- Court 1 -->
+        <div class="pd-court-card reveal">
+          <div class="pd-court-card__img-wrap">
+            <img
+              class="pd-court-card__img"
+              src="https://images.unsplash.com/photo-1554068865-24cecd4e34b8?w=700&h=400&fit=crop"
+              alt="Terrain de padel 1 — vue mer, The Padel Club Morocco Mall"
+              loading="lazy"
+            />
+            <div class="pd-court-card__img-overlay"></div>
+            <div class="pd-court-card__num">Terrain 01</div>
+          </div>
+          <div class="pd-court-card__body">
+            <h3 class="pd-court-card__name">Court Atlantique</h3>
+            <p class="pd-court-card__desc">
+              Orientation plein ouest, vue directe sur l'Atlantique. Le terrain signature du club, idéal en fin de journée pour jouer face au coucher de soleil.
+            </p>
+            <div class="pd-court-card__pricing">
+              <div class="pd-court-card__pricing-title">Tarifs par terrain</div>
+              <div class="pd-court-card__price-row">
+                <span class="pd-court-card__price-label">Hors pointe <small>(avant 17h, lun–ven)</small></span>
+                <span class="pd-court-card__price-value">250 MAD <span>/ heure</span></span>
+              </div>
+              <div class="pd-court-card__price-row">
+                <span class="pd-court-card__price-label">Pointe <small>(après 17h, week-end)</small></span>
+                <span class="pd-court-card__price-value">350 MAD <span>/ heure</span></span>
+              </div>
+            </div>
+            <div class="pd-court-card__min">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+              Minimum 2 heures
+            </div>
+            <a href="mailto:padel@moroccomall.ma?subject=Réservation Court Atlantique" class="pd-court-card__cta">
+              Réserver Court Atlantique →
+            </a>
+          </div>
+        </div>
+
+        <!-- Court 2 -->
+        <div class="pd-court-card reveal reveal-delay-1">
+          <div class="pd-court-card__img-wrap">
+            <img
+              class="pd-court-card__img"
+              src="https://images.unsplash.com/photo-1587280501635-68a0e82cd5ff?w=700&h=400&fit=crop&crop=top"
+              alt="Terrain de padel 2 — vue mer, The Padel Club Morocco Mall"
+              loading="lazy"
+            />
+            <div class="pd-court-card__img-overlay"></div>
+            <div class="pd-court-card__num">Terrain 02</div>
+          </div>
+          <div class="pd-court-card__body">
+            <h3 class="pd-court-card__name">Court Marina</h3>
+            <p class="pd-court-card__desc">
+              Vue panoramique sur la marina et la baie de Casablanca. Conçu pour accueillir tournois et matchs en double, avec une tribune spectateurs dédiée.
+            </p>
+            <div class="pd-court-card__pricing">
+              <div class="pd-court-card__pricing-title">Tarifs par terrain</div>
+              <div class="pd-court-card__price-row">
+                <span class="pd-court-card__price-label">Hors pointe <small>(avant 17h, lun–ven)</small></span>
+                <span class="pd-court-card__price-value">250 MAD <span>/ heure</span></span>
+              </div>
+              <div class="pd-court-card__price-row">
+                <span class="pd-court-card__price-label">Pointe <small>(après 17h, week-end)</small></span>
+                <span class="pd-court-card__price-value">350 MAD <span>/ heure</span></span>
+              </div>
+            </div>
+            <div class="pd-court-card__min">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+              Minimum 2 heures
+            </div>
+            <a href="mailto:padel@moroccomall.ma?subject=Réservation Court Marina" class="pd-court-card__cta">
+              Réserver Court Marina →
+            </a>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ============================================================
+         ATMOSPHERE
+         ============================================================ -->
+    <section class="pd-atmosphere" aria-label="L'expérience Padel Club">
+      <div class="pd-atmosphere__visual">
+        <img
+          class="pd-atmosphere__img"
+          src="https://images.unsplash.com/photo-1612872087720-bb876e2e67d1?w=800&h=900&fit=crop"
+          alt="Terrain de padel professionnel vue mer, The Padel Club Morocco Mall Casablanca Bay"
+          loading="lazy"
+        />
+      </div>
+      <div class="pd-atmosphere__content">
+        <p class="section-label reveal">L'expérience</p>
+        <h2 class="pd-atmosphere__title reveal reveal-delay-1">
+          Sport &amp; panorama<br><em>à l'état pur</em>
+        </h2>
+        <p class="pd-atmosphere__body reveal reveal-delay-2">
+          Jouer au padel face à l'Atlantique, avec Casablanca en toile de fond : une expérience que vous ne trouverez nulle part ailleurs. The Padel Club réunit performance sportive et cadre d'exception.
+        </p>
+        <ul class="pd-atmosphere__features reveal reveal-delay-3">
+          <li>Terrains panoramiques avec vue directe sur la mer</li>
+          <li>Éclairage LED haute performance pour les sessions nocturnes</li>
+          <li>Location de raquettes &amp; équipements sur place</li>
+          <li>Coaching &amp; initiation disponibles sur demande</li>
+          <li>Vestiaires &amp; espace détente entre les matchs</li>
+          <li>Restauration &amp; boissons après le match</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         HORAIRES
+         ============================================================ -->
+    <section class="pd-hours" aria-label="Horaires The Padel Club">
+      <div style="text-align:center;">
+        <p class="section-label reveal">Horaires</p>
+        <h2 class="reveal reveal-delay-1" style="font-size:clamp(2rem,4vw,3rem);font-weight:300;letter-spacing:-0.02em;">
+          Ouvert tous les jours
+        </h2>
+      </div>
+      <div class="pd-hours__grid">
+        <div class="pd-hours__card reveal">
+          <div class="pd-hours__card-icon">📅</div>
+          <div class="pd-hours__card-label">Lundi — Jeudi</div>
+          <div class="pd-hours__card-value">10:00 – 22:00</div>
+          <div class="pd-hours__card-sub">Hors pointe avant 17h</div>
+        </div>
+        <div class="pd-hours__card reveal reveal-delay-1">
+          <div class="pd-hours__card-icon">🌙</div>
+          <div class="pd-hours__card-label">Vendredi — Dimanche</div>
+          <div class="pd-hours__card-value">10:00 – 23:00</div>
+          <div class="pd-hours__card-sub">Tarif pointe à partir de 17h</div>
+        </div>
+        <div class="pd-hours__card reveal reveal-delay-2">
+          <div class="pd-hours__card-icon">🌅</div>
+          <div class="pd-hours__card-label" style="color:var(--gold);">Ramadan &amp; Été</div>
+          <div class="pd-hours__card-value" style="font-size:1rem;">
+            Ramadan : 11h–16h &amp; 20h–00h<br>
+            Été : 10h–22h
+          </div>
+          <div class="pd-hours__card-sub">1 juin – 30 sept. · Horaires à confirmer</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         INFOS PRATIQUES
+         ============================================================ -->
+    <section class="pd-infos" aria-label="Informations pratiques">
+      <p class="section-label reveal">Informations pratiques</p>
+      <h2 class="reveal reveal-delay-1" style="font-size:clamp(1.8rem,3.5vw,2.6rem);font-weight:300;letter-spacing:-0.02em;margin-bottom:0;">
+        Tout ce qu'il faut savoir
+      </h2>
+      <div class="pd-infos__grid">
+        <div class="pd-info-card reveal">
+          <div class="pd-info-card__icon">📍</div>
+          <div class="pd-info-card__title">Localisation</div>
+          <div class="pd-info-card__value">Morocco Mall<br>Casablanca Bay</div>
+          <div class="pd-info-card__sub">Accès niveau mall · Signalétique sur place</div>
+        </div>
+        <div class="pd-info-card reveal reveal-delay-1">
+          <div class="pd-info-card__icon">⏱</div>
+          <div class="pd-info-card__title">Réservation</div>
+          <div class="pd-info-card__value">En ligne<br>ou sur place</div>
+          <div class="pd-info-card__sub">Minimum 2 heures · Paiement à la réservation</div>
+        </div>
+        <div class="pd-info-card reveal reveal-delay-2">
+          <div class="pd-info-card__icon">🎾</div>
+          <div class="pd-info-card__title">Équipements</div>
+          <div class="pd-info-card__value">Raquettes &amp;<br>balles disponibles</div>
+          <div class="pd-info-card__sub">Location sur place · Tenue sportive recommandée</div>
+        </div>
+        <div class="pd-info-card reveal reveal-delay-3">
+          <div class="pd-info-card__icon">📞</div>
+          <div class="pd-info-card__title">Contact</div>
+          <div class="pd-info-card__value">padel@moroccomall.ma</div>
+          <div class="pd-info-card__sub">Coaching &amp; tournois · Renseignements sur demande</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         CTA FINAL
+         ============================================================ -->
+    <section class="pd-cta" aria-label="Réserver maintenant">
+      <h2 class="pd-cta__title reveal">
+        Prêt à jouer<br><em>face à la mer ?</em>
+      </h2>
+      <p class="pd-cta__sub reveal reveal-delay-1">
+        Réservez votre terrain en ligne · Minimum 2 heures · 250 MAD / 350 MAD par heure
+      </p>
+      <div class="pd-cta__actions reveal reveal-delay-2">
+        <a href="mailto:padel@moroccomall.ma?subject=Réservation Padel Club" class="pd-cta__btn-primary">
+          Réserver maintenant →
+        </a>
+        <a href="entertainment.html" class="pd-cta__btn-secondary">
+          Tout l'entertainment
+        </a>
+      </div>
+    </section>
+
+  </main>
+
+  <script src="../js/seo.js"></script>
+  <script src="../js/translations.js"></script>
+  <script src="../js/app.js"></script>
+  <script>
+    const reveals = document.querySelectorAll('.reveal');
+    const obs = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in-view'); obs.unobserve(e.target); } });
+    }, { threshold: 0.08 });
+    reveals.forEach(el => obs.observe(el));
+  </script>
+</body>
+</html>

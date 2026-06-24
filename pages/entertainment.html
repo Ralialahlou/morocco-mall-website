@@ -15,10 +15,10 @@
     /* Hero */
     .ent-hero {
       position: relative;
-      /* 78vh so the filter bar peeks into view — user sees it without scrolling */
-      height: 78vh;
-      min-height: 520px;
-      max-height: 860px;
+      /* compensate for the nav spacer so background fills from the very top */
+      height: calc(78vh + var(--bar-h) + var(--nav-h));
+      min-height: calc(520px + var(--bar-h) + var(--nav-h));
+      max-height: calc(860px + var(--bar-h) + var(--nav-h));
       display: flex;
       align-items: flex-end;
       overflow: hidden;
@@ -582,6 +582,7 @@
         <button class="filter-btn" data-filter="aquarium" role="listitem">Aquarium</button>
         <button class="filter-btn" data-filter="kids" role="listitem">Enfants</button>
         <button class="filter-btn" data-filter="experience" role="listitem">Expériences</button>
+        <button class="filter-btn" data-filter="sport" role="listitem">Sport</button>
       </div>
     </div>
   </div>
@@ -837,6 +838,31 @@
           <span class="venue-card__arrow">
             <span class="venue-card__arrow-line"></span>
             Découvrir
+          </span>
+        </div>
+      </a>
+
+      <!-- 9. The Padel Club — Casablanca Bay exclusive -->
+      <a
+        href="padel-club.html"
+        class="venue-card"
+        data-category="sport"
+        aria-label="The Padel Club — 2 terrains de padel vue mer, premier à Casablanca"
+      >
+        <img
+          class="venue-card__img"
+          src="https://images.unsplash.com/photo-1554068865-24cecd4e34b8?w=600&h=700&fit=crop"
+          alt="The Padel Club Morocco Mall — terrains de padel vue mer Casablanca Bay"
+          loading="lazy"
+        />
+        <div class="venue-card__overlay"></div>
+        <div class="venue-card__body">
+          <p class="venue-card__cat" style="color:var(--gold);">Casablanca Bay · Premier à Casa</p>
+          <h3 class="venue-card__name">The Padel<br>Club</h3>
+          <p class="venue-card__detail">2 Terrains · Vue Mer<br>Niveau Mall · 10h – 23h</p>
+          <span class="venue-card__arrow">
+            <span class="venue-card__arrow-line"></span>
+            Réserver
           </span>
         </div>
       </a>

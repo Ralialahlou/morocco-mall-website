@@ -3,802 +3,1150 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Morocco Mall — A propos. Decouvrez l'histoire du groupe AKSAL, nos 4 destinations shopping au Maroc et nos valeurs." />
-  <title>A propos — Morocco Mall</title>
+  <meta name="description" content="À propos du Groupe AKSAL — Leader marocain du retail, des malls et du luxe. Fondateur de Morocco Mall, le plus grand centre commercial d'Afrique. Retail, Malls, Luxe, Immobilier." />
+  <title>À propos — Groupe AKSAL · Morocco Mall</title>
   <link rel="icon" href="../assets/logo.png" type="image/png" />
   <link rel="stylesheet" href="../css/main.css" />
   <style>
-    /* ── HERO ─────────────────────────────────────────────────────── */
-    .about-hero {
-      position: relative;
-      min-height: 90vh;
+
+    /* ── Base ── */
+    body { background: var(--black); color: #fff; }
+
+    /* ── Hero ── */
+    .ag-hero {
+      min-height: 100vh;
       display: flex;
-      align-items: flex-end;
-      background-color: #000;
-      background-image: url('https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1920&h=1000&fit=crop&q=85');
-      background-size: cover;
-      background-position: center;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 0 var(--pad-x) clamp(3.5rem, 9vw, 7rem);
+      position: relative;
       overflow: hidden;
     }
-    .about-hero__overlay {
+    .ag-hero__bg {
       position: absolute;
       inset: 0;
-      background: linear-gradient(to top, rgba(0,0,0,0.82) 0%, rgba(0,0,0,0.45) 55%, rgba(0,0,0,0.25) 100%);
+      background-image: url('https://images.unsplash.com/photo-1486325212027-8081e485255e?w=1800&h=1000&fit=crop');
+      background-size: cover;
+      background-position: center 35%;
+      z-index: 0;
+      transform: scale(1.04);
+      transition: transform 9s ease-out;
     }
-    .about-hero__content {
+    .ag-hero__bg.loaded { transform: scale(1); }
+    .ag-hero__overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        160deg,
+        rgba(0, 0, 0, 0.72) 0%,
+        rgba(10, 6, 2, 0.82) 45%,
+        rgba(0, 0, 0, 0.97) 100%
+      );
+      z-index: 1;
+    }
+    .ag-hero__content {
       position: relative;
       z-index: 2;
-      padding-bottom: 6rem;
-      width: 100%;
+      max-width: 820px;
     }
-    .about-hero__breadcrumb {
+    .ag-hero__eyebrow {
+      font-size: clamp(0.65rem, 1.2vw, 0.78rem);
+      letter-spacing: 0.26em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 1.6rem;
       display: flex;
       align-items: center;
-      gap: 0.5rem;
-      font-size: 0.65rem;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      color: rgba(255,255,255,0.45);
+      gap: 1rem;
+    }
+    .ag-hero__eyebrow::before {
+      content: '';
+      display: block;
+      width: 2.5rem;
+      height: 1px;
+      background: var(--gold);
+      opacity: 0.7;
+    }
+    .ag-hero__title {
+      font-size: clamp(4rem, 13vw, 11rem);
+      font-weight: 200;
+      line-height: 0.88;
+      letter-spacing: -0.04em;
+      margin-bottom: 2rem;
+    }
+    .ag-hero__title strong {
+      display: block;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
+    .ag-hero__subtitle {
+      font-size: clamp(1rem, 2.2vw, 1.3rem);
+      color: rgba(255, 255, 255, 0.58);
+      max-width: 560px;
+      line-height: 1.7;
+      margin-bottom: 3rem;
+    }
+    .ag-hero__badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.65rem;
       margin-bottom: 2.5rem;
     }
-    .about-hero__breadcrumb a {
-      color: rgba(255,255,255,0.45);
-      text-decoration: none;
-      transition: color 0.2s;
-    }
-    .about-hero__breadcrumb a:hover { color: var(--gold); }
-    .about-hero__eyebrow {
-      font-size: 0.65rem;
-      letter-spacing: 0.22em;
+    .ag-hero__badge {
+      font-size: 0.7rem;
+      letter-spacing: 0.14em;
       text-transform: uppercase;
-      color: var(--gold);
-      margin-bottom: 1.25rem;
+      color: var(--gold-light);
+      border: 1px solid rgba(201, 169, 110, 0.3);
+      background: rgba(201, 169, 110, 0.07);
+      padding: 0.4rem 1rem;
+      border-radius: 2rem;
     }
-    .about-hero__title {
-      font-family: var(--font-display);
-      font-size: clamp(3.5rem, 9vw, 7.5rem);
-      font-weight: 300;
-      line-height: 0.95;
-      letter-spacing: -0.01em;
-      color: #fff;
-      margin-bottom: 1.5rem;
-    }
-    .about-hero__subtitle {
-      font-size: clamp(0.9rem, 1.8vw, 1.15rem);
-      font-weight: 300;
-      color: rgba(255,255,255,0.6);
-      letter-spacing: 0.03em;
-      max-width: 520px;
-    }
-
-    /* ── BRAND STORY ─────────────────────────────────────────────── */
-    .brand-story {
-      padding: 7rem 0;
-      background: var(--white);
-    }
-    .brand-story__inner {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 5rem;
+    .ag-hero__cta {
+      display: inline-flex;
       align-items: center;
-    }
-    @media (max-width: 768px) {
-      .brand-story__inner { grid-template-columns: 1fr; gap: 3rem; }
-    }
-    .brand-story__eyebrow {
-      font-size: 0.62rem;
-      letter-spacing: 0.22em;
+      gap: 0.75rem;
+      background: var(--gold);
+      color: #0A0A0A;
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 0.16em;
       text-transform: uppercase;
-      color: var(--gold);
-      margin-bottom: 1rem;
+      text-decoration: none;
+      padding: 1rem 2.2rem;
+      transition: background 0.3s, gap 0.3s;
     }
-    .brand-story__title {
-      font-family: var(--font-display);
-      font-size: clamp(2rem, 4vw, 3.2rem);
-      font-weight: 300;
-      line-height: 1.1;
-      color: var(--black);
-      margin-bottom: 1.75rem;
+    .ag-hero__cta:hover { background: var(--gold-light); gap: 1.1rem; }
+    .ag-hero__scroll {
+      position: absolute;
+      bottom: 2.5rem;
+      right: var(--pad-x);
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+      opacity: 0.35;
     }
-    .brand-story__body {
-      font-size: 0.9rem;
-      line-height: 1.85;
-      color: var(--gray-600);
-      margin-bottom: 1.25rem;
+    .ag-hero__scroll-label {
+      font-size: 0.58rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      writing-mode: vertical-rl;
     }
-    .brand-story__img-wrap {
+    .ag-hero__scroll-line {
+      width: 1px;
+      height: 3rem;
+      background: var(--gold);
       position: relative;
       overflow: hidden;
-      aspect-ratio: 7/5;
     }
-    .brand-story__img-wrap::before {
+    .ag-hero__scroll-line::after {
       content: '';
       position: absolute;
       inset: 0;
-      background: linear-gradient(135deg, rgba(0,0,0,0.08) 0%, transparent 60%);
+      background: #fff;
+      animation: scrollDown 2s infinite;
+    }
+    @keyframes scrollDown { 0% { transform: translateY(-100%); } 100% { transform: translateY(100%); } }
+
+    /* ── Vision ── */
+    .ag-vision {
+      background: var(--black);
+      padding: clamp(5rem, 12vw, 10rem) var(--pad-x);
+      position: relative;
+      overflow: hidden;
+    }
+    .ag-vision__filigrane {
+      position: absolute;
+      right: -3rem;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 38%;
+      opacity: 0.05;
+      pointer-events: none;
+    }
+    .ag-vision__grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: clamp(3rem, 8vw, 8rem);
+      align-items: start;
+      position: relative;
       z-index: 1;
     }
-    .brand-story__img {
+    .ag-vision__label {
+      font-size: 0.68rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 1.2rem;
+    }
+    .ag-vision__title {
+      font-size: clamp(2.2rem, 5vw, 4rem);
+      font-weight: 200;
+      line-height: 1.05;
+      letter-spacing: -0.03em;
+      margin-bottom: 0;
+    }
+    .ag-vision__title em { font-style: italic; color: var(--gold-light); }
+    .ag-vision__body {
+      font-size: clamp(0.95rem, 1.6vw, 1.1rem);
+      color: rgba(255, 255, 255, 0.62);
+      line-height: 1.85;
+    }
+    .ag-vision__body p + p { margin-top: 1.4rem; }
+    .ag-vision__quote {
+      margin-top: 2.5rem;
+      border-left: 2px solid var(--gold);
+      padding-left: 1.5rem;
+    }
+    .ag-vision__quote p {
+      font-size: 1.05rem;
+      font-style: italic;
+      color: var(--gold-light);
+      line-height: 1.7;
+    }
+    @media (max-width: 860px) {
+      .ag-vision__grid { grid-template-columns: 1fr; }
+    }
+
+    /* ── Numbers ── */
+    .ag-numbers {
+      background: linear-gradient(145deg, #090704 0%, #150F07 50%, #0A0805 100%);
+      padding: clamp(4rem, 10vw, 8rem) var(--pad-x);
+      border-top: 1px solid rgba(201, 169, 110, 0.15);
+      border-bottom: 1px solid rgba(201, 169, 110, 0.15);
+    }
+    .ag-numbers__grid {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 0;
+    }
+    .ag-number-item {
+      padding: 2rem 1.5rem;
+      border-right: 1px solid rgba(201, 169, 110, 0.12);
+      text-align: center;
+      transition: background 0.3s;
+    }
+    .ag-number-item:last-child { border-right: none; }
+    .ag-number-item:hover { background: rgba(201, 169, 110, 0.04); }
+    .ag-number-item__val {
+      font-size: clamp(2rem, 4vw, 3.5rem);
+      font-weight: 200;
+      color: var(--gold);
+      line-height: 1;
+      margin-bottom: 0.5rem;
+    }
+    .ag-number-item__label {
+      font-size: 0.68rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.38);
+      line-height: 1.4;
+    }
+    @media (max-width: 1100px) {
+      .ag-numbers__grid { grid-template-columns: repeat(3, 1fr); }
+      .ag-number-item:nth-child(3) { border-right: none; }
+    }
+    @media (max-width: 600px) {
+      .ag-numbers__grid { grid-template-columns: repeat(2, 1fr); }
+      .ag-number-item:nth-child(2n) { border-right: none; }
+    }
+
+    /* ── Morocco Mall Feature ── */
+    .ag-mall {
+      padding: clamp(5rem, 12vw, 10rem) var(--pad-x);
+      background: var(--black);
+      position: relative;
+      overflow: hidden;
+    }
+    .ag-mall__header {
+      max-width: 700px;
+      margin-bottom: clamp(3rem, 7vw, 6rem);
+    }
+    .ag-mall__grid {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: clamp(2rem, 5vw, 5rem);
+      align-items: start;
+    }
+    .ag-mall__visual {
+      position: relative;
+    }
+    .ag-mall__img-wrap {
+      position: relative;
+      overflow: hidden;
+      aspect-ratio: 4/3;
+    }
+    .ag-mall__img {
       width: 100%;
       height: 100%;
       object-fit: cover;
       display: block;
-      transition: transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      transition: transform 0.8s ease;
     }
-    .brand-story__img-wrap:hover .brand-story__img { transform: scale(1.04); }
-
-    /* ── KEY NUMBERS ─────────────────────────────────────────────── */
-    .key-numbers {
-      background: var(--black);
-      padding: 5.5rem 0;
+    .ag-mall__img-wrap:hover .ag-mall__img { transform: scale(1.04); }
+    .ag-mall__img-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(0,0,0,0.6) 0%, transparent 60%);
     }
-    .key-numbers__grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 0;
+    .ag-mall__img-badge {
+      position: absolute;
+      top: 1.5rem;
+      left: 1.5rem;
+      background: var(--gold);
+      color: var(--black);
+      font-size: 0.6rem;
+      font-weight: 800;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      padding: 0.45rem 1rem;
     }
-    @media (max-width: 640px) {
-      .key-numbers__grid { grid-template-columns: repeat(2, 1fr); }
+    .ag-mall__img-stat {
+      position: absolute;
+      bottom: 1.5rem;
+      left: 1.5rem;
+      right: 1.5rem;
+      display: flex;
+      gap: 2rem;
     }
-    .stat-item {
-      text-align: center;
-      padding: 2.5rem 1.5rem;
-      border-right: 1px solid rgba(255,255,255,0.07);
-    }
-    .stat-item:last-child { border-right: none; }
-    @media (max-width: 640px) {
-      .stat-item:nth-child(2) { border-right: none; }
-      .stat-item:nth-child(3) { border-right: 1px solid rgba(255,255,255,0.07); }
-    }
-    .stat-item__number {
-      font-family: var(--font-display);
-      font-size: clamp(3rem, 7vw, 5.5rem);
-      font-weight: 300;
-      color: var(--gold);
+    .ag-mall__stat-val {
+      font-size: 1.8rem;
+      font-weight: 200;
+      color: #fff;
       line-height: 1;
-      letter-spacing: -0.02em;
-      margin-bottom: 0.5rem;
     }
-    .stat-item__label {
-      font-size: 0.65rem;
-      letter-spacing: 0.2em;
+    .ag-mall__stat-lbl {
+      font-size: 0.6rem;
+      letter-spacing: 0.12em;
       text-transform: uppercase;
       color: rgba(255,255,255,0.45);
     }
-
-    /* ── 4 MALLS ─────────────────────────────────────────────────── */
-    .malls-section {
-      background: #0a0a0a;
-      padding: 7rem 0;
+    .ag-mall__locations {
+      display: flex;
+      flex-direction: column;
+      gap: 1.2rem;
     }
-    .malls-section__header {
-      margin-bottom: 3.5rem;
+    .ag-mall__loc-card {
+      border: 1px solid rgba(201,169,110,0.18);
+      padding: 1.8rem;
+      position: relative;
+      overflow: hidden;
+      transition: border-color 0.3s;
     }
-    .malls-section__eyebrow {
-      font-size: 0.62rem;
-      letter-spacing: 0.22em;
+    .ag-mall__loc-card:hover { border-color: rgba(201,169,110,0.45); }
+    .ag-mall__loc-badge {
+      font-size: 0.6rem;
+      letter-spacing: 0.18em;
       text-transform: uppercase;
       color: var(--gold);
-      margin-bottom: 0.75rem;
+      margin-bottom: 0.6rem;
     }
-    .malls-section__title {
-      font-family: var(--font-display);
-      font-size: clamp(2rem, 4vw, 3rem);
+    .ag-mall__loc-name {
+      font-size: 1.4rem;
       font-weight: 300;
-      color: #fff;
-      line-height: 1.1;
+      margin-bottom: 0.5rem;
     }
-    .malls-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 1.5px;
+    .ag-mall__loc-desc {
+      font-size: 0.82rem;
+      color: rgba(255,255,255,0.48);
+      line-height: 1.65;
+      margin-bottom: 1.2rem;
     }
-    @media (max-width: 768px) {
-      .malls-grid { grid-template-columns: 1fr; }
-    }
-    .mall-tile {
-      position: relative;
-      aspect-ratio: 4/3;
-      overflow: hidden;
+    .ag-mall__loc-tags {
       display: flex;
-      align-items: flex-end;
-      text-decoration: none;
-      cursor: pointer;
+      flex-wrap: wrap;
+      gap: 0.4rem;
     }
-    .mall-tile__bg {
-      position: absolute;
-      inset: 0;
-      transition: transform 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    .ag-mall__loc-tag {
+      font-size: 0.62rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--gold-light);
+      border: 1px solid rgba(201,169,110,0.22);
+      padding: 0.25rem 0.65rem;
+      border-radius: 2rem;
     }
-    .mall-tile:hover .mall-tile__bg { transform: scale(1.06); }
-    .mall-tile__gradient {
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(to top, rgba(0,0,0,0.88) 0%, rgba(0,0,0,0.35) 55%, rgba(0,0,0,0.1) 100%);
-      transition: opacity 0.4s;
+    @media (max-width: 900px) {
+      .ag-mall__grid { grid-template-columns: 1fr; }
     }
-    .mall-tile:hover .mall-tile__gradient { opacity: 0.9; }
-    .mall-tile__body {
+
+    /* ── Pillars ── */
+    .ag-pillars {
+      background: linear-gradient(160deg, #0D0B08 0%, #181007 50%, #0D0B08 100%);
+      padding: clamp(5rem, 12vw, 10rem) var(--pad-x);
       position: relative;
-      z-index: 2;
-      padding: 2.25rem 2rem;
+      overflow: hidden;
     }
-    .mall-tile__city {
+    .ag-pillars__header {
+      text-align: center;
+      margin-bottom: clamp(3rem, 7vw, 5rem);
+    }
+    .ag-pillars__title {
+      font-size: clamp(2rem, 5vw, 3.8rem);
+      font-weight: 200;
+      letter-spacing: -0.03em;
+      margin-bottom: 0.8rem;
+    }
+    .ag-pillars__title em { font-style: italic; color: var(--gold-light); }
+    .ag-pillars__sub {
+      font-size: 0.92rem;
+      color: rgba(255,255,255,0.4);
+      max-width: 480px;
+      margin: 0 auto;
+    }
+    .ag-pillars__grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: rgba(201,169,110,0.1);
+      border: 1px solid rgba(201,169,110,0.1);
+    }
+    .ag-pillar {
+      background: #0D0B08;
+      padding: clamp(2rem, 4vw, 3.5rem);
+      position: relative;
+      transition: background 0.35s;
+    }
+    .ag-pillar:hover { background: rgba(201,169,110,0.05); }
+    .ag-pillar__num {
       font-size: 0.6rem;
       letter-spacing: 0.22em;
+      color: rgba(201,169,110,0.4);
+      margin-bottom: 1.5rem;
+    }
+    .ag-pillar__icon {
+      width: 2.8rem;
+      height: 2.8rem;
+      margin-bottom: 1.5rem;
+      opacity: 0.8;
+    }
+    .ag-pillar__name {
+      font-size: 1.45rem;
+      font-weight: 300;
+      letter-spacing: -0.01em;
+      margin-bottom: 0.8rem;
+      color: var(--gold-light);
+    }
+    .ag-pillar__desc {
+      font-size: 0.85rem;
+      color: rgba(255,255,255,0.48);
+      line-height: 1.72;
+      margin-bottom: 1.2rem;
+    }
+    .ag-pillar__brands {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.3rem;
+    }
+    .ag-pillar__brand-tag {
+      font-size: 0.58rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: rgba(201,169,110,0.65);
+      border: 1px solid rgba(201,169,110,0.18);
+      padding: 0.2rem 0.55rem;
+      border-radius: 1rem;
+    }
+    @media (max-width: 900px) {
+      .ag-pillars__grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 560px) {
+      .ag-pillars__grid { grid-template-columns: 1fr; }
+    }
+
+    /* ── Timeline ── */
+    .ag-timeline {
+      background: var(--black);
+      padding: clamp(5rem, 12vw, 10rem) var(--pad-x);
+    }
+    .ag-timeline__inner {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    .ag-timeline__title {
+      font-size: clamp(2rem, 4.5vw, 3.5rem);
+      font-weight: 200;
+      letter-spacing: -0.03em;
+      margin-bottom: clamp(3rem, 7vw, 5rem);
+    }
+    .ag-timeline__title em { font-style: italic; color: var(--gold-light); }
+    .ag-timeline__track {
+      position: relative;
+      padding-left: 3rem;
+    }
+    .ag-timeline__track::before {
+      content: '';
+      position: absolute;
+      left: 0.4rem;
+      top: 0;
+      bottom: 0;
+      width: 1px;
+      background: rgba(201,169,110,0.2);
+    }
+    .ag-tl-item {
+      position: relative;
+      margin-bottom: 3rem;
+    }
+    .ag-tl-item:last-child { margin-bottom: 0; }
+    .ag-tl-item::before {
+      content: '';
+      position: absolute;
+      left: -2.65rem;
+      top: 0.55rem;
+      width: 0.65rem;
+      height: 0.65rem;
+      border-radius: 50%;
+      background: var(--gold);
+      box-shadow: 0 0 0 3px rgba(201,169,110,0.15);
+    }
+    .ag-tl-item--major::before {
+      width: 0.85rem;
+      height: 0.85rem;
+      left: -2.75rem;
+      box-shadow: 0 0 0 4px rgba(201,169,110,0.2), 0 0 12px rgba(201,169,110,0.25);
+    }
+    .ag-tl-item__year {
+      font-size: 0.65rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 0.3rem;
+    }
+    .ag-tl-item__title {
+      font-size: 1.1rem;
+      font-weight: 400;
+      color: #fff;
+      margin-bottom: 0.4rem;
+    }
+    .ag-tl-item__desc {
+      font-size: 0.86rem;
+      color: rgba(255,255,255,0.45);
+      line-height: 1.65;
+    }
+
+    /* ── Impact ── */
+    .ag-impact {
+      background: linear-gradient(160deg, #0A0A0A 0%, #120E08 50%, #0A0A0A 100%);
+      padding: clamp(4rem, 10vw, 8rem) var(--pad-x);
+      border-top: 1px solid rgba(201,169,110,0.12);
+    }
+    .ag-impact__grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: clamp(2.5rem, 6vw, 6rem);
+      align-items: center;
+    }
+    .ag-impact__title {
+      font-size: clamp(2rem, 4.5vw, 3.5rem);
+      font-weight: 200;
+      line-height: 1.08;
+      letter-spacing: -0.03em;
+      margin-bottom: 1.5rem;
+    }
+    .ag-impact__title em { font-style: italic; color: var(--gold-light); }
+    .ag-impact__body {
+      font-size: 0.92rem;
+      color: rgba(255,255,255,0.55);
+      line-height: 1.8;
+      margin-bottom: 2rem;
+    }
+    .ag-impact__cards {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+    .ag-impact-card {
+      border-top: 1px solid rgba(201,169,110,0.2);
+      padding-top: 1.2rem;
+    }
+    .ag-impact-card__icon { font-size: 1.4rem; margin-bottom: 0.6rem; }
+    .ag-impact-card__title {
+      font-size: 0.7rem;
+      letter-spacing: 0.16em;
       text-transform: uppercase;
       color: var(--gold);
       margin-bottom: 0.4rem;
     }
-    .mall-tile__name {
-      font-family: var(--font-display);
-      font-size: clamp(1.5rem, 3vw, 2.2rem);
-      font-weight: 300;
-      color: #fff;
-      line-height: 1.05;
-      margin-bottom: 0.75rem;
-    }
-    .mall-tile__desc {
-      font-size: 0.78rem;
-      color: rgba(255,255,255,0.55);
-      line-height: 1.6;
-      max-width: 320px;
-      margin-bottom: 1.25rem;
-    }
-    .mall-tile__cta {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      font-size: 0.6rem;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color: rgba(255,255,255,0.5);
-      border-bottom: 1px solid rgba(255,255,255,0.2);
-      padding-bottom: 0.15rem;
-      transition: color 0.2s, border-color 0.2s;
-    }
-    .mall-tile:hover .mall-tile__cta {
-      color: var(--gold);
-      border-color: var(--gold);
-    }
-
-    /* ── AKSAL GROUP ─────────────────────────────────────────────── */
-    .aksal-group-section {
-      padding: 7rem 0;
-      background: #f7f5f2;
-    }
-    .aksal-group__inner {
-      max-width: 780px;
-    }
-    .aksal-group__eyebrow {
-      font-size: 0.62rem;
-      letter-spacing: 0.22em;
-      text-transform: uppercase;
-      color: var(--gold);
-      margin-bottom: 1rem;
-    }
-    .aksal-group__title {
-      font-family: var(--font-display);
-      font-size: clamp(2rem, 4vw, 3rem);
-      font-weight: 300;
-      color: var(--black);
-      line-height: 1.1;
-      margin-bottom: 1.75rem;
-    }
-    .aksal-group__body {
-      font-size: 0.9rem;
-      line-height: 1.85;
-      color: var(--gray-600);
-      margin-bottom: 1.25rem;
-    }
-    .aksal-group__link {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      font-size: 0.65rem;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color: var(--black);
-      text-decoration: none;
-      border-bottom: 1px solid var(--black);
-      padding-bottom: 0.2rem;
-      margin-top: 0.5rem;
-      transition: color 0.2s, border-color 0.2s;
-    }
-    .aksal-group__link:hover {
-      color: var(--gold);
-      border-color: var(--gold);
-    }
-
-    /* ── VALUES ──────────────────────────────────────────────────── */
-    .values-section {
-      background: var(--black);
-      padding: 7rem 0;
-    }
-    .values-section__header {
-      margin-bottom: 4rem;
-    }
-    .values-section__eyebrow {
-      font-size: 0.62rem;
-      letter-spacing: 0.22em;
-      text-transform: uppercase;
-      color: var(--gold);
-      margin-bottom: 0.75rem;
-    }
-    .values-section__title {
-      font-family: var(--font-display);
-      font-size: clamp(2rem, 4vw, 3rem);
-      font-weight: 300;
-      color: #fff;
-      line-height: 1.1;
-    }
-    .values-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 2.5rem;
-    }
-    @media (max-width: 900px) {
-      .values-grid { grid-template-columns: repeat(2, 1fr); }
-    }
-    @media (max-width: 500px) {
-      .values-grid { grid-template-columns: 1fr; }
-    }
-    .value-card {
-      padding: 0;
-    }
-    .value-card__icon {
-      width: 48px;
-      height: 48px;
-      margin-bottom: 1.5rem;
-      color: var(--gold);
-    }
-    .value-card__name {
-      font-family: var(--font-display);
-      font-size: 1.4rem;
-      font-weight: 300;
-      color: #fff;
-      margin-bottom: 0.75rem;
-      letter-spacing: 0.01em;
-    }
-    .value-card__desc {
-      font-size: 0.8rem;
+    .ag-impact-card__desc {
+      font-size: 0.82rem;
       color: rgba(255,255,255,0.45);
-      line-height: 1.75;
+      line-height: 1.55;
+    }
+    @media (max-width: 800px) {
+      .ag-impact__grid { grid-template-columns: 1fr; }
     }
 
-    /* ── SUSTAINABILITY ───────────────────────────────────────────── */
-    .sustainability-section {
-      background: #f7f5f2;
-      padding: 6rem 0;
-    }
-    .sustainability__inner {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 5rem;
-      align-items: center;
-    }
-    @media (max-width: 768px) {
-      .sustainability__inner { grid-template-columns: 1fr; gap: 3rem; }
-    }
-    .sustainability__eyebrow {
-      font-size: 0.62rem;
-      letter-spacing: 0.22em;
-      text-transform: uppercase;
-      color: var(--gold);
-      margin-bottom: 1rem;
-    }
-    .sustainability__title {
-      font-family: var(--font-display);
-      font-size: clamp(1.8rem, 3.5vw, 2.8rem);
-      font-weight: 300;
-      color: var(--black);
-      line-height: 1.1;
-      margin-bottom: 1.5rem;
-    }
-    .sustainability__body {
-      font-size: 0.88rem;
-      line-height: 1.85;
-      color: var(--gray-600);
-      margin-bottom: 1rem;
-    }
-    .sustainability__pillars {
-      list-style: none;
-      padding: 0;
-      margin: 1.5rem 0 0;
-      display: flex;
-      flex-direction: column;
-      gap: 0.75rem;
-    }
-    .sustainability__pillar {
-      display: flex;
-      align-items: center;
-      gap: 0.75rem;
-      font-size: 0.8rem;
-      color: var(--gray-600);
-    }
-    .sustainability__pillar::before {
-      content: '';
-      display: block;
-      width: 24px;
-      height: 1px;
-      background: var(--gold);
-      flex-shrink: 0;
-    }
-    .sustainability__visual {
+    /* ── CTA ── */
+    .ag-cta {
+      background: var(--black);
+      padding: clamp(5rem, 14vw, 11rem) var(--pad-x);
+      text-align: center;
       position: relative;
       overflow: hidden;
-      aspect-ratio: 5/4;
-      background: linear-gradient(135deg, #1a2e1a, #0e1a0e);
-      display: flex;
-      align-items: center;
-      justify-content: center;
     }
-    .sustainability__visual-text {
-      font-family: var(--font-display);
-      font-size: 4rem;
-      font-weight: 300;
-      color: rgba(255,255,255,0.08);
-      text-align: center;
-      line-height: 1.1;
-      user-select: none;
-    }
-    .sustainability__badge {
+    .ag-cta::before {
+      content: '';
       position: absolute;
-      bottom: 1.5rem;
-      right: 1.5rem;
-      background: var(--gold);
-      color: var(--black);
-      font-size: 0.6rem;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      padding: 0.5rem 1rem;
-      font-weight: 600;
+      inset: 0;
+      background: radial-gradient(ellipse 60% 50% at 50% 100%, rgba(201,169,110,0.1), transparent);
     }
-
-    /* ── PRESS CTA ───────────────────────────────────────────────── */
-    .press-cta-section {
-      background: var(--white);
-      padding: 5rem 0;
+    .ag-cta__title {
+      font-size: clamp(2.5rem, 7vw, 6rem);
+      font-weight: 200;
+      letter-spacing: -0.04em;
+      line-height: 1;
+      margin-bottom: 1.5rem;
+      position: relative;
     }
-    .press-cta-card {
+    .ag-cta__title em { font-style: italic; color: var(--gold-light); }
+    .ag-cta__sub {
+      font-size: 0.92rem;
+      color: rgba(255,255,255,0.42);
+      margin-bottom: 3rem;
+      position: relative;
+    }
+    .ag-cta__actions {
       display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 2rem;
-      padding: 3.5rem 4rem;
-      border: 1px solid rgba(0,0,0,0.08);
-      text-decoration: none;
-      transition: border-color 0.3s, box-shadow 0.3s;
-    }
-    .press-cta-card:hover {
-      border-color: var(--gold);
-      box-shadow: 0 8px 40px rgba(0,0,0,0.07);
-    }
-    @media (max-width: 640px) {
-      .press-cta-card { flex-direction: column; align-items: flex-start; padding: 2.5rem; }
-    }
-    .press-cta-card__left { flex: 1; }
-    .press-cta-card__eyebrow {
-      font-size: 0.6rem;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: var(--gold);
-      margin-bottom: 0.75rem;
-    }
-    .press-cta-card__title {
-      font-family: var(--font-display);
-      font-size: clamp(1.5rem, 3vw, 2.2rem);
-      font-weight: 300;
-      color: var(--black);
-      line-height: 1.1;
-      margin-bottom: 0.75rem;
-    }
-    .press-cta-card__desc {
-      font-size: 0.82rem;
-      color: var(--gray-500);
-      line-height: 1.65;
-      max-width: 480px;
-    }
-    .press-cta-card__arrow {
-      flex-shrink: 0;
-      width: 56px;
-      height: 56px;
-      border: 1px solid rgba(0,0,0,0.15);
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
       justify-content: center;
-      color: var(--black);
-      transition: background 0.3s, border-color 0.3s, color 0.3s;
+      gap: 1.2rem;
+      flex-wrap: wrap;
+      position: relative;
     }
-    .press-cta-card:hover .press-cta-card__arrow {
+    .ag-cta__btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.75rem;
       background: var(--gold);
-      border-color: var(--gold);
-      color: var(--black);
+      color: #0A0A0A;
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      text-decoration: none;
+      padding: 1.1rem 2.4rem;
+      transition: background 0.3s;
     }
+    .ag-cta__btn:hover { background: var(--gold-light); }
+    .ag-cta__btn-out {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.75rem;
+      border: 1px solid rgba(201,169,110,0.35);
+      color: var(--gold-light);
+      font-size: 0.8rem;
+      font-weight: 400;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      text-decoration: none;
+      padding: 1.1rem 2.4rem;
+      transition: border-color 0.3s, color 0.3s;
+    }
+    .ag-cta__btn-out:hover { border-color: var(--gold); color: var(--gold); }
+
+    /* ── Reveal ── */
+    .reveal { opacity: 0; transform: translateY(1.8rem); transition: opacity 0.75s ease, transform 0.75s ease; }
+    .reveal.in-view { opacity: 1; transform: none; }
+    .reveal-delay-1 { transition-delay: 0.1s; }
+    .reveal-delay-2 { transition-delay: 0.2s; }
+    .reveal-delay-3 { transition-delay: 0.3s; }
+    .reveal-delay-4 { transition-delay: 0.4s; }
+
   </style>
 </head>
 <body>
-<main id="main-content">
+  <a class="skip-link" href="#main-content">Passer au contenu</a>
+  <div id="chrome-mount"></div>
 
-  <!-- ═══ HERO ════════════════════════════════════════════════════ -->
-  <section class="about-hero" aria-label="A propos de Morocco Mall">
-    <div class="about-hero__overlay"></div>
-    <div class="container about-hero__content">
-      <nav class="about-hero__breadcrumb">
-        <a href="../index.html">Morocco Mall</a>
-        <span>›</span>
-        <span>A propos</span>
-      </nav>
-      <p class="about-hero__eyebrow">Notre histoire</p>
-      <h1 class="about-hero__title">Morocco Mall</h1>
-      <p class="about-hero__subtitle">Morocco's Premier Shopping Destination</p>
-    </div>
-  </section>
+  <main id="main-content">
 
-  <!-- ═══ BRAND STORY ══════════════════════════════════════════════ -->
-  <section class="brand-story">
-    <div class="container">
-      <div class="brand-story__inner reveal">
+    <!-- ================================================================
+         HERO
+    ================================================================ -->
+    <section class="ag-hero" aria-label="Groupe AKSAL — À propos">
+      <div class="ag-hero__bg" id="agHeroBg" role="img" aria-label="Vue architecturale d'un complexe commercial de prestige signé Groupe AKSAL"></div>
+      <div class="ag-hero__overlay"></div>
 
-        <!-- Left: text -->
-        <div>
-          <p class="brand-story__eyebrow">Notre histoire</p>
-          <h2 class="brand-story__title">Une vision,<br><em style="font-style:italic;">quatre destinations</em></h2>
-          <p class="brand-story__body">
-            Morocco Mall est ne de la vision du Groupe AKSAL, leader marocain du commerce de detail et du developpement de centres commerciaux. Fonde en 2009, le premier mall ouvre ses portes a Casablanca, au bord de l'Atlantique, avec l'ambition d'offrir une experience shopping et de divertissement inedite au Maroc.
-          </p>
-          <p class="brand-story__body">
-            Portes par le succes du site fondateur de Casablanca Bay, les equipements Morocco Mall s'etendent progressivement a quatre grandes villes du Royaume. Chaque destination est congue comme un world unique — architecture signature, selection d'enseignes et experiences de loisirs soigneusement curees pour refleter l'identite de sa ville d'accueil.
-          </p>
-          <p class="brand-story__body">
-            Aujourd'hui, Morocco Mall reunit plus de 300 enseignes nationales et internationales sous quatre toits, accueille pres de 15 millions de visiteurs par an et positionne le Maroc parmi les destinations retail les plus ambitieuses du continent africain.
-          </p>
-        </div>
-
-        <!-- Right: image -->
-        <div class="brand-story__img-wrap">
-          <img
-            class="brand-story__img"
-            src="https://images.unsplash.com/photo-1567401893414-76b7b1e5a7a5?w=700&h=500&fit=crop"
-            alt="Interieur Morocco Mall"
-            loading="eager"
-          />
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ═══ KEY NUMBERS ══════════════════════════════════════════════ -->
-  <section class="key-numbers" aria-label="Chiffres cles">
-    <div class="container">
-      <div class="key-numbers__grid reveal">
-        <div class="stat-item">
-          <div class="stat-item__number">4</div>
-          <div class="stat-item__label">Destinations</div>
-        </div>
-        <div class="stat-item">
-          <div class="stat-item__number">300+</div>
-          <div class="stat-item__label">Enseignes</div>
-        </div>
-        <div class="stat-item">
-          <div class="stat-item__number">15M</div>
-          <div class="stat-item__label">Visiteurs / an</div>
-        </div>
-        <div class="stat-item">
-          <div class="stat-item__number">4</div>
-          <div class="stat-item__label">Villes</div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ═══ 4 MALLS ══════════════════════════════════════════════════ -->
-  <section class="malls-section">
-    <div class="container">
-      <div class="malls-section__header reveal">
-        <p class="malls-section__eyebrow">Nos destinations</p>
-        <h2 class="malls-section__title">Quatre malls,<br><em style="font-style:italic;">un seul standard</em></h2>
-      </div>
-    </div>
-
-    <div class="malls-grid reveal">
-
-      <!-- Casablanca Bay -->
-      <div class="mall-tile">
-        <div class="mall-tile__bg" style="background: linear-gradient(145deg, #001a2e, #003050);"></div>
-        <div class="mall-tile__gradient"></div>
-        <div class="mall-tile__body">
-          <p class="mall-tile__city">Casablanca</p>
-          <h3 class="mall-tile__name">Casablanca Bay</h3>
-          <p class="mall-tile__desc">Le mall fondateur, perche face a l'Atlantique. Architecture audacieuse, Rose Boulevard luxe et Sea Dream Aquarium pour une experience unique sur la Corniche.</p>
-          <span class="mall-tile__cta">
-            Decouvrir
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-          </span>
-        </div>
-      </div>
-
-      <!-- Marrakech Garden -->
-      <div class="mall-tile">
-        <div class="mall-tile__bg" style="background: linear-gradient(145deg, #2e1000, #4a1800);"></div>
-        <div class="mall-tile__gradient"></div>
-        <div class="mall-tile__body">
-          <p class="mall-tile__city">Marrakech</p>
-          <h3 class="mall-tile__name">Marrakech Garden</h3>
-          <p class="mall-tile__desc">Au coeur de la Ville Rouge, un centre commercial-jardin ou les patios ombrages et la gastronomie internationale se melent a une selection mode soigneusement curee.</p>
-          <span class="mall-tile__cta">
-            Decouvrir
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-          </span>
-        </div>
-      </div>
-
-      <!-- Rabat Valley -->
-      <div class="mall-tile">
-        <div class="mall-tile__bg" style="background: linear-gradient(145deg, #001a0e, #003018);"></div>
-        <div class="mall-tile__gradient"></div>
-        <div class="mall-tile__body">
-          <p class="mall-tile__city">Rabat</p>
-          <h3 class="mall-tile__name">Rabat Valley</h3>
-          <p class="mall-tile__desc">La destination shopping de la capitale, con cu pour une clientele urbaine et sophistiquee. Offre complete fashion, food court premium et espaces culturels.</p>
-          <span class="mall-tile__cta">
-            Decouvrir
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-          </span>
-        </div>
-      </div>
-
-      <!-- Bouskoura Forest -->
-      <div class="mall-tile">
-        <div class="mall-tile__bg" style="background: linear-gradient(145deg, #0e1a00, #182800);"></div>
-        <div class="mall-tile__gradient"></div>
-        <div class="mall-tile__body">
-          <p class="mall-tile__city">Bouskoura</p>
-          <h3 class="mall-tile__name">Bouskoura Forest</h3>
-          <p class="mall-tile__desc">Un oasis de commerce et de detente integre dans la foret de Bouskoura. Architecture biophilique, restaurants en terrasse et experiencees outdoor pour toute la famille.</p>
-          <span class="mall-tile__cta">
-            Decouvrir
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-          </span>
-        </div>
-      </div>
-
-    </div>
-  </section>
-
-  <!-- ═══ AKSAL GROUP ══════════════════════════════════════════════ -->
-  <section class="aksal-group-section">
-    <div class="container">
-      <div class="aksal-group__inner reveal">
-        <p class="aksal-group__eyebrow">Notre groupe</p>
-        <h2 class="aksal-group__title">Groupe AKSAL</h2>
-        <p class="aksal-group__body">
-          Cree en 2001 a Casablanca, le Groupe AKSAL est le premier operateur marocain du commerce organise. Acteur pionnier dans le developpement de centres commerciaux et la distribution multi-enseignes au Maroc, AKSAL est egalement le partenaire de franchise exclusif de marques internationales telles que Zara, Massimo Dutti, Pull&amp;Bear, Bershka et Stradivarius sur le marche marocain.
+      <div class="ag-hero__content">
+        <p class="ag-hero__eyebrow">Casablanca, Maroc · Depuis 2004</p>
+        <h1 class="ag-hero__title">
+          Groupe<br>
+          <strong>AKSAL</strong>
+        </h1>
+        <p class="ag-hero__subtitle">
+          Leader marocain du retail, des malls et du luxe. Architecte d'un nouveau paysage commercial au service du Maroc et de ses ambitions.
         </p>
-        <p class="aksal-group__body">
-          Fort d'une experience de plus de vingt ans et d'un portefeuille de plus de 40 marques internationales en franchise, le Groupe AKSAL continue d'investir dans l'innovation du retail, la digitalisation de l'experience client et le developpement durable de ses infrastructures commerciales.
-        </p>
-        <a class="aksal-group__link" href="https://www.aksal.ma" target="_blank" rel="noopener">
-          Visiter aksal.ma
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        <div class="ag-hero__badges">
+          <span class="ag-hero__badge">Retail</span>
+          <span class="ag-hero__badge">Malls</span>
+          <span class="ag-hero__badge">Luxe</span>
+          <span class="ag-hero__badge">Immobilier</span>
+          <span class="ag-hero__badge">Digital</span>
+          <span class="ag-hero__badge">Cosmétiques</span>
+        </div>
+        <a href="entertainment.html" class="ag-hero__cta">
+          Découvrir Morocco Mall
+          <svg width="18" height="8" viewBox="0 0 18 8" fill="none" aria-hidden="true">
+            <path d="M0 4H16M16 4L12.5 1M16 4L12.5 7" stroke="currentColor" stroke-width="1.2"/>
+          </svg>
         </a>
       </div>
-    </div>
-  </section>
 
-  <!-- ═══ VALUES ════════════════════════════════════════════════════ -->
-  <section class="values-section">
-    <div class="container">
-      <div class="values-section__header reveal">
-        <p class="values-section__eyebrow">Ce qui nous guide</p>
-        <h2 class="values-section__title">Nos valeurs</h2>
+      <div class="ag-hero__scroll" aria-hidden="true">
+        <span class="ag-hero__scroll-label">Scroll</span>
+        <span class="ag-hero__scroll-line"></span>
       </div>
-      <div class="values-grid reveal">
+    </section>
 
-        <!-- Excellence -->
-        <div class="value-card">
-          <svg class="value-card__icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-            <polygon points="24 6 29 18 42 18 31.5 26.5 35.5 39 24 31 12.5 39 16.5 26.5 6 18 19 18"/>
-          </svg>
-          <h3 class="value-card__name">Excellence</h3>
-          <p class="value-card__desc">Chaque detail de l'experience Morocco Mall est pense pour depasser les attentes de nos visiteurs. Nous exigeons les meilleurs standards, des enseignes selectionees aux services proposes au quotidien.</p>
+
+    <!-- ================================================================
+         VISION — Brand text
+    ================================================================ -->
+    <section class="ag-vision" aria-label="La vision du Groupe AKSAL">
+      <img src="../assets/mm-filigrane-gold.svg" alt="" class="ag-vision__filigrane" aria-hidden="true" />
+      <div class="ag-vision__grid">
+
+        <div class="reveal">
+          <p class="ag-vision__label">Notre vision</p>
+          <h2 class="ag-vision__title">
+            Ouvrir la voie,<br>
+            <em>accomplir le meilleur</em>
+          </h2>
         </div>
 
-        <!-- Diversite -->
-        <div class="value-card">
-          <svg class="value-card__icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-            <circle cx="24" cy="24" r="16"/>
-            <ellipse cx="24" cy="24" rx="6" ry="16"/>
-            <line x1="8" y1="24" x2="40" y2="24"/>
-          </svg>
-          <h3 class="value-card__name">Diversite</h3>
-          <p class="value-card__desc">De la mode internationale au patrimoine artisanal marocain, Morocco Mall celebre la richesse de la diversite culturelle. Notre offre reflete la pluralite de nos visiteurs et de leurs aspirations.</p>
-        </div>
-
-        <!-- Innovation -->
-        <div class="value-card">
-          <svg class="value-card__icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M24 6v4M24 38v4M6 24h4M38 24h4M11.5 11.5l2.8 2.8M33.7 33.7l2.8 2.8M11.5 36.5l2.8-2.8M33.7 14.3l2.8-2.8"/>
-            <circle cx="24" cy="24" r="9"/>
-            <circle cx="24" cy="24" r="4" fill="currentColor"/>
-          </svg>
-          <h3 class="value-card__name">Innovation</h3>
-          <p class="value-card__desc">Morocco Mall investit dans les technologies de demain pour enrichir l'experience client — de l'application Aksal Black aux nouvelles formes de divertissement immersif et interactif en centre commercial.</p>
-        </div>
-
-        <!-- Durabilite -->
-        <div class="value-card">
-          <svg class="value-card__icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M24 42c-10-4-16-12-16-20 0-6 4-11 10-13 2 4 4 7 6 8C26 14 28 10 28 6c5 3 8 8 8 14 0 8-6 16-12 22z"/>
-            <path d="M18 28c1.5-2 4-3 6-3s4.5 1 6 3"/>
-          </svg>
-          <h3 class="value-card__name">Durabilite</h3>
-          <p class="value-card__desc">Engages dans une demarche RSE ambitieuse, nos sites adoptent les standards les plus avances en efficacite energetique, gestion des dechets et integration paysagere responsable.</p>
-        </div>
-
-      </div>
-    </div>
-  </section>
-
-  <!-- ═══ SUSTAINABILITY ═══════════════════════════════════════════ -->
-  <section class="sustainability-section">
-    <div class="container">
-      <div class="sustainability__inner reveal">
-
-        <!-- Left: text -->
-        <div>
-          <p class="sustainability__eyebrow">Responsabilite</p>
-          <h2 class="sustainability__title">Notre engagement<br><em style="font-style:italic;">durable</em></h2>
-          <p class="sustainability__body">
-            Morocco Mall place le developpement durable au coeur de sa strategie de croissance. Nos centres commerciaux integrent des certifications energetiques internationales, des toitures solaires et des systemes de recyclage et de gestion de l'eau de pointe.
-          </p>
-          <p class="sustainability__body">
-            Nous travaillons en partenariat avec des fournisseurs locaux, soutenons les artisans marocains au travers d'espaces dedies et investissons dans des programmes de formation et d'insertion professionnelle au sein de nos communautes.
-          </p>
-          <ul class="sustainability__pillars">
-            <li class="sustainability__pillar">Efficacite energetique et energies renouvelables</li>
-            <li class="sustainability__pillar">Gestion raisonnee des dechets et recyclage</li>
-            <li class="sustainability__pillar">Mobilite douce et transports collectifs</li>
-            <li class="sustainability__pillar">Engagement social et emploi local</li>
-          </ul>
-        </div>
-
-        <!-- Right: visual placeholder -->
-        <div class="sustainability__visual">
-          <div class="sustainability__visual-text">Durabilite<br>&amp;<br>Responsabilite</div>
-          <div class="sustainability__badge">RSE 2026</div>
-        </div>
-
-      </div>
-    </div>
-  </section>
-
-  <!-- ═══ PRESS CTA ════════════════════════════════════════════════ -->
-  <section class="press-cta-section">
-    <div class="container">
-      <div class="reveal">
-        <a class="press-cta-card" href="press.html">
-          <div class="press-cta-card__left">
-            <p class="press-cta-card__eyebrow">Espace presse</p>
-            <h2 class="press-cta-card__title">Presse &amp; Medias</h2>
-            <p class="press-cta-card__desc">
-              Accedez a nos communiques de presse, galeries photos haute resolution, kits medias et contacts de notre equipe communication pour vos projets editoriaux.
+        <div class="reveal reveal-delay-1">
+          <div class="ag-vision__body">
+            <p>
+              Retail, Malls, Luxe, Immobilier… Le Groupe AKSAL innove sans cesse grâce à ses produits, ses marques et ses services tout en accompagnant les avancées du Maroc, dans un monde où tout change, tout bouge, et où tout devient réalisable, en étant à l'affût des évolutions sociétales et en veille permanente sur les attentes du marché.
+            </p>
+            <p>
+              Élargir le champ de vision, permettre une nouvelle approche, créer de nouvelles habitudes, introduire de nouvelles perspectives en matière de commerce et d'expériences de consommation, embellir le quotidien, moderniser le cadre de vie, façonner un nouveau paysage commercial — pour nos clients, nous imaginons ce qui se fait de mieux.
+            </p>
+            <p>
+              Ouvrir la voie en accomplissant le meilleur, telle est la force de l'identité et des valeurs du Groupe AKSAL. La liberté d'entrevoir de nouvelles alternatives et de les mettre en œuvre, c'est ce qui fait notre différence.
             </p>
           </div>
-          <div class="press-cta-card__arrow" aria-hidden="true">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          <div class="ag-vision__quote">
+            <p>
+              "La liberté d'entrevoir de nouvelles alternatives et de les mettre en œuvre, c'est ce qui fait notre différence."
+            </p>
           </div>
+        </div>
+
+      </div>
+    </section>
+
+
+    <!-- ================================================================
+         KEY NUMBERS
+    ================================================================ -->
+    <section class="ag-numbers" aria-label="Chiffres clés du Groupe AKSAL">
+      <div class="ag-numbers__grid">
+
+        <div class="ag-number-item reveal">
+          <div class="ag-number-item__val">20+</div>
+          <div class="ag-number-item__label">Ans d'innovation au Maroc</div>
+        </div>
+
+        <div class="ag-number-item reveal reveal-delay-1">
+          <div class="ag-number-item__val">45+</div>
+          <div class="ag-number-item__label">Marques internationales en franchise</div>
+        </div>
+
+        <div class="ag-number-item reveal reveal-delay-2">
+          <div class="ag-number-item__val">350+</div>
+          <div class="ag-number-item__label">Boutiques partenaires</div>
+        </div>
+
+        <div class="ag-number-item reveal reveal-delay-3">
+          <div class="ag-number-item__val">250<span style="font-size:1.5rem;">k m²</span></div>
+          <div class="ag-number-item__label">Morocco Mall Casablanca</div>
+        </div>
+
+        <div class="ag-number-item reveal reveal-delay-4">
+          <div class="ag-number-item__val">175M€</div>
+          <div class="ag-number-item__label">Investissement Morocco Mall</div>
+        </div>
+
+        <div class="ag-number-item reveal reveal-delay-4" style="transition-delay:0.5s">
+          <div class="ag-number-item__val">1<span style="font-size:1.5rem;">er</span></div>
+          <div class="ag-number-item__label">Mall d'Afrique à son ouverture</div>
+        </div>
+
+      </div>
+    </section>
+
+
+    <!-- ================================================================
+         MOROCCO MALL — L'ambition africaine
+    ================================================================ -->
+    <section class="ag-mall" aria-label="Morocco Mall — Flagship AKSAL">
+      <div class="ag-mall__header reveal">
+        <p style="font-size:0.68rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--gold);margin-bottom:1rem;">Le projet phare</p>
+        <h2 style="font-size:clamp(2.2rem,5.5vw,4.2rem);font-weight:200;line-height:1.05;letter-spacing:-0.03em;margin-bottom:1.2rem;">
+          Morocco Mall — <em style="font-style:italic;color:var(--gold-light);">l'ambition africaine</em>
+        </h2>
+        <p style="font-size:0.95rem;color:rgba(255,255,255,0.5);max-width:620px;line-height:1.8;">
+          En 2011, le Groupe AKSAL inaugure Morocco Mall Casablanca Bay : à son ouverture, le plus grand centre commercial d'Afrique. Un investissement de 175 millions d'euros qui redéfinit les standards du retail et du divertissement à l'échelle du continent.
+        </p>
+      </div>
+
+      <div class="ag-mall__grid">
+
+        <!-- Main image -->
+        <div class="ag-mall__visual reveal">
+          <div class="ag-mall__img-wrap">
+            <img
+              class="ag-mall__img"
+              src="https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=900&h=675&fit=crop"
+              alt="Morocco Mall Casablanca Bay — intérieur du plus grand mall d'Afrique"
+              loading="lazy"
+            />
+            <div class="ag-mall__img-overlay"></div>
+            <div class="ag-mall__img-badge">N°1 en Afrique · 2011</div>
+            <div class="ag-mall__img-stat">
+              <div>
+                <div class="ag-mall__stat-val">250k</div>
+                <div class="ag-mall__stat-lbl">m² total</div>
+              </div>
+              <div>
+                <div class="ag-mall__stat-val">350+</div>
+                <div class="ag-mall__stat-lbl">boutiques</div>
+              </div>
+              <div>
+                <div class="ag-mall__stat-val">2011</div>
+                <div class="ag-mall__stat-lbl">ouverture</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Location cards -->
+        <div class="ag-mall__locations">
+
+          <div class="ag-mall__loc-card reveal reveal-delay-1">
+            <div class="ag-mall__loc-badge">Flagship · Ouvert</div>
+            <div class="ag-mall__loc-name">Casablanca Bay</div>
+            <p class="ag-mall__loc-desc">
+              Sur le front de l'Atlantique, le mall inaugural — plus grand centre commercial d'Afrique à son ouverture. 250 000 m² de shopping, de gastronomie et de divertissement dans un cadre architectural signé Davide Padoa.
+            </p>
+            <div class="ag-mall__loc-tags">
+              <span class="ag-mall__loc-tag">250 000 m²</span>
+              <span class="ag-mall__loc-tag">350+ boutiques</span>
+              <span class="ag-mall__loc-tag">Sea Dream Aquarium</span>
+              <span class="ag-mall__loc-tag">62+ restaurants</span>
+            </div>
+          </div>
+
+          <div class="ag-mall__loc-card reveal reveal-delay-2">
+            <div class="ag-mall__loc-badge">En développement · Marrakech</div>
+            <div class="ag-mall__loc-name">Marrakech Garden</div>
+            <p class="ag-mall__loc-desc">
+              Un concept semi-ouvert de 135 000 m² au cœur de la zone touristique de l'Agdal, inspiré des jardins du Haut Atlas : volière, cascade extérieure, rivière artificielle et terrasses paysagères. Une expérience shopping en plein air inédite.
+            </p>
+            <div class="ag-mall__loc-tags">
+              <span class="ag-mall__loc-tag">135 000 m²</span>
+              <span class="ag-mall__loc-tag">Semi-ouvert</span>
+              <span class="ag-mall__loc-tag">Hotel 5★</span>
+              <span class="ag-mall__loc-tag">Central Sea</span>
+            </div>
+          </div>
+
+          <div class="ag-mall__loc-card reveal reveal-delay-3" style="border-style:dashed;opacity:0.65;">
+            <div class="ag-mall__loc-badge" style="color:rgba(201,169,110,0.5);">Prochainement · Expansion</div>
+            <div class="ag-mall__loc-name" style="color:rgba(255,255,255,0.65);">Rabat &amp; Bouskoura</div>
+            <p class="ag-mall__loc-desc">
+              Trois nouveaux smart lifestyle malls en cours de développement à Rabat, Bouskoura et dans l'écosystème AKSAL — pour écrire le prochain chapitre du retail marocain.
+            </p>
+            <div class="ag-mall__loc-tags">
+              <span class="ag-mall__loc-tag" style="opacity:0.6;">Smart Mall</span>
+              <span class="ag-mall__loc-tag" style="opacity:0.6;">Lifestyle</span>
+              <span class="ag-mall__loc-tag" style="opacity:0.6;">Bientôt</span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ================================================================
+         NOS MÉTIERS — 6 pillars
+    ================================================================ -->
+    <section class="ag-pillars" aria-label="Les métiers du Groupe AKSAL">
+      <div class="ag-pillars__header reveal">
+        <p style="font-size:0.68rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--gold);margin-bottom:1rem;">Notre expertise</p>
+        <h2 class="ag-pillars__title">Nos <em>métiers</em></h2>
+        <p class="ag-pillars__sub">Six pôles d'excellence au service d'une vision intégrée du commerce, du luxe et de l'art de vivre.</p>
+      </div>
+
+      <div class="ag-pillars__grid">
+
+        <!-- Retail -->
+        <div class="ag-pillar reveal">
+          <div class="ag-pillar__num">01</div>
+          <svg class="ag-pillar__icon" viewBox="0 0 48 48" fill="none" stroke="var(--gold)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M8 12h32l-4 18H12L8 12z"/>
+            <circle cx="18" cy="36" r="2.5"/>
+            <circle cx="30" cy="36" r="2.5"/>
+            <path d="M4 6h4l4 18"/>
+            <path d="M20 12V8a4 4 0 0 1 8 0v4"/>
+          </svg>
+          <div class="ag-pillar__name">Retail</div>
+          <p class="ag-pillar__desc">
+            Pionnier du retail moderne au Maroc, AKSAL opère des franchises exclusives pour plus de 45 enseignes internationales depuis le début des années 2000, ayant introduit les grandes marques globales dans le paysage commercial marocain.
+          </p>
+          <div class="ag-pillar__brands">
+            <span class="ag-pillar__brand-tag">Zara</span>
+            <span class="ag-pillar__brand-tag">Massimo Dutti</span>
+            <span class="ag-pillar__brand-tag">Bershka</span>
+            <span class="ag-pillar__brand-tag">Ralph Lauren</span>
+            <span class="ag-pillar__brand-tag">Gap</span>
+          </div>
+        </div>
+
+        <!-- Malls -->
+        <div class="ag-pillar reveal reveal-delay-1">
+          <div class="ag-pillar__num">02</div>
+          <svg class="ag-pillar__icon" viewBox="0 0 48 48" fill="none" stroke="var(--gold)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <rect x="4" y="16" width="40" height="28" rx="1"/>
+            <path d="M4 16l20-12 20 12"/>
+            <rect x="16" y="28" width="16" height="16" rx="1"/>
+            <path d="M16 44V28h16v16"/>
+          </svg>
+          <div class="ag-pillar__name">Malls</div>
+          <p class="ag-pillar__desc">
+            Développement, gestion et animation de centres commerciaux de prestige. Morocco Mall incarne cette expertise : un concept « Retailtainment » inédit qui fusionne shopping, gastronomie, culture et divertissement en une expérience totale.
+          </p>
+          <div class="ag-pillar__brands">
+            <span class="ag-pillar__brand-tag">Morocco Mall</span>
+            <span class="ag-pillar__brand-tag">Casablanca Bay</span>
+            <span class="ag-pillar__brand-tag">Marrakech Garden</span>
+          </div>
+        </div>
+
+        <!-- Luxe -->
+        <div class="ag-pillar reveal reveal-delay-2">
+          <div class="ag-pillar__num">03</div>
+          <svg class="ag-pillar__icon" viewBox="0 0 48 48" fill="none" stroke="var(--gold)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <polygon points="24,4 30,16 44,18 34,28 36,42 24,36 12,42 14,28 4,18 18,16"/>
+          </svg>
+          <div class="ag-pillar__name">Luxe</div>
+          <p class="ag-pillar__desc">
+            Distributeur exclusif des plus grandes maisons de luxe mondiales au Maroc, AKSAL a façonné le marché du luxe marocain, en offrant aux consommateurs locaux un accès direct aux références les plus recherchées de la mode et des arts de vivre.
+          </p>
+          <div class="ag-pillar__brands">
+            <span class="ag-pillar__brand-tag">Gucci</span>
+            <span class="ag-pillar__brand-tag">Dior</span>
+            <span class="ag-pillar__brand-tag">Balenciaga</span>
+            <span class="ag-pillar__brand-tag">Fendi</span>
+            <span class="ag-pillar__brand-tag">Givenchy</span>
+          </div>
+        </div>
+
+        <!-- Immobilier -->
+        <div class="ag-pillar reveal">
+          <div class="ag-pillar__num">04</div>
+          <svg class="ag-pillar__icon" viewBox="0 0 48 48" fill="none" stroke="var(--gold)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <rect x="6" y="20" width="18" height="24" rx="1"/>
+            <rect x="24" y="10" width="18" height="34" rx="1"/>
+            <path d="M6 44h36"/>
+            <path d="M10 28h6M10 34h6M28 18h6M28 26h6M28 34h6"/>
+          </svg>
+          <div class="ag-pillar__name">Immobilier</div>
+          <p class="ag-pillar__desc">
+            Conception et développement de projets immobiliers commerciaux et mixtes à grande échelle. Du foncier à la livraison clé en main, AKSAL maîtrise toute la chaîne de création de valeur immobilière, avec des projets qui reconfigurent le cadre urbain.
+          </p>
+          <div class="ag-pillar__brands">
+            <span class="ag-pillar__brand-tag">Centres commerciaux</span>
+            <span class="ag-pillar__brand-tag">Mixed-use</span>
+            <span class="ag-pillar__brand-tag">Hôtellerie</span>
+          </div>
+        </div>
+
+        <!-- Digital -->
+        <div class="ag-pillar reveal reveal-delay-1">
+          <div class="ag-pillar__num">05</div>
+          <svg class="ag-pillar__icon" viewBox="0 0 48 48" fill="none" stroke="var(--gold)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <rect x="4" y="10" width="40" height="28" rx="3"/>
+            <path d="M16 44h16M24 38v6"/>
+            <path d="M14 22l6 6 14-12"/>
+          </svg>
+          <div class="ag-pillar__name">Digital</div>
+          <p class="ag-pillar__desc">
+            Innovation technologique et transformation digitale du retail. AKSAL développe des plateformes e-commerce, des outils de gestion omnicanal et des expériences phygitales qui redéfinissent l'avenir du commerce au Maroc.
+          </p>
+          <div class="ag-pillar__brands">
+            <span class="ag-pillar__brand-tag">E-commerce</span>
+            <span class="ag-pillar__brand-tag">Omnicanal</span>
+            <span class="ag-pillar__brand-tag">Phygital</span>
+          </div>
+        </div>
+
+        <!-- Cosmétiques -->
+        <div class="ag-pillar reveal reveal-delay-2">
+          <div class="ag-pillar__num">06</div>
+          <svg class="ag-pillar__icon" viewBox="0 0 48 48" fill="none" stroke="var(--gold)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M18 8c0-2.2 1.8-4 4-4h4c2.2 0 4 1.8 4 4v4H18V8z"/>
+            <rect x="12" y="12" width="24" height="32" rx="3"/>
+            <path d="M20 24c2.2-2 5.8-2 8 0M20 32c2.2-2 5.8-2 8 0"/>
+          </svg>
+          <div class="ag-pillar__name">Cosmétiques</div>
+          <p class="ag-pillar__desc">
+            Lancée en 2017, Yan&amp;One est la marque cosmétique maison d'AKSAL — une proposition de beauté moderne, accessible et ancrée dans les tendances mondiales, conçue pour la femme marocaine contemporaine.
+          </p>
+          <div class="ag-pillar__brands">
+            <span class="ag-pillar__brand-tag">Yan&amp;One</span>
+            <span class="ag-pillar__brand-tag">Beauté</span>
+            <span class="ag-pillar__brand-tag">Depuis 2017</span>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+
+    <!-- ================================================================
+         TIMELINE — Jalons clés
+    ================================================================ -->
+    <section class="ag-timeline" aria-label="Les jalons du Groupe AKSAL">
+      <div class="ag-timeline__inner">
+        <h2 class="ag-timeline__title reveal">
+          Une décennie<br><em>de premières</em>
+        </h2>
+        <div class="ag-timeline__track">
+
+          <div class="ag-tl-item reveal">
+            <div class="ag-tl-item__year">2001</div>
+            <div class="ag-tl-item__title">Premier accord Inditex en Afrique</div>
+            <p class="ag-tl-item__desc">AKSAL obtient la franchise exclusive des enseignes Inditex pour le Maroc — Zara, Massimo Dutti, Bershka. Le début d'une révolution retail.</p>
+          </div>
+
+          <div class="ag-tl-item reveal">
+            <div class="ag-tl-item__year">2004</div>
+            <div class="ag-tl-item__title">Premier Zara d'Afrique</div>
+            <p class="ag-tl-item__desc">Inauguration du premier flagship Zara en Afrique — un moment charnière qui marque l'entrée du Maroc dans l'ère du retail international de masse.</p>
+          </div>
+
+          <div class="ag-tl-item reveal">
+            <div class="ag-tl-item__year">2009</div>
+            <div class="ag-tl-item__title">Création d'AKSAL Malls</div>
+            <p class="ag-tl-item__desc">Lancement du pôle développement et gestion de centres commerciaux — poser les fondations de ce qui deviendra le plus grand mall du continent.</p>
+          </div>
+
+          <div class="ag-tl-item ag-tl-item--major reveal">
+            <div class="ag-tl-item__year">1 Décembre 2011</div>
+            <div class="ag-tl-item__title">Inauguration de Morocco Mall · Plus grand mall d'Afrique</div>
+            <p class="ag-tl-item__desc">Ouverture de Morocco Mall Casablanca Bay — 250 000 m², 350+ boutiques, 175 millions d'euros d'investissement. Un événement historique pour le commerce africain. Simultanément, lancement de l'AKSAL Academy pour la formation aux métiers du retail.</p>
+          </div>
+
+          <div class="ag-tl-item reveal">
+            <div class="ag-tl-item__year">2017</div>
+            <div class="ag-tl-item__title">Naissance de Yan&amp;One</div>
+            <p class="ag-tl-item__desc">AKSAL étend son savoir-faire au secteur de la beauté avec le lancement de Yan&amp;One, première marque cosmétique maison du groupe, pensée pour la femme marocaine.</p>
+          </div>
+
+          <div class="ag-tl-item reveal">
+            <div class="ag-tl-item__year">En cours</div>
+            <div class="ag-tl-item__title">Marrakech Garden &amp; expansion nationale</div>
+            <p class="ag-tl-item__desc">Développement de Morocco Mall Marrakech Garden (135 000 m²) et de trois nouveaux smart lifestyle malls à Rabat et Bouskoura — le Groupe AKSAL continue d'écrire l'avenir du retail marocain.</p>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ================================================================
+         IMPACT & ENGAGEMENT
+    ================================================================ -->
+    <section class="ag-impact" aria-label="Impact et engagement social du Groupe AKSAL">
+      <div class="ag-impact__grid">
+
+        <div class="reveal">
+          <p style="font-size:0.68rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--gold);margin-bottom:1rem;">Impact &amp; engagement</p>
+          <h2 class="ag-impact__title">
+            Construire le Maroc<br><em>de demain</em>
+          </h2>
+          <p class="ag-impact__body">
+            Au-delà de la performance économique, le Groupe AKSAL s'engage pour le développement durable du Maroc — en formant les talents du retail, en soutenant les communautés locales et en adoptant une démarche de responsabilité sociale et environnementale structurée.
+          </p>
+          <a href="https://www.groupeaksal.com" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:0.6rem;color:var(--gold);font-size:0.78rem;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;text-decoration:none;">
+            Groupe AKSAL
+            <svg width="14" height="6" viewBox="0 0 14 6" fill="none" aria-hidden="true"><path d="M0 3h12M12 3L9 1M12 3L9 5" stroke="currentColor" stroke-width="1.1"/></svg>
+          </a>
+        </div>
+
+        <div class="ag-impact__cards">
+
+          <div class="ag-impact-card reveal">
+            <div class="ag-impact-card__icon">🎓</div>
+            <div class="ag-impact-card__title">AKSAL Academy</div>
+            <p class="ag-impact-card__desc">Formation professionnelle aux métiers du retail. Des centaines de collaborateurs formés chaque année pour les standards d'excellence du groupe.</p>
+          </div>
+
+          <div class="ag-impact-card reveal reveal-delay-1">
+            <div class="ag-impact-card__icon">🌍</div>
+            <div class="ag-impact-card__title">AKSAL Social Initiative</div>
+            <p class="ag-impact-card__desc">Fondation d'entreprise engagée sur les dimensions sociale, culturelle et environnementale. Un Maroc inclusif, animé par la conviction que la croissance se partage.</p>
+          </div>
+
+          <div class="ag-impact-card reveal reveal-delay-2">
+            <div class="ag-impact-card__icon">💼</div>
+            <div class="ag-impact-card__title">Emploi &amp; Talents</div>
+            <p class="ag-impact-card__desc">Des milliers d'emplois directs et indirects créés au Maroc depuis la création du groupe. Morocco Mall seul concentre plus de 400 emplois directs.</p>
+          </div>
+
+          <div class="ag-impact-card reveal reveal-delay-3">
+            <div class="ag-impact-card__icon">🏗</div>
+            <div class="ag-impact-card__title">Architecture &amp; Urbanisme</div>
+            <p class="ag-impact-card__desc">Des projets qui reconfigurent les espaces urbains, modernisent le cadre de vie et inspirent une nouvelle génération de développeurs immobiliers au Maroc.</p>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ================================================================
+         CTA FINAL
+    ================================================================ -->
+    <section class="ag-cta" aria-label="Découvrir Morocco Mall">
+      <h2 class="ag-cta__title reveal">
+        Bienvenue dans<br><em>l'avenir du retail</em>
+      </h2>
+      <p class="ag-cta__sub reveal reveal-delay-1">
+        L'expérience AKSAL prend vie dans chacun de nos malls. Venez la vivre.
+      </p>
+      <div class="ag-cta__actions reveal reveal-delay-2">
+        <a href="../index.html" class="ag-cta__btn">
+          Explorer Morocco Mall →
+        </a>
+        <a href="services.html" class="ag-cta__btn-out">
+          Services &amp; Hospitality
         </a>
       </div>
-    </div>
-  </section>
+    </section>
 
-</main>
+  </main>
 
-<!-- Scripts -->
-<script src="../js/seo.js"></script>
-<script src="../js/translations.js"></script>
-<script src="../js/app.js"></script>
+  <script src="../js/seo.js"></script>
+  <script src="../js/translations.js"></script>
+  <script src="../js/app.js"></script>
+  <script>
+    /* Hero image reveal */
+    var heroBg = document.getElementById('agHeroBg');
+    if (heroBg) requestAnimationFrame(function () { heroBg.classList.add('loaded'); });
+
+    /* Scroll reveal */
+    var reveals = document.querySelectorAll('.reveal');
+    var obs = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) { e.target.classList.add('in-view'); obs.unobserve(e.target); }
+      });
+    }, { threshold: 0.07 });
+    reveals.forEach(function (el) { obs.observe(el); });
+  </script>
 </body>
 </html>

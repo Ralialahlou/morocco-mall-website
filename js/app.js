@@ -12,6 +12,20 @@ const MM = {
   t: null, // current translations
 };
 
+// ─── Announcement popup config ────────────────────────────────
+// Set enabled:true to show the popup, false to hide it globally.
+// Update image, label, title, body, cta and ctaUrl for each campaign.
+const ANNOUNCEMENT = {
+  enabled: true,
+  delay:   1800,   // ms before popup appears
+  image:   'https://images.unsplash.com/photo-1555529669-e69e7aa0ba9a?w=900&h=500&fit=crop',
+  label:   'Nouvelle Ouverture',
+  title:   'Bienvenue sur Rose Boulevard',
+  body:    'Découvrez la toute nouvelle boutique BALENCIAGA au cœur de l\'avenue du luxe — Morocco Mall Casablanca Bay.',
+  cta:     'En savoir plus',
+  ctaUrl:  'pages/rose-boulevard.html',
+};
+
 // ─── Mall data ────────────────────────────────────────────────
 const MALLS = [
   { id: 'casablanca', lat: 33.5731, lng: -7.5898 },
@@ -103,6 +117,7 @@ const NAV_HTML = () => `
       <a class="nav__link" href="${rootPath()}pages/services.html" role="listitem" data-i18n="services"></a>
     </div>
     <div class="nav__actions">
+      <a class="nav__link nav__link--aksal-black nav__aksal-black-btn" href="${rootPath()}pages/aksal-black.html">Aksal Black</a>
       <button class="nav__search-btn" onclick="toggleSearch()" aria-label="Rechercher">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
           <circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/>
@@ -282,10 +297,17 @@ const FOOTER_HTML = () => `
           <li><a class="footer__link" href="${rootPath()}pages/services.html" data-i18n="servicesTitle"></a></li>
           <li><a class="footer__link" href="${rootPath()}pages/parking.html">Parking</a></li>
           <li><a class="footer__link" href="${rootPath()}pages/transport.html" data-i18n="publicTransport"></a></li>
-          <li><a class="footer__link" href="${rootPath()}pages/press.html" data-i18n="pressMedia"></a></li>
-          <li><a class="footer__link" href="${rootPath()}pages/about.html" data-i18n="about"></a></li>
-          <li><a class="footer__link" href="${rootPath()}pages/careers.html" data-i18n="careers"></a></li>
           <li><a class="footer__link" href="${rootPath()}pages/faq.html">FAQ</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="footer__col-title" style="color:var(--gold,#C9A96E);">About Aksal</p>
+        <ul class="footer__links">
+          <li><a class="footer__link" href="${rootPath()}pages/about.html">À propos d'Aksal</a></li>
+          <li><a class="footer__link" href="${rootPath()}pages/about-morocco-mall.html">About Morocco Mall</a></li>
+          <li><a class="footer__link" href="${rootPath()}pages/press.html" data-i18n="pressMedia"></a></li>
+          <li><a class="footer__link" href="${rootPath()}pages/careers.html" data-i18n="careers"></a></li>
+          <li><a class="footer__link" href="${rootPath()}pages/tenants.html" style="color:var(--gold,#C9A96E);">Ouvrir une boutique</a></li>
           <li><a class="footer__link" href="${rootPath()}pages/privacy-policy.html" data-i18n="privacyPolicy"></a></li>
           <li><a class="footer__link" href="${rootPath()}pages/terms.html" data-i18n="termsConditions"></a></li>
         </ul>
@@ -330,6 +352,30 @@ const FOOTER_HTML = () => `
 </footer>`;
 
 const TOAST_CONTAINER_HTML = `<div class="toast-container" id="toast-container"></div>`;
+
+const ANNOUNCEMENT_POPUP_HTML = () => `
+<div class="ann-overlay" id="ann-overlay" role="dialog" aria-modal="true" aria-label="Annonce Morocco Mall" onclick="closeAnnouncement(event)">
+  <div class="ann-panel" role="document">
+    <button class="ann-close" onclick="dismissAnnouncement()" aria-label="Fermer">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
+        <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+      </svg>
+    </button>
+    <div class="ann-img-wrap">
+      <img class="ann-img" src="${ANNOUNCEMENT.image}" alt="${ANNOUNCEMENT.title}" loading="eager" />
+    </div>
+    <div class="ann-body">
+      <span class="ann-label">${ANNOUNCEMENT.label}</span>
+      <h2 class="ann-title">${ANNOUNCEMENT.title}</h2>
+      <p class="ann-text">${ANNOUNCEMENT.body}</p>
+      <a class="ann-cta" href="${rootPath()}${ANNOUNCEMENT.ctaUrl}">${ANNOUNCEMENT.cta}
+        <svg width="16" height="7" viewBox="0 0 16 7" fill="none" aria-hidden="true">
+          <path d="M0 3.5H14M14 3.5L10.5 1M14 3.5L10.5 6" stroke="currentColor" stroke-width="1.2"/>
+        </svg>
+      </a>
+    </div>
+  </div>
+</div>`;
 const QR_MODAL_HTML = () => `
 <div class="qr-modal" id="qr-modal" role="dialog" aria-modal="true">
   <div class="qr-modal__panel">
@@ -361,7 +407,7 @@ function renderChrome() {
   chrome.id = 'mm-chrome';
   // Height = bar + nav so this div acts as a spacer pushing <main> below the fixed bars
   chrome.style.cssText = 'height:calc(var(--bar-h) + var(--nav-h));flex-shrink:0;';
-  chrome.innerHTML = '<a class="skip-link" href="#main-content">Passer au contenu principal</a>' + LOCATION_BAR_HTML() + NAV_HTML() + MOBILE_MENU_HTML() + SEARCH_OVERLAY_HTML() + MALL_MODAL_HTML() + QR_MODAL_HTML() + TOAST_CONTAINER_HTML;
+  chrome.innerHTML = '<a class="skip-link" href="#main-content">Passer au contenu principal</a>' + LOCATION_BAR_HTML() + NAV_HTML() + MOBILE_MENU_HTML() + SEARCH_OVERLAY_HTML() + MALL_MODAL_HTML() + QR_MODAL_HTML() + TOAST_CONTAINER_HTML + (ANNOUNCEMENT.enabled ? ANNOUNCEMENT_POPUP_HTML() : '');
 
   document.body.insertBefore(chrome, document.body.firstChild);
 }
@@ -912,6 +958,53 @@ function initStickyBars() {
   });
 }
 
+// ─── Announcement popup ───────────────────────────────────────
+(function injectAnnouncementStyles() {
+  var s = document.createElement('style');
+  s.textContent = [
+    '.ann-overlay{display:none;position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,0.72);align-items:center;justify-content:center;padding:1.5rem;backdrop-filter:blur(4px);}',
+    '.ann-overlay.open{display:flex;}',
+    '.ann-panel{position:relative;background:#fff;max-width:540px;width:100%;max-height:90svh;overflow:hidden;border-radius:0;}',
+    '.ann-close{position:absolute;top:0.9rem;right:0.9rem;z-index:2;width:32px;height:32px;background:rgba(255,255,255,0.9);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;border-radius:50%;}',
+    '.ann-close svg{width:14px;height:14px;}',
+    '.ann-img-wrap{width:100%;height:260px;overflow:hidden;}',
+    '.ann-img{width:100%;height:100%;object-fit:cover;display:block;transition:transform 0.6s ease;}',
+    '.ann-panel:hover .ann-img{transform:scale(1.03);}',
+    '.ann-body{padding:2rem 2.25rem 2.25rem;}',
+    '.ann-label{display:inline-block;font-size:0.58rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--gold,#C9A96E);border:1px solid rgba(201,169,110,0.35);padding:0.28rem 0.75rem;border-radius:2rem;margin-bottom:1rem;}',
+    '.ann-title{font-size:clamp(1.35rem,3vw,1.9rem);font-weight:300;letter-spacing:-0.02em;line-height:1.1;margin-bottom:0.75rem;color:#0A0A0A;}',
+    '.ann-text{font-size:0.85rem;color:rgba(10,10,10,0.55);line-height:1.75;margin-bottom:1.5rem;}',
+    '.ann-cta{display:inline-flex;align-items:center;gap:0.6rem;background:#0A0A0A;color:#fff;font-size:0.72rem;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;text-decoration:none;padding:0.85rem 1.8rem;transition:background 0.25s;}',
+    '.ann-cta:hover{background:var(--gold,#C9A96E);color:#0A0A0A;}',
+    '@media(max-width:480px){.ann-img-wrap{height:200px;}.ann-body{padding:1.5rem;}}',
+  ].join('');
+  document.head.appendChild(s);
+})();
+
+function showAnnouncementPopup() {
+  if (!ANNOUNCEMENT.enabled) return;
+  if (sessionStorage.getItem('mm_ann_shown')) return;
+  setTimeout(function() {
+    var overlay = document.getElementById('ann-overlay');
+    if (overlay) {
+      overlay.classList.add('open');
+      document.body.style.overflow = 'hidden';
+      sessionStorage.setItem('mm_ann_shown', '1');
+    }
+  }, ANNOUNCEMENT.delay);
+}
+
+function closeAnnouncement(e) {
+  if (e && e.target !== document.getElementById('ann-overlay')) return;
+  dismissAnnouncement();
+}
+
+function dismissAnnouncement() {
+  var overlay = document.getElementById('ann-overlay');
+  if (overlay) overlay.classList.remove('open');
+  document.body.style.overflow = '';
+}
+
 // ─── Init ─────────────────────────────────────────────────────
 function initApp() {
   MM.t = TRANSLATIONS[MM.lang] || TRANSLATIONS.fr;
@@ -920,6 +1013,7 @@ function initApp() {
   initHeroSlider();
   initCategoryFilter();
   initStickyBars();
+  showAnnouncementPopup();
   // Show mall selector on first visit
   if (!localStorage.getItem('mm_visited')) {
     setTimeout(() => {

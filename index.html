@@ -972,7 +972,12 @@
 document.addEventListener('DOMContentLoaded', function() {
   var grid = document.getElementById('aksal-perks-grid');
   if (!grid || !MM.t) return;
-  var icons = ['%','💰','⚡','🎉'];
+  var icons = [
+    '<svg width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M19 5L5 19" stroke="#C9A96E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M6.5 9C7.88 9 9 7.88 9 6.5S7.88 4 6.5 4 4 5.12 4 6.5 5.12 9 6.5 9Z" stroke="#C9A96E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M17.5 20C18.88 20 20 18.88 20 17.5S18.88 15 17.5 15 15 16.12 15 17.5 16.12 20 17.5 20Z" stroke="#C9A96E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+    '<svg width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M8.755 3.225L3.226 8.754C2.4 9.581 1.881 10.738 1.881 12c0 1.262.519 2.419 1.345 3.246l5.529 5.529C9.181 21.6 10.338 22.12 11.6 22.12c1.262 0 2.419-.52 3.246-1.345l5.529-5.529C21.2 14.419 21.72 13.262 21.72 12c0-1.262-.52-2.419-1.345-3.246L14.846 3.225C14.019 2.4 12.862 1.88 11.6 1.88c-1.262 0-2.419.52-3.245 1.345Z" stroke="#C9A96E" stroke-width="1.5"/><path d="M10.576 8.15L8.15 10.577c-.378.378-.59.89-.59 1.424 0 .534.212 1.046.59 1.424L10.576 15.85c.377.377.889.59 1.423.59.535 0 1.046-.213 1.424-.59l2.425-2.425c.378-.378.59-.89.59-1.424 0-.534-.212-1.046-.59-1.424L13.423 8.15A2.01 2.01 0 0 0 12 7.56c-.534 0-1.046.212-1.424.59Z" stroke="#C9A96E" stroke-width="1.5"/></svg>',
+    '<svg width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12.41 3.5L15.01 8.77L20.82 9.61L16.62 13.71L17.61 19.5L12.41 16.77L7.21 19.5L8.2 13.71L4 9.61L9.81 8.77L12.41 3.5Z" stroke="#C9A96E" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+    '<svg width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 8V21M3 9a1 1 0 0 1 1-1h16a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V9Z" stroke="#C9A96E" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><path d="M19 12v7a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-7M7.5 8A2.5 2.5 0 0 1 5 5.5C5 4.12 6.12 3 7.5 3c1.86-.03 3.53 1.44 4.5 5C12.97 4.44 14.64 2.97 16.5 3A2.5 2.5 0 0 1 19 5.5C19 6.88 17.88 8 16.5 8" stroke="#C9A96E" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>'
+  ];
   MM.t.aksalPerks.forEach(function(perk, i) {
     var el = document.createElement('div');
     el.className = 'aksal-perk';

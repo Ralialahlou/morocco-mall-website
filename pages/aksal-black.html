@@ -3,207 +3,819 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Aksal Black — The premier loyalty programme for Morocco Mall visitors. Exclusive discounts, cashback and VIP privileges." />
-  <title>Aksal Black — Morocco Mall</title>
+  <meta name="description" content="Aksal Black — Le programme de fidélité premium de Morocco Mall. 4 niveaux exclusifs : Silver, Gold, Platinum, Diamond. Cashback, remises luxe, lounge, conciergerie et bien plus." />
+  <title>Aksal Black — Programme de Fidélité Premium · Morocco Mall</title>
   <link rel="icon" href="../assets/logo.png" type="image/png" />
   <link rel="stylesheet" href="../css/main.css" />
   <style>
-    body { background: #0D0B09; color: var(--white); }
-    .ab-feature {
-      border: 1px solid rgba(201,169,110,0.15);
-      padding: 2rem;
-      border-radius: 4px;
-      transition: border-color 0.3s, background 0.3s;
+    /* ── Palette ── */
+    :root {
+      --ab-silver:         #B8B8B8;
+      --ab-silver-light:   #E2E2E2;
+      --ab-gold:           #C9A96E;
+      --ab-gold-light:     #E8D5B0;
+      --ab-platinum:       #C8C8DC;
+      --ab-platinum-light: #E4E4F0;
+      --ab-diamond:        #D0D0F0;
+      --ab-diamond-light:  #EEEEFF;
     }
-    .ab-feature:hover { border-color: rgba(201,169,110,0.4); background: rgba(201,169,110,0.04); }
-    .ab-feature__icon { font-size: 2rem; margin-bottom: 1rem; }
-    .ab-feature__title { font-family: var(--font-display); font-size: 1.3rem; font-weight: 300; color: var(--gold-light); margin-bottom: 0.5rem; }
-    .ab-feature__desc { font-size: 0.8rem; color: rgba(255,255,255,0.4); line-height: 1.7; }
-    .ab-partner { padding: 1rem 1.5rem; border: 1px solid rgba(201,169,110,0.12); text-align: center; font-size: 0.8rem; color: rgba(255,255,255,0.5); transition: background 0.2s, color 0.2s; cursor: default; }
-    .ab-partner:hover { background: rgba(201,169,110,0.07); color: var(--gold-light); }
+    body { background: #050505; color: #fff; }
+
+    /* ── Hero ── */
+    .ab-hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 0 var(--pad-x) clamp(3.5rem, 9vw, 6rem);
+      position: relative;
+      overflow: hidden;
+      background: #050505;
+    }
+    .ab-hero__bg {
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 80% 60% at 75% 30%, rgba(201,169,110,0.07) 0%, transparent 60%),
+        radial-gradient(ellipse 50% 40% at 20% 70%, rgba(201,169,110,0.04) 0%, transparent 50%);
+      z-index: 0;
+    }
+    .ab-hero__content { position: relative; z-index: 2; max-width: 780px; }
+    .ab-hero__lockup {
+      display: flex;
+      align-items: center;
+      gap: 1.2rem;
+      margin-bottom: 2.5rem;
+    }
+    .ab-hero__icon {
+      width: 52px; height: 52px;
+      border-radius: 14px;
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+    .ab-hero__icon img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .ab-hero__eyebrow {
+      font-size: 0.65rem;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: var(--gold);
+    }
+    .ab-hero__title {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: clamp(4.5rem, 14vw, 12rem);
+      font-weight: 300;
+      font-style: italic;
+      line-height: 0.88;
+      letter-spacing: -0.02em;
+      margin-bottom: 1.8rem;
+    }
+    .ab-hero__title strong {
+      display: block;
+      font-weight: 800;
+      background: linear-gradient(135deg, #C9A96E 0%, #E8D5B0 40%, #C9A96E 70%, #A07840 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .ab-hero__sub {
+      font-size: clamp(0.92rem, 2vw, 1.15rem);
+      color: rgba(255,255,255,0.5);
+      max-width: 520px;
+      line-height: 1.75;
+      margin-bottom: 3rem;
+    }
+    .ab-hero__pills {
+      display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 2.5rem;
+    }
+    .ab-hero__pill {
+      font-size: 0.65rem; letter-spacing: 0.18em; text-transform: uppercase;
+      padding: 0.4rem 1rem; border-radius: 2rem; font-weight: 500;
+    }
+    .ab-hero__pill--s { background: rgba(184,184,184,0.15); color: var(--ab-silver-light); border: 1px solid rgba(184,184,184,0.3); }
+    .ab-hero__pill--g { background: rgba(201,169,110,0.15); color: var(--ab-gold-light);   border: 1px solid rgba(201,169,110,0.3); }
+    .ab-hero__pill--p { background: rgba(200,200,220,0.15); color: var(--ab-platinum-light);border: 1px solid rgba(200,200,220,0.3); }
+    .ab-hero__pill--d { background: rgba(208,208,240,0.15); color: var(--ab-diamond-light); border: 1px solid rgba(208,208,240,0.3); }
+    .ab-hero__cta {
+      display: inline-flex; align-items: center; gap: 0.75rem;
+      background: linear-gradient(135deg, var(--gold) 0%, var(--gold-light) 100%);
+      color: #0A0A0A; font-size: 0.8rem; font-weight: 700;
+      letter-spacing: 0.16em; text-transform: uppercase; text-decoration: none;
+      padding: 1.1rem 2.4rem; transition: opacity 0.3s;
+    }
+    .ab-hero__cta:hover { opacity: 0.85; }
+    /* Floating card stack — desktop only */
+    .ab-hero__cards {
+      position: absolute; right: clamp(2rem, 8vw, 8rem); bottom: clamp(3rem, 8vh, 6rem);
+      z-index: 2; display: flex; gap: 1.2rem; align-items: flex-end;
+    }
+    .ab-hero__card {
+      width: clamp(120px, 18vw, 200px);
+      border-radius: 12px;
+      box-shadow: 0 24px 60px rgba(0,0,0,0.8), 0 0 0 1px rgba(255,255,255,0.08);
+      transition: transform 0.4s ease;
+    }
+    .ab-hero__card:nth-child(2) { transform: translateY(-20px) rotate(-3deg); }
+    .ab-hero__card:nth-child(3) { transform: translateY(-40px) rotate(-6deg); }
+    .ab-hero__card:nth-child(4) { transform: translateY(-60px) rotate(-9deg); }
+    .ab-hero__card:hover        { transform: translateY(-70px) rotate(-9deg) scale(1.05) !important; }
+    @media (max-width: 900px) { .ab-hero__cards { display: none; } }
+
+    /* ── Intro ── */
+    .ab-intro {
+      background: linear-gradient(to bottom, #050505, #0A0A0A);
+      padding: clamp(4rem, 10vw, 8rem) var(--pad-x);
+    }
+    .ab-intro__grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: clamp(3rem, 7vw, 8rem); align-items: center;
+    }
+    @media (max-width: 768px) { .ab-intro__grid { grid-template-columns: 1fr; } }
+    .ab-intro__label {
+      font-size: 0.65rem; letter-spacing: 0.24em; text-transform: uppercase;
+      color: var(--gold); margin-bottom: 1rem;
+    }
+    .ab-intro__title {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: clamp(2.5rem, 5.5vw, 5rem); font-weight: 300;
+      line-height: 1.05; letter-spacing: -0.01em;
+    }
+    .ab-intro__title em { font-style: italic; color: var(--gold-light); }
+    .ab-intro__body { font-size: 0.95rem; color: rgba(255,255,255,0.52); line-height: 1.85; }
+    .ab-intro__body p + p { margin-top: 1.2rem; }
+    .ab-intro__kpis {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      border: 1px solid rgba(201,169,110,0.15); margin-top: 2.5rem;
+    }
+    .ab-intro__kpi {
+      padding: 1.5rem 1.2rem; border-right: 1px solid rgba(201,169,110,0.1); text-align: center;
+    }
+    .ab-intro__kpi:last-child { border-right: none; }
+    .ab-intro__kpi-val { font-size: 2rem; font-weight: 200; color: var(--gold); line-height: 1; margin-bottom: 0.3rem; }
+    .ab-intro__kpi-lbl { font-size: 0.62rem; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(255,255,255,0.35); }
+
+    /* ── Tiers section ── */
+    .ab-tiers { padding: clamp(4rem, 10vw, 8rem) var(--pad-x); background: #050505; }
+    .ab-tiers__hd { text-align: center; margin-bottom: clamp(3rem, 6vw, 5rem); }
+    .ab-tiers__hd-label { font-size: 0.65rem; letter-spacing: 0.24em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.75rem; }
+    .ab-tiers__hd-title {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: clamp(2.8rem, 6vw, 5.5rem); font-weight: 300;
+      letter-spacing: -0.01em; line-height: 1.05; margin-bottom: 0.8rem;
+    }
+    .ab-tiers__hd-title em { font-style: italic; color: var(--gold-light); }
+    .ab-tiers__hd-sub { font-size: 0.9rem; color: rgba(255,255,255,0.38); max-width: 520px; margin: 0 auto; }
+
+    /* Individual tier row */
+    .ab-tier {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 0; margin-bottom: 2px; min-height: 560px;
+    }
+    .ab-tier:nth-child(even) .ab-tier__vis  { order: 2; }
+    .ab-tier:nth-child(even) .ab-tier__body { order: 1; }
+    @media (max-width: 860px) {
+      .ab-tier { grid-template-columns: 1fr; min-height: auto; }
+      .ab-tier:nth-child(even) .ab-tier__vis,
+      .ab-tier:nth-child(even) .ab-tier__body { order: unset; }
+    }
+    .ab-tier__vis {
+      position: relative; overflow: hidden;
+      display: flex; align-items: center; justify-content: center;
+      padding: 3rem 2.5rem;
+    }
+    .ab-tier__vis-bg { position: absolute; inset: 0; z-index: 0; }
+    .ab-tier__card-img {
+      position: relative; z-index: 1;
+      width: min(340px, 85%); border-radius: 16px;
+      box-shadow: 0 32px 80px rgba(0,0,0,0.7), 0 0 0 1px rgba(255,255,255,0.1);
+      transition: transform 0.5s cubic-bezier(.25,.8,.25,1);
+    }
+    .ab-tier__vis:hover .ab-tier__card-img { transform: translateY(-8px) rotate(1deg) scale(1.02); }
+    .ab-tier__body {
+      padding: clamp(2.5rem, 5vw, 4.5rem);
+      display: flex; flex-direction: column; justify-content: center;
+    }
+    .ab-tier__num     { font-size: 0.6rem; letter-spacing: 0.26em; text-transform: uppercase; opacity: 0.6; margin-bottom: 0.5rem; }
+    .ab-tier__name    { font-family: 'Cormorant Garamond', Georgia, serif; font-size: clamp(3rem, 6vw, 5.5rem); font-weight: 300; font-style: italic; letter-spacing: -0.01em; line-height: 0.95; margin-bottom: 0.5rem; }
+    .ab-tier__spend   { font-size: 0.7rem; letter-spacing: 0.16em; text-transform: uppercase; opacity: 0.45; margin-bottom: 1.8rem; }
+    .ab-tier__pts {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      border-radius: 2rem; padding: 0.4rem 1rem; font-size: 0.72rem; letter-spacing: 0.08em;
+      margin-bottom: 2rem; width: fit-content;
+    }
+    .ab-tier__pts-dot {
+      width: 14px; height: 14px; border-radius: 50%;
+      background: currentColor; flex-shrink: 0;
+    }
+    .ab-tier__also  { font-size: 0.72rem; opacity: 0.4; letter-spacing: 0.06em; margin-bottom: 0.8rem; font-style: italic; }
+    .ab-tier__bene-title { font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase; opacity: 0.4; margin-bottom: 1rem; }
+    .ab-tier__list  { list-style: none; padding: 0; margin: 0 0 2rem; display: flex; flex-direction: column; gap: 0.75rem; }
+    .ab-tier__item  { display: flex; align-items: flex-start; gap: 0.8rem; font-size: 0.85rem; line-height: 1.55; color: rgba(255,255,255,0.7); }
+    .ab-tier__check {
+      width: 18px; height: 18px; border-radius: 50%; border: 1px solid currentColor;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0; margin-top: 0.1rem;
+    }
+    .ab-tier__check svg { width: 9px; height: 9px; }
+
+    /* Tier colour tokens */
+    .ab-tier--silver .ab-tier__vis-bg  { background: linear-gradient(145deg,#1A1A1A,#111); }
+    .ab-tier--silver .ab-tier__body    { background: #111; }
+    .ab-tier--silver .ab-tier__name    { color: var(--ab-silver-light); }
+    .ab-tier--silver .ab-tier__num     { color: var(--ab-silver); }
+    .ab-tier--silver .ab-tier__pts     { background: rgba(184,184,184,0.12); border: 1px solid rgba(184,184,184,0.25); color: var(--ab-silver-light); }
+    .ab-tier--silver .ab-tier__check   { color: var(--ab-silver); }
+
+    .ab-tier--gold .ab-tier__vis-bg    { background: linear-gradient(145deg,#1C1408,#0D0B09); }
+    .ab-tier--gold .ab-tier__body      { background: #0D0A06; }
+    .ab-tier--gold .ab-tier__name      { color: var(--ab-gold-light); }
+    .ab-tier--gold .ab-tier__num       { color: var(--ab-gold); }
+    .ab-tier--gold .ab-tier__pts       { background: rgba(201,169,110,0.12); border: 1px solid rgba(201,169,110,0.3); color: var(--ab-gold-light); }
+    .ab-tier--gold .ab-tier__check     { color: var(--ab-gold); }
+
+    .ab-tier--platinum .ab-tier__vis-bg { background: linear-gradient(145deg,#13131C,#0B0B14); }
+    .ab-tier--platinum .ab-tier__body   { background: #0B0B12; }
+    .ab-tier--platinum .ab-tier__name   { color: var(--ab-platinum-light); }
+    .ab-tier--platinum .ab-tier__num    { color: var(--ab-platinum); }
+    .ab-tier--platinum .ab-tier__pts    { background: rgba(200,200,220,0.12); border: 1px solid rgba(200,200,220,0.28); color: var(--ab-platinum-light); }
+    .ab-tier--platinum .ab-tier__check  { color: var(--ab-platinum); }
+
+    .ab-tier--diamond .ab-tier__vis-bg  { background: linear-gradient(145deg,#0E0E1A,#070710); }
+    .ab-tier--diamond .ab-tier__body    { background: #080810; }
+    .ab-tier--diamond .ab-tier__name    { color: var(--ab-diamond-light); }
+    .ab-tier--diamond .ab-tier__num     { color: var(--ab-diamond); }
+    .ab-tier--diamond .ab-tier__pts     { background: rgba(208,208,240,0.12); border: 1px solid rgba(208,208,240,0.28); color: var(--ab-diamond-light); }
+    .ab-tier--diamond .ab-tier__check   { color: var(--ab-diamond); }
+
+    /* ── Comparison table ── */
+    .ab-compare {
+      padding: clamp(4rem, 10vw, 8rem) var(--pad-x);
+      background: #0A0A0A;
+    }
+    .ab-compare__wrap { overflow-x: auto; }
+    .ab-compare table {
+      width: 100%; min-width: 640px; border-collapse: collapse;
+    }
+    .ab-compare th {
+      padding: 1.2rem 1.5rem; text-align: left;
+      font-size: 0.62rem; letter-spacing: 0.2em; text-transform: uppercase; font-weight: 500;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+    .ab-compare td {
+      padding: 1rem 1.5rem; font-size: 0.82rem;
+      border-bottom: 1px solid rgba(255,255,255,0.05); color: rgba(255,255,255,0.65);
+    }
+    .ab-compare tr:last-child td { border-bottom: none; }
+    .ab-compare tr:hover td { background: rgba(255,255,255,0.02); }
+    .ab-compare .feat { color: rgba(255,255,255,0.85); }
+    .ab-compare .ok   { color: #5aaa72; font-size: 1rem; }
+    .ab-compare .no   { color: rgba(255,255,255,0.15); }
+    .th-s { color: var(--ab-silver); }
+    .th-g { color: var(--ab-gold); }
+    .th-p { color: var(--ab-platinum); }
+    .th-d { color: var(--ab-diamond); }
+
+    /* ── App section ── */
+    .ab-app {
+      background: linear-gradient(160deg,#0A0806,#150F07 50%,#0A0806);
+      padding: clamp(4rem, 10vw, 8rem) var(--pad-x);
+    }
+    .ab-app__grid {
+      display: grid; grid-template-columns: 1fr auto;
+      gap: clamp(3rem, 7vw, 7rem); align-items: center;
+    }
+    @media (max-width: 768px) { .ab-app__grid { grid-template-columns: 1fr; } }
+    .ab-app__label { font-size: 0.65rem; letter-spacing: 0.24em; text-transform: uppercase; color: var(--gold); margin-bottom: 1rem; }
+    .ab-app__title { font-family: 'Cormorant Garamond', Georgia, serif; font-size: clamp(2.5rem, 5.5vw, 5rem); font-weight: 300; letter-spacing: -0.01em; line-height: 1.05; margin-bottom: 1.2rem; }
+    .ab-app__title em { font-style: italic; color: var(--gold-light); }
+    .ab-app__body { font-size: 0.92rem; color: rgba(255,255,255,0.48); line-height: 1.8; max-width: 480px; margin-bottom: 2rem; }
+    .ab-app__feats { display: flex; flex-direction: column; gap: 0.7rem; margin-bottom: 2.5rem; }
+    .ab-app__feat  { display: flex; align-items: center; gap: 0.8rem; font-size: 0.85rem; color: rgba(255,255,255,0.65); }
+    .ab-app__feat::before { content:''; display:block; width:1.2rem; height:1px; background:var(--gold); flex-shrink:0; }
+    .ab-app__btns { display: flex; gap: 1rem; flex-wrap: wrap; }
+    .ab-app__btn {
+      display: inline-flex; align-items: center; gap: 0.65rem;
+      background: rgba(201,169,110,0.1); border: 1px solid rgba(201,169,110,0.3);
+      color: var(--gold-light); font-size: 0.75rem; font-weight: 500; letter-spacing: 0.08em;
+      text-decoration: none; padding: 0.8rem 1.5rem; border-radius: 2px;
+      transition: background 0.3s, border-color 0.3s;
+    }
+    .ab-app__btn:hover { background: rgba(201,169,110,0.18); border-color: var(--gold); }
+    .ab-app__phone {
+      width: clamp(200px, 22vw, 300px); border-radius: 24px;
+      box-shadow: 0 40px 100px rgba(0,0,0,0.8), 0 0 0 1px rgba(255,255,255,0.06);
+    }
+    @media (max-width: 768px) { .ab-app__phone { display: none; } }
+
+    /* ── Brands ── */
+    .ab-brands {
+      padding: clamp(3.5rem, 8vw, 6rem) var(--pad-x);
+      background: #050505; border-top: 1px solid rgba(201,169,110,0.08);
+    }
+    .ab-brands__label { font-size: 0.65rem; letter-spacing: 0.24em; text-transform: uppercase; color: var(--gold); margin-bottom: 1rem; }
+    .ab-brands__title { font-size: clamp(1.8rem, 3.5vw, 2.8rem); font-weight: 200; letter-spacing: -0.02em; margin-bottom: 2rem; }
+    .ab-brands__title em { font-style: italic; color: var(--gold-light); }
+    .ab-brands__tags { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+    .ab-brands__tag {
+      font-size: 0.68rem; letter-spacing: 0.14em; text-transform: uppercase;
+      color: rgba(255,255,255,0.45); border: 1px solid rgba(255,255,255,0.1);
+      padding: 0.4rem 0.9rem; border-radius: 2rem;
+      transition: color 0.2s, border-color 0.2s;
+    }
+    .ab-brands__tag:hover { color: var(--gold-light); border-color: rgba(201,169,110,0.35); }
+
+    /* ── CTA ── */
+    .ab-cta {
+      padding: clamp(5rem, 12vw, 9rem) var(--pad-x);
+      background: #050505; text-align: center; position: relative; overflow: hidden;
+    }
+    .ab-cta::before {
+      content:''; position:absolute; inset:0;
+      background: radial-gradient(ellipse 60% 50% at 50% 100%, rgba(201,169,110,0.09), transparent);
+    }
+    .ab-cta__title {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: clamp(3rem, 8vw, 7rem); font-weight: 300; font-style: italic;
+      letter-spacing: -0.01em; line-height: 1; margin-bottom: 1.2rem; position: relative;
+    }
+    .ab-cta__title strong {
+      background: linear-gradient(135deg, #C9A96E 0%, #E8D5B0 50%, #C9A96E 100%);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    }
+    .ab-cta__sub { font-size: 0.9rem; color: rgba(255,255,255,0.38); margin-bottom: 3rem; position: relative; }
+    .ab-cta__row { display: flex; justify-content: center; gap: 1.2rem; flex-wrap: wrap; position: relative; }
+    .ab-cta__btn {
+      display: inline-flex; align-items: center; gap: 0.75rem;
+      background: linear-gradient(135deg, var(--gold) 0%, var(--gold-light) 100%);
+      color: #0A0A0A; font-size: 0.8rem; font-weight: 700;
+      letter-spacing: 0.16em; text-transform: uppercase; text-decoration: none;
+      padding: 1.1rem 2.4rem; transition: opacity 0.3s;
+    }
+    .ab-cta__btn:hover { opacity: 0.85; }
+    .ab-cta__btn-out {
+      display: inline-flex; align-items: center; gap: 0.75rem;
+      border: 1px solid rgba(201,169,110,0.35); color: var(--gold-light);
+      font-size: 0.8rem; letter-spacing: 0.16em; text-transform: uppercase; text-decoration: none;
+      padding: 1.1rem 2.4rem; transition: border-color 0.3s, color 0.3s;
+    }
+    .ab-cta__btn-out:hover { border-color: var(--gold); color: var(--gold); }
+
+    /* ── Reveal ── */
+    .reveal { opacity: 0; transform: translateY(1.6rem); transition: opacity 0.7s ease, transform 0.7s ease; }
+    .reveal.in-view { opacity: 1; transform: none; }
+    .reveal-d1 { transition-delay: 0.10s; }
+    .reveal-d2 { transition-delay: 0.22s; }
+    .reveal-d3 { transition-delay: 0.34s; }
   </style>
 </head>
 <body>
-<main id="main-content">
+  <a class="skip-link" href="#main-content">Passer au contenu</a>
+  <div id="chrome-mount"></div>
 
-  <!-- Hero -->
-  <div style="min-height:100svh;display:flex;flex-direction:column;justify-content:center;padding:clamp(5rem,12vw,10rem) 0;position:relative;overflow:hidden;background:linear-gradient(135deg,#0D0B09 0%,#1A1209 60%,#0D0B09 100%);">
-    <div style="position:absolute;inset:0;background:radial-gradient(circle at 70% 40%,rgba(201,169,110,0.1) 0%,transparent 60%);pointer-events:none;"></div>
-    <div style="position:absolute;inset:0;background-image:repeating-linear-gradient(45deg,rgba(201,169,110,0.015) 0,rgba(201,169,110,0.015) 1px,transparent 0,transparent 50%);background-size:30px 30px;pointer-events:none;"></div>
-    <div class="container" style="position:relative;z-index:1;">
-      <nav style="display:flex;align-items:center;gap:0.5rem;font-size:0.65rem;letter-spacing:0.15em;text-transform:uppercase;color:rgba(255,255,255,0.25);margin-bottom:3rem;">
-        <a href="../index.html" style="color:rgba(255,255,255,0.25);">Morocco Mall</a>
-        <span>›</span>
-        <span style="color:var(--gold);">Aksal Black</span>
-      </nav>
+  <main id="main-content">
 
-      <div style="display:grid;grid-template-columns:1fr;gap:4rem;align-items:center;" class="aksal-hero-grid">
-        <div>
-          <div style="display:inline-flex;align-items:center;gap:0.75rem;margin-bottom:2rem;">
-            <div style="width:40px;height:40px;background:var(--gold);border-radius:8px;display:flex;align-items:center;justify-content:center;font-family:var(--font-display);font-size:1.1rem;font-weight:600;color:var(--black);">AB</div>
-            <span style="font-size:0.65rem;letter-spacing:0.25em;text-transform:uppercase;color:var(--gold);">Programme de Fidélité</span>
+    <!-- ================================================================
+         HERO
+    ================================================================ -->
+    <section class="ab-hero" aria-label="Aksal Black — Programme de fidélité premium">
+      <div class="ab-hero__bg" aria-hidden="true"></div>
+
+      <!-- Floating stacked cards (desktop) -->
+      <div class="ab-hero__cards" aria-hidden="true">
+        <img class="ab-hero__card" src="../assets/aksal-card-silver.png"   alt="" loading="eager" />
+        <img class="ab-hero__card" src="../assets/aksal-card-gold.png"     alt="" loading="eager" />
+        <img class="ab-hero__card" src="../assets/aksal-card-platinum.png" alt="" loading="eager" />
+        <img class="ab-hero__card" src="../assets/aksal-card-diamond.png"  alt="" loading="eager" />
+      </div>
+
+      <div class="ab-hero__content">
+        <div class="ab-hero__lockup">
+          <div class="ab-hero__icon">
+            <img src="../assets/aksal-black-logo.png" alt="Aksal Black App" />
           </div>
-          <h1 class="display-xl reveal" style="color:var(--gold-light);line-height:0.9;max-width:700px;">
-            <em>Aksal</em><br>Black
-          </h1>
-          <p class="body-lg reveal reveal-delay-1" style="color:rgba(255,255,255,0.45);max-width:500px;margin-top:1.5rem;" data-i18n="aksalSub"></p>
-          <div class="reveal reveal-delay-2" style="margin-top:3rem;display:flex;gap:1rem;flex-wrap:wrap;">
-            <!-- Official Apple App Store badge -->
-            <a href="#" aria-label="Download on the App Store" style="display:inline-block;text-decoration:none;">
-              <svg xmlns="http://www.w3.org/2000/svg" width="140" height="42" viewBox="0 0 564 168" role="img" aria-label="Download on the App Store">
-                <rect width="564" height="168" rx="22" fill="#000"/>
-                <rect x="1.5" y="1.5" width="561" height="165" rx="20.5" fill="none" stroke="#a6a6a6" stroke-width="3"/>
-                <!-- Apple logo -->
-                <path d="M114.5 84.3c-.2-19.4 15.9-28.8 16.6-29.2-9-13.3-23.1-15.1-28.1-15.3-11.9-1.2-23.3 7-29.3 7-6.1 0-15.4-6.8-25.4-6.6-13 .2-25 7.6-31.7 19.2-13.6 23.6-3.5 58.5 9.7 77.6 6.5 9.3 14.1 19.8 24.2 19.4 9.7-.4 13.4-6.2 25.1-6.2 11.7 0 15.1 6.2 25.3 6 10.5-.2 17.1-9.4 23.5-18.8 7.5-10.8 10.6-21.3 10.7-21.9-.2-.1-20.5-7.9-20.6-31.2z" fill="#fff"/>
-                <path d="M95.1 27.5c5.3-6.6 8.9-15.6 7.9-24.7-7.6.3-17 5.1-22.5 11.6-4.9 5.7-9.2 14.9-8.1 23.7 8.6.6 17.3-4.3 22.7-10.6z" fill="#fff"/>
-                <!-- "Download on the" text -->
-                <text x="172" y="62" font-family="-apple-system,Helvetica Neue,Arial,sans-serif" font-size="24" fill="#fff" font-weight="300" letter-spacing="1">Download on the</text>
-                <!-- "App Store" text -->
-                <text x="170" y="118" font-family="-apple-system,Helvetica Neue,Arial,sans-serif" font-size="54" fill="#fff" font-weight="600" letter-spacing="-1">App Store</text>
-              </svg>
-            </a>
-            <!-- Official Google Play badge -->
-            <a href="#" aria-label="Get it on Google Play" style="display:inline-block;text-decoration:none;">
-              <svg xmlns="http://www.w3.org/2000/svg" width="140" height="42" viewBox="0 0 564 168" role="img" aria-label="Get it on Google Play">
-                <rect width="564" height="168" rx="22" fill="#000"/>
-                <rect x="1.5" y="1.5" width="561" height="165" rx="20.5" fill="none" stroke="#a6a6a6" stroke-width="3"/>
-                <!-- Play triangle -->
-                <path d="M48 34 L48 134 L118 84 Z" fill="url(#gp-grad)"/>
-                <defs>
-                  <linearGradient id="gp-grad" x1="0%" y1="0%" x2="100%" y2="100%">
-                    <stop offset="0%" stop-color="#00d2ff"/>
-                    <stop offset="50%" stop-color="#a5f542"/>
-                    <stop offset="100%" stop-color="#ffec00"/>
-                  </linearGradient>
-                </defs>
-                <text x="142" y="62" font-family="-apple-system,Helvetica Neue,Arial,sans-serif" font-size="24" fill="#fff" font-weight="300" letter-spacing="1">Get it on</text>
-                <text x="140" y="118" font-family="-apple-system,Helvetica Neue,Arial,sans-serif" font-size="54" fill="#fff" font-weight="600" letter-spacing="-1">Google Play</text>
-              </svg>
-            </a>
-          </div>
-          <p style="font-size:0.7rem;color:rgba(255,255,255,0.2);margin-top:1rem;letter-spacing:0.05em;">Disponible sur iOS et Android · Gratuit</p>
+          <span class="ab-hero__eyebrow">Programme de fidélité · Morocco Mall</span>
         </div>
-        <!-- App Mockup -->
-        <div class="aksal-app-preview reveal reveal-delay-3" style="display:flex;gap:1rem;justify-content:center;align-items:flex-end;">
-          <div class="aksal-phone">
-            <div class="aksal-phone__screen">
-              <div class="aksal-phone__logo">AB</div>
-              <p class="aksal-phone__text">AKSAL BLACK</p>
-              <hr style="border:none;border-top:1px solid rgba(201,169,110,0.2);width:100%;margin:0.5rem 0;">
-              <p style="font-size:0.55rem;color:rgba(255,255,255,0.3);text-align:center;line-height:1.6;">Bonjour,<br>Mohammed A.</p>
-              <div style="font-family:var(--font-display);font-size:2rem;color:var(--gold);margin:0.25rem 0;">2,450</div>
-              <p style="font-size:0.5rem;color:rgba(255,255,255,0.25);letter-spacing:0.1em;text-transform:uppercase;">Points Fidélité</p>
+
+        <h1 class="ab-hero__title">
+          Aksal<br>
+          <strong>Black</strong>
+        </h1>
+
+        <p class="ab-hero__sub">
+          Quatre niveaux de privilèges exclusifs — cashback, remises luxe, accès VIP, conciergerie personnalisée. Plus vous dépensez, plus vous êtes récompensé.
+        </p>
+
+        <div class="ab-hero__pills" role="list" aria-label="Niveaux Aksal Black">
+          <span class="ab-hero__pill ab-hero__pill--s" role="listitem">Silver · 5–50k MAD</span>
+          <span class="ab-hero__pill ab-hero__pill--g" role="listitem">Gold · 50–250k MAD</span>
+          <span class="ab-hero__pill ab-hero__pill--p" role="listitem">Platinum · 250–600k MAD</span>
+          <span class="ab-hero__pill ab-hero__pill--d" role="listitem">Diamond · 600k+ MAD</span>
+        </div>
+
+        <a href="#tiers" class="ab-hero__cta">
+          Découvrir mes avantages
+          <svg width="18" height="8" viewBox="0 0 18 8" fill="none" aria-hidden="true">
+            <path d="M0 4H16M16 4L12.5 1M16 4L12.5 7" stroke="currentColor" stroke-width="1.3"/>
+          </svg>
+        </a>
+      </div>
+    </section>
+
+
+    <!-- ================================================================
+         INTRO
+    ================================================================ -->
+    <section class="ab-intro" aria-label="À propos du programme Aksal Black">
+      <div class="ab-intro__grid">
+        <div class="reveal">
+          <p class="ab-intro__label">Le programme</p>
+          <h2 class="ab-intro__title">
+            La fidélité<br><em>récompensée</em><br>à sa juste valeur
+          </h2>
+        </div>
+        <div class="reveal reveal-d1">
+          <div class="ab-intro__body">
+            <p>Aksal Black est le programme de fidélité premium de Morocco Mall. Conçu pour les clients qui vivent l'expérience Morocco Mall à son plus haut niveau, il offre un accès progressif à des avantages exclusifs — du cashback automatique aux services de conciergerie à domicile.</p>
+            <p>Chaque dirham dépensé dans les enseignes partenaires vous rapproche du niveau suivant. Accumulez des points Kenzup, bénéficiez de remises sur les grandes maisons de luxe et débloquez des expériences réservées à quelques rares membres.</p>
+          </div>
+          <div class="ab-intro__kpis">
+            <div class="ab-intro__kpi">
+              <div class="ab-intro__kpi-val">4</div>
+              <div class="ab-intro__kpi-lbl">Niveaux</div>
+            </div>
+            <div class="ab-intro__kpi">
+              <div class="ab-intro__kpi-val">30%</div>
+              <div class="ab-intro__kpi-lbl">Remise max luxe</div>
+            </div>
+            <div class="ab-intro__kpi">
+              <div class="ab-intro__kpi-val">200+</div>
+              <div class="ab-intro__kpi-lbl">Enseignes partenaires</div>
             </div>
           </div>
-          <div class="aksal-phone aksal-phone--secondary">
-            <div class="aksal-phone__screen">
-              <p style="font-size:0.55rem;color:var(--gold);letter-spacing:0.1em;text-transform:uppercase;text-align:center;margin-bottom:0.5rem;">Mes Offres</p>
-              <div style="display:flex;flex-direction:column;gap:0.4rem;width:100%;">
-                <div style="background:rgba(201,169,110,0.1);border:1px solid rgba(201,169,110,0.2);border-radius:4px;padding:0.4rem 0.5rem;font-size:0.5rem;color:rgba(255,255,255,0.6);">-20% chez Zara</div>
-                <div style="background:rgba(201,169,110,0.1);border:1px solid rgba(201,169,110,0.2);border-radius:4px;padding:0.4rem 0.5rem;font-size:0.5rem;color:rgba(255,255,255,0.6);">-15% chez Sephora</div>
-                <div style="background:rgba(201,169,110,0.1);border:1px solid rgba(201,169,110,0.2);border-radius:4px;padding:0.4rem 0.5rem;font-size:0.5rem;color:rgba(255,255,255,0.6);">Cashback 5% H&M</div>
-              </div>
-            </div>
-          </div>
         </div>
       </div>
-    </div>
-  </div>
+    </section>
 
-  <!-- Features Grid -->
-  <section style="padding:clamp(4rem,8vw,7rem) 0;">
-    <div class="container">
-      <div class="reveal" style="margin-bottom:3rem;text-align:center;">
-        <p class="heading-sm" style="color:var(--gold);margin-bottom:0.75rem;">Vos Avantages</p>
-        <h2 class="display-md" style="color:var(--gold-light);">Pourquoi Aksal Black ?</h2>
-      </div>
-      <div style="display:grid;grid-template-columns:1fr;gap:1.5rem;" class="features-grid reveal">
-        <div class="ab-feature"><div class="ab-feature__icon">%</div><div class="ab-feature__title">Réductions Exclusives</div><div class="ab-feature__desc">Bénéficiez de remises exclusives chez plus de 200 enseignes partenaires tout au long de l'année. Des économies substantielles sur vos achats préférés.</div></div>
-        <div class="ab-feature"><div class="ab-feature__icon">💰</div><div class="ab-feature__title">Cashback sur chaque achat</div><div class="ab-feature__desc">Gagnez des points à chaque passage en caisse. Vos points se convertissent en cashback utilisable dans tout Morocco Mall.</div></div>
-        <div class="ab-feature"><div class="ab-feature__icon">⚡</div><div class="ab-feature__title">Accès Prioritaire</div><div class="ab-feature__desc">Skip the queue chez nos partenaires sélectionnés. Profitez d'une expérience premium sans attente inutile.</div></div>
-        <div class="ab-feature"><div class="ab-feature__icon">🎉</div><div class="ab-feature__title">Invitations VIP</div><div class="ab-feature__desc">Accès aux événements exclusifs, ouvertures privées et avant-premières. Vivez Morocco Mall comme un véritable VIP.</div></div>
-        <div class="ab-feature"><div class="ab-feature__icon">🎁</div><div class="ab-feature__title">Offres d'anniversaire</div><div class="ab-feature__desc">Un cadeau spécial chaque année pour fêter votre anniversaire avec Morocco Mall.</div></div>
-        <div class="ab-feature"><div class="ab-feature__icon">🗺</div><div class="ab-feature__title">Navigation Intégrée</div><div class="ab-feature__desc">Trouvez facilement tous vos magasins préférés grâce à la carte interactive intégrée dans l'application.</div></div>
-      </div>
-    </div>
-  </section>
 
-  <!-- Partner Brands -->
-  <section style="padding:clamp(3rem,6vw,5rem) 0;border-top:1px solid rgba(201,169,110,0.1);">
-    <div class="container">
-      <div class="reveal" style="margin-bottom:2.5rem;">
-        <p class="heading-sm" style="color:var(--gold);margin-bottom:0.75rem;">Marques Partenaires</p>
-        <h2 class="display-md" style="color:var(--gold-light);">+200 Enseignes</h2>
-        <p style="color:rgba(255,255,255,0.35);font-size:0.85rem;max-width:450px;margin-top:0.75rem;">Utilisez Aksal Black dans toutes ces enseignes et bien plus encore.</p>
+    <!-- ================================================================
+         TIERS
+    ================================================================ -->
+    <section class="ab-tiers" id="tiers" aria-label="Les 4 niveaux Aksal Black">
+      <div class="ab-tiers__hd reveal">
+        <p class="ab-tiers__hd-label">Vos avantages</p>
+        <h2 class="ab-tiers__hd-title">Choisissez votre<br><em style="color:var(--gold-light);">niveau</em></h2>
+        <p class="ab-tiers__hd-sub">Chaque niveau déverrouille l'ensemble des avantages du niveau précédent, plus les vôtres.</p>
       </div>
-      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:rgba(201,169,110,0.1);" class="reveal">
-        <div class="ab-partner">Zara</div>
-        <div class="ab-partner">H&amp;M</div>
-        <div class="ab-partner">Mango</div>
-        <div class="ab-partner">Sephora</div>
-        <div class="ab-partner">Nike</div>
-        <div class="ab-partner">Adidas</div>
-        <div class="ab-partner">Massimo Dutti</div>
-        <div class="ab-partner">Pull &amp; Bear</div>
-        <div class="ab-partner">Bershka</div>
-        <div class="ab-partner">L'Occitane</div>
-        <div class="ab-partner">Yves Rocher</div>
-        <div class="ab-partner">Fnac</div>
-        <div class="ab-partner">Decathlon</div>
-        <div class="ab-partner">Zara Home</div>
-        <div class="ab-partner">iStore</div>
-        <div class="ab-partner">Oysho</div>
-        <div class="ab-partner">Stradivarius</div>
-        <div class="ab-partner">+ 183 autres</div>
-      </div>
-    </div>
-  </section>
 
-  <!-- Download CTA -->
-  <section style="padding:clamp(4rem,8vw,7rem) 0;text-align:center;">
-    <div class="container">
+      <!-- SILVER -->
+      <div class="ab-tier ab-tier--silver reveal" aria-label="Niveau Silver">
+        <div class="ab-tier__vis">
+          <div class="ab-tier__vis-bg"></div>
+          <img class="ab-tier__card-img" src="../assets/aksal-card-silver.png" alt="Carte Aksal Black Silver" loading="lazy" />
+        </div>
+        <div class="ab-tier__body">
+          <p class="ab-tier__num">Niveau 01</p>
+          <h3 class="ab-tier__name">Silver</h3>
+          <p class="ab-tier__spend">5 000 — 50 000 MAD / an</p>
+          <div class="ab-tier__pts">
+            <span class="ab-tier__pts-dot" aria-hidden="true"></span>
+            1 point pour 2 MAD dépensés · 5% cashback Kenzup
+          </div>
+          <p class="ab-tier__bene-title">Avantages inclus</p>
+          <ul class="ab-tier__list">
+            <li class="ab-tier__item">
+              <span class="ab-tier__check" aria-hidden="true">
+                <svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="2,5.5 4,7.5 8,3"/></svg>
+              </span>
+              Offre de bienvenue de 50 points Kenzup à l'activation de la carte
+            </li>
+            <li class="ab-tier__item">
+              <span class="ab-tier__check" aria-hidden="true">
+                <svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="2,5.5 4,7.5 8,3"/></svg>
+              </span>
+              Paiement en 2×sans frais dès 10 000 MAD chez Balenciaga, Bottega Veneta, Fendi, Givenchy, La Martina, Ralph Lauren
+            </li>
+            <li class="ab-tier__item">
+              <span class="ab-tier__check" aria-hidden="true">
+                <svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="2,5.5 4,7.5 8,3"/></svg>
+              </span>
+              5% de cashback convertible en points Kenzup chez tous les partenaires (Afriquia, etc.)
+            </li>
+            <li class="ab-tier__item">
+              <span class="ab-tier__check" aria-hidden="true">
+                <svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="2,5.5 4,7.5 8,3"/></svg>
+              </span>
+              Offre d'anniversaire : 50 points Kenzup offerts
+            </li>
+            <li class="ab-tier__item">
+              <span class="ab-tier__check" aria-hidden="true">
+                <svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="2,5.5 4,7.5 8,3"/></svg>
+              </span>
+              Newsletters et notifications push personnalisées
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- GOLD -->
+      <div class="ab-tier ab-tier--gold reveal" aria-label="Niveau Gold">
+        <div class="ab-tier__vis">
+          <div class="ab-tier__vis-bg"></div>
+          <img class="ab-tier__card-img" src="../assets/aksal-card-gold.png" alt="Carte Aksal Black Gold" loading="lazy" />
+        </div>
+        <div class="ab-tier__body">
+          <p class="ab-tier__num">Niveau 02</p>
+          <h3 class="ab-tier__name">Gold</h3>
+          <p class="ab-tier__spend">50 000 — 250 000 MAD / an</p>
+          <div class="ab-tier__pts">
+            <span class="ab-tier__pts-dot" aria-hidden="true"></span>
+            1 point pour 1 MAD dépensé · 5% cashback Kenzup
+          </div>
+          <p class="ab-tier__also">Tous les avantages Silver, plus :</p>
+          <ul class="ab-tier__list">
+            <li class="ab-tier__item">
+              <span class="ab-tier__check" aria-hidden="true">
+                <svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="2,5.5 4,7.5 8,3"/></svg>
+              </span>
+              <strong style="color:var(--ab-gold-light);">15% de remise toute l'année</strong> sur les marques de luxe du groupe (Balenciaga, Bottega Veneta, Fendi, Givenchy, La Martina, Ralph Lauren)
+            </li>
+            <li class="ab-tier__item">
+              <span class="ab-tier__check" aria-hidden="true">
+                <svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="2,5.5 4,7.5 8,3"/></svg>
+              </span>
+              Accès aux toilettes premium sur présentation de la carte
+            </li>
+            <li class="ab-tier__item">
+              <span class="ab-tier__check" aria-hidden="true">
+                <svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="2,5.5 4,7.5 8,3"/></svg>
+              </span>
+              Parking privé Rose Boulevard sur présentation de la carte
+            </li>
+            <li class="ab-tier__item">
+              <span class="ab-tier__check" aria-hidden="true">
+                <svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="2,5.5 4,7.5 8,3"/></svg>
+              </span>
+              Invitations aux dégustations et avant-premières (RSVP via l'application)
+            </li>
+            <li class="ab-tier__item">
+              <span class="ab-tier__check" aria-hidden="true">
+                <svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="2,5.5 4,7.5 8,3"/></svg>
+              </span>
+              Offre d'anniversaire personnalisée — cadeau ou points au choix
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- PLATINUM -->
+      <div class="ab-tier ab-tier--platinum reveal" aria-label="Niveau Platinum">
+        <div class="ab-tier__vis">
+          <div class="ab-tier__vis-bg"></div>
+          <img class="ab-tier__card-img" src="../assets/aksal-card-platinum.png" alt="Carte Aksal Black Platinum" loading="lazy" />
+        </div>
+        <div class="ab-tier__body">
+          <p class="ab-tier__num">Niveau 03</p>
+          <h3 class="ab-tier__name">Platinum</h3>
+          <p class="ab-tier__spend">250 000 — 600 000 MAD / an</p>
+          <div class="ab-tier__pts">
+            <span class="ab-tier__pts-dot" aria-hidden="true"></span>
+            1,5 point pour 1 MAD dépensé · 5% cashback Kenzup
+          </div>
+          <p class="ab-tier__also">Tous les avantages Gold, plus :</p>
+          <ul class="ab-tier__list">
+            <li class="ab-tier__item">
+              <span class="ab-tier__check" aria-hidden="true">
+                <svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="2,5.5 4,7.5 8,3"/></svg>
+              </span>
+              <strong style="color:var(--ab-platinum-light);">20% de remise toute l'année</strong> sur les marques de luxe du groupe
+            </li>
+            <li class="ab-tier__item">
+              <span class="ab-tier__check" aria-hidden="true">
+                <svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="2,5.5 4,7.5 8,3"/></svg>
+              </span>
+              Paiement en 3×sans frais — personal shopper dédié avec accès à la suite Rose Boulevard
+            </li>
+            <li class="ab-tier__item">
+              <span class="ab-tier__check" aria-hidden="true">
+                <svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="2,5.5 4,7.5 8,3"/></svg>
+              </span>
+              Boutique privée sur rendez-vous avec animations exclusives
+            </li>
+            <li class="ab-tier__item">
+              <span class="ab-tier__check" aria-hidden="true">
+                <svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="2,5.5 4,7.5 8,3"/></svg>
+              </span>
+              Tea Time au lounge Rose Boulevard — réservation via l'application
+            </li>
+            <li class="ab-tier__item">
+              <span class="ab-tier__check" aria-hidden="true">
+                <svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="2,5.5 4,7.5 8,3"/></svg>
+              </span>
+              Accès aux nouvelles collections en avant-première
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- DIAMOND -->
+      <div class="ab-tier ab-tier--diamond reveal" aria-label="Niveau Diamond">
+        <div class="ab-tier__vis">
+          <div class="ab-tier__vis-bg"></div>
+          <img class="ab-tier__card-img" src="../assets/aksal-card-diamond.png" alt="Carte Aksal Black Diamond" loading="lazy" />
+        </div>
+        <div class="ab-tier__body">
+          <p class="ab-tier__num">Niveau 04 · Ultime</p>
+          <h3 class="ab-tier__name">Diamond</h3>
+          <p class="ab-tier__spend">600 000 MAD+ / an</p>
+          <div class="ab-tier__pts">
+            <span class="ab-tier__pts-dot" aria-hidden="true"></span>
+            2 points pour 1 MAD dépensé · 5% cashback Kenzup
+          </div>
+          <p class="ab-tier__also">Tous les avantages Platinum, plus :</p>
+          <ul class="ab-tier__list">
+            <li class="ab-tier__item">
+              <span class="ab-tier__check" aria-hidden="true">
+                <svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="2,5.5 4,7.5 8,3"/></svg>
+              </span>
+              <strong style="color:var(--ab-diamond-light);">30% de remise toute l'année</strong> — le plus haut niveau de remise sur les marques de luxe du groupe
+            </li>
+            <li class="ab-tier__item">
+              <span class="ab-tier__check" aria-hidden="true">
+                <svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="2,5.5 4,7.5 8,3"/></svg>
+              </span>
+              Paiement en 4×sans frais — conciergerie de luxe avec accueil personnalisé depuis le parking
+            </li>
+            <li class="ab-tier__item">
+              <span class="ab-tier__check" aria-hidden="true">
+                <svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="2,5.5 4,7.5 8,3"/></svg>
+              </span>
+              Your Tea Time at Home — présentation des nouvelles collections à domicile
+            </li>
+            <li class="ab-tier__item">
+              <span class="ab-tier__check" aria-hidden="true">
+                <svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="2,5.5 4,7.5 8,3"/></svg>
+              </span>
+              Pré-commandes à l'international
+            </li>
+            <li class="ab-tier__item">
+              <span class="ab-tier__check" aria-hidden="true">
+                <svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="2,5.5 4,7.5 8,3"/></svg>
+              </span>
+              Événements culturels et caritatifs privés sur invitation personnelle
+            </li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ================================================================
+         COMPARISON TABLE
+    ================================================================ -->
+    <section class="ab-compare" aria-label="Comparatif des avantages par niveau">
       <div class="reveal">
-        <h2 class="display-md" style="color:var(--gold-light);margin-bottom:1.5rem;" data-i18n="downloadApp"></h2>
-        <p style="color:rgba(255,255,255,0.4);font-size:0.9rem;max-width:400px;margin:0 auto 2.5rem;line-height:1.7;">Rejoignez la communauté Aksal Black et commencez à économiser dès aujourd'hui.</p>
-        <div style="display:flex;gap:1.25rem;flex-wrap:wrap;justify-content:center;">
-          <a href="#" aria-label="Download on the App Store" style="display:inline-block;text-decoration:none;">
-            <svg xmlns="http://www.w3.org/2000/svg" width="152" height="46" viewBox="0 0 564 168">
-              <rect width="564" height="168" rx="22" fill="#000"/>
-              <rect x="1.5" y="1.5" width="561" height="165" rx="20.5" fill="none" stroke="#a6a6a6" stroke-width="3"/>
-              <path d="M114.5 84.3c-.2-19.4 15.9-28.8 16.6-29.2-9-13.3-23.1-15.1-28.1-15.3-11.9-1.2-23.3 7-29.3 7-6.1 0-15.4-6.8-25.4-6.6-13 .2-25 7.6-31.7 19.2-13.6 23.6-3.5 58.5 9.7 77.6 6.5 9.3 14.1 19.8 24.2 19.4 9.7-.4 13.4-6.2 25.1-6.2 11.7 0 15.1 6.2 25.3 6 10.5-.2 17.1-9.4 23.5-18.8 7.5-10.8 10.6-21.3 10.7-21.9-.2-.1-20.5-7.9-20.6-31.2z" fill="#fff"/>
-              <path d="M95.1 27.5c5.3-6.6 8.9-15.6 7.9-24.7-7.6.3-17 5.1-22.5 11.6-4.9 5.7-9.2 14.9-8.1 23.7 8.6.6 17.3-4.3 22.7-10.6z" fill="#fff"/>
-              <text x="172" y="62" font-family="-apple-system,Helvetica Neue,Arial,sans-serif" font-size="24" fill="#fff" font-weight="300" letter-spacing="1">Download on the</text>
-              <text x="170" y="118" font-family="-apple-system,Helvetica Neue,Arial,sans-serif" font-size="54" fill="#fff" font-weight="600" letter-spacing="-1">App Store</text>
-            </svg>
-          </a>
-          <a href="#" aria-label="Get it on Google Play" style="display:inline-block;text-decoration:none;">
-            <svg xmlns="http://www.w3.org/2000/svg" width="152" height="46" viewBox="0 0 564 168">
-              <rect width="564" height="168" rx="22" fill="#000"/>
-              <rect x="1.5" y="1.5" width="561" height="165" rx="20.5" fill="none" stroke="#a6a6a6" stroke-width="3"/>
-              <path d="M48 34 L48 134 L118 84 Z" fill="url(#gp2)"/>
-              <defs><linearGradient id="gp2" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#00d2ff"/><stop offset="50%" stop-color="#a5f542"/><stop offset="100%" stop-color="#ffec00"/></linearGradient></defs>
-              <text x="142" y="62" font-family="-apple-system,Helvetica Neue,Arial,sans-serif" font-size="24" fill="#fff" font-weight="300" letter-spacing="1">Get it on</text>
-              <text x="140" y="118" font-family="-apple-system,Helvetica Neue,Arial,sans-serif" font-size="54" fill="#fff" font-weight="600" letter-spacing="-1">Google Play</text>
-            </svg>
-          </a>
+        <p style="font-size:0.65rem;letter-spacing:0.24em;text-transform:uppercase;color:var(--gold);margin-bottom:0.5rem;">Récapitulatif</p>
+        <h2 style="font-family:'Cormorant Garamond',Georgia,serif;font-size:clamp(2.5rem,5vw,4.5rem);font-weight:300;font-style:italic;letter-spacing:-0.01em;margin-bottom:2.5rem;">
+          Comparatif des <em style="font-style:normal;color:var(--gold-light);">avantages</em>
+        </h2>
+      </div>
+      <div class="ab-compare__wrap reveal reveal-d1">
+        <table aria-label="Tableau comparatif des niveaux Aksal Black">
+          <thead>
+            <tr>
+              <th style="width:38%;color:rgba(255,255,255,0.5);">Avantage</th>
+              <th class="th-s">Silver</th>
+              <th class="th-g">Gold</th>
+              <th class="th-p">Platinum</th>
+              <th class="th-d">Diamond</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td class="feat">Points Kenzup par MAD dépensé</td><td>×0,5</td><td>×1</td><td>×1,5</td><td>×2</td></tr>
+            <tr><td class="feat">Cashback Kenzup (partenaires)</td><td>5%</td><td>5%</td><td>5%</td><td>5%</td></tr>
+            <tr><td class="feat">Remise marques de luxe du groupe</td><td class="no">—</td><td style="color:var(--ab-gold);">15%</td><td style="color:var(--ab-platinum);">20%</td><td style="color:var(--ab-diamond);">30%</td></tr>
+            <tr><td class="feat">Paiement en plusieurs fois (sans frais)</td><td>2×</td><td>2×</td><td>3×</td><td>4×</td></tr>
+            <tr><td class="feat">Offre de bienvenue (points Kenzup)</td><td class="ok">✓</td><td class="ok">✓</td><td class="ok">✓</td><td class="ok">✓</td></tr>
+            <tr><td class="feat">Offre d'anniversaire</td><td>50 pts</td><td>Personnalisée</td><td>Personnalisée</td><td>Personnalisée</td></tr>
+            <tr><td class="feat">Toilettes premium</td><td class="no">—</td><td class="ok">✓</td><td class="ok">✓</td><td class="ok">✓</td></tr>
+            <tr><td class="feat">Parking privé Rose Boulevard</td><td class="no">—</td><td class="ok">✓</td><td class="ok">✓</td><td class="ok">✓</td></tr>
+            <tr><td class="feat">Invitations avant-premières &amp; dégustations</td><td class="no">—</td><td class="ok">✓</td><td class="ok">✓</td><td class="ok">✓</td></tr>
+            <tr><td class="feat">Personal shopper (suite Rose Boulevard)</td><td class="no">—</td><td class="no">—</td><td class="ok">✓</td><td class="ok">✓</td></tr>
+            <tr><td class="feat">Boutique privée sur RDV avec animations</td><td class="no">—</td><td class="no">—</td><td class="ok">✓</td><td class="ok">✓</td></tr>
+            <tr><td class="feat">Tea Time lounge Rose Boulevard</td><td class="no">—</td><td class="no">—</td><td class="ok">✓</td><td class="ok">✓</td></tr>
+            <tr><td class="feat">Nouvelles collections en avant-première</td><td class="no">—</td><td class="no">—</td><td class="ok">✓</td><td class="ok">✓</td></tr>
+            <tr><td class="feat">Conciergerie de luxe (accueil parking)</td><td class="no">—</td><td class="no">—</td><td class="no">—</td><td class="ok">✓</td></tr>
+            <tr><td class="feat">Your Tea Time at Home</td><td class="no">—</td><td class="no">—</td><td class="no">—</td><td class="ok">✓</td></tr>
+            <tr><td class="feat">Pré-commandes à l'international</td><td class="no">—</td><td class="no">—</td><td class="no">—</td><td class="ok">✓</td></tr>
+            <tr><td class="feat">Événements culturels/caritatifs privés</td><td class="no">—</td><td class="no">—</td><td class="no">—</td><td class="ok">✓</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+
+    <!-- ================================================================
+         APP SECTION
+    ================================================================ -->
+    <section class="ab-app" aria-label="Application Aksal Black">
+      <div class="ab-app__grid">
+        <div class="reveal">
+          <p class="ab-app__label">Application mobile</p>
+          <h2 class="ab-app__title">
+            Votre carte,<br><em>toujours avec vous</em>
+          </h2>
+          <p class="ab-app__body">
+            L'application Aksal Black réunit votre carte digitale, votre barcode membre, votre solde de points Kenzup, vos offres personnalisées et vos transactions en temps réel. Ajoutez votre carte à Apple Wallet ou Google Wallet.
+          </p>
+          <div class="ab-app__feats">
+            <div class="ab-app__feat">Carte digitale et barcode membre intégrés</div>
+            <div class="ab-app__feat">Suivi de points Kenzup en temps réel</div>
+            <div class="ab-app__feat">Offres et challenges exclusifs par niveau</div>
+            <div class="ab-app__feat">RSVP aux événements et avant-premières</div>
+            <div class="ab-app__feat">Réservation Tea Time lounge Rose Boulevard</div>
+            <div class="ab-app__feat">Compatible Apple Wallet &amp; Google Wallet</div>
+          </div>
+          <div class="ab-app__btns">
+            <a href="#" class="ab-app__btn" aria-label="Télécharger sur l'App Store">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+              App Store
+            </a>
+            <a href="#" class="ab-app__btn" aria-label="Télécharger sur Google Play">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M3.18 23.76c.47.26 1.02.22 1.52-.08l11.27-6.42-2.5-2.52-10.29 9.02zM.5 1.43C.18 1.9 0 2.47 0 3.1v17.8c0 .63.18 1.2.5 1.67l.09.09 9.96-9.96v-.23L.59 1.34l-.09.09zM20.93 10.59l-2.81-1.6-2.79 2.79 2.79 2.79 2.83-1.61c.81-.46.81-1.91-.02-2.37zM4.7.32L15.97 6.74l-2.5 2.5L3.18.22C3.68-.08 4.23-.04 4.7.32z"/></svg>
+              Google Play
+            </a>
+          </div>
+        </div>
+        <div class="reveal reveal-d1">
+          <img
+            class="ab-app__phone"
+            src="../assets/aksal-black-barcode.png"
+            alt="Application Aksal Black — carte digitale, barcode membre et Apple Wallet"
+            loading="lazy"
+          />
         </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-</main>
-<script src="../js/seo.js"></script>
-<script src="../js/translations.js"></script>
-<script src="../js/app.js"></script>
-<script>
-// 2-col grid on tablet+
-document.addEventListener('DOMContentLoaded', () => {
-  const grid = document.querySelector('.features-grid');
-  if (grid && window.innerWidth >= 640) grid.style.gridTemplateColumns = 'repeat(2,1fr)';
-  if (grid && window.innerWidth >= 1024) grid.style.gridTemplateColumns = 'repeat(3,1fr)';
-  const heroGrid = document.querySelector('.aksal-hero-grid');
-  if (heroGrid && window.innerWidth >= 768) heroGrid.style.gridTemplateColumns = '1fr 1fr';
-});
-</script>
+
+    <!-- ================================================================
+         PARTNER BRANDS
+    ================================================================ -->
+    <section class="ab-brands" aria-label="Marques partenaires Aksal Black">
+      <div class="reveal">
+        <p class="ab-brands__label">Marques partenaires</p>
+        <h2 class="ab-brands__title">200+ enseignes <em>partenaires</em></h2>
+        <div class="ab-brands__tags" role="list">
+          <span class="ab-brands__tag" role="listitem">Balenciaga</span>
+          <span class="ab-brands__tag" role="listitem">Bottega Veneta</span>
+          <span class="ab-brands__tag" role="listitem">Fendi</span>
+          <span class="ab-brands__tag" role="listitem">Givenchy</span>
+          <span class="ab-brands__tag" role="listitem">La Martina</span>
+          <span class="ab-brands__tag" role="listitem">Ralph Lauren</span>
+          <span class="ab-brands__tag" role="listitem">Gucci</span>
+          <span class="ab-brands__tag" role="listitem">Dior</span>
+          <span class="ab-brands__tag" role="listitem">Off-White</span>
+          <span class="ab-brands__tag" role="listitem">Zara</span>
+          <span class="ab-brands__tag" role="listitem">Massimo Dutti</span>
+          <span class="ab-brands__tag" role="listitem">Bershka</span>
+          <span class="ab-brands__tag" role="listitem">Pull &amp; Bear</span>
+          <span class="ab-brands__tag" role="listitem">Stradivarius</span>
+          <span class="ab-brands__tag" role="listitem">Oysho</span>
+          <span class="ab-brands__tag" role="listitem">Galeries Lafayette</span>
+          <span class="ab-brands__tag" role="listitem">Yan&amp;One</span>
+          <span class="ab-brands__tag" role="listitem">Afriquia</span>
+          <span class="ab-brands__tag" role="listitem">+ 180 autres</span>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ================================================================
+         CTA
+    ================================================================ -->
+    <section class="ab-cta" aria-label="Rejoindre Aksal Black">
+      <h2 class="ab-cta__title reveal">Rejoignez<br><strong>Aksal Black</strong></h2>
+      <p class="ab-cta__sub reveal reveal-d1">
+        Téléchargez l'application · Activez votre carte · Commencez à accumuler des points dès le premier achat
+      </p>
+      <div class="ab-cta__row reveal reveal-d2">
+        <a href="#" class="ab-cta__btn">Télécharger l'application →</a>
+        <a href="../index.html" class="ab-cta__btn-out">Retour au mall</a>
+      </div>
+    </section>
+
+  </main>
+
+  <script src="../js/seo.js"></script>
+  <script src="../js/translations.js"></script>
+  <script src="../js/app.js"></script>
+  <script>
+    var reveals = document.querySelectorAll('.reveal');
+    var obs = new IntersectionObserver(function(entries) {
+      entries.forEach(function(e) {
+        if (e.isIntersecting) { e.target.classList.add('in-view'); obs.unobserve(e.target); }
+      });
+    }, { threshold: 0.06 });
+    reveals.forEach(function(el) { obs.observe(el); });
+  </script>
 </body>
 </html>
