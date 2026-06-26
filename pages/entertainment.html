@@ -21,6 +21,10 @@
       max-height: calc(860px + var(--bar-h) + var(--nav-h));
       display: flex;
       align-items: flex-end;
+    }
+    .ent-hero__bg-wrap {
+      position: absolute;
+      inset: 0;
       overflow: hidden;
     }
     .ent-hero__bg {
@@ -549,8 +553,10 @@
        HERO — full-screen
        ============================================================ -->
   <section class="ent-hero" aria-label="Entertainment hero">
-    <div class="ent-hero__bg" id="heroBg"></div>
-    <div class="ent-hero__overlay"></div>
+    <div class="ent-hero__bg-wrap">
+      <div class="ent-hero__bg" id="heroBg"></div>
+      <div class="ent-hero__overlay"></div>
+    </div>
     <div class="container ent-hero__content">
       <nav class="ent-hero__breadcrumb" aria-label="Fil d'Ariane">
         <a href="../index.html">Morocco Mall</a>
