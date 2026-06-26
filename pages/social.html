@@ -8,6 +8,90 @@
   <link rel="icon" href="../assets/logo.png" type="image/png" />
   <link rel="stylesheet" href="../css/main.css" />
   <style>
+    /* ── Press section ── */
+    .press-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+    }
+    @media (max-width: 900px) { .press-grid { grid-template-columns: 1fr 1fr; } }
+    @media (max-width: 560px) { .press-grid { grid-template-columns: 1fr; } }
+
+    .press-article {
+      background: #fff;
+      border: 1px solid rgba(10,10,10,0.08);
+      display: flex;
+      flex-direction: column;
+      text-decoration: none;
+      color: inherit;
+      transition: box-shadow 0.25s, transform 0.25s;
+    }
+    .press-article:hover { box-shadow: 0 8px 32px rgba(0,0,0,0.07); transform: translateY(-2px); }
+    .press-article--featured {
+      grid-column: span 2;
+      background: #0A0A0A;
+      color: #fff;
+    }
+    @media (max-width: 560px) { .press-article--featured { grid-column: span 1; } }
+
+    .press-article__source {
+      display: flex; align-items: center; gap: 0.75rem;
+      padding: 1.1rem 1.4rem;
+      border-bottom: 1px solid rgba(10,10,10,0.07);
+    }
+    .press-article--featured .press-article__source { border-bottom-color: rgba(255,255,255,0.07); }
+    .press-article__badge {
+      width: 30px; height: 30px; flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center;
+      background: var(--gold, #C9A96E); color: #0A0A0A;
+      font-size: 0.55rem; font-weight: 800; letter-spacing: 0.04em;
+    }
+    .press-article__pub {
+      font-size: 0.65rem; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase;
+      color: rgba(10,10,10,0.45);
+    }
+    .press-article--featured .press-article__pub { color: rgba(255,255,255,0.4); }
+
+    .press-article__body {
+      padding: 1.5rem; flex: 1;
+      display: flex; flex-direction: column; gap: 0.6rem;
+    }
+    .press-article--featured .press-article__body { padding: 2rem; }
+    .press-article__tag {
+      font-size: 0.6rem; letter-spacing: 0.16em; text-transform: uppercase;
+      color: var(--gold, #C9A96E); font-weight: 500;
+    }
+    .press-article__title {
+      font-size: clamp(0.95rem, 1.5vw, 1.1rem);
+      font-weight: 500; line-height: 1.35; color: #0A0A0A;
+    }
+    .press-article--featured .press-article__title {
+      font-family: var(--font-display, Georgia, serif);
+      font-size: clamp(1.4rem, 2.5vw, 2rem);
+      font-weight: 300; line-height: 1.15; color: #fff;
+    }
+    .press-article__excerpt {
+      font-size: 0.82rem; color: rgba(10,10,10,0.48); line-height: 1.65; flex: 1;
+    }
+    .press-article--featured .press-article__excerpt { color: rgba(255,255,255,0.42); }
+    .press-article__footer {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-top: 1rem; padding-top: 0.9rem;
+      border-top: 1px solid rgba(10,10,10,0.07);
+    }
+    .press-article--featured .press-article__footer { border-top-color: rgba(255,255,255,0.07); }
+    .press-article__date {
+      font-size: 0.62rem; letter-spacing: 0.1em; text-transform: uppercase;
+      color: rgba(10,10,10,0.28);
+    }
+    .press-article--featured .press-article__date { color: rgba(255,255,255,0.25); }
+    .press-article__read {
+      font-size: 0.62rem; letter-spacing: 0.14em; text-transform: uppercase;
+      color: var(--gold, #C9A96E); font-weight: 600;
+      display: flex; align-items: center; gap: 0.35rem;
+    }
+
+    /* ── Existing social cards ── */
     .social-channel-card {
       border: 1px solid var(--gray-200);
       padding: 2rem;
@@ -125,6 +209,128 @@
       <div class="social-post"><div class="social-post__placeholder" style="background:linear-gradient(135deg,#2e2e00,#3a3800);">🌟</div><div class="social-post__overlay"><div class="social-post__likes">❤ 445</div></div></div>
       <div class="social-post"><div class="social-post__placeholder" style="background:linear-gradient(135deg,#0a2e1a,#103a20);">🎪</div><div class="social-post__overlay"><div class="social-post__likes">❤ 2.1k</div></div></div>
       <div class="social-post"><div class="social-post__placeholder" style="background:linear-gradient(135deg,#1a0a1a,#2e102e);">💍</div><div class="social-post__overlay"><div class="social-post__likes">❤ 895</div></div></div>
+    </div>
+  </section>
+
+  <!-- Ils parlent de nous -->
+  <section class="section">
+    <div class="container">
+      <div class="section__header reveal">
+        <div>
+          <p class="section__eyebrow">Presse &amp; Médias</p>
+          <h2 class="section__title">Ils parlent <em>de nous</em></h2>
+        </div>
+        <a class="section__link btn-arrow" href="press.html">
+          <span>Toute la revue de presse</span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+      </div>
+
+      <div class="press-grid reveal">
+
+        <!-- Featured -->
+        <article class="press-article press-article--featured">
+          <div class="press-article__source">
+            <div class="press-article__badge">M24</div>
+            <span class="press-article__pub">Médias24</span>
+          </div>
+          <div class="press-article__body">
+            <span class="press-article__tag">Économie · Retail</span>
+            <h3 class="press-article__title">Morocco Mall fête ses 10 ans : comment le premier mall d'Afrique est resté N°1</h3>
+            <p class="press-article__excerpt">Inauguré en décembre 2011, Morocco Mall Casablanca Bay a profondément transformé le paysage commercial et touristique du Maroc. Retour sur une décennie de croissance, d'innovation et d'ambition portée par le Groupe AKSAL.</p>
+            <div class="press-article__footer">
+              <span class="press-article__date">14 Déc 2021</span>
+              <span class="press-article__read">Lire l'article <svg width="14" height="6" viewBox="0 0 14 6" fill="none"><path d="M0 3h12M12 3L9 1M12 3L9 5" stroke="currentColor" stroke-width="1.1"/></svg></span>
+            </div>
+          </div>
+        </article>
+
+        <!-- Card 2 -->
+        <article class="press-article">
+          <div class="press-article__source">
+            <div class="press-article__badge">TQ</div>
+            <span class="press-article__pub">TelQuel</span>
+          </div>
+          <div class="press-article__body">
+            <span class="press-article__tag">Luxe · Rose Boulevard</span>
+            <h3 class="press-article__title">Rose Boulevard, l'avenue qui rivalise avec les plus grandes adresses mondiales</h3>
+            <p class="press-article__excerpt">Au sein de Morocco Mall, Rose Boulevard s'est imposée comme la destination incontournable des grandes maisons internationales au Maroc.</p>
+            <div class="press-article__footer">
+              <span class="press-article__date">3 Mar 2023</span>
+              <span class="press-article__read">Lire l'article <svg width="14" height="6" viewBox="0 0 14 6" fill="none"><path d="M0 3h12M12 3L9 1M12 3L9 5" stroke="currentColor" stroke-width="1.1"/></svg></span>
+            </div>
+          </div>
+        </article>
+
+        <!-- Card 3 -->
+        <article class="press-article">
+          <div class="press-article__source">
+            <div class="press-article__badge">ÉCO</div>
+            <span class="press-article__pub">L'Économiste</span>
+          </div>
+          <div class="press-article__body">
+            <span class="press-article__tag">Commerce · AKSAL</span>
+            <h3 class="press-article__title">AKSAL dévoile Marrakech Garden : une nouvelle vision de l'expérience mall</h3>
+            <p class="press-article__excerpt">Le Groupe AKSAL agrandit son offre avec l'extension Marrakech Garden, intégrant l'Oriental Street et un aquarium XXL dans un concept inédit en Afrique.</p>
+            <div class="press-article__footer">
+              <span class="press-article__date">18 Sep 2022</span>
+              <span class="press-article__read">Lire l'article <svg width="14" height="6" viewBox="0 0 14 6" fill="none"><path d="M0 3h12M12 3L9 1M12 3L9 5" stroke="currentColor" stroke-width="1.1"/></svg></span>
+            </div>
+          </div>
+        </article>
+
+        <!-- Card 4 -->
+        <article class="press-article">
+          <div class="press-article__source">
+            <div class="press-article__badge">HP</div>
+            <span class="press-article__pub">Hespress</span>
+          </div>
+          <div class="press-article__body">
+            <span class="press-article__tag">Tourisme · Fréquentation</span>
+            <h3 class="press-article__title">40 millions de visiteurs : Morocco Mall confirme son leadership continental</h3>
+            <p class="press-article__excerpt">Le mall casablancais affiche une fréquentation record portée par l'essor du tourisme urbain et l'attractivité de ses animations tout au long de l'année.</p>
+            <div class="press-article__footer">
+              <span class="press-article__date">9 Jan 2024</span>
+              <span class="press-article__read">Lire l'article <svg width="14" height="6" viewBox="0 0 14 6" fill="none"><path d="M0 3h12M12 3L9 1M12 3L9 5" stroke="currentColor" stroke-width="1.1"/></svg></span>
+            </div>
+          </div>
+        </article>
+
+        <!-- Card 5 -->
+        <article class="press-article">
+          <div class="press-article__source">
+            <div class="press-article__badge">LD</div>
+            <span class="press-article__pub">Le Desk</span>
+          </div>
+          <div class="press-article__body">
+            <span class="press-article__tag">Mode · Événement</span>
+            <h3 class="press-article__title">Morocco Mall accueille la Fashion Week Casablanca dans une édition inédite</h3>
+            <p class="press-article__excerpt">La Casablanca Fashion Week a réuni les plus grands noms de la mode marocaine et internationale au Morocco Mall, devant un public record.</p>
+            <div class="press-article__footer">
+              <span class="press-article__date">22 Avr 2023</span>
+              <span class="press-article__read">Lire l'article <svg width="14" height="6" viewBox="0 0 14 6" fill="none"><path d="M0 3h12M12 3L9 1M12 3L9 5" stroke="currentColor" stroke-width="1.1"/></svg></span>
+            </div>
+          </div>
+        </article>
+
+        <!-- Card 6 -->
+        <article class="press-article">
+          <div class="press-article__source">
+            <div class="press-article__badge">FN</div>
+            <span class="press-article__pub">Finances News</span>
+          </div>
+          <div class="press-article__body">
+            <span class="press-article__tag">Investissement · Expansion</span>
+            <h3 class="press-article__title">Le Groupe AKSAL annonce trois nouveaux projets pour consolider son leadership au Maroc</h3>
+            <p class="press-article__excerpt">Fort du succès de Morocco Mall, le Groupe AKSAL confirme des investissements majeurs à Rabat, Bouskoura et Tanger d'ici 2026.</p>
+            <div class="press-article__footer">
+              <span class="press-article__date">5 Fév 2024</span>
+              <span class="press-article__read">Lire l'article <svg width="14" height="6" viewBox="0 0 14 6" fill="none"><path d="M0 3h12M12 3L9 1M12 3L9 5" stroke="currentColor" stroke-width="1.1"/></svg></span>
+            </div>
+          </div>
+        </article>
+
+      </div>
     </div>
   </section>
 
