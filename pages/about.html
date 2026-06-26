@@ -646,6 +646,81 @@
     }
     .ag-cta__btn-out:hover { border-color: var(--gold); color: var(--gold); }
 
+    /* ── Careers ── */
+    .ag-careers {
+      background: #050505;
+      padding: clamp(5rem, 12vw, 9rem) var(--pad-x);
+      position: relative;
+      overflow: hidden;
+    }
+    .ag-careers::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 70% 60% at 85% 50%, rgba(201,169,110,0.06), transparent);
+      pointer-events: none;
+    }
+    .ag-careers__grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: clamp(3rem, 7vw, 7rem);
+      align-items: start;
+      position: relative;
+      z-index: 1;
+    }
+    @media (max-width: 768px) { .ag-careers__grid { grid-template-columns: 1fr; } }
+    .ag-careers__eyebrow {
+      font-size: 0.65rem; letter-spacing: 0.28em; text-transform: uppercase;
+      color: var(--gold); margin-bottom: 1.2rem;
+      display: flex; align-items: center; gap: 1rem;
+    }
+    .ag-careers__eyebrow::before {
+      content: ''; width: 2rem; height: 1px;
+      background: var(--gold); opacity: 0.6; flex-shrink: 0;
+    }
+    .ag-careers__title {
+      font-size: clamp(2.5rem, 5.5vw, 5rem);
+      font-weight: 200; line-height: 1;
+      letter-spacing: -0.03em; margin-bottom: 1.5rem;
+    }
+    .ag-careers__title em { font-style: italic; color: var(--gold-light); }
+    .ag-careers__body {
+      font-size: 0.9rem; color: rgba(255,255,255,0.45);
+      line-height: 1.8; margin-bottom: 2rem; max-width: 460px;
+    }
+    .ag-careers__cta {
+      display: inline-flex; align-items: center; gap: 0.75rem;
+      background: linear-gradient(135deg, var(--gold), var(--gold-light));
+      color: #0A0A0A; font-size: 0.78rem; font-weight: 700;
+      letter-spacing: 0.16em; text-transform: uppercase;
+      text-decoration: none; padding: 1.1rem 2.4rem;
+      transition: opacity 0.3s;
+    }
+    .ag-careers__cta:hover { opacity: 0.85; }
+    .ag-careers__note {
+      margin-top: 0.85rem; font-size: 0.62rem;
+      color: rgba(255,255,255,0.18); letter-spacing: 0.1em;
+    }
+    .ag-careers__perks {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 1px; background: rgba(201,169,110,0.12);
+    }
+    .ag-careers__perk {
+      background: #050505; padding: 2rem 1.75rem; transition: background 0.25s;
+    }
+    .ag-careers__perk:hover { background: #0f0f0f; }
+    .ag-careers__perk-line {
+      width: 28px; height: 1px; background: var(--gold);
+      margin-bottom: 1.1rem; opacity: 0.6;
+    }
+    .ag-careers__perk-title {
+      font-size: 0.9rem; font-weight: 500;
+      color: rgba(255,255,255,0.82); margin-bottom: 0.45rem;
+    }
+    .ag-careers__perk-desc {
+      font-size: 0.78rem; color: rgba(255,255,255,0.32); line-height: 1.65;
+    }
+
     /* ── Reveal ── */
     .reveal { opacity: 0; transform: translateY(1.8rem); transition: opacity 0.75s ease, transform 0.75s ease; }
     .reveal.in-view { opacity: 1; transform: none; }
@@ -1111,6 +1186,59 @@
 
 
     <!-- ================================================================
+         CAREERS
+    ================================================================ -->
+    <section class="ag-careers" aria-label="Rejoindre le Groupe AKSAL — Carrières">
+      <div class="ag-careers__grid">
+
+        <div class="reveal">
+          <p class="ag-careers__eyebrow">Carrières · Groupe AKSAL</p>
+          <h2 class="ag-careers__title">
+            Rejoignez<br><em>l'aventure AKSAL</em>
+          </h2>
+          <p class="ag-careers__body">
+            Le Groupe AKSAL est bien plus qu'un employeur — c'est un terrain d'expression pour les talents ambitieux, curieux et engagés. De la gestion de malls aux opérations retail, du marketing au développement immobilier, nous offrons des carrières riches et évolutives dans un groupe en pleine croissance.
+          </p>
+          <p class="ag-careers__body" style="margin-top:-1.2rem;">
+            Rejoignez une équipe de plus de 5 000 collaborateurs qui façonnent au quotidien l'avenir du commerce marocain.
+          </p>
+          <a href="#" class="ag-careers__cta" target="_blank" rel="noopener" aria-label="Voir les offres d'emploi du Groupe AKSAL">
+            Voir nos offres d'emploi
+            <svg width="16" height="7" viewBox="0 0 16 7" fill="none" aria-hidden="true">
+              <path d="M0 3.5H14M14 3.5L10.5 1M14 3.5L10.5 6" stroke="currentColor" stroke-width="1.2"/>
+            </svg>
+          </a>
+          <p class="ag-careers__note">↳ Lien portail carrières AKSAL — à renseigner</p>
+        </div>
+
+        <div class="ag-careers__perks reveal reveal-delay-1">
+          <div class="ag-careers__perk">
+            <div class="ag-careers__perk-line"></div>
+            <div class="ag-careers__perk-title">Culture d'excellence</div>
+            <p class="ag-careers__perk-desc">Un environnement exigeant et stimulant, au contact des plus grandes marques mondiales, orienté performance et qualité à chaque niveau.</p>
+          </div>
+          <div class="ag-careers__perk">
+            <div class="ag-careers__perk-line"></div>
+            <div class="ag-careers__perk-title">Mobilité &amp; évolution</div>
+            <p class="ag-careers__perk-desc">Des parcours transversaux entre nos pôles — retail, malls, luxe, immobilier — avec des opportunités à l'échelle du Royaume.</p>
+          </div>
+          <div class="ag-careers__perk">
+            <div class="ag-careers__perk-line"></div>
+            <div class="ag-careers__perk-title">AKSAL Academy</div>
+            <p class="ag-careers__perk-desc">Un programme de formation interne dédié à développer les compétences de chaque collaborateur à chaque étape de sa carrière.</p>
+          </div>
+          <div class="ag-careers__perk">
+            <div class="ag-careers__perk-line"></div>
+            <div class="ag-careers__perk-title">Impact &amp; sens</div>
+            <p class="ag-careers__perk-desc">Travailler chez AKSAL, c'est contribuer au développement économique du Maroc — un projet de société autant qu'un projet d'entreprise.</p>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+
+    <!-- ================================================================
          CTA FINAL
     ================================================================ -->
     <section class="ag-cta" aria-label="Découvrir Morocco Mall">
@@ -1126,6 +1254,9 @@
         </a>
         <a href="services.html" class="ag-cta__btn-out">
           Services &amp; Hospitality
+        </a>
+        <a href="https://www.aksalgroup.com" class="ag-cta__btn-out" target="_blank" rel="noopener" aria-label="Site institutionnel du Groupe AKSAL (nouvelle fenêtre)">
+          Groupe AKSAL ↗
         </a>
       </div>
     </section>
