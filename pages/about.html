@@ -20,7 +20,12 @@
       justify-content: flex-end;
       padding: clamp(7rem, 14vh, 10rem) var(--pad-x) clamp(3.5rem, 9vw, 7rem);
       position: relative;
+    }
+    .ag-hero__bg-wrap {
+      position: absolute;
+      inset: 0;
       overflow: hidden;
+      z-index: 0;
     }
     .ag-hero__bg {
       position: absolute;
@@ -28,7 +33,6 @@
       background-image: url('https://images.unsplash.com/photo-1486325212027-8081e485255e?w=1800&h=1000&fit=crop');
       background-size: cover;
       background-position: center 35%;
-      z-index: 0;
       transform: scale(1.04);
       transition: transform 9s ease-out;
     }
@@ -741,8 +745,10 @@
          HERO
     ================================================================ -->
     <section class="ag-hero" aria-label="Groupe AKSAL — À propos">
-      <div class="ag-hero__bg" id="agHeroBg" role="img" aria-label="Vue architecturale d'un complexe commercial de prestige signé Groupe AKSAL"></div>
-      <div class="ag-hero__overlay"></div>
+      <div class="ag-hero__bg-wrap">
+        <div class="ag-hero__bg" id="agHeroBg" role="img" aria-label="Vue architecturale d'un complexe commercial de prestige signé Groupe AKSAL"></div>
+        <div class="ag-hero__overlay"></div>
+      </div>
 
       <div class="ag-hero__content">
         <p class="ag-hero__eyebrow">Casablanca, Maroc · Depuis 2004</p>
