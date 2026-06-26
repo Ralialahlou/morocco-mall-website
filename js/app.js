@@ -18,7 +18,7 @@ const MM = {
 const ANNOUNCEMENT = {
   enabled: true,
   delay:   1800,   // ms before popup appears
-  image:   'https://images.unsplash.com/photo-1555529669-e69e7aa0ba9a?w=900&h=500&fit=crop',
+  image:   'assets/rb-entrance.png',
   label:   'Nouvelle Ouverture',
   title:   'Bienvenue sur Rose Boulevard',
   body:    'Découvrez la toute nouvelle boutique BALENCIAGA au cœur de l\'avenue du luxe — Morocco Mall Casablanca Bay.',
@@ -362,7 +362,7 @@ const ANNOUNCEMENT_POPUP_HTML = () => `
       </svg>
     </button>
     <div class="ann-img-wrap">
-      <img class="ann-img" src="${ANNOUNCEMENT.image}" alt="${ANNOUNCEMENT.title}" loading="eager" />
+      <img class="ann-img" src="${rootPath()}${ANNOUNCEMENT.image}" alt="${ANNOUNCEMENT.title}" loading="eager" />
     </div>
     <div class="ann-body">
       <span class="ann-label">${ANNOUNCEMENT.label}</span>
