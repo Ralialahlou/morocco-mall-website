@@ -26,7 +26,12 @@
       justify-content: flex-end;
       padding: 0 var(--pad-x) clamp(3rem, 8vw, 6rem);
       position: relative;
+    }
+    .pd-hero__bg-wrap {
+      position: absolute;
+      inset: 0;
       overflow: hidden;
+      z-index: 0;
     }
     .pd-hero__bg {
       position: absolute;
@@ -575,8 +580,10 @@
          HERO
          ============================================================ -->
     <section class="pd-hero" aria-label="The Padel Club">
-      <div class="pd-hero__bg" role="img" aria-label="Terrains de padel vue mer, The Padel Club Morocco Mall"></div>
-      <div class="pd-hero__overlay"></div>
+      <div class="pd-hero__bg-wrap">
+        <div class="pd-hero__bg" role="img" aria-label="Terrains de padel vue mer, The Padel Club Morocco Mall"></div>
+        <div class="pd-hero__overlay"></div>
+      </div>
       <div class="pd-hero__content">
         <p class="pd-hero__eyebrow">Casablanca Bay · Premier à Casablanca</p>
         <h1 class="pd-hero__title">
