@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="fr" dir="ltr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Morocco Mall Bouskoura — La future destination Morocco Mall au cœur de la forêt de Bouskoura. Bientôt ouvert." />
+  <title>Morocco Mall Bouskoura — À venir</title>
+  <link rel="icon" href="../assets/logo.png" type="image/png" />
+  <link rel="stylesheet" href="../css/main.css" />
+  <style>
+    /* ============================================================
+       BOUSKOURA COMING SOON PAGE
+       ============================================================ */
+
+    .cs-page {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      overflow: hidden;
+      background: var(--black);
+    }
+
+    .cs-canvas {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+    }
+
+    .cs-overlay {
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at 50% 55%, rgba(0,0,0,0.35) 0%, rgba(0,0,0,0.78) 100%);
+    }
+
+    .cs-content {
+      position: relative;
+      z-index: 2;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: clamp(3rem, 10vh, 7rem) 2rem;
+      color: var(--white);
+    }
+
+    .cs-logo {
+      margin-bottom: 3rem;
+    }
+    .cs-logo img {
+      height: 36px;
+      opacity: 0.85;
+      filter: brightness(0) invert(1);
+    }
+
+    .cs-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: rgba(201,169,110,0.1);
+      border: 1px solid rgba(201,169,110,0.25);
+      border-radius: 2px;
+      padding: 0.4rem 1rem;
+      font-family: var(--font-body);
+      font-size: 0.6rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 2rem;
+    }
+
+    .cs-city {
+      font-family: var(--font-body);
+      font-size: 0.68rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.45);
+      margin-bottom: 1rem;
+    }
+
+    .cs-title {
+      font-family: var(--font-display);
+      font-size: clamp(3rem, 9vw, 6.5rem);
+      font-weight: 400;
+      line-height: 0.92;
+      letter-spacing: -0.02em;
+      margin-bottom: 2.5rem;
+    }
+    .cs-title em {
+      font-style: italic;
+      color: var(--gold);
+    }
+
+    .cs-desc {
+      font-family: var(--font-body);
+      font-size: clamp(0.9rem, 1.5vw, 1.05rem);
+      line-height: 1.75;
+      color: rgba(255,255,255,0.6);
+      max-width: 480px;
+      margin: 0 auto 3.5rem;
+    }
+
+    .cs-rule {
+      width: 3rem;
+      height: 1px;
+      background: rgba(201,169,110,0.4);
+      margin: 0 auto 3rem;
+    }
+
+    .cs-back {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      color: rgba(255,255,255,0.5);
+      font-family: var(--font-body);
+      font-size: 0.65rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .cs-back:hover { color: var(--gold); }
+    .cs-back svg { transform: rotate(180deg); }
+
+    .cs-footer-bar {
+      position: relative;
+      z-index: 2;
+      padding: 1.5rem 2rem;
+      border-top: 1px solid rgba(255,255,255,0.06);
+      display: flex;
+      justify-content: center;
+    }
+    .cs-footer-bar p {
+      font-family: var(--font-body);
+      font-size: 0.62rem;
+      letter-spacing: 0.1em;
+      color: rgba(255,255,255,0.25);
+    }
+
+    /* Reveal */
+    .reveal {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.8s var(--ease-out), transform 0.8s var(--ease-out);
+    }
+    .reveal.in-view { opacity: 1; transform: translateY(0); }
+    .reveal-delay-1 { transition-delay: 0.12s; }
+    .reveal-delay-2 { transition-delay: 0.24s; }
+    .reveal-delay-3 { transition-delay: 0.36s; }
+    .reveal-delay-4 { transition-delay: 0.48s; }
+    .reveal-delay-5 { transition-delay: 0.6s; }
+  </style>
+</head>
+<body>
+
+<div class="cs-page">
+  <canvas class="cs-canvas" id="bgCanvas" aria-hidden="true"></canvas>
+  <div class="cs-overlay"></div>
+
+  <div class="cs-content">
+    <div class="cs-logo reveal">
+      <img src="../assets/logo.png" alt="Morocco Mall" />
+    </div>
+
+    <div class="cs-badge reveal reveal-delay-1">
+      <svg width="8" height="8" viewBox="0 0 8 8" aria-hidden="true"><circle cx="4" cy="4" r="3" fill="currentColor" opacity="0.6"/></svg>
+      À venir
+    </div>
+
+    <p class="cs-city reveal reveal-delay-2">Bouskoura · Casablanca</p>
+
+    <h1 class="cs-title reveal reveal-delay-2">
+      Morocco<br>Mall <em>Bouskoura</em>
+    </h1>
+
+    <p class="cs-desc reveal reveal-delay-3">
+      Au cœur de la forêt de Bouskoura, une nouvelle destination Morocco Mall verra le jour — une adresse d'exception qui allie nature préservée et art de vivre contemporain.
+    </p>
+
+    <div class="cs-rule reveal reveal-delay-4"></div>
+
+    <a href="../index.html" class="cs-back reveal reveal-delay-5">
+      <svg width="16" height="6" viewBox="0 0 16 6" fill="none" aria-hidden="true"><path d="M0 3h14M14 3L11 1M14 3L11 5" stroke="currentColor" stroke-width="1.2"/></svg>
+      Retour à l'accueil
+    </a>
+  </div>
+
+  <div class="cs-footer-bar">
+    <p>© Morocco Mall · Groupe Aksal · Tous droits réservés</p>
+  </div>
+</div>
+
+<div id="chrome-mount"></div>
+<script src="../js/seo.js" defer></script>
+<script src="../js/translations.js" defer></script>
+<script src="../js/app.js" defer></script>
+<script>
+  // Background canvas — forest / nature tones for Bouskoura
+  (function () {
+    var canvas = document.getElementById('bgCanvas');
+    if (!canvas) return;
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    var ctx = canvas.getContext('2d');
+    var W = canvas.width, H = canvas.height;
+
+    // Background — deep forest night
+    var bg = ctx.createLinearGradient(0, 0, 0, H);
+    bg.addColorStop(0, '#030806');
+    bg.addColorStop(0.5, '#050D08');
+    bg.addColorStop(1, '#020503');
+    ctx.fillStyle = bg;
+    ctx.fillRect(0, 0, W, H);
+
+    // Forest green glow — Bouskoura spirit
+    var glow = ctx.createRadialGradient(W * 0.5, H * 0.5, 0, W * 0.5, H * 0.5, W * 0.65);
+    glow.addColorStop(0, 'rgba(20,70,30,0.3)');
+    glow.addColorStop(0.5, 'rgba(15,50,20,0.15)');
+    glow.addColorStop(1, 'transparent');
+    ctx.fillStyle = glow;
+    ctx.fillRect(0, 0, W, H);
+
+    // Gold accent glow
+    var goldGlow = ctx.createRadialGradient(W * 0.3, H * 0.3, 0, W * 0.3, H * 0.3, W * 0.35);
+    goldGlow.addColorStop(0, 'rgba(201,169,110,0.08)');
+    goldGlow.addColorStop(1, 'transparent');
+    ctx.fillStyle = goldGlow;
+    ctx.fillRect(0, 0, W, H);
+
+    // Tree silhouettes — pine forest
+    ctx.fillStyle = '#020804';
+    var treePositions = [
+      { x: 0.05, h: 0.45 }, { x: 0.12, h: 0.55 }, { x: 0.19, h: 0.42 },
+      { x: 0.26, h: 0.6 }, { x: 0.33, h: 0.48 }, { x: 0.72, h: 0.5 },
+      { x: 0.78, h: 0.58 }, { x: 0.84, h: 0.44 }, { x: 0.9, h: 0.55 },
+      { x: 0.96, h: 0.47 },
+    ];
+    treePositions.forEach(function (t) {
+      var tx = t.x * W;
+      var treeH = t.h * H;
+      var treeW = treeH * 0.22;
+      var baseY = H;
+      ctx.beginPath();
+      ctx.moveTo(tx, baseY - treeH);
+      ctx.lineTo(tx - treeW * 0.5, baseY - treeH * 0.6);
+      ctx.lineTo(tx - treeW * 0.4, baseY - treeH * 0.6);
+      ctx.lineTo(tx - treeW * 0.65, baseY - treeH * 0.35);
+      ctx.lineTo(tx - treeW * 0.5, baseY - treeH * 0.35);
+      ctx.lineTo(tx - treeW * 0.8, baseY);
+      ctx.lineTo(tx + treeW * 0.8, baseY);
+      ctx.lineTo(tx + treeW * 0.5, baseY - treeH * 0.35);
+      ctx.lineTo(tx + treeW * 0.65, baseY - treeH * 0.35);
+      ctx.lineTo(tx + treeW * 0.4, baseY - treeH * 0.6);
+      ctx.lineTo(tx + treeW * 0.5, baseY - treeH * 0.6);
+      ctx.closePath();
+      ctx.fill();
+    });
+
+    // Subtle green leaf dabs — atmospheric
+    for (var i = 0; i < 30; i++) {
+      var lx = Math.random() * W, ly = H * 0.4 + Math.random() * H * 0.6;
+      var lr = 20 + Math.random() * 60;
+      var lg = ctx.createRadialGradient(lx, ly, 0, lx, ly, lr);
+      lg.addColorStop(0, 'rgba(30,80,35,0.12)');
+      lg.addColorStop(1, 'transparent');
+      ctx.fillStyle = lg;
+      ctx.beginPath();
+      ctx.ellipse(lx, ly, lr * 0.7, lr, Math.random() * Math.PI, 0, Math.PI * 2);
+      ctx.fill();
+    }
+
+    // Stars / fireflies
+    for (var s = 0; s < 80; s++) {
+      var sx = Math.random() * W, sy = Math.random() * H * 0.55;
+      var sa = 0.3 + Math.random() * 0.7;
+      var sr = Math.random() * 1.4;
+      ctx.fillStyle = 'rgba(255,255,255,' + sa + ')';
+      ctx.beginPath(); ctx.arc(sx, sy, sr, 0, Math.PI * 2); ctx.fill();
+    }
+
+    // Moon
+    var moonX = W * 0.75, moonY = H * 0.18, moonR = 22;
+    var moonGlow = ctx.createRadialGradient(moonX, moonY, 0, moonX, moonY, moonR * 3.5);
+    moonGlow.addColorStop(0, 'rgba(220,210,180,0.18)');
+    moonGlow.addColorStop(1, 'transparent');
+    ctx.fillStyle = moonGlow; ctx.fillRect(0, 0, W, H);
+    ctx.fillStyle = 'rgba(240,230,200,0.85)';
+    ctx.beginPath(); ctx.arc(moonX, moonY, moonR, 0, Math.PI * 2); ctx.fill();
+    ctx.fillStyle = 'rgba(3,8,6,0.75)';
+    ctx.beginPath(); ctx.arc(moonX + moonR * 0.3, moonY - moonR * 0.1, moonR * 0.88, 0, Math.PI * 2); ctx.fill();
+  })();
+
+  // Intersection Observer
+  (function () {
+    var els = document.querySelectorAll('.reveal');
+    if (!els.length) return;
+    var obs = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) { e.target.classList.add('in-view'); obs.unobserve(e.target); }
+      });
+    }, { threshold: 0.05 });
+    els.forEach(function (el) { obs.observe(el); });
+    setTimeout(function () {
+      els.forEach(function (el) {
+        var rect = el.getBoundingClientRect();
+        if (rect.top < window.innerHeight) el.classList.add('in-view');
+      });
+    }, 100);
+  })();
+</script>
+</body>
+</html>

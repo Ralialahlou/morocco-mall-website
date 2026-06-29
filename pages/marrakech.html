@@ -1,0 +1,1015 @@
+<!DOCTYPE html>
+<html lang="fr" dir="ltr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Morocco Mall Marrakech Garden — le premier mall à ciel ouvert d'Afrique, sur 7,5 hectares, pensé pour vivre Marrakech autrement." />
+  <title>Morocco Mall Marrakech Garden</title>
+  <link rel="icon" href="../assets/logo.png" type="image/png" />
+  <link rel="stylesheet" href="../css/main.css" />
+  <style>
+    /* ============================================================
+       MARRAKECH PAGE — Scoped Styles
+       ============================================================ */
+
+    /* ── Hero ─────────────────────────────────────────────────── */
+    .mk-hero {
+      position: relative;
+      height: 100vh;
+      min-height: 640px;
+      display: flex;
+      align-items: flex-end;
+      overflow: hidden;
+    }
+    .mk-hero__bg {
+      position: absolute;
+      inset: 0;
+      background-image: url('../assets/luxury-1.jpg');
+      background-size: cover;
+      background-position: center;
+      transform: scale(1.06);
+      transition: transform 9s ease-out;
+    }
+    .mk-hero__bg.loaded { transform: scale(1); }
+    .mk-hero__overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        160deg,
+        rgba(6,4,2,0.15) 0%,
+        rgba(6,4,2,0.5) 55%,
+        rgba(6,4,2,0.88) 100%
+      );
+    }
+    .mk-hero__content {
+      position: relative;
+      z-index: 2;
+      padding-bottom: clamp(3.5rem, 9vh, 6.5rem);
+      color: var(--white);
+    }
+    .mk-hero__breadcrumb {
+      font-family: var(--font-body);
+      font-size: 0.62rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.4);
+      margin-bottom: 2.25rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .mk-hero__breadcrumb a {
+      color: inherit;
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .mk-hero__breadcrumb a:hover { color: var(--gold); }
+    .mk-hero__eyebrow {
+      font-family: var(--font-body);
+      font-size: 0.62rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 1rem;
+    }
+    .mk-hero__title {
+      font-family: var(--font-display);
+      font-size: clamp(3rem, 8vw, 6.5rem);
+      font-weight: 400;
+      line-height: 0.95;
+      margin-bottom: 1.75rem;
+      letter-spacing: -0.02em;
+    }
+    .mk-hero__title em {
+      font-style: italic;
+      color: var(--gold);
+    }
+    .mk-hero__subtitle {
+      font-family: var(--font-body);
+      font-size: clamp(0.92rem, 1.5vw, 1.05rem);
+      line-height: 1.7;
+      color: rgba(255,255,255,0.72);
+      max-width: 520px;
+      margin-bottom: 2.25rem;
+    }
+    .mk-hero__badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.55rem;
+      background: rgba(201,169,110,0.12);
+      border: 1px solid rgba(201,169,110,0.3);
+      border-radius: 2px;
+      padding: 0.45rem 1rem;
+      font-family: var(--font-body);
+      font-size: 0.68rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--gold);
+    }
+
+    /* ── Vision section ───────────────────────────────────────── */
+    .mk-vision {
+      padding: clamp(5rem, 10vh, 8rem) 0;
+      background: var(--black);
+    }
+    .mk-vision__inner {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 3.5rem;
+    }
+    @media (min-width: 900px) {
+      .mk-vision__inner {
+        grid-template-columns: 1fr 1.1fr;
+        gap: 6rem;
+        align-items: start;
+      }
+    }
+    .mk-vision__label {
+      font-family: var(--font-body);
+      font-size: 0.6rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 1.25rem;
+    }
+    .mk-vision__heading {
+      font-family: var(--font-display);
+      font-size: clamp(2.25rem, 4.5vw, 3.5rem);
+      font-weight: 400;
+      line-height: 1.1;
+      color: var(--white);
+      margin-bottom: 0;
+    }
+    .mk-vision__heading em {
+      font-style: italic;
+      color: var(--gold);
+    }
+    .mk-vision__text {
+      font-family: var(--font-body);
+      font-size: 0.96rem;
+      line-height: 1.85;
+      color: rgba(255,255,255,0.62);
+    }
+    .mk-vision__text + .mk-vision__text {
+      margin-top: 1.25rem;
+    }
+    .mk-vision__rule {
+      width: 3rem;
+      height: 1px;
+      background: var(--gold);
+      margin: 2rem 0;
+      opacity: 0.5;
+    }
+    .mk-vision__quote {
+      font-family: var(--font-display);
+      font-size: clamp(1.25rem, 2.5vw, 1.6rem);
+      font-style: italic;
+      color: var(--gold);
+      line-height: 1.4;
+      margin-top: 2.5rem;
+      padding-left: 1.5rem;
+      border-left: 1px solid rgba(201,169,110,0.35);
+    }
+
+    /* ── Canvas hero-art panel ────────────────────────────────── */
+    .mk-canvas-wrap {
+      position: relative;
+      border-radius: 2px;
+      overflow: hidden;
+    }
+    .mk-canvas-wrap canvas {
+      display: block;
+      width: 100%;
+      height: auto;
+      aspect-ratio: 4/5;
+    }
+    .mk-canvas-caption {
+      position: absolute;
+      bottom: 1.5rem;
+      left: 1.5rem;
+      right: 1.5rem;
+      font-family: var(--font-body);
+      font-size: 0.6rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.5);
+    }
+
+    /* ── Stats strip ──────────────────────────────────────────── */
+    .mk-stats {
+      background: rgba(201,169,110,0.06);
+      border-top: 1px solid rgba(201,169,110,0.12);
+      border-bottom: 1px solid rgba(201,169,110,0.12);
+      padding: 3.5rem 0;
+    }
+    .mk-stats__grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 2.5rem 2rem;
+    }
+    @media (min-width: 640px) {
+      .mk-stats__grid { grid-template-columns: repeat(4, 1fr); }
+    }
+    .mk-stat {
+      text-align: center;
+    }
+    .mk-stat__value {
+      font-family: var(--font-display);
+      font-size: clamp(2.2rem, 4vw, 3rem);
+      font-weight: 400;
+      color: var(--gold);
+      line-height: 1;
+      margin-bottom: 0.5rem;
+    }
+    .mk-stat__label {
+      font-family: var(--font-body);
+      font-size: 0.62rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.45);
+    }
+
+    /* ── Highlights section ───────────────────────────────────── */
+    .mk-highlights {
+      padding: clamp(5rem, 10vh, 8rem) 0;
+      background: var(--black);
+    }
+    .mk-highlights__header {
+      margin-bottom: 3.5rem;
+    }
+    .mk-highlights__grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+    }
+    @media (min-width: 640px) {
+      .mk-highlights__grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (min-width: 1024px) {
+      .mk-highlights__grid { grid-template-columns: repeat(3, 1fr); }
+    }
+    .mk-card {
+      position: relative;
+      min-height: 280px;
+      overflow: hidden;
+      border-radius: 2px;
+      display: flex;
+      align-items: flex-end;
+    }
+    .mk-card__canvas {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+    }
+    .mk-card__overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.2) 60%, transparent 100%);
+    }
+    .mk-card__body {
+      position: relative;
+      z-index: 2;
+      padding: 1.75rem;
+      color: var(--white);
+    }
+    .mk-card__icon {
+      font-size: 1.4rem;
+      margin-bottom: 0.75rem;
+      line-height: 1;
+    }
+    .mk-card__title {
+      font-family: var(--font-display);
+      font-size: 1.35rem;
+      font-weight: 400;
+      margin-bottom: 0.5rem;
+      line-height: 1.2;
+    }
+    .mk-card__desc {
+      font-family: var(--font-body);
+      font-size: 0.82rem;
+      line-height: 1.65;
+      color: rgba(255,255,255,0.62);
+    }
+
+    /* ── Philosophy banner ────────────────────────────────────── */
+    .mk-banner {
+      position: relative;
+      padding: clamp(4rem, 8vh, 6rem) 0;
+      overflow: hidden;
+    }
+    .mk-banner__bg {
+      position: absolute;
+      inset: 0;
+      background-image: url('../assets/luxury-2.jpg');
+      background-size: cover;
+      background-position: center 30%;
+    }
+    .mk-banner__overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(0,0,0,0.72);
+    }
+    .mk-banner__content {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      color: var(--white);
+    }
+    .mk-banner__kicker {
+      font-family: var(--font-body);
+      font-size: 0.6rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 1.5rem;
+    }
+    .mk-banner__quote {
+      font-family: var(--font-display);
+      font-size: clamp(1.6rem, 3.5vw, 2.8rem);
+      font-style: italic;
+      font-weight: 400;
+      line-height: 1.25;
+      max-width: 800px;
+      margin: 0 auto 2rem;
+    }
+
+    /* ── Explore section ──────────────────────────────────────── */
+    .mk-explore {
+      padding: clamp(5rem, 10vh, 8rem) 0;
+      background: var(--black);
+    }
+    .mk-explore__header {
+      margin-bottom: 3.5rem;
+    }
+    .mk-explore__grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1rem;
+    }
+    @media (min-width: 640px) {
+      .mk-explore__grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (min-width: 900px) {
+      .mk-explore__grid { grid-template-columns: repeat(4, 1fr); }
+    }
+    .mk-exp-card {
+      display: flex;
+      flex-direction: column;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 2px;
+      padding: 2rem 1.5rem;
+      transition: border-color 0.3s, background 0.3s;
+    }
+    .mk-exp-card:hover {
+      border-color: rgba(201,169,110,0.25);
+      background: rgba(201,169,110,0.04);
+    }
+    .mk-exp-card__num {
+      font-family: var(--font-display);
+      font-size: 2.5rem;
+      color: rgba(201,169,110,0.2);
+      line-height: 1;
+      margin-bottom: 1.25rem;
+    }
+    .mk-exp-card__title {
+      font-family: var(--font-display);
+      font-size: 1.2rem;
+      font-weight: 400;
+      color: var(--white);
+      margin-bottom: 0.75rem;
+    }
+    .mk-exp-card__text {
+      font-family: var(--font-body);
+      font-size: 0.82rem;
+      line-height: 1.65;
+      color: rgba(255,255,255,0.5);
+      flex: 1;
+    }
+
+    /* ── CTA section ──────────────────────────────────────────── */
+    .mk-cta {
+      padding: clamp(4rem, 8vh, 6rem) 0;
+      background: rgba(201,169,110,0.06);
+      border-top: 1px solid rgba(201,169,110,0.12);
+    }
+    .mk-cta__inner {
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+    }
+    @media (min-width: 768px) {
+      .mk-cta__inner {
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+      }
+    }
+    .mk-cta__heading {
+      font-family: var(--font-display);
+      font-size: clamp(1.75rem, 3vw, 2.5rem);
+      font-weight: 400;
+      color: var(--white);
+    }
+    .mk-cta__heading em { color: var(--gold); font-style: italic; }
+    .mk-cta__actions {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      flex-shrink: 0;
+    }
+    .mk-btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.75rem;
+      background: var(--gold);
+      color: var(--black);
+      font-family: var(--font-body);
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      text-decoration: none;
+      padding: 0.85rem 1.75rem;
+      border-radius: 2px;
+      transition: opacity 0.2s;
+    }
+    .mk-btn-primary:hover { opacity: 0.85; }
+    .mk-btn-ghost {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.75rem;
+      border: 1px solid rgba(201,169,110,0.4);
+      color: var(--gold);
+      font-family: var(--font-body);
+      font-size: 0.7rem;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      text-decoration: none;
+      padding: 0.85rem 1.75rem;
+      border-radius: 2px;
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .mk-btn-ghost:hover { border-color: var(--gold); color: var(--white); }
+
+    /* ── Reveal animation ─────────────────────────────────────── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.7s var(--ease-out), transform 0.7s var(--ease-out);
+    }
+    .reveal.in-view { opacity: 1; transform: translateY(0); }
+    .reveal-delay-1 { transition-delay: 0.1s; }
+    .reveal-delay-2 { transition-delay: 0.2s; }
+    .reveal-delay-3 { transition-delay: 0.3s; }
+    .reveal-delay-4 { transition-delay: 0.4s; }
+  </style>
+</head>
+<body>
+
+<main id="main-content">
+
+  <!-- ============================================================
+       HERO
+       ============================================================ -->
+  <section class="mk-hero" aria-label="Morocco Mall Marrakech Garden">
+    <div class="mk-hero__bg" id="heroBg"></div>
+    <div class="mk-hero__overlay"></div>
+    <div class="container mk-hero__content">
+      <nav class="mk-hero__breadcrumb" aria-label="Fil d'Ariane">
+        <a href="../index.html">Morocco Mall</a>
+        <span aria-hidden="true">›</span>
+        <span>Marrakech</span>
+      </nav>
+      <p class="mk-hero__eyebrow">Premier Mall à Ciel Ouvert d'Afrique</p>
+      <h1 class="mk-hero__title">Marrakech<br><em>Garden</em></h1>
+      <p class="mk-hero__subtitle">
+        7,5 hectares de jardins, de fontaines et d'expériences uniques. Un lieu conçu pour vivre Marrakech autrement.
+      </p>
+      <div class="mk-hero__badge">
+        <svg width="14" height="14" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd"/></svg>
+        Marrakech · Ouverture prochaine
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       VISION — verbatim text + canvas art
+       ============================================================ -->
+  <section class="mk-vision" aria-label="La vision">
+    <div class="container">
+      <div class="mk-vision__inner">
+
+        <div>
+          <p class="mk-vision__label reveal">La Vision</p>
+          <h2 class="mk-vision__heading reveal reveal-delay-1">
+            Un lieu pensé<br>pour <em>célébrer Marrakech</em>
+          </h2>
+          <div class="mk-vision__rule reveal reveal-delay-2"></div>
+          <p class="mk-vision__text reveal reveal-delay-2">
+            Pensé en 2022 par la vision inspirante de Madame Akhannouch, le Morocco Mall est le premier mall à ciel ouvert d'Afrique, s'inscrivant dans une ambition de fusionner shopping et loisirs dans un cadre enchanteur.
+          </p>
+          <p class="mk-vision__text reveal reveal-delay-3">
+            Conçu par des architectes de renommée internationale, ce lieu exceptionnel se déploie sur 7,5 hectares, accueillant des jardins multi-niveaux, des fontaines et même le premier zoo aquatique du continent.
+          </p>
+          <p class="mk-vision__text reveal reveal-delay-3">
+            Chaque détail a été pensé pour offrir aux visiteurs du monde entier une expérience unique qui célèbre Marrakech. Ce projet harmonise modernité et respect de l'environnement, incarnant l'esprit vibrant de la ville tout en intégrant une atmosphère apaisante.
+          </p>
+          <blockquote class="mk-vision__quote reveal reveal-delay-4">
+            S'ouvrir au monde, pour Vivre Marrakech autrement.
+          </blockquote>
+        </div>
+
+        <div class="mk-canvas-wrap reveal reveal-delay-2">
+          <canvas id="visionCanvas" width="600" height="750" aria-hidden="true"></canvas>
+          <p class="mk-canvas-caption">Morocco Mall Marrakech Garden — Vue artistique</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       STATS STRIP
+       ============================================================ -->
+  <div class="mk-stats" role="region" aria-label="Chiffres clés">
+    <div class="container">
+      <div class="mk-stats__grid">
+        <div class="mk-stat reveal">
+          <div class="mk-stat__value">7,5</div>
+          <div class="mk-stat__label">Hectares</div>
+        </div>
+        <div class="mk-stat reveal reveal-delay-1">
+          <div class="mk-stat__value">2022</div>
+          <div class="mk-stat__label">Année de vision</div>
+        </div>
+        <div class="mk-stat reveal reveal-delay-2">
+          <div class="mk-stat__value">1er</div>
+          <div class="mk-stat__label">Mall à ciel ouvert d'Afrique</div>
+        </div>
+        <div class="mk-stat reveal reveal-delay-3">
+          <div class="mk-stat__value">1er</div>
+          <div class="mk-stat__label">Zoo aquatique du continent</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       HIGHLIGHTS — 3 canvas cards
+       ============================================================ -->
+  <section class="mk-highlights" aria-label="Moments forts">
+    <div class="container">
+      <div class="mk-highlights__header reveal">
+        <p class="mk-vision__label">Ce qui nous rend unique</p>
+        <h2 class="mk-vision__heading" style="margin-top:.75rem;">
+          Une expérience<br><em>hors du commun</em>
+        </h2>
+      </div>
+      <div class="mk-highlights__grid">
+
+        <article class="mk-card reveal">
+          <canvas class="mk-card__canvas" id="card1Canvas" aria-hidden="true"></canvas>
+          <div class="mk-card__overlay"></div>
+          <div class="mk-card__body">
+            <div class="mk-card__icon" aria-hidden="true">✦</div>
+            <h3 class="mk-card__title">Jardins multi-niveaux</h3>
+            <p class="mk-card__desc">Des espaces verts en terrasses où oliviers et végétation tropicale créent une atmosphère apaisante, baignée de lumière naturelle.</p>
+          </div>
+        </article>
+
+        <article class="mk-card reveal reveal-delay-1">
+          <canvas class="mk-card__canvas" id="card2Canvas" aria-hidden="true"></canvas>
+          <div class="mk-card__overlay"></div>
+          <div class="mk-card__body">
+            <div class="mk-card__icon" aria-hidden="true">✦</div>
+            <h3 class="mk-card__title">Zoo aquatique</h3>
+            <p class="mk-card__desc">Le premier zoo aquatique du continent africain — une expérience marine immersive unique, niché au cœur du mall.</p>
+          </div>
+        </article>
+
+        <article class="mk-card reveal reveal-delay-2">
+          <canvas class="mk-card__canvas" id="card3Canvas" aria-hidden="true"></canvas>
+          <div class="mk-card__overlay"></div>
+          <div class="mk-card__body">
+            <div class="mk-card__icon" aria-hidden="true">✦</div>
+            <h3 class="mk-card__title">Architecture internationale</h3>
+            <p class="mk-card__desc">Conçu par des architectes de renommée internationale, harmonisant modernité et respect de l'environnement marrakchi.</p>
+          </div>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       BANNER — closing quote
+       ============================================================ -->
+  <div class="mk-banner" role="complementary" aria-label="Esprit du lieu">
+    <div class="mk-banner__bg"></div>
+    <div class="mk-banner__overlay"></div>
+    <div class="container mk-banner__content">
+      <p class="mk-banner__kicker reveal">L'esprit Morocco Mall</p>
+      <blockquote class="mk-banner__quote reveal reveal-delay-1">
+        Ce projet harmonise modernité et respect de l'environnement, incarnant l'esprit vibrant de la ville tout en intégrant une atmosphère apaisante.
+      </blockquote>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       EXPLORE — what the mall offers
+       ============================================================ -->
+  <section class="mk-explore" aria-label="Explorer le mall">
+    <div class="container">
+      <div class="mk-explore__header reveal">
+        <p class="mk-vision__label">Ce qui vous attend</p>
+        <h2 class="mk-vision__heading" style="margin-top:.75rem;">Explorer<br><em>Marrakech Garden</em></h2>
+      </div>
+      <div class="mk-explore__grid">
+        <div class="mk-exp-card reveal">
+          <div class="mk-exp-card__num">01</div>
+          <h3 class="mk-exp-card__title">Shopping de prestige</h3>
+          <p class="mk-exp-card__text">Les plus grandes maisons internationales et les créateurs locaux les plus talentueux réunis dans un cadre d'exception.</p>
+        </div>
+        <div class="mk-exp-card reveal reveal-delay-1">
+          <div class="mk-exp-card__num">02</div>
+          <h3 class="mk-exp-card__title">Restauration & saveurs</h3>
+          <p class="mk-exp-card__text">Une offre gastronomique qui célèbre la cuisine marocaine et les saveurs du monde, entre fontaines et jardins.</p>
+        </div>
+        <div class="mk-exp-card reveal reveal-delay-2">
+          <div class="mk-exp-card__num">03</div>
+          <h3 class="mk-exp-card__title">Loisirs & divertissement</h3>
+          <p class="mk-exp-card__text">Du zoo aquatique aux espaces de jeux, chaque visite devient une aventure mémorable pour toute la famille.</p>
+        </div>
+        <div class="mk-exp-card reveal reveal-delay-3">
+          <div class="mk-exp-card__num">04</div>
+          <h3 class="mk-exp-card__title">Jardins & nature</h3>
+          <p class="mk-exp-card__text">7,5 hectares de verdure en terrasses, fontaines apaisantes et lumière naturelle — une parenthèse enchantée au cœur de la ville.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       CTA
+       ============================================================ -->
+  <div class="mk-cta">
+    <div class="container">
+      <div class="mk-cta__inner">
+        <h2 class="mk-cta__heading reveal">
+          Découvrir le<br><em>Morocco Mall</em>
+        </h2>
+        <div class="mk-cta__actions reveal reveal-delay-1">
+          <a href="shopping.html?mall=marrakech" class="mk-btn-primary">
+            Explorer le shopping
+            <svg width="16" height="6" viewBox="0 0 16 6" fill="none" aria-hidden="true"><path d="M0 3h14M14 3L11 1M14 3L11 5" stroke="currentColor" stroke-width="1.2"/></svg>
+          </a>
+          <a href="../index.html" class="mk-btn-ghost">Retour à l'accueil</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</main>
+
+<div id="chrome-mount"></div>
+
+<script src="../js/seo.js" defer></script>
+<script src="../js/translations.js" defer></script>
+<script src="../js/app.js" defer></script>
+<script>
+  // Hero zoom
+  (function () {
+    var bg = document.getElementById('heroBg');
+    if (bg) bg.classList.add('loaded');
+  })();
+
+  // Intersection Observer
+  (function () {
+    var els = document.querySelectorAll('.reveal');
+    if (!els.length) return;
+    var obs = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) { e.target.classList.add('in-view'); obs.unobserve(e.target); }
+      });
+    }, { threshold: 0.1 });
+    els.forEach(function (el) { obs.observe(el); });
+  })();
+
+  // ── Vision canvas: Marrakech rooftop garden scene ──────────────
+  (function () {
+    var canvas = document.getElementById('visionCanvas');
+    if (!canvas) return;
+    var ctx = canvas.getContext('2d');
+    var W = canvas.width, H = canvas.height;
+
+    // Sky gradient — Marrakech dusk
+    var sky = ctx.createLinearGradient(0, 0, 0, H * 0.55);
+    sky.addColorStop(0, '#1A0F05');
+    sky.addColorStop(0.4, '#3D1E0A');
+    sky.addColorStop(1, '#6B2E12');
+    ctx.fillStyle = sky;
+    ctx.fillRect(0, 0, W, H);
+
+    // Sunset glow
+    var glow = ctx.createRadialGradient(W * 0.62, H * 0.28, 0, W * 0.62, H * 0.28, W * 0.55);
+    glow.addColorStop(0, 'rgba(255,160,50,0.45)');
+    glow.addColorStop(0.5, 'rgba(201,100,30,0.18)');
+    glow.addColorStop(1, 'transparent');
+    ctx.fillStyle = glow;
+    ctx.fillRect(0, 0, W, H);
+
+    // Ground / terrace floor
+    var ground = ctx.createLinearGradient(0, H * 0.55, 0, H);
+    ground.addColorStop(0, '#1C0E06');
+    ground.addColorStop(1, '#0A0603');
+    ctx.fillStyle = ground;
+    ctx.fillRect(0, H * 0.55, W, H * 0.45);
+
+    // Zellige floor pattern
+    ctx.save();
+    ctx.globalAlpha = 0.09;
+    ctx.strokeStyle = '#C9A96E';
+    ctx.lineWidth = 0.7;
+    var tileSize = 28;
+    var floorY = H * 0.55;
+    for (var row = 0; row < 18; row++) {
+      for (var col = 0; col < Math.ceil(W / tileSize) + 1; col++) {
+        var x = col * tileSize - (row % 2) * (tileSize / 2);
+        var y = floorY + row * tileSize * 0.42;
+        // Diamond tile
+        ctx.beginPath();
+        ctx.moveTo(x + tileSize / 2, y);
+        ctx.lineTo(x + tileSize, y + tileSize * 0.21);
+        ctx.lineTo(x + tileSize / 2, y + tileSize * 0.42);
+        ctx.lineTo(x, y + tileSize * 0.21);
+        ctx.closePath();
+        ctx.stroke();
+      }
+    }
+    ctx.restore();
+
+    // Atlas Mountains silhouette
+    ctx.save();
+    ctx.fillStyle = '#2A1508';
+    ctx.beginPath();
+    ctx.moveTo(0, H * 0.52);
+    ctx.lineTo(W * 0.05, H * 0.38);
+    ctx.lineTo(W * 0.12, H * 0.44);
+    ctx.lineTo(W * 0.2, H * 0.3);
+    ctx.lineTo(W * 0.27, H * 0.37);
+    ctx.lineTo(W * 0.33, H * 0.26);
+    ctx.lineTo(W * 0.4, H * 0.33);
+    ctx.lineTo(W * 0.5, H * 0.22);
+    ctx.lineTo(W * 0.57, H * 0.32);
+    ctx.lineTo(W * 0.65, H * 0.25);
+    ctx.lineTo(W * 0.73, H * 0.35);
+    ctx.lineTo(W * 0.82, H * 0.29);
+    ctx.lineTo(W * 0.9, H * 0.38);
+    ctx.lineTo(W, H * 0.43);
+    ctx.lineTo(W, H * 0.55);
+    ctx.closePath();
+    ctx.fill();
+    ctx.restore();
+
+    // Moroccan arched colonnade
+    var archCount = 5;
+    var archW = W / archCount;
+    var archBaseY = H * 0.55;
+    var archTopY = H * 0.2;
+    for (var i = 0; i < archCount; i++) {
+      var ax = i * archW;
+      var cx = ax + archW / 2;
+      var colW = archW * 0.1;
+
+      // Column
+      ctx.fillStyle = '#3A1D0A';
+      ctx.fillRect(ax + colW, archTopY + (archW - colW * 2) * 0.52, colW, archBaseY - archTopY - (archW - colW * 2) * 0.52);
+
+      // Arch opening
+      ctx.save();
+      ctx.fillStyle = '#120807';
+      ctx.beginPath();
+      var archInnerW = archW * 0.72;
+      var archInnerH = archW * 0.85;
+      var archStartX = cx - archInnerW / 2;
+      var archStartY = archBaseY - archInnerH;
+      // Horseshoe arch
+      ctx.moveTo(archStartX, archBaseY);
+      ctx.lineTo(archStartX, archStartY + archInnerH * 0.5);
+      ctx.bezierCurveTo(
+        archStartX, archStartY - archInnerH * 0.08,
+        cx - archInnerW * 0.08, archStartY - archInnerH * 0.18,
+        cx, archStartY - archInnerH * 0.2
+      );
+      ctx.bezierCurveTo(
+        cx + archInnerW * 0.08, archStartY - archInnerH * 0.18,
+        archStartX + archInnerW, archStartY - archInnerH * 0.08,
+        archStartX + archInnerW, archStartY + archInnerH * 0.5
+      );
+      ctx.lineTo(archStartX + archInnerW, archBaseY);
+      ctx.closePath();
+      ctx.fill();
+      ctx.restore();
+
+      // Arch border glow
+      ctx.save();
+      ctx.strokeStyle = 'rgba(201,169,110,0.18)';
+      ctx.lineWidth = 1.5;
+      ctx.beginPath();
+      ctx.moveTo(archStartX, archBaseY);
+      ctx.lineTo(archStartX, archStartY + archInnerH * 0.5);
+      ctx.bezierCurveTo(
+        archStartX, archStartY - archInnerH * 0.08,
+        cx - archInnerW * 0.08, archStartY - archInnerH * 0.18,
+        cx, archStartY - archInnerH * 0.2
+      );
+      ctx.bezierCurveTo(
+        cx + archInnerW * 0.08, archStartY - archInnerH * 0.18,
+        archStartX + archInnerW, archStartY - archInnerH * 0.08,
+        archStartX + archInnerW, archStartY + archInnerH * 0.5
+      );
+      ctx.lineTo(archStartX + archInnerW, archBaseY);
+      ctx.stroke();
+      ctx.restore();
+    }
+
+    // Hanging lanterns
+    var lanternPositions = [
+      { x: W * 0.15, y: H * 0.15 },
+      { x: W * 0.35, y: H * 0.12 },
+      { x: W * 0.55, y: H * 0.16 },
+      { x: W * 0.75, y: H * 0.13 },
+    ];
+    lanternPositions.forEach(function (pos) {
+      // Chain
+      ctx.strokeStyle = 'rgba(201,169,110,0.3)';
+      ctx.lineWidth = 0.8;
+      ctx.beginPath();
+      ctx.moveTo(pos.x, 0);
+      ctx.lineTo(pos.x, pos.y - 14);
+      ctx.stroke();
+
+      // Glow
+      var lg = ctx.createRadialGradient(pos.x, pos.y, 0, pos.x, pos.y, 55);
+      lg.addColorStop(0, 'rgba(255,180,60,0.22)');
+      lg.addColorStop(1, 'transparent');
+      ctx.fillStyle = lg;
+      ctx.beginPath();
+      ctx.ellipse(pos.x, pos.y + 20, 55, 55, 0, 0, Math.PI * 2);
+      ctx.fill();
+
+      // Lantern body
+      ctx.fillStyle = '#C9A96E';
+      ctx.beginPath();
+      ctx.ellipse(pos.x, pos.y, 7, 10, 0, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.fillStyle = 'rgba(255,200,80,0.9)';
+      ctx.beginPath();
+      ctx.ellipse(pos.x, pos.y, 4, 6, 0, 0, Math.PI * 2);
+      ctx.fill();
+    });
+
+    // Olive trees
+    function drawOlive(x, y, scale) {
+      var s = scale || 1;
+      // Trunk
+      ctx.fillStyle = '#2A1508';
+      ctx.fillRect(x - 3 * s, y, 6 * s, 45 * s);
+      // Foliage
+      ctx.save();
+      ctx.globalAlpha = 0.7;
+      var gr = ctx.createRadialGradient(x, y - 15 * s, 0, x, y - 15 * s, 35 * s);
+      gr.addColorStop(0, '#3D5C2E');
+      gr.addColorStop(1, '#1E2E17');
+      ctx.fillStyle = gr;
+      ctx.beginPath();
+      ctx.ellipse(x, y - 15 * s, 28 * s, 40 * s, 0, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.restore();
+    }
+    drawOlive(W * 0.08, H * 0.72, 0.9);
+    drawOlive(W * 0.88, H * 0.68, 1.05);
+    drawOlive(W * 0.72, H * 0.75, 0.75);
+
+    // Fountain pool
+    ctx.save();
+    ctx.fillStyle = 'rgba(30,80,120,0.25)';
+    ctx.beginPath();
+    ctx.ellipse(W * 0.5, H * 0.82, 70, 20, 0, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.strokeStyle = 'rgba(100,180,255,0.2)';
+    ctx.lineWidth = 1;
+    ctx.stroke();
+    // Fountain arc
+    ctx.strokeStyle = 'rgba(150,210,255,0.35)';
+    ctx.lineWidth = 1.5;
+    ctx.beginPath();
+    ctx.moveTo(W * 0.5, H * 0.78);
+    ctx.quadraticCurveTo(W * 0.45, H * 0.72, W * 0.38, H * 0.8);
+    ctx.stroke();
+    ctx.beginPath();
+    ctx.moveTo(W * 0.5, H * 0.78);
+    ctx.quadraticCurveTo(W * 0.55, H * 0.72, W * 0.62, H * 0.8);
+    ctx.stroke();
+    ctx.restore();
+
+    // Saffron atmospheric haze
+    var haze = ctx.createLinearGradient(0, H * 0.4, 0, H * 0.65);
+    haze.addColorStop(0, 'rgba(200,120,30,0)');
+    haze.addColorStop(0.5, 'rgba(200,120,30,0.06)');
+    haze.addColorStop(1, 'rgba(200,120,30,0)');
+    ctx.fillStyle = haze;
+    ctx.fillRect(0, H * 0.4, W, H * 0.25);
+
+    // Vignette
+    var vig = ctx.createRadialGradient(W / 2, H / 2, H * 0.2, W / 2, H / 2, H * 0.8);
+    vig.addColorStop(0, 'transparent');
+    vig.addColorStop(1, 'rgba(0,0,0,0.55)');
+    ctx.fillStyle = vig;
+    ctx.fillRect(0, 0, W, H);
+  })();
+
+  // ── Card canvases ───────────────────────────────────────────────
+  function drawGardenCard(canvasId) {
+    var c = document.getElementById(canvasId);
+    if (!c) return;
+    var ctx = c.getContext('2d');
+    var W = c.offsetWidth || 400, H = c.offsetHeight || 280;
+    c.width = W; c.height = H;
+    var bg = ctx.createLinearGradient(0, 0, 0, H);
+    bg.addColorStop(0, '#0D1A08'); bg.addColorStop(1, '#050A03');
+    ctx.fillStyle = bg; ctx.fillRect(0, 0, W, H);
+    // Leaf/foliage dabs
+    for (var i = 0; i < 18; i++) {
+      var lx = Math.random() * W, ly = Math.random() * H * 0.7;
+      var lr = 6 + Math.random() * 18;
+      var lg = ctx.createRadialGradient(lx, ly, 0, lx, ly, lr);
+      lg.addColorStop(0, 'rgba(60,110,40,0.5)'); lg.addColorStop(1, 'transparent');
+      ctx.fillStyle = lg; ctx.beginPath();
+      ctx.ellipse(lx, ly, lr * 0.6, lr, Math.random() * Math.PI, 0, Math.PI * 2);
+      ctx.fill();
+    }
+    ctx.fillStyle = 'rgba(201,169,110,0.06)'; ctx.fillRect(0, 0, W, H);
+  }
+
+  function drawAquariumCard(canvasId) {
+    var c = document.getElementById(canvasId);
+    if (!c) return;
+    var ctx = c.getContext('2d');
+    var W = c.offsetWidth || 400, H = c.offsetHeight || 280;
+    c.width = W; c.height = H;
+    var bg = ctx.createLinearGradient(0, 0, 0, H);
+    bg.addColorStop(0, '#030D18'); bg.addColorStop(1, '#010608');
+    ctx.fillStyle = bg; ctx.fillRect(0, 0, W, H);
+    // Water glow
+    var wg = ctx.createRadialGradient(W * 0.5, H * 0.4, 0, W * 0.5, H * 0.4, W * 0.7);
+    wg.addColorStop(0, 'rgba(0,120,180,0.3)'); wg.addColorStop(1, 'transparent');
+    ctx.fillStyle = wg; ctx.fillRect(0, 0, W, H);
+    // Bubbles
+    ctx.fillStyle = 'rgba(100,200,255,0.15)';
+    for (var i = 0; i < 12; i++) {
+      var bx = Math.random() * W, by = Math.random() * H;
+      ctx.beginPath(); ctx.arc(bx, by, 2 + Math.random() * 8, 0, Math.PI * 2); ctx.fill();
+    }
+  }
+
+  function drawArchCard(canvasId) {
+    var c = document.getElementById(canvasId);
+    if (!c) return;
+    var ctx = c.getContext('2d');
+    var W = c.offsetWidth || 400, H = c.offsetHeight || 280;
+    c.width = W; c.height = H;
+    var bg = ctx.createLinearGradient(0, 0, 0, H);
+    bg.addColorStop(0, '#160A03'); bg.addColorStop(1, '#080402');
+    ctx.fillStyle = bg; ctx.fillRect(0, 0, W, H);
+    // Zellige star
+    ctx.save();
+    ctx.globalAlpha = 0.12;
+    ctx.strokeStyle = '#C9A96E'; ctx.lineWidth = 1;
+    var cx = W / 2, cy = H * 0.4, r = Math.min(W, H) * 0.28;
+    for (var i = 0; i < 8; i++) {
+      var a = (i / 8) * Math.PI * 2;
+      ctx.beginPath();
+      ctx.moveTo(cx + r * Math.cos(a - Math.PI / 8), cy + r * Math.sin(a - Math.PI / 8));
+      ctx.lineTo(cx + r * 0.38 * Math.cos(a), cy + r * 0.38 * Math.sin(a));
+      ctx.lineTo(cx + r * Math.cos(a + Math.PI / 8), cy + r * Math.sin(a + Math.PI / 8));
+      ctx.stroke();
+    }
+    ctx.restore();
+    var ag = ctx.createRadialGradient(W * 0.5, H * 0.4, 0, W * 0.5, H * 0.4, W * 0.4);
+    ag.addColorStop(0, 'rgba(201,169,110,0.12)'); ag.addColorStop(1, 'transparent');
+    ctx.fillStyle = ag; ctx.fillRect(0, 0, W, H);
+  }
+
+  // Draw cards after layout
+  window.addEventListener('load', function () {
+    drawGardenCard('card1Canvas');
+    drawAquariumCard('card2Canvas');
+    drawArchCard('card3Canvas');
+  });
+</script>
+</body>
+</html>
