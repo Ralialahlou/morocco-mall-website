@@ -1,0 +1,836 @@
+<!DOCTYPE html>
+<html lang="fr" dir="ltr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Oriental Street Casablanca — boutiques d'artisanat marocain, créateurs locaux et shopping exclusif au Morocco Mall Casablanca. Découvrez le meilleur du design marocain et international." />
+  <title>Oriental Street — Morocco Mall Casablanca</title>
+  <link rel="icon" href="../assets/logo.png" type="image/png" />
+  <link rel="stylesheet" href="../css/main.css" />
+  <style>
+    /* ── Palette Souk Maroc – Casablanca ── */
+    :root {
+      --souk-gold:       #C9A96E;
+      --souk-amber:      #C08028;
+      --souk-terra:      #9E4A2A;
+      --souk-terra-dim:  rgba(158, 74, 42, 0.16);
+      --souk-teal:       #3D7A6E;
+      --souk-teal-dim:   rgba(61, 122, 110, 0.14);
+      --souk-sand:       rgba(201, 169, 110, 0.1);
+      --dark-bg:         #080604;
+      --surface:         #110806;
+      --surface2:        #180C06;
+    }
+    body { background: var(--dark-bg); color: #fff; }
+
+    /* ── HERO ── */
+    .os-hero {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 0 var(--pad-x) clamp(3rem, 8vw, 6rem);
+      overflow: hidden;
+    }
+    .os-hero__canvas {
+      position: absolute; inset: 0; width: 100%; height: 100%; z-index: 0;
+    }
+    .os-hero__overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(160deg, rgba(16,6,2,0.4) 0%, rgba(10,4,1,0.68) 40%, rgba(8,4,1,0.96) 100%);
+      z-index: 1;
+    }
+    .os-hero__content { position: relative; z-index: 2; max-width: var(--max-w); margin: 0 auto; width: 100%; }
+
+    /* ── CONCEPT ── */
+    .os-concept {
+      background: var(--surface);
+      padding: clamp(5rem, 10vw, 9rem) 0;
+      position: relative; overflow: hidden;
+    }
+    .os-concept::before {
+      content: ''; position: absolute; inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='48' height='48'%3E%3Cpath d='M24 2 L46 24 L24 46 L2 24Z' fill='none' stroke='rgba(201,169,110,0.04)' stroke-width='0.5'/%3E%3C/svg%3E");
+      pointer-events: none;
+    }
+    .os-concept-inner { position: relative; z-index: 1; }
+    .os-concept-text { max-width: 780px; margin: 0 auto; text-align: center; }
+    .os-concept-text h2 {
+      font-family: var(--font-display); font-size: clamp(2rem,5vw,4rem);
+      font-weight: 300; line-height: 1.1; color: var(--souk-gold); margin-bottom: 1.5rem;
+    }
+    .os-concept-text p {
+      font-size: clamp(0.95rem,1.8vw,1.1rem); color: rgba(255,255,255,0.5);
+      line-height: 1.9; margin-bottom: 1.2rem;
+    }
+    .os-concept-text em { font-style: italic; color: rgba(201,169,110,0.85); }
+
+    /* ── STATS ── */
+    .os-stat-grid {
+      display: grid; grid-template-columns: 1fr; gap: 1px;
+      background: var(--souk-terra-dim); margin-top: clamp(3rem,6vw,5rem);
+    }
+    @media (min-width: 640px) { .os-stat-grid { grid-template-columns: repeat(3, 1fr); } }
+    .os-stat-card {
+      background: var(--dark-bg); padding: 2.5rem 2rem; text-align: center; transition: background 0.3s;
+    }
+    .os-stat-card:hover { background: rgba(158,74,42,0.07); }
+    .os-stat-card__number {
+      font-family: var(--font-display); font-size: clamp(2.8rem,6vw,4.5rem);
+      font-weight: 300; color: var(--souk-terra); line-height: 1; margin-bottom: 0.6rem; letter-spacing: -0.02em;
+    }
+    .os-stat-card__label { font-size: 0.62rem; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(201,169,110,0.5); }
+
+    /* ── SECTION HEADING ── */
+    .os-section-heading { text-align: center; }
+    .os-section-heading__eyebrow {
+      font-size: 0.6rem; letter-spacing: 0.22em; text-transform: uppercase;
+      color: rgba(158,74,42,0.8); margin-bottom: 1rem;
+      display: flex; align-items: center; justify-content: center; gap: 0.75rem;
+    }
+    .os-section-heading__eyebrow::before,.os-section-heading__eyebrow::after {
+      content: '✦'; font-size: 0.55rem; color: rgba(201,169,110,0.5);
+    }
+    .os-section-heading h2 {
+      font-family: var(--font-display); font-size: clamp(1.8rem,4.5vw,3.5rem);
+      font-weight: 300; color: var(--souk-gold); line-height: 1.1;
+    }
+    .os-section-heading p {
+      max-width: 520px; margin: 1rem auto 0; font-size: 0.88rem;
+      color: rgba(255,255,255,0.38); line-height: 1.8;
+    }
+
+    /* ── FEATURE GRID — SHOPS ── */
+    .os-features { background: var(--dark-bg); padding: clamp(5rem,10vw,8rem) 0; }
+    .os-feature-grid {
+      display: grid; grid-template-columns: 1fr; gap: 2px;
+      background: rgba(158,74,42,0.1); margin-top: clamp(3rem,6vw,4.5rem);
+    }
+    @media (min-width: 768px)  { .os-feature-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (min-width: 1100px) { .os-feature-grid { grid-template-columns: repeat(3, 1fr); } }
+    .os-feature-card {
+      background: var(--dark-bg); overflow: hidden; display: flex;
+      flex-direction: column; transition: transform 0.35s var(--ease);
+    }
+    .os-feature-card:hover { transform: translateY(-5px); }
+    .os-feature-card__visual { width: 100%; height: 220px; position: relative; overflow: hidden; flex-shrink: 0; }
+    .os-feature-card__visual canvas { width: 100%; height: 100%; display: block; }
+    .os-feature-card__body {
+      padding: 1.75rem 1.5rem 2rem; flex: 1;
+      border: 1px solid rgba(158,74,42,0.14); border-top: none;
+    }
+    .os-feature-card__icon { font-size: 1.3rem; margin-bottom: 0.75rem; color: var(--souk-gold); }
+    .os-feature-card__title {
+      font-family: var(--font-display); font-size: 1.3rem; font-weight: 300;
+      color: var(--souk-gold); margin-bottom: 0.6rem; line-height: 1.2;
+    }
+    .os-feature-card__desc { font-size: 0.78rem; color: rgba(255,255,255,0.38); line-height: 1.8; }
+    .os-feature-card__tags { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 1.25rem; }
+    .os-feature-card__tag {
+      font-size: 0.55rem; letter-spacing: 0.14em; text-transform: uppercase;
+      color: rgba(158,74,42,0.75); border: 1px solid rgba(158,74,42,0.25); padding: 0.25rem 0.65rem;
+    }
+
+    /* ── BRANDS MARQUEE ── */
+    .os-brands {
+      background: var(--surface2); padding: clamp(4rem,8vw,7rem) 0;
+      border-top: 1px solid rgba(158,74,42,0.12); border-bottom: 1px solid rgba(158,74,42,0.12);
+    }
+    .os-brands-track {
+      overflow: hidden; position: relative;
+    }
+    .os-brands-strip {
+      display: flex; gap: 3rem; align-items: center;
+      animation: marquee 24s linear infinite; width: max-content;
+    }
+    .os-brands-strip:hover { animation-play-state: paused; }
+    @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+    .os-brand-item {
+      font-family: var(--font-display); font-size: clamp(0.8rem,1.5vw,1rem);
+      font-weight: 300; letter-spacing: 0.18em; text-transform: uppercase;
+      color: rgba(201,169,110,0.45); white-space: nowrap; flex-shrink: 0;
+      transition: color 0.3s;
+    }
+    .os-brand-item:hover { color: rgba(201,169,110,0.85); }
+    .os-brand-sep { color: rgba(158,74,42,0.3); font-size: 0.7rem; flex-shrink: 0; }
+
+    /* ── CURATED EDITORIAL ── */
+    .os-editorial {
+      background: var(--dark-bg); padding: clamp(5rem,10vw,9rem) 0;
+    }
+    .os-editorial-grid {
+      display: grid; grid-template-columns: 1fr; gap: 0;
+    }
+    @media (min-width: 900px) { .os-editorial-grid { grid-template-columns: 1fr 1fr; min-height: 520px; } }
+    .os-editorial__canvas-wrap { overflow: hidden; position: relative; min-height: 300px; }
+    .os-editorial__canvas-wrap canvas { width: 100%; height: 100%; display: block; }
+    .os-editorial__content {
+      background: linear-gradient(135deg, var(--surface2) 0%, var(--surface) 100%);
+      padding: clamp(3rem,6vw,5rem) clamp(2rem,5vw,4rem);
+      display: flex; flex-direction: column; justify-content: center;
+      border: 1px solid rgba(158,74,42,0.12);
+    }
+    .os-editorial__content h2 {
+      font-family: var(--font-display); font-size: clamp(1.8rem,3.5vw,3rem);
+      font-weight: 300; color: var(--souk-gold); line-height: 1.15; margin-bottom: 1.75rem;
+    }
+    .os-editorial__content p {
+      font-size: 0.88rem; color: rgba(255,255,255,0.45); line-height: 1.9; margin-bottom: 1rem;
+    }
+    .os-editorial__content p:last-of-type { margin-bottom: 0; }
+
+    /* ── HORAIRES ── */
+    .os-horaires {
+      background: linear-gradient(160deg, var(--dark-bg) 0%, var(--surface2) 50%, var(--dark-bg) 100%);
+      padding: clamp(5rem,10vw,8rem) 0;
+    }
+    .os-horaires-grid {
+      display: grid; grid-template-columns: 1fr; gap: 1px;
+      background: rgba(158,74,42,0.18); margin-top: clamp(3rem,6vw,4.5rem);
+    }
+    @media (min-width: 640px) { .os-horaires-grid { grid-template-columns: repeat(3, 1fr); } }
+    .os-horaires-card { background: var(--dark-bg); padding: 2.5rem 2rem; transition: background 0.3s; }
+    .os-horaires-card:hover { background: rgba(158,74,42,0.07); }
+    .os-horaires-card__icon { font-size: 1.5rem; margin-bottom: 1rem; }
+    .os-horaires-card__label {
+      font-size: 0.58rem; letter-spacing: 0.2em; text-transform: uppercase;
+      color: rgba(158,74,42,0.6); margin-bottom: 0.5rem;
+    }
+    .os-horaires-card__time {
+      font-family: var(--font-display); font-size: 1.3rem; font-weight: 300;
+      color: var(--souk-gold); line-height: 1.4;
+    }
+    .os-horaires-card__note { font-size: 0.7rem; color: rgba(255,255,255,0.28); margin-top: 0.5rem; line-height: 1.6; }
+
+    /* ── LOCATION ── */
+    .os-location {
+      background: #060402; padding: clamp(3.5rem,7vw,5.5rem) 0;
+      border-top: 1px solid rgba(158,74,42,0.15); border-bottom: 1px solid rgba(158,74,42,0.15);
+    }
+    .os-location-inner {
+      display: flex; flex-direction: column; align-items: center; gap: 1.5rem; text-align: center;
+    }
+    @media (min-width: 768px) { .os-location-inner { flex-direction: row; justify-content: center; text-align: left; } }
+    .os-location__icon { font-size: 2.5rem; line-height: 1; flex-shrink: 0; }
+    .os-location__text h3 {
+      font-family: var(--font-display); font-size: clamp(1.3rem,3vw,2rem);
+      font-weight: 300; color: var(--souk-gold); margin-bottom: 0.4rem;
+    }
+    .os-location__text p { font-size: 0.8rem; color: rgba(255,255,255,0.38); line-height: 1.7; }
+    .os-location__badge {
+      font-size: 0.6rem; letter-spacing: 0.18em; text-transform: uppercase;
+      color: rgba(158,74,42,0.8); border: 1px solid rgba(158,74,42,0.3);
+      padding: 0.5rem 1.2rem; flex-shrink: 0; text-align: center;
+    }
+
+    /* ── CTA ── */
+    .os-cta {
+      background: linear-gradient(160deg, var(--dark-bg) 0%, var(--surface2) 50%, var(--dark-bg) 100%);
+      padding: clamp(5rem,10vw,8rem) 0; text-align: center;
+    }
+    .os-cta h2 {
+      font-family: var(--font-display); font-size: clamp(2rem,5vw,4rem);
+      font-weight: 300; color: var(--souk-gold); line-height: 1.1; margin-bottom: 1rem;
+    }
+    .os-cta p { max-width: 480px; margin: 0 auto 2.5rem; font-size: 0.9rem; color: rgba(255,255,255,0.38); line-height: 1.75; }
+    .os-cta-btn {
+      display: inline-block; font-family: var(--font-body); font-size: 0.7rem;
+      letter-spacing: 0.14em; text-transform: uppercase; color: var(--dark-bg);
+      background: var(--souk-gold); border: 1px solid var(--souk-gold);
+      padding: 1rem 2.5rem; text-decoration: none; transition: background 0.3s, color 0.3s;
+    }
+    .os-cta-btn:hover { background: transparent; color: var(--souk-gold); }
+    .os-cta-btn--outline {
+      background: transparent; color: rgba(255,255,255,0.5); border-color: rgba(255,255,255,0.2); margin-left: 1rem;
+    }
+    .os-cta-btn--outline:hover { background: rgba(255,255,255,0.06); color: rgba(255,255,255,0.8); }
+    .os-divider {
+      display: flex; align-items: center; justify-content: center; gap: 1rem; padding: 1.5rem 0;
+    }
+    .os-divider::before,.os-divider::after {
+      content: ''; flex: 1; height: 1px;
+      background: linear-gradient(to right, transparent, rgba(158,74,42,0.25), transparent);
+    }
+    @media (max-width: 640px) { .os-cta-btn--outline { margin-left: 0; margin-top: 0.75rem; } }
+  </style>
+</head>
+<body>
+<div id="chrome-mount"></div>
+<main id="main-content">
+
+  <!-- ============================================================
+       HERO — Canvas Morocco Souk Casablanca
+  ============================================================ -->
+  <section class="os-hero">
+    <canvas class="os-hero__canvas" id="heroCanvas" aria-hidden="true"></canvas>
+    <div class="os-hero__overlay"></div>
+    <div class="os-hero__content">
+      <nav aria-label="Fil d'Ariane" style="display:flex;align-items:center;gap:0.5rem;font-size:0.65rem;letter-spacing:0.15em;text-transform:uppercase;color:rgba(255,255,255,0.3);margin-bottom:2.5rem;">
+        <a href="../index.html" style="color:rgba(255,255,255,0.3);">Morocco Mall</a>
+        <span>›</span>
+        <a href="../index.html" style="color:rgba(255,255,255,0.3);">Casablanca</a>
+        <span>›</span>
+        <span style="color:rgba(201,169,110,0.8);">Oriental Street</span>
+      </nav>
+      <p class="reveal" style="font-size:0.6rem;letter-spacing:0.22em;text-transform:uppercase;color:rgba(158,74,42,0.85);margin-bottom:1.5rem;">
+        Morocco Mall Casablanca · Shopping &amp; Artisanat d'Exception
+      </p>
+      <h1 class="reveal reveal-delay-1" style="font-family:var(--font-display);font-size:clamp(3rem,8vw,6.5rem);font-weight:300;color:rgba(255,255,255,0.95);line-height:0.9;max-width:860px;letter-spacing:-0.01em;">
+        Oriental<br><em style="color:#C9A96E;">Street</em>
+      </h1>
+      <p class="reveal reveal-delay-2" style="color:rgba(255,255,255,0.45);font-size:clamp(0.9rem,2vw,1.1rem);max-width:520px;margin-top:1.75rem;line-height:1.7;">
+        Boutiques d'artisanat marocain, créateurs locaux et marques internationales — le shopping d'exception au cœur de Casablanca
+      </p>
+      <div class="reveal reveal-delay-3" style="margin-top:2.5rem;display:flex;gap:1rem;flex-wrap:wrap;">
+        <a href="#decouvrir" class="btn btn--lg" style="background:#C9A96E;color:#080604;font-size:0.7rem;letter-spacing:0.12em;text-transform:uppercase;padding:1rem 2.2rem;display:inline-block;font-family:var(--font-body);">Explorer</a>
+        <a href="oriental-street.html" class="btn btn--outline-white btn--lg" style="font-size:0.7rem;letter-spacing:0.12em;text-transform:uppercase;padding:1rem 2.2rem;display:inline-block;border:1px solid rgba(255,255,255,0.2);color:rgba(255,255,255,0.6);">Marrakech →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       CONCEPT
+  ============================================================ -->
+  <section class="os-concept" id="decouvrir">
+    <div class="container os-concept-inner">
+      <div class="os-concept-text reveal">
+        <p style="font-size:0.58rem;letter-spacing:0.22em;text-transform:uppercase;color:rgba(158,74,42,0.7);margin-bottom:1.25rem;">
+          ✦&ensp;Le meilleur du design marocain &amp; international&ensp;✦
+        </p>
+        <h2>L'artisanat marocain<br>à l'honneur</h2>
+        <p style="margin-top:1.5rem;">
+          Au cœur du Morocco Mall Casablanca, <em>Oriental Street</em> est une allée dédiée au shopping d'exception. Dans une ambiance raffinée aux tonalités chaudes et aux arcades inspirées de l'architecture marocaine, des boutiques soigneusement sélectionnées proposent une <em>curation exclusive</em> de l'artisanat et du design les plus remarquables du Maroc et du monde.
+        </p>
+        <p>
+          De l'artisanat traditionnel aux créateurs contemporains, chaque boutique incarne une <em>vision du beau</em> propre au savoir-faire marocain. Zellige, cuir, broderies, bijoux berbères et mode contemporaine se côtoient dans un cadre qui invite à la flânerie et à la découverte.
+        </p>
+      </div>
+
+      <div class="os-stat-grid">
+        <div class="os-stat-card reveal">
+          <div class="os-stat-card__number">40<span style="font-size:0.5em;vertical-align:middle;margin-left:0.2em;">+</span></div>
+          <div class="os-stat-card__label">Boutiques</div>
+        </div>
+        <div class="os-stat-card reveal reveal-delay-1">
+          <div class="os-stat-card__number">100<span style="font-size:0.5em;vertical-align:middle;margin-left:0.2em;">+</span></div>
+          <div class="os-stat-card__label">Marques &amp; Créateurs</div>
+        </div>
+        <div class="os-stat-card reveal reveal-delay-2">
+          <div class="os-stat-card__number" style="font-size:clamp(1.8rem,4vw,3rem);line-height:1.3;">Exclusif</div>
+          <div class="os-stat-card__label">Sélection Curatée</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       FEATURE GRID — Shop Categories (no restaurants, no entertainment)
+  ============================================================ -->
+  <section class="os-features">
+    <div class="container">
+      <div class="os-section-heading reveal">
+        <p class="os-section-heading__eyebrow">Nos univers boutique</p>
+        <h2>Le meilleur du shopping<br>marocain</h2>
+        <p>Du prêt-à-porter aux arts de la table, chaque boutique d'Oriental Street Casablanca est une invitation à l'excellence du goût.</p>
+      </div>
+
+      <div class="os-feature-grid">
+
+        <!-- Mode & Prêt-à-Porter -->
+        <div class="os-feature-card reveal">
+          <div class="os-feature-card__visual">
+            <canvas id="cardCanvas1" width="600" height="220" aria-label="Mode et prêt-à-porter marocain"></canvas>
+          </div>
+          <div class="os-feature-card__body">
+            <div class="os-feature-card__icon" aria-hidden="true">✦</div>
+            <div class="os-feature-card__title">Mode &amp; Prêt-à-Porter</div>
+            <p class="os-feature-card__desc">
+              Les créateurs marocains les plus talentueux y côtoient des marques internationales sélectionnées avec soin. Kaftan contemporain, mode urbaine et pièces artisanales uniques.
+            </p>
+            <div class="os-feature-card__tags">
+              <span class="os-feature-card__tag">Créateurs Marocains</span>
+              <span class="os-feature-card__tag">Prêt-à-Porter</span>
+              <span class="os-feature-card__tag">Kaftan</span>
+              <span class="os-feature-card__tag">Mode Contemporaine</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Artisanat & Arts de vivre -->
+        <div class="os-feature-card reveal reveal-delay-1">
+          <div class="os-feature-card__visual">
+            <canvas id="cardCanvas2" width="600" height="220" aria-label="Artisanat traditionnel marocain"></canvas>
+          </div>
+          <div class="os-feature-card__body">
+            <div class="os-feature-card__icon" aria-hidden="true">◈</div>
+            <div class="os-feature-card__title">Artisanat &amp; Arts de Vivre</div>
+            <p class="os-feature-card__desc">
+              Zellige, cuivre martelé, boiseries sculptées, poterie de Fès et tapis berbères — l'excellence de l'artisanat marocain dans toute sa richesse et sa diversité régionale.
+            </p>
+            <div class="os-feature-card__tags">
+              <span class="os-feature-card__tag">Zellige</span>
+              <span class="os-feature-card__tag">Poterie</span>
+              <span class="os-feature-card__tag">Tapis Berbères</span>
+              <span class="os-feature-card__tag">Cuir</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Bijouterie & Accessoires -->
+        <div class="os-feature-card reveal reveal-delay-2">
+          <div class="os-feature-card__visual">
+            <canvas id="cardCanvas3" width="600" height="220" aria-label="Bijouterie et accessoires"></canvas>
+          </div>
+          <div class="os-feature-card__body">
+            <div class="os-feature-card__icon" aria-hidden="true">☽</div>
+            <div class="os-feature-card__title">Bijouterie &amp; Accessoires</div>
+            <p class="os-feature-card__desc">
+              Argent berbère, ambre et pierres semi-précieuses, bijoux de mariée et parures contemporaines. Des pièces uniques réalisées par des artisans joailliers d'exception.
+            </p>
+            <div class="os-feature-card__tags">
+              <span class="os-feature-card__tag">Argent Berbère</span>
+              <span class="os-feature-card__tag">Bijoux Traditionnels</span>
+              <span class="os-feature-card__tag">Création Contemporaine</span>
+              <span class="os-feature-card__tag">Parures</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       BRANDS MARQUEE
+  ============================================================ -->
+  <section class="os-brands">
+    <div class="container">
+      <div class="os-section-heading reveal" style="margin-bottom:2.5rem;">
+        <p class="os-section-heading__eyebrow">Créateurs &amp; Maisons</p>
+        <h2>Une sélection d'exception</h2>
+      </div>
+    </div>
+    <div class="os-brands-track">
+      <div class="os-brands-strip">
+        <span class="os-brand-item">Artisans du Maroc</span>
+        <span class="os-brand-sep">✦</span>
+        <span class="os-brand-item">Maisons de Fès</span>
+        <span class="os-brand-sep">✦</span>
+        <span class="os-brand-item">Design Contemporain</span>
+        <span class="os-brand-sep">✦</span>
+        <span class="os-brand-item">Création Berbère</span>
+        <span class="os-brand-sep">✦</span>
+        <span class="os-brand-item">Mode Casablancaise</span>
+        <span class="os-brand-sep">✦</span>
+        <span class="os-brand-item">Joaillerie d'Art</span>
+        <span class="os-brand-sep">✦</span>
+        <span class="os-brand-item">Soieries &amp; Broderies</span>
+        <span class="os-brand-sep">✦</span>
+        <span class="os-brand-item">Arts de la Table</span>
+        <span class="os-brand-sep">✦</span>
+        <!-- Duplicate for seamless loop -->
+        <span class="os-brand-item">Artisans du Maroc</span>
+        <span class="os-brand-sep">✦</span>
+        <span class="os-brand-item">Maisons de Fès</span>
+        <span class="os-brand-sep">✦</span>
+        <span class="os-brand-item">Design Contemporain</span>
+        <span class="os-brand-sep">✦</span>
+        <span class="os-brand-item">Création Berbère</span>
+        <span class="os-brand-sep">✦</span>
+        <span class="os-brand-item">Mode Casablancaise</span>
+        <span class="os-brand-sep">✦</span>
+        <span class="os-brand-item">Joaillerie d'Art</span>
+        <span class="os-brand-sep">✦</span>
+        <span class="os-brand-item">Soieries &amp; Broderies</span>
+        <span class="os-brand-sep">✦</span>
+        <span class="os-brand-item">Arts de la Table</span>
+        <span class="os-brand-sep">✦</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       EDITORIAL — Atmosphere
+  ============================================================ -->
+  <section class="os-editorial">
+    <div class="os-editorial-grid">
+      <div class="os-editorial__canvas-wrap">
+        <canvas id="atmoCanvas" aria-label="Intérieur d'une boutique d'artisanat marocain à Oriental Street"></canvas>
+      </div>
+      <div class="os-editorial__content">
+        <p class="os-section-heading__eyebrow" style="justify-content:flex-start;margin-bottom:1.25rem;">
+          <span style="display:inline;">✦</span> L'art du shopping marocain
+        </p>
+        <h2>Là où tradition<br>rencontre modernité</h2>
+        <p>
+          Dans une architecture inspirée des médinas marocaines — arcades en stuc, zellige au sol, boiseries ciselées — Oriental Street Casablanca offre un cadre shopping hors du commun. L'alliance du beau et du fonctionnel, dans un espace pensé pour la flânerie.
+        </p>
+        <p>
+          Chaque boutique a été soigneusement sélectionnée pour la qualité de sa proposition : des pièces uniques réalisées par des artisans d'excellence, aux côtés des créateurs contemporains qui réinventent l'identité marocaine avec audace et talent.
+        </p>
+        <p>
+          Un espace de découverte, de culture et de style — au cœur du Morocco Mall Casablanca.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       HORAIRES
+  ============================================================ -->
+  <section class="os-horaires" id="horaires">
+    <div class="container">
+      <div class="os-section-heading reveal">
+        <p class="os-section-heading__eyebrow">Planifiez votre visite</p>
+        <h2>Horaires d'ouverture</h2>
+        <p>Oriental Street Casablanca accueille ses visiteurs 7 jours sur 7, toute l'année.</p>
+      </div>
+      <div class="os-horaires-grid">
+        <div class="os-horaires-card reveal">
+          <div class="os-horaires-card__icon" aria-hidden="true">🕙</div>
+          <div class="os-horaires-card__label">Horaires habituels</div>
+          <div class="os-horaires-card__time">10h00 – 22h00</div>
+          <div class="os-horaires-card__note">Lundi au dimanche · 7j / 7</div>
+        </div>
+        <div class="os-horaires-card reveal reveal-delay-1">
+          <div class="os-horaires-card__icon" aria-hidden="true">🌙</div>
+          <div class="os-horaires-card__label">Ramadan</div>
+          <div class="os-horaires-card__time">11h00 – 16h00<br>20h00 – 00h00</div>
+          <div class="os-horaires-card__note">Horaires spéciaux · Ramadan</div>
+        </div>
+        <div class="os-horaires-card reveal reveal-delay-2">
+          <div class="os-horaires-card__icon" aria-hidden="true">☀️</div>
+          <div class="os-horaires-card__label">Été</div>
+          <div class="os-horaires-card__time">10h00 – 22h30</div>
+          <div class="os-horaires-card__note">1<sup>er</sup> juin – 30 septembre</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       LOCATION
+  ============================================================ -->
+  <section class="os-location">
+    <div class="container">
+      <div class="os-location-inner reveal">
+        <div class="os-location__icon" aria-hidden="true">📍</div>
+        <div class="os-location__text">
+          <h3>Morocco Mall Casablanca</h3>
+          <p>Oriental Street se trouve au cœur du Morocco Mall Casablanca &mdash; accessible depuis les entrées principales<br>et par les galeries intérieures du mall.</p>
+        </div>
+        <div class="os-location__badge">Morocco Mall<br>Casablanca</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       CTA
+  ============================================================ -->
+  <section class="os-cta">
+    <div class="container">
+      <div class="os-divider">
+        <span aria-hidden="true" style="font-size:1.1rem;color:rgba(201,169,110,0.5);">✦</span>
+      </div>
+      <h2 class="reveal" style="margin-top:2rem;">Découvrez aussi<br><em>Marrakech Garden</em></h2>
+      <p class="reveal reveal-delay-1">
+        Oriental Street existe également à Morocco Mall Marrakech Garden, avec restaurants, boutiques et animations.
+      </p>
+      <div class="reveal reveal-delay-2" style="display:flex;gap:1rem;flex-wrap:wrap;justify-content:center;">
+        <a href="oriental-street.html" class="os-cta-btn">Oriental Street Marrakech</a>
+        <a href="../index.html" class="os-cta-btn os-cta-btn--outline">Accueil Morocco Mall</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+<script src="../js/seo.js"></script>
+<script src="../js/translations.js"></script>
+<script src="../js/app.js"></script>
+<script>
+/* ── CANVAS: Morocco Souk Hero — Casablanca variant ── */
+(function () {
+  var canvas = document.getElementById('heroCanvas');
+  if (!canvas) return;
+  function resize() { canvas.width = canvas.offsetWidth; canvas.height = canvas.offsetHeight; draw(); }
+  function draw() {
+    var W = canvas.width, H = canvas.height;
+    if (!W || !H) return;
+    var ctx = canvas.getContext('2d');
+    ctx.clearRect(0, 0, W, H);
+
+    /* Deep warm background — slightly cooler than Marrakech */
+    var bg = ctx.createLinearGradient(0, 0, W, H);
+    bg.addColorStop(0, '#160A04'); bg.addColorStop(0.5, '#0E0602'); bg.addColorStop(1, '#080402');
+    ctx.fillStyle = bg; ctx.fillRect(0, 0, W, H);
+
+    var vx = W * 0.5, vy = H * 0.34;
+
+    /* Floor grid */
+    ctx.save();
+    ctx.strokeStyle = 'rgba(158,120,55,0.07)'; ctx.lineWidth = 0.6;
+    for (var i = 0; i <= 14; i++) {
+      var t = i/14, endX = W*t;
+      ctx.beginPath(); ctx.moveTo(vx, vy); ctx.lineTo(endX, H); ctx.stroke();
+    }
+    for (var j = 0; j < 16; j++) {
+      var jt = j/16, y = vy + (H-vy)*(jt*jt);
+      var hw = (W/2)*((y-vy)/(H-vy));
+      ctx.beginPath(); ctx.moveTo(vx-hw,y); ctx.lineTo(vx+hw,y); ctx.stroke();
+    }
+    ctx.restore();
+
+    /* Zellige diamond tiles on floor */
+    ctx.save(); ctx.globalAlpha = 0.06;
+    for (var tx = 0; tx < W; tx += 40) {
+      for (var ty = H*0.6; ty < H; ty += 28) {
+        ctx.strokeStyle = '#C9A96E'; ctx.lineWidth = 0.5;
+        ctx.beginPath();
+        ctx.moveTo(tx+20, ty); ctx.lineTo(tx+40, ty+14); ctx.lineTo(tx+20, ty+28);
+        ctx.lineTo(tx, ty+14); ctx.closePath(); ctx.stroke();
+      }
+    }
+    ctx.globalAlpha = 1; ctx.restore();
+
+    /* Souk corridor walls */
+    ctx.save();
+    var lGrad = ctx.createLinearGradient(0,0,W*0.3,0);
+    lGrad.addColorStop(0,'rgba(60,28,10,0.55)'); lGrad.addColorStop(1,'rgba(60,28,10,0)');
+    ctx.fillStyle = lGrad;
+    ctx.beginPath(); ctx.moveTo(0,0); ctx.lineTo(vx,vy); ctx.lineTo(vx,H); ctx.lineTo(0,H); ctx.closePath(); ctx.fill();
+    var rGrad = ctx.createLinearGradient(W,0,W-W*0.3,0);
+    rGrad.addColorStop(0,'rgba(60,28,10,0.55)'); rGrad.addColorStop(1,'rgba(60,28,10,0)');
+    ctx.fillStyle = rGrad;
+    ctx.beginPath(); ctx.moveTo(W,0); ctx.lineTo(vx,vy); ctx.lineTo(vx,H); ctx.lineTo(W,H); ctx.closePath(); ctx.fill();
+    ctx.restore();
+
+    /* Shop window arches on walls */
+    var archDef = [
+      {t:0.22, side:'left'},{t:0.5, side:'left'},{t:0.75, side:'left'},
+      {t:0.22, side:'right'},{t:0.5, side:'right'},{t:0.75, side:'right'}
+    ];
+    archDef.forEach(function(a) {
+      var depth = a.t;
+      var ay = vy + (H-vy)*depth;
+      var ah = (H-vy)*0.18/(depth*1.5+0.3);
+      var aw = ah*0.6;
+      var ax = a.side==='left' ? vx*(1-depth*0.8) : vx+(W-vx)*depth*0.8;
+      ctx.save();
+      ctx.strokeStyle = 'rgba(201,169,110,0.2)';
+      ctx.fillStyle = 'rgba(158,74,42,0.1)';
+      ctx.lineWidth = 0.8;
+      ctx.beginPath();
+      ctx.moveTo(ax-aw/2, ay+ah*0.35);
+      ctx.lineTo(ax-aw/2, ay-ah*0.25);
+      ctx.arc(ax, ay-ah*0.25, aw/2, Math.PI, 0, false);
+      ctx.lineTo(ax+aw/2, ay+ah*0.35);
+      ctx.closePath();
+      ctx.fill(); ctx.stroke();
+      /* Shop window warm glow */
+      var wg = ctx.createRadialGradient(ax, ay, 0, ax, ay, aw*2);
+      wg.addColorStop(0,'rgba(220,150,50,0.2)'); wg.addColorStop(1,'rgba(0,0,0,0)');
+      ctx.fillStyle = wg; ctx.fillRect(ax-aw*2, ay-ah, aw*4, ah*3);
+      ctx.restore();
+    });
+
+    /* Central vanishing glow */
+    var g = ctx.createRadialGradient(vx,vy,0,vx,vy,H*0.5);
+    g.addColorStop(0,'rgba(220,140,40,0.25)'); g.addColorStop(0.25,'rgba(180,100,30,0.12)');
+    g.addColorStop(0.6,'rgba(140,60,20,0.05)'); g.addColorStop(1,'rgba(0,0,0,0)');
+    ctx.fillStyle = g; ctx.fillRect(0,0,W,H);
+
+    /* Hanging lanterns */
+    for (var l=0; l<5; l++) {
+      var lt=(l+0.5)/5;
+      var lx=vx+(lt-0.5)*W*0.6;
+      var ropeY=vy+(H-vy)*(0.04+lt*0.06);
+      ctx.save();
+      ctx.strokeStyle='rgba(170,110,40,0.3)'; ctx.lineWidth=0.5;
+      ctx.beginPath(); ctx.moveTo(vx,vy-10); ctx.lineTo(lx,ropeY); ctx.stroke();
+      var lg=ctx.createRadialGradient(lx,ropeY,0,lx,ropeY,(3+lt*6)*4);
+      lg.addColorStop(0,'rgba(240,180,70,0.3)'); lg.addColorStop(1,'rgba(0,0,0,0)');
+      ctx.fillStyle=lg; ctx.fillRect(lx-30,ropeY-30,60,60);
+      ctx.fillStyle='rgba(200,140,45,0.7)';
+      ctx.beginPath(); ctx.ellipse(lx,ropeY,(2+lt*4)*0.7,(2+lt*4),0,0,Math.PI*2); ctx.fill();
+      ctx.restore();
+    }
+
+    /* Vignette */
+    var vig=ctx.createRadialGradient(W/2,H/2,H*0.18,W/2,H/2,H*0.82);
+    vig.addColorStop(0,'rgba(0,0,0,0)'); vig.addColorStop(1,'rgba(0,0,0,0.6)');
+    ctx.fillStyle=vig; ctx.fillRect(0,0,W,H);
+  }
+  window.addEventListener('resize', resize);
+  resize();
+})();
+
+/* ── Feature Card canvases ── */
+(function() {
+  /* Card 1 — Mode: draped fabric warmth */
+  var c1=document.getElementById('cardCanvas1');
+  if (c1) {
+    c1.width=c1.offsetWidth||600; c1.height=220;
+    var ctx=c1.getContext('2d'); var W=c1.width,H=c1.height;
+    var bg=ctx.createLinearGradient(0,0,W,H);
+    bg.addColorStop(0,'#1A0C06'); bg.addColorStop(1,'#2C1610');
+    ctx.fillStyle=bg; ctx.fillRect(0,0,W,H);
+    /* Fabric drape curves */
+    [0.2,0.4,0.6,0.8].forEach(function(tx,i) {
+      ctx.save(); ctx.strokeStyle='rgba(184,85,56,'+(0.08+i*0.03)+')'; ctx.lineWidth=1;
+      ctx.beginPath(); ctx.moveTo(W*tx,0);
+      ctx.bezierCurveTo(W*tx-40,H*0.3,W*tx+30,H*0.6,W*tx,H);
+      ctx.stroke(); ctx.restore();
+    });
+    /* Warm center glow */
+    var g=ctx.createRadialGradient(W/2,H/2,0,W/2,H/2,H*0.6);
+    g.addColorStop(0,'rgba(180,85,38,0.25)'); g.addColorStop(1,'rgba(0,0,0,0)');
+    ctx.fillStyle=g; ctx.fillRect(0,0,W,H);
+    /* Diamond pattern */
+    ctx.save(); ctx.globalAlpha=0.08;
+    for(var x=0;x<W;x+=32)for(var y=0;y<H;y+=20){
+      ctx.strokeStyle='#C9A96E'; ctx.lineWidth=0.5;
+      ctx.beginPath(); ctx.moveTo(x+16,y); ctx.lineTo(x+32,y+10); ctx.lineTo(x+16,y+20); ctx.lineTo(x,y+10); ctx.closePath(); ctx.stroke();
+    }
+    ctx.globalAlpha=1; ctx.restore();
+  }
+
+  /* Card 2 — Artisanat: zellige warm */
+  var c2=document.getElementById('cardCanvas2');
+  if (c2) {
+    c2.width=c2.offsetWidth||600; c2.height=220;
+    var ctx2=c2.getContext('2d'); var W2=c2.width,H2=c2.height;
+    var bg2=ctx2.createLinearGradient(0,H2,W2,0);
+    bg2.addColorStop(0,'#0E0804'); bg2.addColorStop(1,'#1C1008');
+    ctx2.fillStyle=bg2; ctx2.fillRect(0,0,W2,H2);
+    /* Zellige star tile grid */
+    ctx2.save(); ctx2.globalAlpha=0.15;
+    for(var x2=15;x2<W2;x2+=38)for(var y2=15;y2<H2;y2+=38){
+      ctx2.strokeStyle='#C9A96E'; ctx2.lineWidth=0.6;
+      ctx2.beginPath();
+      for(var i=0;i<8;i++){
+        var a=(i/8)*Math.PI*2-Math.PI/8;
+        var r2=14;
+        if(i===0)ctx2.moveTo(x2+r2*Math.cos(a),y2+r2*Math.sin(a));
+        else ctx2.lineTo(x2+r2*Math.cos(a),y2+r2*Math.sin(a));
+      }
+      ctx2.closePath(); ctx2.stroke();
+      ctx2.beginPath(); ctx2.arc(x2,y2,5,0,Math.PI*2); ctx2.stroke();
+    }
+    ctx2.globalAlpha=1; ctx2.restore();
+    var g2=ctx2.createRadialGradient(W2/2,H2/2,0,W2/2,H2/2,W2*0.5);
+    g2.addColorStop(0,'rgba(61,122,110,0.25)'); g2.addColorStop(1,'rgba(0,0,0,0)');
+    ctx2.fillStyle=g2; ctx2.fillRect(0,0,W2,H2);
+  }
+
+  /* Card 3 — Bijouterie: jewel sparkle */
+  var c3=document.getElementById('cardCanvas3');
+  if (c3) {
+    c3.width=c3.offsetWidth||600; c3.height=220;
+    var ctx3=c3.getContext('2d'); var W3=c3.width,H3=c3.height;
+    var bg3=ctx3.createLinearGradient(0,0,0,H3);
+    bg3.addColorStop(0,'#0A0806'); bg3.addColorStop(1,'#180E0A');
+    ctx3.fillStyle=bg3; ctx3.fillRect(0,0,W3,H3);
+    /* Jewel sparkle points */
+    var sparkles=[
+      {x:0.3,y:0.3,r:18},{x:0.6,y:0.5,r:28},{x:0.5,y:0.2,r:14},
+      {x:0.7,y:0.7,r:10},{x:0.2,y:0.65,r:8},{x:0.85,y:0.35,r:12}
+    ];
+    sparkles.forEach(function(s){
+      var sx=W3*s.x,sy=H3*s.y;
+      var sg=ctx3.createRadialGradient(sx,sy,0,sx,sy,s.r*3);
+      sg.addColorStop(0,'rgba(201,169,110,0.35)'); sg.addColorStop(0.5,'rgba(201,169,110,0.12)'); sg.addColorStop(1,'rgba(0,0,0,0)');
+      ctx3.fillStyle=sg; ctx3.fillRect(sx-s.r*3,sy-s.r*3,s.r*6,s.r*6);
+      /* Star shape */
+      ctx3.save(); ctx3.strokeStyle='rgba(201,169,110,0.7)'; ctx3.lineWidth=0.7;
+      ctx3.beginPath();
+      ctx3.moveTo(sx,sy-s.r); ctx3.lineTo(sx,sy+s.r);
+      ctx3.moveTo(sx-s.r,sy); ctx3.lineTo(sx+s.r,sy);
+      ctx3.moveTo(sx-s.r*0.7,sy-s.r*0.7); ctx3.lineTo(sx+s.r*0.7,sy+s.r*0.7);
+      ctx3.moveTo(sx+s.r*0.7,sy-s.r*0.7); ctx3.lineTo(sx-s.r*0.7,sy+s.r*0.7);
+      ctx3.stroke(); ctx3.restore();
+    });
+    /* Subtle grid */
+    ctx3.save(); ctx3.globalAlpha=0.05; ctx3.strokeStyle='#C9A96E'; ctx3.lineWidth=0.5;
+    for(var gx=0;gx<W3;gx+=20){ ctx3.beginPath(); ctx3.moveTo(gx,0); ctx3.lineTo(gx,H3); ctx3.stroke(); }
+    for(var gy=0;gy<H3;gy+=20){ ctx3.beginPath(); ctx3.moveTo(0,gy); ctx3.lineTo(W3,gy); ctx3.stroke(); }
+    ctx3.globalAlpha=1; ctx3.restore();
+  }
+})();
+
+/* ── Atmosphere canvas ── */
+(function() {
+  var c=document.getElementById('atmoCanvas');
+  if (!c) return;
+  function resize() { c.width=c.offsetWidth||600; c.height=c.offsetHeight||520; draw(); }
+  function draw() {
+    var W=c.width,H=c.height; if(!W||!H)return;
+    var ctx=c.getContext('2d'); ctx.clearRect(0,0,W,H);
+    var bg=ctx.createLinearGradient(0,0,0,H);
+    bg.addColorStop(0,'#180A04'); bg.addColorStop(1,'#090402');
+    ctx.fillStyle=bg; ctx.fillRect(0,0,W,H);
+    /* Moroccan arch frame */
+    ctx.save();
+    ctx.strokeStyle='rgba(201,169,110,0.25)'; ctx.fillStyle='rgba(158,74,42,0.12)'; ctx.lineWidth=1.5;
+    var ax=W/2, aw=W*0.55, ah=H*0.7, ay=H*0.65;
+    ctx.beginPath();
+    ctx.moveTo(ax-aw/2,H);
+    ctx.lineTo(ax-aw/2,ay);
+    ctx.arc(ax,ay,aw/2,Math.PI,0,false);
+    ctx.lineTo(ax+aw/2,H);
+    ctx.fill(); ctx.stroke();
+    /* Inner arch */
+    var iaw=aw*0.72,iah=H*0.55;
+    ctx.strokeStyle='rgba(201,169,110,0.15)';
+    ctx.beginPath();
+    ctx.moveTo(ax-iaw/2,H);
+    ctx.lineTo(ax-iaw/2,H*0.68);
+    ctx.arc(ax,H*0.68,iaw/2,Math.PI,0,false);
+    ctx.lineTo(ax+iaw/2,H);
+    ctx.stroke();
+    ctx.restore();
+    /* Zellige floor */
+    ctx.save(); ctx.globalAlpha=0.1;
+    for(var x=0;x<W;x+=24)for(var y=H*0.75;y<H;y+=24){
+      ctx.strokeStyle='#C9A96E'; ctx.lineWidth=0.4;
+      ctx.beginPath(); ctx.rect(x,y,22,22); ctx.stroke();
+    }
+    ctx.globalAlpha=1; ctx.restore();
+    /* Central warm glow */
+    var g=ctx.createRadialGradient(W/2,H*0.4,0,W/2,H*0.4,H*0.5);
+    g.addColorStop(0,'rgba(220,150,50,0.4)'); g.addColorStop(0.4,'rgba(180,100,30,0.18)'); g.addColorStop(1,'rgba(0,0,0,0)');
+    ctx.fillStyle=g; ctx.fillRect(0,0,W,H);
+    /* Display items silhouette */
+    ctx.save(); ctx.fillStyle='rgba(20,10,4,0.7)';
+    ctx.fillRect(20,H*0.45,W*0.18,H*0.55);
+    ctx.fillRect(W-20-W*0.18,H*0.45,W*0.18,H*0.55);
+    ctx.restore();
+    /* Vignette */
+    var vig=ctx.createRadialGradient(W/2,H/2,H*0.15,W/2,H/2,H*0.85);
+    vig.addColorStop(0,'rgba(0,0,0,0)'); vig.addColorStop(1,'rgba(0,0,0,0.65)');
+    ctx.fillStyle=vig; ctx.fillRect(0,0,W,H);
+  }
+  window.addEventListener('resize',resize);
+  resize();
+})();
+
+/* ── Reveal on scroll ── */
+(function () {
+  var reveals=document.querySelectorAll('.reveal');
+  if (!reveals.length) return;
+  var observer=new IntersectionObserver(function(entries){
+    entries.forEach(function(entry){
+      if (entry.isIntersecting){entry.target.classList.add('visible');observer.unobserve(entry.target);}
+    });
+  },{threshold:0.1});
+  reveals.forEach(function(el){observer.observe(el);});
+})();
+
+document.querySelectorAll('a[href^="#"]').forEach(function(a){
+  a.addEventListener('click',function(e){
+    var t=document.querySelector(a.getAttribute('href'));
+    if(t){e.preventDefault();t.scrollIntoView({behavior:'smooth',block:'start'});}
+  });
+});
+</script>
+</body>
+</html>

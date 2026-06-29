@@ -3,36 +3,41 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Oriental Street — Découvrez un voyage au cœur de l'Asie : restaurants, boutiques et cafés dans une ambiance de lanternes rouges, exclusivement au Morocco Mall Marrakech Garden." />
+  <meta name="description" content="Oriental Street Marrakech — artisanat marocain, restaurants, boutiques de créateurs et animations dans une galerie inspirée des souks du Maroc, au Morocco Mall Marrakech Garden." />
   <title>Oriental Street — Morocco Mall Marrakech</title>
   <link rel="icon" href="../assets/logo.png" type="image/png" />
   <link rel="stylesheet" href="../css/main.css" />
   <style>
-    /* ── Base ── */
+    /* ── Palette Souk Maroc ── */
     :root {
-      --lantern-red: #C0392B;
-      --lantern-red-dim: rgba(192, 57, 43, 0.18);
-      --lantern-gold: #C9A96E;
-      --dark-bg: #0D0806;
+      --souk-gold:       #C9A96E;
+      --souk-amber:      #C48530;
+      --souk-terra:      #B85538;
+      --souk-terra-dim:  rgba(184, 85, 56, 0.18);
+      --souk-teal:       #4A8B7A;
+      --souk-teal-dim:   rgba(74, 139, 122, 0.15);
+      --souk-sand:       rgba(201, 169, 110, 0.12);
+      --dark-bg:         #080604;
+      --surface:         #130906;
+      --surface2:        #1A0E08;
     }
     body { background: var(--dark-bg); color: #fff; }
 
-    /* ── Hero ── */
+    /* ── HERO ── */
     .os-hero {
+      position: relative;
       min-height: 100vh;
       display: flex;
       flex-direction: column;
       justify-content: flex-end;
       padding: 0 var(--pad-x) clamp(3rem, 8vw, 6rem);
-      position: relative;
       overflow: hidden;
     }
-    .os-hero__bg {
+    .os-hero__canvas {
       position: absolute;
       inset: 0;
-      background-image: url('../assets/oriental-street-1.png');
-      background-size: cover;
-      background-position: center 55%;
+      width: 100%;
+      height: 100%;
       z-index: 0;
     }
     .os-hero__overlay {
@@ -40,9 +45,9 @@
       inset: 0;
       background: linear-gradient(
         160deg,
-        rgba(80, 10, 5, 0.65) 0%,
-        rgba(40, 6, 2, 0.82) 40%,
-        rgba(13, 4, 2, 0.96) 100%
+        rgba(20, 8, 3, 0.45) 0%,
+        rgba(12, 5, 2, 0.70) 40%,
+        rgba(8, 4, 1, 0.95) 100%
       );
       z-index: 1;
     }
@@ -54,15 +59,9 @@
       width: 100%;
     }
 
-    /* ── Concept Section ── */
+    /* ── CONCEPT ── */
     .os-concept {
-      background: linear-gradient(
-        160deg,
-        #0d0806 0%,
-        #1a0c08 40%,
-        #120806 70%,
-        #0d0806 100%
-      );
+      background: var(--surface);
       padding: clamp(5rem, 10vw, 9rem) 0;
       position: relative;
       overflow: hidden;
@@ -71,18 +70,12 @@
       content: '';
       position: absolute;
       inset: 0;
-      background-image: url('../assets/oriental-street-2.png');
-      background-size: cover;
-      background-position: center;
-      opacity: 0.07;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60'%3E%3Cpath d='M30 0 L60 30 L30 60 L0 30Z' fill='none' stroke='rgba(201,169,110,0.04)' stroke-width='0.5'/%3E%3Ccircle cx='30' cy='30' r='8' fill='none' stroke='rgba(201,169,110,0.03)' stroke-width='0.5'/%3E%3C/svg%3E");
       pointer-events: none;
     }
-    .os-concept-inner {
-      position: relative;
-      z-index: 1;
-    }
+    .os-concept-inner { position: relative; z-index: 1; }
     .os-concept-text {
-      max-width: 780px;
+      max-width: 820px;
       margin: 0 auto;
       text-align: center;
     }
@@ -91,102 +84,143 @@
       font-size: clamp(2rem, 5vw, 4rem);
       font-weight: 300;
       line-height: 1.1;
-      letter-spacing: -0.01em;
-      color: var(--lantern-gold);
+      color: var(--souk-gold);
       margin-bottom: 1.5rem;
     }
     .os-concept-text p {
-      font-size: clamp(0.95rem, 2vw, 1.15rem);
-      color: rgba(255, 255, 255, 0.55);
-      line-height: 1.85;
+      font-size: clamp(0.95rem, 1.8vw, 1.1rem);
+      color: rgba(255,255,255,0.52);
+      line-height: 1.9;
+      margin-bottom: 1.2rem;
     }
+    .os-concept-text p:last-of-type { margin-bottom: 0; }
+    .os-concept-text em {
+      font-style: italic;
+      color: rgba(201,169,110,0.85);
+    }
+
+    /* ── STATS ── */
     .os-stat-grid {
       display: grid;
       grid-template-columns: 1fr;
       gap: 1px;
-      background: rgba(192, 57, 43, 0.2);
+      background: var(--souk-terra-dim);
       margin-top: clamp(3rem, 6vw, 5rem);
     }
     @media (min-width: 640px) { .os-stat-grid { grid-template-columns: repeat(3, 1fr); } }
     .os-stat-card {
-      background: #0d0806;
+      background: var(--dark-bg);
       padding: 2.5rem 2rem;
       text-align: center;
       transition: background 0.3s;
     }
-    .os-stat-card:hover { background: rgba(192, 57, 43, 0.08); }
+    .os-stat-card:hover { background: rgba(184,85,56,0.07); }
     .os-stat-card__number {
       font-family: var(--font-display);
       font-size: clamp(2.8rem, 6vw, 4.5rem);
       font-weight: 300;
-      color: var(--lantern-red);
+      color: var(--souk-terra);
       line-height: 1;
       margin-bottom: 0.6rem;
       letter-spacing: -0.02em;
     }
     .os-stat-card__label {
-      font-size: 0.65rem;
+      font-size: 0.62rem;
       letter-spacing: 0.2em;
       text-transform: uppercase;
-      color: rgba(201, 169, 110, 0.55);
+      color: rgba(201,169,110,0.5);
     }
 
-    /* ── Feature Grid ── */
+    /* ── SECTION HEADING ── */
+    .os-section-heading { text-align: center; }
+    .os-section-heading__eyebrow {
+      font-size: 0.6rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: rgba(184,85,56,0.8);
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.75rem;
+    }
+    .os-section-heading__eyebrow::before,
+    .os-section-heading__eyebrow::after {
+      content: '✦';
+      font-size: 0.55rem;
+      color: rgba(201,169,110,0.5);
+    }
+    .os-section-heading h2 {
+      font-family: var(--font-display);
+      font-size: clamp(1.8rem, 4.5vw, 3.5rem);
+      font-weight: 300;
+      color: var(--souk-gold);
+      line-height: 1.1;
+    }
+    .os-section-heading p {
+      max-width: 560px;
+      margin: 1rem auto 0;
+      font-size: 0.88rem;
+      color: rgba(255,255,255,0.38);
+      line-height: 1.8;
+    }
+
+    /* ── FEATURE GRID ── */
     .os-features {
-      background: #0d0806;
+      background: var(--dark-bg);
       padding: clamp(5rem, 10vw, 8rem) 0;
     }
     .os-feature-grid {
       display: grid;
       grid-template-columns: 1fr;
       gap: 2px;
-      background: rgba(192, 57, 43, 0.1);
+      background: rgba(184,85,56,0.1);
       margin-top: clamp(3rem, 6vw, 4.5rem);
     }
     @media (min-width: 768px)  { .os-feature-grid { grid-template-columns: repeat(2, 1fr); } }
     @media (min-width: 1100px) { .os-feature-grid { grid-template-columns: repeat(3, 1fr); } }
     .os-feature-card {
-      background: #0d0806;
+      background: var(--dark-bg);
       overflow: hidden;
-      position: relative;
       display: flex;
       flex-direction: column;
       transition: transform 0.35s var(--ease);
     }
     .os-feature-card:hover { transform: translateY(-5px); }
-    .os-feature-card__img {
+    .os-feature-card__visual {
       width: 100%;
       height: 240px;
-      object-fit: cover;
-      display: block;
-      opacity: 0.75;
-      transition: opacity 0.35s, transform 0.5s var(--ease);
+      position: relative;
+      overflow: hidden;
+      flex-shrink: 0;
     }
-    .os-feature-card:hover .os-feature-card__img {
-      opacity: 0.9;
-      transform: scale(1.04);
+    .os-feature-card__visual canvas {
+      width: 100%;
+      height: 100%;
+      display: block;
     }
     .os-feature-card__body {
       padding: 1.75rem 1.5rem 2rem;
       flex: 1;
-      border: 1px solid rgba(192, 57, 43, 0.15);
+      border: 1px solid rgba(184,85,56,0.14);
       border-top: none;
     }
     .os-feature-card__icon {
-      font-size: 1.4rem;
+      font-size: 1.3rem;
       margin-bottom: 0.75rem;
+      color: var(--souk-gold);
     }
     .os-feature-card__title {
       font-family: var(--font-display);
       font-size: 1.35rem;
       font-weight: 300;
-      color: var(--lantern-gold);
+      color: var(--souk-gold);
       margin-bottom: 0.6rem;
       line-height: 1.2;
     }
     .os-feature-card__desc {
       font-size: 0.78rem;
-      color: rgba(255, 255, 255, 0.38);
+      color: rgba(255,255,255,0.38);
       line-height: 1.8;
     }
     .os-feature-card__tags {
@@ -199,47 +233,14 @@
       font-size: 0.55rem;
       letter-spacing: 0.14em;
       text-transform: uppercase;
-      color: rgba(192, 57, 43, 0.7);
-      border: 1px solid rgba(192, 57, 43, 0.25);
+      color: rgba(184,85,56,0.75);
+      border: 1px solid rgba(184,85,56,0.25);
       padding: 0.25rem 0.65rem;
     }
 
-    /* ── Section Heading ── */
-    .os-section-heading {
-      text-align: center;
-    }
-    .os-section-heading__eyebrow {
-      font-size: 0.6rem;
-      letter-spacing: 0.22em;
-      text-transform: uppercase;
-      color: var(--lantern-red);
-      margin-bottom: 1rem;
-    }
-    .os-section-heading__eyebrow::before,
-    .os-section-heading__eyebrow::after {
-      content: '🏮';
-      margin: 0 0.5em;
-      font-style: normal;
-    }
-    .os-section-heading h2 {
-      font-family: var(--font-display);
-      font-size: clamp(1.8rem, 4.5vw, 3.5rem);
-      font-weight: 300;
-      color: var(--lantern-gold);
-      line-height: 1.1;
-      letter-spacing: -0.01em;
-    }
-    .os-section-heading p {
-      max-width: 520px;
-      margin: 1rem auto 0;
-      font-size: 0.88rem;
-      color: rgba(255, 255, 255, 0.4);
-      line-height: 1.75;
-    }
-
-    /* ── Atmosphere Split ── */
+    /* ── ATMOSPHERE SPLIT ── */
     .os-atmosphere {
-      background: #0a0604;
+      background: #070503;
       padding: clamp(5rem, 10vw, 9rem) 0;
     }
     .os-atmosphere-split {
@@ -250,30 +251,27 @@
     @media (min-width: 900px) {
       .os-atmosphere-split { grid-template-columns: 1fr 1fr; min-height: 580px; }
     }
-    .os-atmosphere__image {
+    .os-atmosphere__canvas-wrap {
       overflow: hidden;
       position: relative;
+      min-height: 340px;
     }
-    .os-atmosphere__image img {
+    .os-atmosphere__canvas-wrap canvas {
       width: 100%;
       height: 100%;
-      min-height: 340px;
       object-fit: cover;
       display: block;
-      opacity: 0.82;
-      transition: opacity 0.5s, transform 0.7s var(--ease);
     }
-    .os-atmosphere__image:hover img { opacity: 0.95; transform: scale(1.03); }
     .os-atmosphere__content {
-      background: linear-gradient(135deg, #160c08 0%, #0d0806 100%);
+      background: linear-gradient(135deg, var(--surface2) 0%, var(--surface) 100%);
       padding: clamp(3rem, 6vw, 5rem) clamp(2rem, 5vw, 4rem);
       display: flex;
       flex-direction: column;
       justify-content: center;
-      border: 1px solid rgba(192, 57, 43, 0.12);
+      border: 1px solid rgba(184,85,56,0.12);
     }
     .os-atmosphere__content .os-section-heading__eyebrow {
-      text-align: left;
+      justify-content: flex-start;
       margin-bottom: 1.25rem;
     }
     .os-atmosphere__content .os-section-heading__eyebrow::before,
@@ -282,68 +280,65 @@
       font-family: var(--font-display);
       font-size: clamp(1.8rem, 3.5vw, 3rem);
       font-weight: 300;
-      color: var(--lantern-gold);
+      color: var(--souk-gold);
       line-height: 1.15;
       margin-bottom: 1.75rem;
     }
     .os-atmosphere__content p {
       font-size: 0.88rem;
-      color: rgba(255, 255, 255, 0.45);
-      line-height: 1.9;
+      color: rgba(255,255,255,0.45);
+      line-height: 1.95;
       margin-bottom: 1rem;
     }
     .os-atmosphere__content p:last-of-type { margin-bottom: 0; }
 
-    /* ── Horaires ── */
+    /* ── HORAIRES ── */
     .os-horaires {
-      background: linear-gradient(160deg, #0d0806 0%, #1a0c08 50%, #0d0806 100%);
+      background: linear-gradient(160deg, var(--dark-bg) 0%, var(--surface2) 50%, var(--dark-bg) 100%);
       padding: clamp(5rem, 10vw, 8rem) 0;
     }
     .os-horaires-grid {
       display: grid;
       grid-template-columns: 1fr;
       gap: 1px;
-      background: rgba(192, 57, 43, 0.18);
+      background: rgba(184,85,56,0.18);
       margin-top: clamp(3rem, 6vw, 4.5rem);
     }
     @media (min-width: 640px) { .os-horaires-grid { grid-template-columns: repeat(3, 1fr); } }
     .os-horaires-card {
-      background: #0d0806;
+      background: var(--dark-bg);
       padding: 2.5rem 2rem;
       transition: background 0.3s;
     }
-    .os-horaires-card:hover { background: rgba(192, 57, 43, 0.07); }
-    .os-horaires-card__icon {
-      font-size: 1.5rem;
-      margin-bottom: 1rem;
-    }
+    .os-horaires-card:hover { background: rgba(184,85,56,0.07); }
+    .os-horaires-card__icon { font-size: 1.5rem; margin-bottom: 1rem; }
     .os-horaires-card__label {
       font-size: 0.58rem;
       letter-spacing: 0.2em;
       text-transform: uppercase;
-      color: rgba(192, 57, 43, 0.6);
+      color: rgba(184,85,56,0.6);
       margin-bottom: 0.5rem;
     }
     .os-horaires-card__time {
       font-family: var(--font-display);
       font-size: 1.3rem;
       font-weight: 300;
-      color: var(--lantern-gold);
+      color: var(--souk-gold);
       line-height: 1.4;
     }
     .os-horaires-card__note {
       font-size: 0.7rem;
-      color: rgba(255, 255, 255, 0.28);
+      color: rgba(255,255,255,0.28);
       margin-top: 0.5rem;
       line-height: 1.6;
     }
 
-    /* ── Location Banner ── */
+    /* ── LOCATION ── */
     .os-location {
-      background: #080403;
+      background: #060402;
       padding: clamp(3.5rem, 7vw, 5.5rem) 0;
-      border-top: 1px solid rgba(192, 57, 43, 0.15);
-      border-bottom: 1px solid rgba(192, 57, 43, 0.15);
+      border-top: 1px solid rgba(184,85,56,0.15);
+      border-bottom: 1px solid rgba(184,85,56,0.15);
     }
     .os-location-inner {
       display: flex;
@@ -353,42 +348,35 @@
       text-align: center;
     }
     @media (min-width: 768px) {
-      .os-location-inner {
-        flex-direction: row;
-        justify-content: center;
-        text-align: left;
-      }
+      .os-location-inner { flex-direction: row; justify-content: center; text-align: left; }
     }
-    .os-location__icon {
-      font-size: 2.5rem;
-      line-height: 1;
-      flex-shrink: 0;
-    }
+    .os-location__icon { font-size: 2.5rem; line-height: 1; flex-shrink: 0; }
     .os-location__text h3 {
       font-family: var(--font-display);
       font-size: clamp(1.3rem, 3vw, 2rem);
       font-weight: 300;
-      color: var(--lantern-gold);
+      color: var(--souk-gold);
       margin-bottom: 0.4rem;
     }
     .os-location__text p {
       font-size: 0.8rem;
-      color: rgba(255, 255, 255, 0.38);
+      color: rgba(255,255,255,0.38);
       line-height: 1.7;
     }
     .os-location__badge {
       font-size: 0.6rem;
       letter-spacing: 0.18em;
       text-transform: uppercase;
-      color: rgba(192, 57, 43, 0.8);
-      border: 1px solid rgba(192, 57, 43, 0.3);
+      color: rgba(184,85,56,0.8);
+      border: 1px solid rgba(184,85,56,0.3);
       padding: 0.5rem 1.2rem;
       flex-shrink: 0;
+      text-align: center;
     }
 
     /* ── CTA ── */
     .os-cta {
-      background: linear-gradient(160deg, #0d0806 0%, #160a06 50%, #0d0806 100%);
+      background: linear-gradient(160deg, var(--dark-bg) 0%, var(--surface2) 50%, var(--dark-bg) 100%);
       padding: clamp(5rem, 10vw, 8rem) 0;
       text-align: center;
     }
@@ -396,7 +384,7 @@
       font-family: var(--font-display);
       font-size: clamp(2rem, 5vw, 4rem);
       font-weight: 300;
-      color: var(--lantern-gold);
+      color: var(--souk-gold);
       line-height: 1.1;
       margin-bottom: 1rem;
     }
@@ -404,7 +392,7 @@
       max-width: 480px;
       margin: 0 auto 2.5rem;
       font-size: 0.9rem;
-      color: rgba(255, 255, 255, 0.38);
+      color: rgba(255,255,255,0.38);
       line-height: 1.75;
     }
     .os-cta-btn {
@@ -413,50 +401,56 @@
       font-size: 0.7rem;
       letter-spacing: 0.14em;
       text-transform: uppercase;
-      color: #0d0806;
-      background: var(--lantern-gold);
-      border: 1px solid var(--lantern-gold);
+      color: var(--dark-bg);
+      background: var(--souk-gold);
+      border: 1px solid var(--souk-gold);
       padding: 1rem 2.5rem;
       text-decoration: none;
       transition: background 0.3s, color 0.3s, border-color 0.3s;
     }
-    .os-cta-btn:hover {
-      background: transparent;
-      color: var(--lantern-gold);
-    }
+    .os-cta-btn:hover { background: transparent; color: var(--souk-gold); }
     .os-cta-btn--outline {
       background: transparent;
-      color: rgba(255, 255, 255, 0.5);
-      border-color: rgba(255, 255, 255, 0.2);
+      color: rgba(255,255,255,0.5);
+      border-color: rgba(255,255,255,0.2);
       margin-left: 1rem;
     }
     .os-cta-btn--outline:hover {
-      background: rgba(255, 255, 255, 0.06);
-      color: rgba(255, 255, 255, 0.8);
-      border-color: rgba(255, 255, 255, 0.35);
+      background: rgba(255,255,255,0.06);
+      color: rgba(255,255,255,0.8);
+      border-color: rgba(255,255,255,0.35);
     }
-
-    /* ── Divider with lantern motif ── */
     .os-divider {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 1rem;
-      padding: 1.5rem 0;
+      display: flex; align-items: center; justify-content: center;
+      gap: 1rem; padding: 1.5rem 0;
     }
-    .os-divider::before,
-    .os-divider::after {
+    .os-divider::before,.os-divider::after {
       content: '';
       flex: 1;
       height: 1px;
-      background: linear-gradient(to right, transparent, rgba(192, 57, 43, 0.25), transparent);
+      background: linear-gradient(to right, transparent, rgba(184,85,56,0.25), transparent);
     }
 
-    /* ── Responsive adjustments ── */
+    /* ── QUOTE BLOCK ── */
+    .os-quote {
+      background: var(--surface2);
+      border-left: 3px solid var(--souk-terra);
+      margin: 2rem 0 0;
+      padding: 1.75rem 2rem;
+      text-align: left;
+    }
+    .os-quote p {
+      font-family: var(--font-display);
+      font-style: italic;
+      font-size: clamp(0.95rem, 2vw, 1.15rem);
+      color: rgba(255,255,255,0.6);
+      line-height: 1.9;
+    }
+
+    /* ── RESPONSIVE ── */
     @media (max-width: 640px) {
       .os-cta-btn--outline { margin-left: 0; margin-top: 0.75rem; }
       .os-cta .os-cta-buttons { display: flex; flex-direction: column; align-items: center; gap: 0.75rem; }
-      .os-cta-btn--outline { margin-left: 0; }
     }
   </style>
 </head>
@@ -465,31 +459,31 @@
 <main id="main-content">
 
   <!-- ============================================================
-       HERO
+       HERO — Canvas Morocco Souk
   ============================================================ -->
   <section class="os-hero">
-    <div class="os-hero__bg"></div>
+    <canvas class="os-hero__canvas" id="heroCanvas" aria-hidden="true"></canvas>
     <div class="os-hero__overlay"></div>
     <div class="os-hero__content">
-      <nav style="display:flex;align-items:center;gap:0.5rem;font-size:0.65rem;letter-spacing:0.15em;text-transform:uppercase;color:rgba(255,255,255,0.3);margin-bottom:2.5rem;">
+      <nav aria-label="Fil d'Ariane" style="display:flex;align-items:center;gap:0.5rem;font-size:0.65rem;letter-spacing:0.15em;text-transform:uppercase;color:rgba(255,255,255,0.3);margin-bottom:2.5rem;">
         <a href="../index.html" style="color:rgba(255,255,255,0.3);">Morocco Mall</a>
         <span>›</span>
-        <a href="marrakech-garden.html" style="color:rgba(255,255,255,0.3);">Marrakech Garden</a>
+        <a href="about.html" style="color:rgba(255,255,255,0.3);">Marrakech Garden</a>
         <span>›</span>
         <span style="color:rgba(201,169,110,0.8);">Oriental Street</span>
       </nav>
-      <p class="reveal" style="font-size:0.6rem;letter-spacing:0.22em;text-transform:uppercase;color:rgba(192,57,43,0.8);margin-bottom:1.5rem;">
-        Morocco Mall Marrakech · L'Asie au cœur du Maroc
+      <p class="reveal" style="font-size:0.6rem;letter-spacing:0.22em;text-transform:uppercase;color:rgba(184,85,56,0.85);margin-bottom:1.5rem;">
+        Morocco Mall Marrakech · Le meilleur du Maroc &amp; du monde
       </p>
       <h1 class="reveal reveal-delay-1" style="font-family:var(--font-display);font-size:clamp(3rem,8vw,6.5rem);font-weight:300;color:rgba(255,255,255,0.95);line-height:0.9;max-width:860px;letter-spacing:-0.01em;">
         Oriental<br><em style="color:#C9A96E;">Street</em>
       </h1>
-      <p class="reveal reveal-delay-2" style="color:rgba(255,255,255,0.45);font-size:clamp(0.9rem,2vw,1.1rem);max-width:520px;margin-top:1.75rem;line-height:1.7;">
-        Restaurants &middot; Boutiques &middot; Cafés dans une ambiance orientale unique
+      <p class="reveal reveal-delay-2" style="color:rgba(255,255,255,0.45);font-size:clamp(0.9rem,2vw,1.1rem);max-width:560px;margin-top:1.75rem;line-height:1.7;">
+        Restaurants &middot; Boutiques &middot; Animations &mdash; une galerie culturelle unique inspirée des grands souks du Maroc
       </p>
       <div class="reveal reveal-delay-3" style="margin-top:2.5rem;display:flex;gap:1rem;flex-wrap:wrap;">
-        <a href="#decouvrir" class="btn btn--lg" style="background:#C9A96E;color:#0d0806;font-size:0.7rem;letter-spacing:0.12em;text-transform:uppercase;padding:1rem 2.2rem;display:inline-block;font-family:var(--font-body);">Explorer</a>
-        <a href="#horaires" class="btn btn--outline-white btn--lg" style="font-size:0.7rem;letter-spacing:0.12em;text-transform:uppercase;padding:1rem 2.2rem;display:inline-block;border:1px solid rgba(255,255,255,0.2);color:rgba(255,255,255,0.6);">Horaires</a>
+        <a href="#decouvrir" class="btn btn--lg" style="background:#C9A96E;color:#080604;font-size:0.7rem;letter-spacing:0.12em;text-transform:uppercase;padding:1rem 2.2rem;display:inline-block;font-family:var(--font-body);">Explorer</a>
+        <a href="oriental-street-casablanca.html" class="btn btn--outline-white btn--lg" style="font-size:0.7rem;letter-spacing:0.12em;text-transform:uppercase;padding:1rem 2.2rem;display:inline-block;border:1px solid rgba(255,255,255,0.2);color:rgba(255,255,255,0.6);">Casablanca →</a>
       </div>
     </div>
   </section>
@@ -500,12 +494,15 @@
   <section class="os-concept" id="decouvrir">
     <div class="container os-concept-inner">
       <div class="os-concept-text reveal">
-        <p style="font-size:0.58rem;letter-spacing:0.22em;text-transform:uppercase;color:rgba(192,57,43,0.7);margin-bottom:1.25rem;">
-          <span aria-hidden="true">🏮</span>&ensp;Une destination dans la destination&ensp;<span aria-hidden="true">🏮</span>
+        <p style="font-size:0.58rem;letter-spacing:0.22em;text-transform:uppercase;color:rgba(184,85,56,0.7);margin-bottom:1.25rem;">
+          ✦&ensp;Une galerie culturelle hors du commun&ensp;✦
         </p>
-        <h2>L'Asie s'invite<br>au Maroc</h2>
+        <h2>L'art de vivre marocain<br>au cœur du Mall</h2>
         <p style="margin-top:1.5rem;">
-          Inspirée des plus emblématiques marchés couverts d'Asie — des ruelles de Shanghai aux galeries de Kyoto, des souks parfumés de Bangkok aux passages de Hanoi — Oriental Street est un voyage sensoriel au cœur de Morocco Mall Marrakech Garden. Sous ses lanternes rouges et dorées, une sélection de restaurants, boutiques et salons de thé vous transporte à l'autre bout du monde sans quitter le Maroc.
+          En parcourant cette allée, les visiteurs sont accueillis par une <em>ambiance méditerranéenne contemporaine</em>, où la lumière naturelle danse sur les arcades blanches et qui prend vie entre oliviers et végétation tropicale, dans une symphonie d'arômes floraux et de fontaines apaisantes.
+        </p>
+        <p>
+          Ici, <em>l'artisanat marocain</em> et les créateurs les plus talentueux se retrouvent pour proposer une sélection exclusive des derniers concepts locaux et internationaux. Cette galerie culturelle présente le meilleur du design moderne et traditionnel, offrant une expérience de shopping qui invite à la flânerie, à la découverte tout en offrant des <em>pauses gourmandes</em> pour se restaurer dans un havre de paix loin du tumulte de la ville.
         </p>
       </div>
 
@@ -516,99 +513,85 @@
         </div>
         <div class="os-stat-card reveal reveal-delay-1">
           <div class="os-stat-card__number">50<span style="font-size:0.5em;vertical-align:middle;margin-left:0.2em;">+</span></div>
-          <div class="os-stat-card__label">Boutiques</div>
+          <div class="os-stat-card__label">Boutiques &amp; Créateurs</div>
         </div>
         <div class="os-stat-card reveal reveal-delay-2">
-          <div class="os-stat-card__number" style="font-size:clamp(1.8rem,4vw,3rem);line-height:1.2;">Unique</div>
-          <div class="os-stat-card__label">Ambiance Orientale</div>
+          <div class="os-stat-card__number" style="font-size:clamp(1.8rem,4vw,3rem);line-height:1.3;">Unique</div>
+          <div class="os-stat-card__label">Galerie Culturelle</div>
         </div>
       </div>
     </div>
   </section>
 
   <!-- ============================================================
-       FEATURE GRID — What you'll find
+       FEATURE GRID
   ============================================================ -->
   <section class="os-features">
     <div class="container">
       <div class="os-section-heading reveal">
         <p class="os-section-heading__eyebrow">Ce que vous trouverez</p>
-        <h2>Trois univers,<br>une seule rue</h2>
-        <p>De la gastronomie aux arts de vivre asiatiques, Oriental Street rassemble le meilleur de l'Orient sous un même toit.</p>
+        <h2>Trois univers,<br>une seule allée</h2>
+        <p>Artisanat, gastronomie et divertissement — Oriental Street rassemble le meilleur de la culture marocaine et du monde sous un même toit.</p>
       </div>
 
       <div class="os-feature-grid">
-        <!-- Restaurants asiatiques -->
+
+        <!-- Boutiques & Artisanat -->
         <div class="os-feature-card reveal">
-          <div style="overflow:hidden;">
-            <img
-              class="os-feature-card__img"
-              src="../assets/oriental-street-1.png"
-              alt="Restaurants asiatiques — Oriental Street Morocco Mall"
-              loading="lazy"
-            />
+          <div class="os-feature-card__visual">
+            <canvas id="cardCanvas1" width="600" height="240" aria-label="Artisanat marocain et boutiques de créateurs"></canvas>
           </div>
           <div class="os-feature-card__body">
-            <div class="os-feature-card__icon" aria-hidden="true">🍜</div>
-            <div class="os-feature-card__title">Restaurants Asiatiques</div>
+            <div class="os-feature-card__icon" aria-hidden="true">✦</div>
+            <div class="os-feature-card__title">Artisanat &amp; Créateurs</div>
             <p class="os-feature-card__desc">
-              Des saveurs authentiques aux quatre coins de l'Asie. Chaque adresse est une invitation à un voyage culinaire inédit, des raviolis vapeur aux rouleaux de printemps croustillants.
+              Zellige, cuir, broderies et bijouterie berbère côtoient les collections des créateurs marocains les plus talentueux. Un espace dédié à l'excellence de l'artisanat local et international.
             </p>
             <div class="os-feature-card__tags">
-              <span class="os-feature-card__tag">Chinois</span>
-              <span class="os-feature-card__tag">Japonais</span>
-              <span class="os-feature-card__tag">Thaïlandais</span>
-              <span class="os-feature-card__tag">Vietnamien</span>
+              <span class="os-feature-card__tag">Artisanat Marocain</span>
+              <span class="os-feature-card__tag">Créateurs Locaux</span>
+              <span class="os-feature-card__tag">Mode</span>
+              <span class="os-feature-card__tag">Bijouterie</span>
             </div>
           </div>
         </div>
 
-        <!-- Boutiques & Souvenirs -->
+        <!-- Restaurants & Pauses -->
         <div class="os-feature-card reveal reveal-delay-1">
-          <div style="overflow:hidden;">
-            <img
-              class="os-feature-card__img"
-              src="../assets/oriental-street-2.png"
-              alt="Boutiques et souvenirs — Oriental Street Morocco Mall"
-              loading="lazy"
-            />
+          <div class="os-feature-card__visual">
+            <canvas id="cardCanvas2" width="600" height="240" aria-label="Restaurants et pauses gourmandes"></canvas>
           </div>
           <div class="os-feature-card__body">
-            <div class="os-feature-card__icon" aria-hidden="true">🏺</div>
-            <div class="os-feature-card__title">Boutiques &amp; Souvenirs</div>
+            <div class="os-feature-card__icon" aria-hidden="true">☽</div>
+            <div class="os-feature-card__title">Restaurants &amp; Pauses Gourmandes</div>
             <p class="os-feature-card__desc">
-              Artisanat traditionnel, soieries, jade et céramiques côtoient des trésors du thé et des épices rares. Chaque objet raconte une histoire venue de l'autre bout du monde.
+              Saveurs marocaines et inspirations du monde entier se retrouvent dans une sélection de restaurants et cafés. Se restaurer dans un havre de paix, loin du tumulte de la ville.
             </p>
             <div class="os-feature-card__tags">
-              <span class="os-feature-card__tag">Soie</span>
-              <span class="os-feature-card__tag">Jade</span>
-              <span class="os-feature-card__tag">Artisanat</span>
-              <span class="os-feature-card__tag">Thé</span>
+              <span class="os-feature-card__tag">Cuisine Marocaine</span>
+              <span class="os-feature-card__tag">Restaurants</span>
+              <span class="os-feature-card__tag">Cafés</span>
+              <span class="os-feature-card__tag">Pâtisseries</span>
             </div>
           </div>
         </div>
 
-        <!-- Salons de thé & Cafés -->
+        <!-- Animations & Divertissements -->
         <div class="os-feature-card reveal reveal-delay-2">
-          <div style="overflow:hidden;">
-            <img
-              class="os-feature-card__img"
-              src="../assets/oriental-street-1.png"
-              alt="Salons de thé et cafés — Oriental Street Morocco Mall"
-              loading="lazy"
-            />
+          <div class="os-feature-card__visual">
+            <canvas id="cardCanvas3" width="600" height="240" aria-label="Animations et divertissements dans la galerie"></canvas>
           </div>
           <div class="os-feature-card__body">
-            <div class="os-feature-card__icon" aria-hidden="true">🍵</div>
-            <div class="os-feature-card__title">Salons de Thé &amp; Cafés</div>
+            <div class="os-feature-card__icon" aria-hidden="true">◈</div>
+            <div class="os-feature-card__title">Animations &amp; Divertissements</div>
             <p class="os-feature-card__desc">
-              Pause méritée autour d'un bubble tea frais, d'un thé au jasmin ou de pâtisseries mochi. Les dim sum se savourent dans une atmosphère feutrée baignée de lumières dorées.
+              Concerts, expositions d'artisanat, démonstrations de savoir-faire et événements culturels animent régulièrement la galerie, transformant chaque visite en une découverte.
             </p>
             <div class="os-feature-card__tags">
-              <span class="os-feature-card__tag">Bubble Tea</span>
-              <span class="os-feature-card__tag">Dim Sum</span>
-              <span class="os-feature-card__tag">Pâtisseries</span>
-              <span class="os-feature-card__tag">Matcha</span>
+              <span class="os-feature-card__tag">Événements Culturels</span>
+              <span class="os-feature-card__tag">Animations</span>
+              <span class="os-feature-card__tag">Expositions</span>
+              <span class="os-feature-card__tag">Live</span>
             </div>
           </div>
         </div>
@@ -621,24 +604,20 @@
   ============================================================ -->
   <section class="os-atmosphere">
     <div class="os-atmosphere-split">
-      <div class="os-atmosphere__image">
-        <img
-          src="../assets/oriental-street-2.png"
-          alt="L'ambiance de l'Oriental Street — Morocco Mall"
-          loading="lazy"
-        />
+      <div class="os-atmosphere__canvas-wrap">
+        <canvas id="atmoCanvas" aria-label="Galerie Oriental Street — arcades et végétation tropicale"></canvas>
       </div>
       <div class="os-atmosphere__content">
         <p class="os-section-heading__eyebrow">L'atmosphère</p>
-        <h2>Là où les lanternes<br>parlent la nuit</h2>
+        <h2>Là où la lumière danse<br>sur les arcades blanches</h2>
         <p>
-          Dès les premières heures d'ouverture, Oriental Street vous enveloppe dans une lumière chaude et tamisée. Des centaines de lanternes rouges et or oscillent doucement au-dessus des allées, projetant leurs reflets cuivrés sur les façades en bois sculpté et les paravents de papier.
+          En parcourant cette allée, les visiteurs sont accueillis par une ambiance méditerranéenne contemporaine, où la lumière naturelle danse sur les arcades blanches et qui prend vie entre oliviers et végétation tropicale, dans une symphonie d'arômes floraux et de fontaines apaisantes.
         </p>
         <p>
-          Les effluves de sauce soja, de thé fumé et d'épices douces se mêlent aux notes de jasmin. On entend le doux murmure des fontaines, les notes d'un erhu, le crépitement des woks. Chaque détail — des enseignes calligraphiées aux mosaïques de celadon — a été pensé pour immerger les visiteurs dans un Orient poétique et authentique.
+          L'artisanat marocain et les créateurs les plus talentueux se retrouvent ici pour proposer une sélection exclusive des derniers concepts locaux et internationaux. Cette galerie culturelle présente le meilleur du design moderne et traditionnel.
         </p>
         <p>
-          Une destination dans la destination, Oriental Street est l'une des expériences les plus singulières du Maroc moderne.
+          Une expérience de shopping qui invite à la flânerie, à la découverte — tout en offrant des pauses gourmandes pour se restaurer dans un havre de paix loin du tumulte de la ville.
         </p>
       </div>
     </div>
@@ -654,7 +633,6 @@
         <h2>Horaires d'ouverture</h2>
         <p>Oriental Street accueille ses visiteurs 7 jours sur 7, toute l'année.</p>
       </div>
-
       <div class="os-horaires-grid">
         <div class="os-horaires-card reveal">
           <div class="os-horaires-card__icon" aria-hidden="true">🕙</div>
@@ -671,7 +649,7 @@
         <div class="os-horaires-card reveal reveal-delay-2">
           <div class="os-horaires-card__icon" aria-hidden="true">☀️</div>
           <div class="os-horaires-card__label">Été</div>
-          <div class="os-horaires-card__time">10h00 – 22h00</div>
+          <div class="os-horaires-card__time">10h00 – 23h00</div>
           <div class="os-horaires-card__note">1<sup>er</sup> juin – 30 septembre</div>
         </div>
       </div>
@@ -686,8 +664,8 @@
       <div class="os-location-inner reveal">
         <div class="os-location__icon" aria-hidden="true">📍</div>
         <div class="os-location__text">
-          <h3>Niveau 1 · Aile Est</h3>
-          <p>Morocco Mall Marrakech Garden &mdash; accessible depuis les entrées principales<br>et par les escalators intérieurs de l'aile Est.</p>
+          <h3>Marrakech Garden · Morocco Mall</h3>
+          <p>Oriental Street se trouve au cœur du Marrakech Garden &mdash; accessible depuis les entrées principales<br>et par les escalators intérieurs de l'aile Est.</p>
         </div>
         <div class="os-location__badge">Marrakech Garden<br>Exclusif</div>
       </div>
@@ -700,14 +678,15 @@
   <section class="os-cta">
     <div class="container">
       <div class="os-divider">
-        <span aria-hidden="true" style="font-size:1.1rem;">🏮</span>
+        <span aria-hidden="true" style="font-size:1.1rem;color:rgba(201,169,110,0.5);">✦</span>
       </div>
       <h2 class="reveal" style="margin-top:2rem;">Découvrez<br><em>Marrakech Garden</em></h2>
       <p class="reveal reveal-delay-1">
-        Oriental Street n'est qu'une des merveilles de Morocco Mall Marrakech Garden. Explorez l'ensemble de la destination.
+        Oriental Street est l'une des destinations emblématiques de Morocco Mall Marrakech Garden. Explorez l'ensemble de la galerie.
       </p>
       <div class="os-cta-buttons reveal reveal-delay-2">
-        <a href="../pages/about.html" class="os-cta-btn">Découvrir Marrakech Garden</a>
+        <a href="about.html" class="os-cta-btn">Découvrir Marrakech Garden</a>
+        <a href="oriental-street-casablanca.html" class="os-cta-btn os-cta-btn--outline">Oriental Street Casablanca</a>
       </div>
     </div>
   </section>
@@ -717,33 +696,451 @@
 <script src="../js/translations.js"></script>
 <script src="../js/app.js"></script>
 <script>
-  /* Reveal on scroll */
-  (function () {
-    const reveals = document.querySelectorAll('.reveal');
-    if (!reveals.length) return;
+/* ── CANVAS: Morocco Souk Hero ── */
+(function () {
+  var canvas = document.getElementById('heroCanvas');
+  if (!canvas) return;
+  function resize() {
+    canvas.width = canvas.offsetWidth;
+    canvas.height = canvas.offsetHeight;
+    draw();
+  }
+  function draw() {
+    var W = canvas.width, H = canvas.height;
+    if (!W || !H) return;
+    var ctx = canvas.getContext('2d');
+    ctx.clearRect(0, 0, W, H);
 
-    const observer = new IntersectionObserver(entries => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
-          observer.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.12 });
+    /* Background gradient — warm dark terracotta */
+    var bg = ctx.createLinearGradient(0, 0, W, H);
+    bg.addColorStop(0, '#1A0A05');
+    bg.addColorStop(0.5, '#100703');
+    bg.addColorStop(1, '#080402');
+    ctx.fillStyle = bg;
+    ctx.fillRect(0, 0, W, H);
 
-    reveals.forEach(el => observer.observe(el));
-  })();
+    var vx = W * 0.5, vy = H * 0.36;
 
-  /* Smooth scroll for anchor links */
-  document.querySelectorAll('a[href^="#"]').forEach(a => {
-    a.addEventListener('click', e => {
-      const target = document.querySelector(a.getAttribute('href'));
-      if (target) {
-        e.preventDefault();
-        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    /* ── Floor: perspective tile grid ── */
+    ctx.save();
+    ctx.strokeStyle = 'rgba(180,130,60,0.07)';
+    ctx.lineWidth = 0.6;
+    /* Lateral perspective lines */
+    for (var i = 0; i <= 16; i++) {
+      var t = i / 16;
+      var endX = W * t;
+      ctx.beginPath();
+      ctx.moveTo(vx, vy);
+      ctx.lineTo(endX, H);
+      ctx.stroke();
+    }
+    /* Horizontal recession lines */
+    for (var j = 0; j < 18; j++) {
+      var jt = j / 18;
+      var y = vy + (H - vy) * (jt * jt);
+      var hw = (W / 2) * ((y - vy) / (H - vy));
+      ctx.beginPath();
+      ctx.moveTo(vx - hw, y);
+      ctx.lineTo(vx + hw, y);
+      ctx.stroke();
+    }
+    ctx.restore();
+
+    /* ── Zellige tile motifs on floor ── */
+    ctx.save();
+    ctx.globalAlpha = 0.05;
+    for (var tx = 0; tx < 8; tx++) {
+      for (var ty = 0; ty < 5; ty++) {
+        var fx = vx - 200 + tx * 60;
+        var fy = H * 0.65 + ty * 50;
+        drawZelligeStar(ctx, fx, fy, 16, 'rgba(201,169,110,1)');
+      }
+    }
+    ctx.globalAlpha = 1;
+    ctx.restore();
+
+    /* ── Souk corridor walls ── */
+    var wallW = W * 0.28;
+    /* Left wall */
+    ctx.save();
+    var leftGrad = ctx.createLinearGradient(0, 0, wallW, 0);
+    leftGrad.addColorStop(0, 'rgba(80,35,12,0.6)');
+    leftGrad.addColorStop(1, 'rgba(80,35,12,0)');
+    ctx.fillStyle = leftGrad;
+    ctx.beginPath();
+    ctx.moveTo(0, 0); ctx.lineTo(vx, vy); ctx.lineTo(vx, H); ctx.lineTo(0, H);
+    ctx.closePath();
+    ctx.fill();
+    ctx.restore();
+
+    /* Right wall */
+    ctx.save();
+    var rightGrad = ctx.createLinearGradient(W, 0, W - wallW, 0);
+    rightGrad.addColorStop(0, 'rgba(80,35,12,0.6)');
+    rightGrad.addColorStop(1, 'rgba(80,35,12,0)');
+    ctx.fillStyle = rightGrad;
+    ctx.beginPath();
+    ctx.moveTo(W, 0); ctx.lineTo(vx, vy); ctx.lineTo(vx, H); ctx.lineTo(W, H);
+    ctx.closePath();
+    ctx.fill();
+    ctx.restore();
+
+    /* ── Arched alcoves on walls ── */
+    var archCount = 4;
+    for (var a = 0; a < archCount; a++) {
+      var at = (a + 0.5) / archCount;
+      var depth = 0.3 + at * 0.4;
+
+      /* Left arch */
+      var lx = vx * (1 - depth * 0.85);
+      var ly = vy + (H - vy) * at;
+      var archH = (H - vy) * 0.22 / (archCount * at + 0.5);
+      var archW = archH * 0.55;
+      drawMoroccanArch(ctx, lx, ly, archW, archH, 'rgba(180,120,60,0.18)', 'rgba(201,169,110,0.12)');
+
+      /* Right arch */
+      var rx = vx + (W - vx) * depth * 0.85;
+      drawMoroccanArch(ctx, rx, ly, archW, archH, 'rgba(180,120,60,0.18)', 'rgba(201,169,110,0.12)');
+    }
+
+    /* ── Hanging lanterns / lamps ── */
+    var lampCount = 6;
+    for (var l = 0; l < lampCount; l++) {
+      var lt = (l + 0.5) / lampCount;
+      var lx2 = vx * (1 - 0.02) + lt * (W * 0.02);
+      /* Hanging cord */
+      var ropeLen = H * (0.05 + lt * 0.08);
+      var lampY = vy + ropeLen;
+      ctx.save();
+      ctx.strokeStyle = 'rgba(180,120,50,0.3)';
+      ctx.lineWidth = 0.5;
+      ctx.beginPath();
+      ctx.moveTo(vx, vy - 20 + l * 4);
+      ctx.lineTo(vx + (lt - 0.5) * 80, lampY);
+      ctx.stroke();
+      /* Lamp body */
+      var lampR = 4 + lt * 8;
+      drawLamp(ctx, vx + (lt - 0.5) * 80, lampY, lampR);
+      ctx.restore();
+    }
+
+    /* ── Warm atmospheric glow — vanishing point ── */
+    var glow = ctx.createRadialGradient(vx, vy, 0, vx, vy, H * 0.5);
+    glow.addColorStop(0, 'rgba(240,160,50,0.28)');
+    glow.addColorStop(0.2, 'rgba(200,120,40,0.14)');
+    glow.addColorStop(0.5, 'rgba(180,85,38,0.06)');
+    glow.addColorStop(1, 'rgba(0,0,0,0)');
+    ctx.fillStyle = glow;
+    ctx.fillRect(0, 0, W, H);
+
+    /* ── Side shop stalls silhouettes ── */
+    ctx.save();
+    ctx.fillStyle = 'rgba(30,12,4,0.65)';
+    /* Left stall */
+    ctx.beginPath();
+    ctx.moveTo(0, H * 0.45);
+    ctx.lineTo(vx * 0.35, H * 0.4);
+    ctx.lineTo(vx * 0.35, H);
+    ctx.lineTo(0, H);
+    ctx.closePath();
+    ctx.fill();
+    /* Right stall */
+    ctx.beginPath();
+    ctx.moveTo(W, H * 0.45);
+    ctx.lineTo(W - vx * 0.35, H * 0.4);
+    ctx.lineTo(W - vx * 0.35, H);
+    ctx.lineTo(W, H);
+    ctx.closePath();
+    ctx.fill();
+    ctx.restore();
+
+    /* ── Final vignette ── */
+    var vig = ctx.createRadialGradient(W/2, H/2, H*0.2, W/2, H/2, H*0.8);
+    vig.addColorStop(0, 'rgba(0,0,0,0)');
+    vig.addColorStop(1, 'rgba(0,0,0,0.55)');
+    ctx.fillStyle = vig;
+    ctx.fillRect(0, 0, W, H);
+  }
+
+  function drawZelligeStar(ctx, cx, cy, r, color) {
+    ctx.strokeStyle = color;
+    ctx.lineWidth = 0.8;
+    ctx.beginPath();
+    for (var i = 0; i < 8; i++) {
+      var angle = (i / 8) * Math.PI * 2 - Math.PI / 8;
+      var x = cx + r * Math.cos(angle);
+      var y = cy + r * Math.sin(angle);
+      if (i === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
+    }
+    ctx.closePath();
+    ctx.stroke();
+  }
+
+  function drawMoroccanArch(ctx, cx, cy, w, h, fillColor, strokeColor) {
+    ctx.save();
+    ctx.strokeStyle = strokeColor;
+    ctx.fillStyle = fillColor;
+    ctx.lineWidth = 0.8;
+    ctx.beginPath();
+    /* Rectangle base */
+    ctx.moveTo(cx - w/2, cy + h * 0.4);
+    ctx.lineTo(cx - w/2, cy - h * 0.2);
+    /* Horseshoe arch top */
+    ctx.arc(cx, cy - h * 0.2, w/2, Math.PI, 0, false);
+    ctx.lineTo(cx + w/2, cy + h * 0.4);
+    ctx.closePath();
+    ctx.fill();
+    ctx.stroke();
+    ctx.restore();
+  }
+
+  function drawLamp(ctx, x, y, r) {
+    /* Warm glow */
+    var lampGlow = ctx.createRadialGradient(x, y, 0, x, y, r * 5);
+    lampGlow.addColorStop(0, 'rgba(240,170,60,0.25)');
+    lampGlow.addColorStop(0.4, 'rgba(200,120,30,0.1)');
+    lampGlow.addColorStop(1, 'rgba(0,0,0,0)');
+    ctx.fillStyle = lampGlow;
+    ctx.beginPath();
+    ctx.arc(x, y, r * 5, 0, Math.PI * 2);
+    ctx.fill();
+    /* Lamp body */
+    ctx.fillStyle = 'rgba(210,150,50,0.8)';
+    ctx.beginPath();
+    ctx.ellipse(x, y, r * 0.7, r, 0, 0, Math.PI * 2);
+    ctx.fill();
+  }
+
+  window.addEventListener('resize', resize);
+  resize();
+})();
+
+/* ── CANVAS: Feature Card 1 — Artisanat ── */
+(function() {
+  var c = document.getElementById('cardCanvas1');
+  if (!c) return;
+  c.width = c.offsetWidth || 600; c.height = 240;
+  var ctx = c.getContext('2d');
+  var W = c.width, H = c.height;
+  /* Warm terracotta background */
+  var bg = ctx.createLinearGradient(0, 0, W, H);
+  bg.addColorStop(0, '#1C0A04'); bg.addColorStop(1, '#2A1208');
+  ctx.fillStyle = bg; ctx.fillRect(0, 0, W, H);
+  /* Zellige pattern */
+  ctx.save(); ctx.globalAlpha = 0.12;
+  for (var x = 10; x < W; x += 36) {
+    for (var y = 10; y < H; y += 36) {
+      drawZellige8(ctx, x, y, 14, '#C9A96E');
+    }
+  }
+  ctx.globalAlpha = 1; ctx.restore();
+  /* Moroccan arch silhouette */
+  ctx.save();
+  ctx.strokeStyle = 'rgba(201,169,110,0.3)'; ctx.lineWidth = 1.5;
+  var ax = W/2, ay = H * 0.65, aw = 60, ah = 80;
+  ctx.beginPath();
+  ctx.moveTo(ax - aw/2, ay);
+  ctx.lineTo(ax - aw/2, ay - ah * 0.4);
+  ctx.arc(ax, ay - ah * 0.4, aw/2, Math.PI, 0, false);
+  ctx.lineTo(ax + aw/2, ay);
+  ctx.stroke();
+  /* Inner glow */
+  var g = ctx.createRadialGradient(W/2, H*0.5, 0, W/2, H*0.5, H*0.6);
+  g.addColorStop(0, 'rgba(180,85,38,0.3)');
+  g.addColorStop(1, 'rgba(0,0,0,0)');
+  ctx.fillStyle = g; ctx.fillRect(0, 0, W, H);
+  ctx.restore();
+  function drawZellige8(c, cx, cy, r, color) {
+    c.strokeStyle = color; c.lineWidth = 0.5;
+    c.beginPath();
+    for (var i = 0; i < 8; i++) {
+      var a = i * Math.PI / 4 - Math.PI / 8;
+      if (i===0) c.moveTo(cx + r*Math.cos(a), cy + r*Math.sin(a));
+      else c.lineTo(cx + r*Math.cos(a), cy + r*Math.sin(a));
+    }
+    c.closePath(); c.stroke();
+  }
+})();
+
+/* ── CANVAS: Feature Card 2 — Restauration ── */
+(function() {
+  var c = document.getElementById('cardCanvas2');
+  if (!c) return;
+  c.width = c.offsetWidth || 600; c.height = 240;
+  var ctx = c.getContext('2d');
+  var W = c.width, H = c.height;
+  var bg = ctx.createLinearGradient(0, 0, 0, H);
+  bg.addColorStop(0, '#100806'); bg.addColorStop(1, '#1E0F08');
+  ctx.fillStyle = bg; ctx.fillRect(0, 0, W, H);
+  /* Warm candlelight glow */
+  var flames = [{x:W*0.3,y:H*0.55},{x:W*0.5,y:H*0.5},{x:W*0.7,y:H*0.58}];
+  flames.forEach(function(f) {
+    var g = ctx.createRadialGradient(f.x, f.y, 0, f.x, f.y, 70);
+    g.addColorStop(0, 'rgba(240,170,60,0.45)');
+    g.addColorStop(0.5, 'rgba(200,100,30,0.2)');
+    g.addColorStop(1, 'rgba(0,0,0,0)');
+    ctx.fillStyle = g; ctx.fillRect(0, 0, W, H);
+    /* Candle flame */
+    ctx.fillStyle = 'rgba(255,200,80,0.9)';
+    ctx.beginPath(); ctx.ellipse(f.x, f.y-8, 3, 8, 0, 0, Math.PI*2); ctx.fill();
+    ctx.fillStyle = 'rgba(255,240,180,1)';
+    ctx.beginPath(); ctx.ellipse(f.x, f.y-6, 1.5, 4, 0, 0, Math.PI*2); ctx.fill();
+  });
+  /* Arabesque border lines */
+  ctx.save();
+  ctx.strokeStyle = 'rgba(201,169,110,0.15)'; ctx.lineWidth = 0.7;
+  ctx.strokeRect(12, 12, W-24, H-24);
+  ctx.strokeRect(16, 16, W-32, H-32);
+  ctx.restore();
+})();
+
+/* ── CANVAS: Feature Card 3 — Animations ── */
+(function() {
+  var c = document.getElementById('cardCanvas3');
+  if (!c) return;
+  c.width = c.offsetWidth || 600; c.height = 240;
+  var ctx = c.getContext('2d');
+  var W = c.width, H = c.height;
+  var bg = ctx.createLinearGradient(0, H, W, 0);
+  bg.addColorStop(0, '#0C0806'); bg.addColorStop(1, '#180E0A');
+  ctx.fillStyle = bg; ctx.fillRect(0, 0, W, H);
+  /* Teal geometric glow */
+  var tg = ctx.createRadialGradient(W*0.5, H*0.4, 0, W*0.5, H*0.4, W*0.5);
+  tg.addColorStop(0, 'rgba(74,139,122,0.3)');
+  tg.addColorStop(0.6, 'rgba(74,139,122,0.08)');
+  tg.addColorStop(1, 'rgba(0,0,0,0)');
+  ctx.fillStyle = tg; ctx.fillRect(0, 0, W, H);
+  /* Star burst pattern */
+  ctx.save(); ctx.translate(W/2, H/2);
+  for (var i = 0; i < 16; i++) {
+    var angle = (i / 16) * Math.PI * 2;
+    ctx.save();
+    ctx.strokeStyle = 'rgba(201,169,110,0.12)'; ctx.lineWidth = 0.5;
+    ctx.beginPath(); ctx.moveTo(0,0); ctx.lineTo(Math.cos(angle)*W*0.4, Math.sin(angle)*H*0.5);
+    ctx.stroke(); ctx.restore();
+  }
+  /* Inner circle motif */
+  [30, 55, 80].forEach(function(r) {
+    ctx.strokeStyle = 'rgba(201,169,110,0.1)'; ctx.lineWidth = 0.5;
+    ctx.beginPath(); ctx.arc(0, 0, r, 0, Math.PI*2); ctx.stroke();
+  });
+  ctx.restore();
+})();
+
+/* ── CANVAS: Atmosphere ── */
+(function() {
+  var c = document.getElementById('atmoCanvas');
+  if (!c) return;
+  function resize() {
+    c.width = c.offsetWidth || 600;
+    c.height = c.offsetHeight || 580;
+    draw();
+  }
+  function draw() {
+    var W = c.width, H = c.height;
+    if (!W||!H) return;
+    var ctx = c.getContext('2d');
+    ctx.clearRect(0, 0, W, H);
+    /* Warm interior scene */
+    var bg = ctx.createLinearGradient(0, 0, 0, H);
+    bg.addColorStop(0, '#1A0C06'); bg.addColorStop(1, '#090503');
+    ctx.fillStyle = bg; ctx.fillRect(0, 0, W, H);
+    /* Multiple arched doorways in perspective */
+    var arches = [
+      { cx: W*0.5, cy: H*0.55, w: W*0.65, h: H*0.45, alpha: 0.15 },
+      { cx: W*0.5, cy: H*0.5,  w: W*0.48, h: H*0.38, alpha: 0.22 },
+      { cx: W*0.5, cy: H*0.45, w: W*0.32, h: H*0.28, alpha: 0.3  },
+    ];
+    arches.forEach(function(a) {
+      ctx.save();
+      ctx.strokeStyle = 'rgba(201,169,110,' + a.alpha + ')';
+      ctx.fillStyle = 'rgba(180,100,40,' + (a.alpha * 0.4) + ')';
+      ctx.lineWidth = 1;
+      ctx.beginPath();
+      ctx.moveTo(a.cx - a.w/2, H);
+      ctx.lineTo(a.cx - a.w/2, a.cy);
+      ctx.arc(a.cx, a.cy, a.w/2, Math.PI, 0, false);
+      ctx.lineTo(a.cx + a.w/2, H);
+      ctx.fill(); ctx.stroke();
+      ctx.restore();
+    });
+    /* Warm central glow */
+    var g = ctx.createRadialGradient(W/2, H*0.35, 0, W/2, H*0.35, H*0.55);
+    g.addColorStop(0, 'rgba(240,180,70,0.4)');
+    g.addColorStop(0.3, 'rgba(200,120,40,0.2)');
+    g.addColorStop(1, 'rgba(0,0,0,0)');
+    ctx.fillStyle = g; ctx.fillRect(0, 0, W, H);
+    /* Zellige floor tiles */
+    ctx.save(); ctx.globalAlpha = 0.08;
+    for (var x = 0; x < W; x += 30) {
+      for (var y = H*0.72; y < H; y += 30) {
+        ctx.strokeStyle = '#C9A96E'; ctx.lineWidth = 0.5;
+        ctx.beginPath(); ctx.rect(x, y, 28, 28); ctx.stroke();
+        ctx.beginPath();
+        ctx.moveTo(x, y); ctx.lineTo(x+28, y+28);
+        ctx.moveTo(x+28, y); ctx.lineTo(x, y+28);
+        ctx.stroke();
+      }
+    }
+    ctx.globalAlpha = 1; ctx.restore();
+    /* Hanging lamps */
+    [W*0.25, W*0.5, W*0.75].forEach(function(lx, i) {
+      var ly = H * (0.18 + i * 0.04);
+      ctx.save();
+      ctx.strokeStyle = 'rgba(180,120,50,0.4)'; ctx.lineWidth = 0.7;
+      ctx.beginPath(); ctx.moveTo(lx, 0); ctx.lineTo(lx, ly); ctx.stroke();
+      var lg = ctx.createRadialGradient(lx, ly, 0, lx, ly, 40);
+      lg.addColorStop(0, 'rgba(240,170,60,0.4)');
+      lg.addColorStop(1, 'rgba(0,0,0,0)');
+      ctx.fillStyle = lg; ctx.fillRect(lx-40, ly-40, 80, 80);
+      ctx.fillStyle = 'rgba(210,150,50,0.85)';
+      ctx.beginPath(); ctx.ellipse(lx, ly, 6, 10, 0, 0, Math.PI*2); ctx.fill();
+      ctx.restore();
+    });
+    /* Olive tree silhouette */
+    ctx.save(); ctx.globalAlpha = 0.2;
+    drawTreeSilhouette(ctx, W*0.15, H, '#2A4A20');
+    drawTreeSilhouette(ctx, W*0.82, H, '#2A4A20');
+    ctx.globalAlpha = 1; ctx.restore();
+    /* Vignette */
+    var vig = ctx.createRadialGradient(W/2, H/2, H*0.15, W/2, H/2, H*0.8);
+    vig.addColorStop(0, 'rgba(0,0,0,0)');
+    vig.addColorStop(1, 'rgba(0,0,0,0.6)');
+    ctx.fillStyle = vig; ctx.fillRect(0, 0, W, H);
+  }
+  function drawTreeSilhouette(ctx, x, baseY, color) {
+    ctx.fillStyle = color;
+    ctx.beginPath(); ctx.arc(x, baseY - 120, 45, 0, Math.PI*2); ctx.fill();
+    ctx.beginPath(); ctx.arc(x - 30, baseY - 90, 30, 0, Math.PI*2); ctx.fill();
+    ctx.beginPath(); ctx.arc(x + 28, baseY - 95, 28, 0, Math.PI*2); ctx.fill();
+    ctx.fillRect(x - 5, baseY - 60, 10, 60);
+  }
+  window.addEventListener('resize', resize);
+  resize();
+})();
+
+/* ── Reveal on scroll ── */
+(function () {
+  var reveals = document.querySelectorAll('.reveal');
+  if (!reveals.length) return;
+  var observer = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
       }
     });
+  }, { threshold: 0.1 });
+  reveals.forEach(function(el) { observer.observe(el); });
+})();
+
+/* ── Smooth scroll ── */
+document.querySelectorAll('a[href^="#"]').forEach(function(a) {
+  a.addEventListener('click', function(e) {
+    var target = document.querySelector(a.getAttribute('href'));
+    if (target) { e.preventDefault(); target.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
   });
+});
 </script>
 </body>
 </html>
