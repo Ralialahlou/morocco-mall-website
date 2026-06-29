@@ -1,0 +1,963 @@
+<!DOCTYPE html>
+<html lang="fr" dir="ltr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Morocco Mall Casablanca Bay — Le plus grand centre commercial d'Afrique. 20 hectares face à l'Atlantique, 600 enseignes, fontaine classée 3ème au monde. Ouvert depuis 2011 à Ain Diab." />
+  <title>Morocco Mall Casablanca Bay</title>
+  <link rel="icon" href="../assets/logo.png" type="image/png" />
+  <link rel="stylesheet" href="../css/main.css" />
+  <style>
+    /* ============================================================
+       CASABLANCA BAY PAGE — Scoped Styles  (prefix: cb-)
+       ============================================================ */
+
+    /* ── Hero ─────────────────────────────────────────────────── */
+    .cb-hero {
+      position: relative;
+      height: 100vh;
+      min-height: 640px;
+      display: flex;
+      align-items: flex-end;
+    }
+    .cb-hero__bg-wrap {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+      z-index: 0;
+    }
+    .cb-hero__bg {
+      position: absolute;
+      inset: 0;
+      background-image: url('../assets/luxury-3.jpg');
+      background-size: cover;
+      background-position: center 40%;
+      transform: scale(1.06);
+      transition: transform 9s ease-out;
+    }
+    .cb-hero__bg.loaded { transform: scale(1); }
+    .cb-hero__overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        160deg,
+        rgba(2,10,22,0.12) 0%,
+        rgba(4,20,50,0.55) 50%,
+        rgba(2,10,22,0.95) 100%
+      );
+    }
+    .cb-hero__content {
+      position: relative;
+      z-index: 2;
+      padding-bottom: clamp(3.5rem, 9vh, 6.5rem);
+      color: var(--white);
+    }
+    .cb-hero__breadcrumb {
+      font-family: var(--font-body);
+      font-size: 0.62rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.4);
+      margin-bottom: 2.25rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .cb-hero__breadcrumb a {
+      color: inherit;
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .cb-hero__breadcrumb a:hover { color: var(--gold); }
+    .cb-hero__eyebrow {
+      font-family: var(--font-body);
+      font-size: 0.62rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 1rem;
+    }
+    .cb-hero__title {
+      font-family: var(--font-display);
+      font-size: clamp(3rem, 8vw, 6.5rem);
+      font-weight: 400;
+      line-height: 0.95;
+      margin-bottom: 1.75rem;
+      letter-spacing: -0.02em;
+    }
+    .cb-hero__title em {
+      font-style: italic;
+      color: var(--gold);
+    }
+    .cb-hero__subtitle {
+      font-family: var(--font-body);
+      font-size: clamp(0.92rem, 1.5vw, 1.05rem);
+      line-height: 1.7;
+      color: rgba(255,255,255,0.72);
+      max-width: 520px;
+      margin-bottom: 2.25rem;
+    }
+    .cb-hero__badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.55rem;
+      background: rgba(201,169,110,0.12);
+      border: 1px solid rgba(201,169,110,0.3);
+      border-radius: 2px;
+      padding: 0.45rem 1rem;
+      font-family: var(--font-body);
+      font-size: 0.68rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--gold);
+    }
+
+    /* ── Vision section ───────────────────────────────────────── */
+    .cb-vision {
+      padding: clamp(5rem, 10vh, 8rem) 0;
+      background: var(--black);
+    }
+    .cb-vision__inner {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 3.5rem;
+    }
+    @media (min-width: 900px) {
+      .cb-vision__inner {
+        grid-template-columns: 1fr 1.1fr;
+        gap: 6rem;
+        align-items: start;
+      }
+    }
+    .cb-vision__label {
+      font-family: var(--font-body);
+      font-size: 0.6rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 1.25rem;
+    }
+    .cb-vision__heading {
+      font-family: var(--font-display);
+      font-size: clamp(2.25rem, 4.5vw, 3.5rem);
+      font-weight: 400;
+      line-height: 1.1;
+      color: var(--white);
+      margin-bottom: 0;
+    }
+    .cb-vision__heading em {
+      font-style: italic;
+      color: var(--gold);
+    }
+    .cb-vision__text {
+      font-family: var(--font-body);
+      font-size: 0.96rem;
+      line-height: 1.85;
+      color: rgba(255,255,255,0.62);
+    }
+    .cb-vision__text + .cb-vision__text { margin-top: 1.25rem; }
+    .cb-vision__rule {
+      width: 3rem;
+      height: 1px;
+      background: var(--gold);
+      margin: 2rem 0;
+      opacity: 0.5;
+    }
+    .cb-vision__quote {
+      font-family: var(--font-display);
+      font-size: clamp(1.25rem, 2.5vw, 1.6rem);
+      font-style: italic;
+      color: var(--gold);
+      line-height: 1.4;
+      margin-top: 2.5rem;
+      padding-left: 1.5rem;
+      border-left: 1px solid rgba(201,169,110,0.35);
+    }
+
+    /* ── Canvas art panel ─────────────────────────────────────── */
+    .cb-canvas-wrap {
+      position: relative;
+      border-radius: 2px;
+      overflow: hidden;
+    }
+    .cb-canvas-wrap canvas {
+      display: block;
+      width: 100%;
+      height: auto;
+      aspect-ratio: 4/5;
+    }
+    .cb-canvas-caption {
+      position: absolute;
+      bottom: 1.5rem;
+      left: 1.5rem;
+      right: 1.5rem;
+      font-family: var(--font-body);
+      font-size: 0.6rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.5);
+    }
+
+    /* ── Stats strip ──────────────────────────────────────────── */
+    .cb-stats {
+      background: rgba(201,169,110,0.06);
+      border-top: 1px solid rgba(201,169,110,0.12);
+      border-bottom: 1px solid rgba(201,169,110,0.12);
+      padding: 3.5rem 0;
+    }
+    .cb-stats__grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 2.5rem 2rem;
+    }
+    @media (min-width: 640px) {
+      .cb-stats__grid { grid-template-columns: repeat(4, 1fr); }
+    }
+    .cb-stat { text-align: center; }
+    .cb-stat__value {
+      font-family: var(--font-display);
+      font-size: clamp(2.2rem, 4vw, 3rem);
+      font-weight: 400;
+      color: var(--gold);
+      line-height: 1;
+      margin-bottom: 0.5rem;
+    }
+    .cb-stat__label {
+      font-family: var(--font-body);
+      font-size: 0.62rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.45);
+    }
+
+    /* ── Highlights ───────────────────────────────────────────── */
+    .cb-highlights {
+      padding: clamp(5rem, 10vh, 8rem) 0;
+      background: var(--black);
+    }
+    .cb-highlights__header { margin-bottom: 3.5rem; }
+    .cb-highlights__grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+    }
+    @media (min-width: 640px) {
+      .cb-highlights__grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (min-width: 1024px) {
+      .cb-highlights__grid { grid-template-columns: repeat(3, 1fr); }
+    }
+    .cb-card {
+      position: relative;
+      min-height: 280px;
+      overflow: hidden;
+      border-radius: 2px;
+      display: flex;
+      align-items: flex-end;
+    }
+    .cb-card__canvas {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+    }
+    .cb-card__overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.2) 60%, transparent 100%);
+    }
+    .cb-card__body {
+      position: relative;
+      z-index: 2;
+      padding: 1.75rem;
+      color: var(--white);
+    }
+    .cb-card__icon {
+      font-size: 1.4rem;
+      margin-bottom: 0.75rem;
+      line-height: 1;
+    }
+    .cb-card__title {
+      font-family: var(--font-display);
+      font-size: 1.35rem;
+      font-weight: 400;
+      margin-bottom: 0.5rem;
+      line-height: 1.2;
+    }
+    .cb-card__desc {
+      font-family: var(--font-body);
+      font-size: 0.82rem;
+      line-height: 1.65;
+      color: rgba(255,255,255,0.62);
+    }
+
+    /* ── Banner ───────────────────────────────────────────────── */
+    .cb-banner {
+      position: relative;
+      padding: clamp(4rem, 8vh, 6rem) 0;
+      overflow: hidden;
+    }
+    .cb-banner__bg {
+      position: absolute;
+      inset: 0;
+      background-image: url('../assets/luxury-4.jpg');
+      background-size: cover;
+      background-position: center 40%;
+    }
+    .cb-banner__overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(0,0,0,0.74);
+    }
+    .cb-banner__content {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      color: var(--white);
+    }
+    .cb-banner__kicker {
+      font-family: var(--font-body);
+      font-size: 0.6rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 1.5rem;
+    }
+    .cb-banner__quote {
+      font-family: var(--font-display);
+      font-size: clamp(1.6rem, 3.5vw, 2.8rem);
+      font-style: italic;
+      font-weight: 400;
+      line-height: 1.25;
+      max-width: 800px;
+      margin: 0 auto 2rem;
+    }
+
+    /* ── Explore section ──────────────────────────────────────── */
+    .cb-explore {
+      padding: clamp(5rem, 10vh, 8rem) 0;
+      background: var(--black);
+    }
+    .cb-explore__header { margin-bottom: 3.5rem; }
+    .cb-explore__grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1rem;
+    }
+    @media (min-width: 640px) {
+      .cb-explore__grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (min-width: 900px) {
+      .cb-explore__grid { grid-template-columns: repeat(4, 1fr); }
+    }
+    .cb-exp-card {
+      display: flex;
+      flex-direction: column;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 2px;
+      padding: 2rem 1.5rem;
+      transition: border-color 0.3s, background 0.3s;
+    }
+    .cb-exp-card:hover {
+      border-color: rgba(201,169,110,0.25);
+      background: rgba(201,169,110,0.04);
+    }
+    .cb-exp-card__num {
+      font-family: var(--font-display);
+      font-size: 2.5rem;
+      color: rgba(201,169,110,0.2);
+      line-height: 1;
+      margin-bottom: 1.25rem;
+    }
+    .cb-exp-card__title {
+      font-family: var(--font-display);
+      font-size: 1.2rem;
+      font-weight: 400;
+      color: var(--white);
+      margin-bottom: 0.75rem;
+    }
+    .cb-exp-card__text {
+      font-family: var(--font-body);
+      font-size: 0.82rem;
+      line-height: 1.65;
+      color: rgba(255,255,255,0.5);
+      flex: 1;
+    }
+
+    /* ── CTA section ──────────────────────────────────────────── */
+    .cb-cta {
+      padding: clamp(4rem, 8vh, 6rem) 0;
+      background: rgba(201,169,110,0.06);
+      border-top: 1px solid rgba(201,169,110,0.12);
+    }
+    .cb-cta__inner {
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+    }
+    @media (min-width: 768px) {
+      .cb-cta__inner {
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+      }
+    }
+    .cb-cta__heading {
+      font-family: var(--font-display);
+      font-size: clamp(1.75rem, 3vw, 2.5rem);
+      font-weight: 400;
+      color: var(--white);
+    }
+    .cb-cta__heading em { color: var(--gold); font-style: italic; }
+    .cb-cta__actions {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      flex-shrink: 0;
+    }
+    .cb-btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.75rem;
+      background: var(--gold);
+      color: var(--black);
+      font-family: var(--font-body);
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      text-decoration: none;
+      padding: 0.85rem 1.75rem;
+      border-radius: 2px;
+      transition: opacity 0.2s;
+    }
+    .cb-btn-primary:hover { opacity: 0.85; }
+    .cb-btn-ghost {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.75rem;
+      border: 1px solid rgba(201,169,110,0.4);
+      color: var(--gold);
+      font-family: var(--font-body);
+      font-size: 0.7rem;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      text-decoration: none;
+      padding: 0.85rem 1.75rem;
+      border-radius: 2px;
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .cb-btn-ghost:hover { border-color: var(--gold); color: var(--white); }
+
+    /* ── Reveal animation ─────────────────────────────────────── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.7s var(--ease-out), transform 0.7s var(--ease-out);
+    }
+    .reveal.in-view { opacity: 1; transform: translateY(0); }
+    .reveal-delay-1 { transition-delay: 0.1s; }
+    .reveal-delay-2 { transition-delay: 0.2s; }
+    .reveal-delay-3 { transition-delay: 0.3s; }
+    .reveal-delay-4 { transition-delay: 0.4s; }
+  </style>
+</head>
+<body>
+
+<main id="main-content">
+
+  <!-- ============================================================
+       HERO
+       ============================================================ -->
+  <section class="cb-hero" aria-label="Morocco Mall Casablanca Bay">
+    <div class="cb-hero__bg-wrap">
+      <div class="cb-hero__bg" id="heroBg"></div>
+      <div class="cb-hero__overlay"></div>
+    </div>
+    <div class="container cb-hero__content">
+      <nav class="cb-hero__breadcrumb" aria-label="Fil d'Ariane">
+        <a href="../index.html">Morocco Mall</a>
+        <span aria-hidden="true">›</span>
+        <span>Casablanca Bay</span>
+      </nav>
+      <p class="cb-hero__eyebrow">Le Plus Grand Mall d'Afrique</p>
+      <h1 class="cb-hero__title">Casablanca<br><em>Bay</em></h1>
+      <p class="cb-hero__subtitle">
+        Face à l'Atlantique. 20 hectares, 600 enseignes, une fontaine classée 3ème au monde. L'expérience Morocco Mall, dans sa forme originelle.
+      </p>
+      <div class="cb-hero__badge">
+        <svg width="14" height="14" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+          <path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd"/>
+        </svg>
+        Casablanca · Ain Diab · Ouvert depuis 2011
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       VISION — 2-col editorial + canvas art
+       ============================================================ -->
+  <section class="cb-vision" aria-label="L'histoire du mall">
+    <div class="container">
+      <div class="cb-vision__inner">
+
+        <div>
+          <p class="cb-vision__label reveal">L'Histoire</p>
+          <h2 class="cb-vision__heading reveal reveal-delay-1">
+            Né face à<br><em>l'Atlantique</em>
+          </h2>
+          <div class="cb-vision__rule reveal reveal-delay-2"></div>
+          <p class="cb-vision__text reveal reveal-delay-2">
+            Inauguré le <strong>1er décembre 2011</strong>, Morocco Mall Casablanca Bay est né d'une vision singulière : créer le plus grand centre commercial du continent africain, ancré dans la dynamique d'une métropole tournée vers le monde. Un investissement de <strong>2 milliards de dirhams</strong> pour un projet pensé à l'échelle internationale.
+          </p>
+          <p class="cb-vision__text reveal reveal-delay-3">
+            Signé par l'architecte <strong>Davide Padoa</strong> du cabinet Design International de Londres, le bâtiment déploie des lignes ondulantes qui évoquent les vagues de l'Atlantique toute proche. Récipiendaire de deux <strong>International Property Awards</strong>, d'un <strong>MIPIM Award 2012</strong> à Cannes et d'un <strong>Guinness World Record</strong>, Morocco Mall s'est imposé dès son ouverture comme un monument architectural autant qu'une destination de vie.
+          </p>
+          <p class="cb-vision__text reveal reveal-delay-3">
+            Aujourd'hui, plus de <strong>17 millions de visiteurs par an</strong> traversent ses portes pour y découvrir 600 enseignes, une scène gastronomique d'exception, des divertissements uniques et l'une des plus grandes fontaines musicales au monde.
+          </p>
+          <blockquote class="cb-vision__quote reveal reveal-delay-4">
+            Une destination, pas seulement un mall.
+          </blockquote>
+        </div>
+
+        <div class="cb-canvas-wrap reveal reveal-delay-2">
+          <canvas id="visionCanvas" width="600" height="750" aria-hidden="true"></canvas>
+          <p class="cb-canvas-caption">Morocco Mall Casablanca Bay — Vue artistique, Ain Diab</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       STATS STRIP — principaux chiffres
+       ============================================================ -->
+  <div class="cb-stats" role="region" aria-label="Chiffres clés">
+    <div class="container">
+      <div class="cb-stats__grid">
+        <div class="cb-stat reveal">
+          <div class="cb-stat__value">2011</div>
+          <div class="cb-stat__label">Année d'ouverture</div>
+        </div>
+        <div class="cb-stat reveal reveal-delay-1">
+          <div class="cb-stat__value">20</div>
+          <div class="cb-stat__label">Hectares</div>
+        </div>
+        <div class="cb-stat reveal reveal-delay-2">
+          <div class="cb-stat__value">600</div>
+          <div class="cb-stat__label">Enseignes & restaurants</div>
+        </div>
+        <div class="cb-stat reveal reveal-delay-3">
+          <div class="cb-stat__value">17M+</div>
+          <div class="cb-stat__label">Visiteurs par an</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       HIGHLIGHTS — 3 canvas cards
+       ============================================================ -->
+  <section class="cb-highlights" aria-label="Moments forts">
+    <div class="container">
+      <div class="cb-highlights__header reveal">
+        <p class="cb-vision__label">Ce qui nous rend unique</p>
+        <h2 class="cb-vision__heading" style="margin-top:.75rem;">
+          Une expérience<br><em>hors du commun</em>
+        </h2>
+      </div>
+      <div class="cb-highlights__grid">
+
+        <article class="cb-card reveal">
+          <canvas class="cb-card__canvas" id="card1Canvas" aria-hidden="true"></canvas>
+          <div class="cb-card__overlay"></div>
+          <div class="cb-card__body">
+            <div class="cb-card__icon" aria-hidden="true">✦</div>
+            <h3 class="cb-card__title">Fontaine Musicale</h3>
+            <p class="cb-card__desc">3ème plus grande fontaine musicale au monde — jets d'eau à 20m, 200+ buses, éclairage LED RGB. Un spectacle son et lumière offert gratuitement, plusieurs fois par jour.</p>
+          </div>
+        </article>
+
+        <article class="cb-card reveal reveal-delay-1">
+          <canvas class="cb-card__canvas" id="card2Canvas" aria-hidden="true"></canvas>
+          <div class="cb-card__overlay"></div>
+          <div class="cb-card__body">
+            <div class="cb-card__icon" aria-hidden="true">✦</div>
+            <h3 class="cb-card__title">Sea Dream Aquarium</h3>
+            <p class="cb-card__desc">Un aquarium tropical de 2 000 m² abritant plus de 3 000 espèces marines. Une plongée immersive unique en Afrique, au cœur de l'Atlantique.</p>
+          </div>
+        </article>
+
+        <article class="cb-card reveal reveal-delay-2">
+          <canvas class="cb-card__canvas" id="card3Canvas" aria-hidden="true"></canvas>
+          <div class="cb-card__overlay"></div>
+          <div class="cb-card__body">
+            <div class="cb-card__icon" aria-hidden="true">✦</div>
+            <h3 class="cb-card__title">Architecture primée</h3>
+            <p class="cb-card__desc">Conçu par Davide Padoa (Design International, Londres). Lignes ondulantes évoquant les vagues atlantiques. International Property Award &amp; MIPIM Award 2012.</p>
+          </div>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       BANNER — closing quote
+       ============================================================ -->
+  <div class="cb-banner" role="complementary" aria-label="Esprit du lieu">
+    <div class="cb-banner__bg"></div>
+    <div class="cb-banner__overlay"></div>
+    <div class="container cb-banner__content">
+      <p class="cb-banner__kicker reveal">L'esprit Morocco Mall</p>
+      <blockquote class="cb-banner__quote reveal reveal-delay-1">
+        Face à l'Atlantique, Morocco Mall a redéfini ce qu'un centre commercial peut être — un lieu de vie, de culture et d'émerveillement.
+      </blockquote>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       EXPLORE — offre complète
+       ============================================================ -->
+  <section class="cb-explore" aria-label="Explorer le mall">
+    <div class="container">
+      <div class="cb-explore__header reveal">
+        <p class="cb-vision__label">Ce qui vous attend</p>
+        <h2 class="cb-vision__heading" style="margin-top:.75rem;">Explorer<br><em>Casablanca Bay</em></h2>
+      </div>
+      <div class="cb-explore__grid">
+        <div class="cb-exp-card reveal">
+          <div class="cb-exp-card__num">01</div>
+          <h3 class="cb-exp-card__title">Shopping de prestige</h3>
+          <p class="cb-exp-card__text">350 boutiques sur 3 niveaux — grandes maisons internationales, enseignes lifestyle et créateurs. 70% marques populaires, 20% haut de gamme, 10% luxe.</p>
+        </div>
+        <div class="cb-exp-card reveal reveal-delay-1">
+          <div class="cb-exp-card__num">02</div>
+          <h3 class="cb-exp-card__title">Gastronomie & saveurs</h3>
+          <p class="cb-exp-card__text">Plus de 60 restaurants, cafés et espaces de restauration — des saveurs du Maroc et du monde entier, face à l'Atlantique.</p>
+        </div>
+        <div class="cb-exp-card reveal reveal-delay-2">
+          <div class="cb-exp-card__num">03</div>
+          <h3 class="cb-exp-card__title">Divertissement</h3>
+          <p class="cb-exp-card__text">Sea Dream Aquarium, Le Privé Cinéma, Adventure Land, Fontaine Musicale, Padel Club avec vue sur l'Atlantique — une programmation pour toute la famille.</p>
+        </div>
+        <div class="cb-exp-card reveal reveal-delay-3">
+          <div class="cb-exp-card__num">04</div>
+          <h3 class="cb-exp-card__title">Face à la mer</h3>
+          <p class="cb-exp-card__text">Situé au cœur d'Ain Diab, sur la corniche casablancaise. Le Padel Club offre une vue directe sur l'océan depuis ses 2 terrains panoramiques.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       STATS STRIP 2 — chiffres additionnels
+       ============================================================ -->
+  <div class="cb-stats" role="region" aria-label="Chiffres additionnels">
+    <div class="container">
+      <div class="cb-stats__grid">
+        <div class="cb-stat reveal">
+          <div class="cb-stat__value">250k</div>
+          <div class="cb-stat__label">m² de surface bâtie</div>
+        </div>
+        <div class="cb-stat reveal reveal-delay-1">
+          <div class="cb-stat__value">5 000</div>
+          <div class="cb-stat__label">Places de parking</div>
+        </div>
+        <div class="cb-stat reveal reveal-delay-2">
+          <div class="cb-stat__value">3ème</div>
+          <div class="cb-stat__label">Plus grande fontaine au monde</div>
+        </div>
+        <div class="cb-stat reveal reveal-delay-3">
+          <div class="cb-stat__value">2Mds</div>
+          <div class="cb-stat__label">Dirhams investis</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       CTA
+       ============================================================ -->
+  <div class="cb-cta">
+    <div class="container">
+      <div class="cb-cta__inner">
+        <h2 class="cb-cta__heading reveal">
+          Découvrir<br><em>Casablanca Bay</em>
+        </h2>
+        <div class="cb-cta__actions reveal reveal-delay-1">
+          <a href="entertainment.html" class="cb-btn-primary">
+            Voir les divertissements
+            <svg width="16" height="6" viewBox="0 0 16 6" fill="none" aria-hidden="true">
+              <path d="M0 3h14M14 3L11 1M14 3L11 5" stroke="currentColor" stroke-width="1.2"/>
+            </svg>
+          </a>
+          <a href="../index.html" class="cb-btn-ghost">Retour à l'accueil</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</main>
+
+<div id="chrome-mount"></div>
+<script src="../js/seo.js" defer></script>
+<script src="../js/translations.js" defer></script>
+<script src="../js/app.js" defer></script>
+<script>
+  // Hero zoom on load
+  (function () {
+    var bg = document.getElementById('heroBg');
+    if (bg) bg.classList.add('loaded');
+  })();
+
+  // Intersection observer for reveal animations
+  (function () {
+    var els = document.querySelectorAll('.reveal');
+    if (!els.length) return;
+    var obs = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) { e.target.classList.add('in-view'); obs.unobserve(e.target); }
+      });
+    }, { threshold: 0.1 });
+    els.forEach(function (el) { obs.observe(el); });
+  })();
+
+  // ── Vision canvas: Casablanca Bay night scene ───────────────────
+  (function () {
+    var canvas = document.getElementById('visionCanvas');
+    if (!canvas) return;
+    var ctx = canvas.getContext('2d');
+    var W = canvas.width, H = canvas.height;
+
+    // Night sky — deep navy
+    var sky = ctx.createLinearGradient(0, 0, 0, H * 0.52);
+    sky.addColorStop(0, '#020B1C');
+    sky.addColorStop(0.55, '#041628');
+    sky.addColorStop(1, '#071E38');
+    ctx.fillStyle = sky;
+    ctx.fillRect(0, 0, W, H * 0.52);
+
+    // Ocean
+    var ocean = ctx.createLinearGradient(0, H * 0.52, 0, H);
+    ocean.addColorStop(0, '#061E3A');
+    ocean.addColorStop(1, '#020D1C');
+    ctx.fillStyle = ocean;
+    ctx.fillRect(0, H * 0.52, W, H * 0.48);
+
+    // Moon
+    var moonGlow = ctx.createRadialGradient(W * 0.76, H * 0.14, 0, W * 0.76, H * 0.14, W * 0.38);
+    moonGlow.addColorStop(0, 'rgba(201,169,110,0.16)');
+    moonGlow.addColorStop(0.45, 'rgba(201,169,110,0.05)');
+    moonGlow.addColorStop(1, 'transparent');
+    ctx.fillStyle = moonGlow;
+    ctx.fillRect(0, 0, W, H);
+    ctx.fillStyle = 'rgba(255,242,205,0.88)';
+    ctx.beginPath();
+    ctx.arc(W * 0.76, H * 0.13, 16, 0, Math.PI * 2);
+    ctx.fill();
+
+    // Stars
+    var starSeeds = [
+      [0.08,0.06],[0.16,0.12],[0.27,0.04],[0.38,0.09],[0.5,0.06],
+      [0.58,0.17],[0.19,0.21],[0.44,0.23],[0.86,0.09],[0.91,0.19],
+      [0.33,0.15],[0.68,0.07],[0.05,0.25],[0.62,0.24]
+    ];
+    ctx.fillStyle = 'rgba(255,255,255,0.65)';
+    starSeeds.forEach(function (s) {
+      ctx.beginPath();
+      ctx.arc(s[0] * W, s[1] * H, 0.9 + (s[0] * 1.2 % 1), 0, Math.PI * 2);
+      ctx.fill();
+    });
+
+    // Horizon shimmer
+    var shimmer = ctx.createLinearGradient(0, H * 0.49, 0, H * 0.56);
+    shimmer.addColorStop(0, 'rgba(80,140,220,0.1)');
+    shimmer.addColorStop(1, 'transparent');
+    ctx.fillStyle = shimmer;
+    ctx.fillRect(0, H * 0.49, W, H * 0.07);
+
+    // Ocean ripples
+    ctx.save();
+    ctx.strokeStyle = 'rgba(80,140,220,0.1)';
+    ctx.lineWidth = 1;
+    for (var r = 0; r < 16; r++) {
+      var ry = H * 0.54 + r * H * 0.028;
+      var rw = W * (0.35 + (r % 3) * 0.15);
+      var rx = (W - rw) / 2;
+      ctx.beginPath(); ctx.moveTo(rx, ry); ctx.lineTo(rx + rw, ry); ctx.stroke();
+    }
+    ctx.restore();
+
+    // Moon reflection on water
+    var mRef = ctx.createLinearGradient(W * 0.69, H * 0.52, W * 0.83, H);
+    mRef.addColorStop(0, 'rgba(201,169,110,0.16)');
+    mRef.addColorStop(1, 'transparent');
+    ctx.fillStyle = mRef;
+    ctx.fillRect(W * 0.69, H * 0.52, W * 0.14, H * 0.48);
+
+    // Mall building — undulating wave roofline (nod to Davide Padoa's design)
+    ctx.save();
+    ctx.fillStyle = '#030C1C';
+    ctx.beginPath();
+    var pts = [
+      [0, H * 0.76],
+      [W * 0.04, H * 0.60],
+      [W * 0.10, H * 0.65],
+      [W * 0.17, H * 0.53],
+      [W * 0.24, H * 0.58],
+      [W * 0.31, H * 0.47],
+      [W * 0.38, H * 0.54],
+      [W * 0.44, H * 0.44],
+      [W * 0.5,  H * 0.50],
+      [W * 0.56, H * 0.44],
+      [W * 0.62, H * 0.50],
+      [W * 0.68, H * 0.46],
+      [W * 0.74, H * 0.52],
+      [W * 0.80, H * 0.57],
+      [W * 0.87, H * 0.53],
+      [W * 0.93, H * 0.61],
+      [W,        H * 0.66],
+      [W, H], [0, H]
+    ];
+    ctx.moveTo(pts[0][0], pts[0][1]);
+    for (var i = 1; i < pts.length - 2; i++) {
+      var cpx = (pts[i][0] + pts[i + 1][0]) / 2;
+      var cpy = (pts[i][1] + pts[i + 1][1]) / 2;
+      ctx.quadraticCurveTo(pts[i][0], pts[i][1], cpx, cpy);
+    }
+    ctx.lineTo(pts[pts.length - 2][0], pts[pts.length - 2][1]);
+    ctx.lineTo(pts[pts.length - 1][0], pts[pts.length - 1][1]);
+    ctx.closePath();
+    ctx.fill();
+    ctx.restore();
+
+    // Lit windows
+    ctx.save();
+    var windowData = [
+      { y: H * 0.62, n: 15 },
+      { y: H * 0.67, n: 19 },
+      { y: H * 0.72, n: 22 }
+    ];
+    windowData.forEach(function (row) {
+      for (var w = 0; w < row.n; w++) {
+        if ((w * 7 + row.n) % 3 !== 0) {
+          var wx = W * 0.04 + w * (W * 0.92 / row.n);
+          ctx.fillStyle = w % 2 === 0 ? 'rgba(201,169,110,0.65)' : 'rgba(160,210,255,0.45)';
+          ctx.fillRect(wx, row.y, 7 + (w % 3) * 3, 3 + (w % 2) * 2);
+        }
+      }
+    });
+    ctx.restore();
+
+    // Gold belt / facade accent
+    var belt = ctx.createLinearGradient(0, 0, W, 0);
+    belt.addColorStop(0, 'transparent');
+    belt.addColorStop(0.15, 'rgba(201,169,110,0.32)');
+    belt.addColorStop(0.85, 'rgba(201,169,110,0.32)');
+    belt.addColorStop(1, 'transparent');
+    ctx.strokeStyle = belt;
+    ctx.lineWidth = 1;
+    ctx.beginPath();
+    ctx.moveTo(0, H * 0.75); ctx.lineTo(W, H * 0.75);
+    ctx.stroke();
+
+    // Fountain glow at base centre
+    var fGlow = ctx.createRadialGradient(W * 0.5, H * 0.78, 0, W * 0.5, H * 0.78, 60);
+    fGlow.addColorStop(0, 'rgba(0,140,255,0.22)');
+    fGlow.addColorStop(1, 'transparent');
+    ctx.fillStyle = fGlow;
+    ctx.fillRect(0, H * 0.6, W, H * 0.4);
+
+    // Vignette
+    var vig = ctx.createRadialGradient(W / 2, H / 2, H * 0.18, W / 2, H / 2, H * 0.88);
+    vig.addColorStop(0, 'transparent');
+    vig.addColorStop(1, 'rgba(0,0,0,0.6)');
+    ctx.fillStyle = vig;
+    ctx.fillRect(0, 0, W, H);
+  })();
+
+  // ── Card canvases ───────────────────────────────────────────────
+  function drawFountainCard(id) {
+    var c = document.getElementById(id);
+    if (!c) return;
+    var ctx = c.getContext('2d');
+    var W = c.offsetWidth || 400, H = c.offsetHeight || 280;
+    c.width = W; c.height = H;
+    var bg = ctx.createLinearGradient(0, 0, 0, H);
+    bg.addColorStop(0, '#030A18'); bg.addColorStop(1, '#010508');
+    ctx.fillStyle = bg; ctx.fillRect(0, 0, W, H);
+    // Glow
+    var fg = ctx.createRadialGradient(W * 0.5, H * 0.65, 0, W * 0.5, H * 0.65, W * 0.65);
+    fg.addColorStop(0, 'rgba(0,120,255,0.3)');
+    fg.addColorStop(0.6, 'rgba(0,70,180,0.1)');
+    fg.addColorStop(1, 'transparent');
+    ctx.fillStyle = fg; ctx.fillRect(0, 0, W, H);
+    // Jets
+    ctx.strokeStyle = 'rgba(140,205,255,0.35)';
+    ctx.lineWidth = 1.5;
+    [[-0.14,0.52],[0,0.42],[0.14,0.52],[0.07,0.4],[-0.07,0.4]].forEach(function (j) {
+      ctx.beginPath();
+      ctx.moveTo(W * 0.5, H * 0.9);
+      ctx.quadraticCurveTo(W * (0.5 + j[0] * 0.4), H * 0.62, W * (0.5 + j[0]), H * j[1]);
+      ctx.stroke();
+    });
+    ctx.fillStyle = 'rgba(201,169,110,0.04)'; ctx.fillRect(0, 0, W, H);
+  }
+
+  function drawAquariumCard(id) {
+    var c = document.getElementById(id);
+    if (!c) return;
+    var ctx = c.getContext('2d');
+    var W = c.offsetWidth || 400, H = c.offsetHeight || 280;
+    c.width = W; c.height = H;
+    var bg = ctx.createLinearGradient(0, 0, 0, H);
+    bg.addColorStop(0, '#020D1A'); bg.addColorStop(1, '#01060C');
+    ctx.fillStyle = bg; ctx.fillRect(0, 0, W, H);
+    var wg = ctx.createRadialGradient(W * 0.5, H * 0.45, 0, W * 0.5, H * 0.45, W * 0.75);
+    wg.addColorStop(0, 'rgba(0,100,180,0.32)');
+    wg.addColorStop(1, 'transparent');
+    ctx.fillStyle = wg; ctx.fillRect(0, 0, W, H);
+    // Bubbles
+    [0.18,0.33,0.5,0.65,0.8,0.25,0.55,0.7,0.42,0.15,0.6,0.38].forEach(function (bx, i) {
+      var by = (i * 0.07 + 0.1) % 0.9;
+      ctx.fillStyle = 'rgba(100,200,255,0.18)';
+      ctx.beginPath();
+      ctx.arc(bx * W, by * H, 2 + (i % 4) * 2.5, 0, Math.PI * 2);
+      ctx.fill();
+    });
+  }
+
+  function drawArchCard(id) {
+    var c = document.getElementById(id);
+    if (!c) return;
+    var ctx = c.getContext('2d');
+    var W = c.offsetWidth || 400, H = c.offsetHeight || 280;
+    c.width = W; c.height = H;
+    var bg = ctx.createLinearGradient(0, 0, 0, H);
+    bg.addColorStop(0, '#080506'); bg.addColorStop(1, '#030203');
+    ctx.fillStyle = bg; ctx.fillRect(0, 0, W, H);
+    var ag = ctx.createRadialGradient(W * 0.5, H * 0.5, 0, W * 0.5, H * 0.5, W * 0.7);
+    ag.addColorStop(0, 'rgba(201,169,110,0.14)');
+    ag.addColorStop(1, 'transparent');
+    ctx.fillStyle = ag; ctx.fillRect(0, 0, W, H);
+    // Wave silhouette
+    ctx.strokeStyle = 'rgba(201,169,110,0.22)';
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    ctx.moveTo(0, H * 0.55);
+    for (var x = 0; x <= W; x += 4) {
+      ctx.lineTo(x, H * 0.55 - Math.sin(x / W * Math.PI * 5) * H * 0.1);
+    }
+    ctx.stroke();
+  }
+
+  drawFountainCard('card1Canvas');
+  drawAquariumCard('card2Canvas');
+  drawArchCard('card3Canvas');
+</script>
+</body>
+</html>
