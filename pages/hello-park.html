@@ -19,6 +19,10 @@
       min-height: 620px;
       display: flex;
       align-items: flex-end;
+    }
+    .hp-hero__bg-wrap {
+      position: absolute;
+      inset: 0;
       overflow: hidden;
     }
     .hp-hero__bg {
@@ -670,8 +674,10 @@
        HERO
        ============================================================ -->
   <section class="hp-hero" aria-label="Hello Park hero">
-    <div class="hp-hero__bg" id="heroBg"></div>
-    <div class="hp-hero__overlay"></div>
+    <div class="hp-hero__bg-wrap">
+      <div class="hp-hero__bg" id="heroBg"></div>
+      <div class="hp-hero__overlay"></div>
+    </div>
     <div class="container hp-hero__content">
       <nav class="hp-hero__breadcrumb" aria-label="Fil d'Ariane">
         <a href="../index.html">Morocco Mall</a>
