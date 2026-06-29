@@ -878,6 +878,7 @@
         href="padel-club.html"
         class="venue-card"
         data-category="sport"
+        data-mall="casablanca"
         aria-label="The Padel Club Casablanca — 2 terrains de padel vue océan"
       >
         <img
@@ -903,6 +904,7 @@
         href="padel-club-marrakech.html"
         class="venue-card"
         data-category="sport"
+        data-mall="marrakech"
         aria-label="The Padel Club Marrakech — 6 terrains rooftop vue Atlas, yoga, pilates, centre de réhabilitation"
       >
         <img
@@ -1072,35 +1074,46 @@
     /* --- Hero image reveal --- */
     var heroBg = document.getElementById('heroBg');
     if (heroBg) {
-      requestAnimationFrame(function () {
-        heroBg.classList.add('loaded');
-      });
+      requestAnimationFrame(function () { heroBg.classList.add('loaded'); });
     }
 
-    /* --- Filter bar --- */
-    var filterBtns = document.querySelectorAll('.filter-btn');
-    var venueCards = document.querySelectorAll('.venue-card[data-category]');
+    /* --- Combined category + mall filter --- */
+    var filterBtns   = document.querySelectorAll('.filter-btn');
+    var venueCards    = document.querySelectorAll('.venue-card[data-category]');
     var featuredSection = document.getElementById('sea-dream-featured');
+    var activeCategory  = 'all';
+
+    function updateCardVisibility() {
+      var mall = localStorage.getItem('mm_mall') || '';
+      venueCards.forEach(function (card) {
+        var cat      = card.getAttribute('data-category');
+        var cardMall = card.getAttribute('data-mall');
+        var matchesCat  = activeCategory === 'all' || cat === activeCategory;
+        var matchesMall = !mall || !cardMall || cardMall === mall;
+        card.style.display = (matchesCat && matchesMall) ? 'block' : 'none';
+      });
+      if (featuredSection) {
+        featuredSection.style.display =
+          (activeCategory === 'all' || activeCategory === 'aquarium') ? '' : 'none';
+      }
+    }
 
     filterBtns.forEach(function (btn) {
       btn.addEventListener('click', function () {
         filterBtns.forEach(function (b) { b.classList.remove('active'); });
         btn.classList.add('active');
-
-        var filter = btn.getAttribute('data-filter');
-
-        venueCards.forEach(function (card) {
-          var cat = card.getAttribute('data-category');
-          var show = filter === 'all' || cat === filter;
-          card.style.display = show ? 'block' : 'none';
-        });
-
-        /* Show/hide Sea Dream featured section */
-        if (featuredSection) {
-          featuredSection.style.display =
-            (filter === 'all' || filter === 'aquarium') ? '' : 'none';
-        }
+        activeCategory = btn.getAttribute('data-filter');
+        updateCardVisibility();
       });
+    });
+
+    /* Apply on load and re-apply whenever the user switches mall */
+    document.addEventListener('DOMContentLoaded', function () {
+      updateCardVisibility();
+      if (typeof window.setMall === 'function') {
+        var _orig = window.setMall;
+        window.setMall = function (id) { _orig(id); updateCardVisibility(); };
+      }
     });
 
     /* --- Intersection Observer for reveal animations --- */
@@ -1113,15 +1126,9 @@
           }
         });
       }, { threshold: 0.1, rootMargin: '0px 0px -48px 0px' });
-
-      document.querySelectorAll('.reveal').forEach(function (el) {
-        io.observe(el);
-      });
+      document.querySelectorAll('.reveal').forEach(function (el) { io.observe(el); });
     } else {
-      /* Fallback: show all immediately */
-      document.querySelectorAll('.reveal').forEach(function (el) {
-        el.classList.add('in-view');
-      });
+      document.querySelectorAll('.reveal').forEach(function (el) { el.classList.add('in-view'); });
     }
 
   }());
