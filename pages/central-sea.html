@@ -370,6 +370,90 @@
       line-height: 1.5;
     }
 
+    /* ── Full-bleed activity panels ── */
+    .cs-panel {
+      position: relative;
+      width: 100%;
+      height: clamp(58vh, 68vh, 82vh);
+      overflow: hidden;
+      display: flex;
+      align-items: flex-end;
+    }
+    .cs-panel__img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 9s ease;
+    }
+    .cs-panel:hover .cs-panel__img { transform: scale(1.05); }
+    .cs-panel__overlay {
+      position: absolute;
+      inset: 0;
+    }
+    .cs-panel--arcade .cs-panel__overlay {
+      background: linear-gradient(
+        to top,
+        rgba(72, 0, 180, 0.88) 0%,
+        rgba(72, 0, 180, 0.35) 45%,
+        rgba(30, 0, 80, 0.1) 75%,
+        transparent 100%
+      );
+    }
+    .cs-panel--bowling .cs-panel__overlay {
+      background: linear-gradient(
+        to top,
+        rgba(195, 65, 0, 0.88) 0%,
+        rgba(195, 65, 0, 0.35) 45%,
+        rgba(90, 20, 0, 0.1) 75%,
+        transparent 100%
+      );
+    }
+    .cs-panel--restaurant .cs-panel__overlay {
+      background: linear-gradient(
+        to top,
+        rgba(170, 15, 35, 0.88) 0%,
+        rgba(170, 15, 35, 0.35) 45%,
+        rgba(60, 5, 10, 0.1) 75%,
+        transparent 100%
+      );
+    }
+    .cs-panel__body {
+      position: relative;
+      z-index: 2;
+      padding: 0 clamp(1.5rem, 6vw, 5rem) clamp(2.5rem, 6vh, 4.5rem);
+      color: #fff;
+      width: 100%;
+    }
+    .cs-panel__kicker {
+      font-family: var(--font-body, 'DM Sans', sans-serif);
+      font-size: 0.65rem;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.55);
+      margin-bottom: 0.65rem;
+    }
+    .cs-panel__title {
+      font-family: var(--font-display, 'Cormorant Garamond', serif);
+      font-size: clamp(3rem, 8vw, 6rem);
+      font-weight: 300;
+      line-height: 0.95;
+      letter-spacing: -0.02em;
+      margin-bottom: 1.1rem;
+    }
+    .cs-panel__title em {
+      font-style: italic;
+      color: rgba(255, 255, 255, 0.7);
+    }
+    .cs-panel__desc {
+      font-family: var(--font-body, 'DM Sans', sans-serif);
+      font-size: clamp(0.9rem, 1.4vw, 1.05rem);
+      color: rgba(255, 255, 255, 0.68);
+      max-width: 500px;
+      line-height: 1.65;
+    }
+
     /* ── CTA section ── */
     .cs-cta {
       background: var(--black, #0A0A0A);
@@ -543,6 +627,53 @@
         </div>
       </div>
     </section>
+
+    <!-- ══ 4b. PANELS — Arcade · Bowling · Restaurant ══════════════════════ -->
+
+    <div class="cs-panel cs-panel--arcade">
+      <img
+        class="cs-panel__img"
+        src="../assets/central-4.jpg"
+        alt="Arcade — jeux dernier cri, Central Marrakech Garden"
+        loading="lazy"
+      />
+      <div class="cs-panel__overlay"></div>
+      <div class="cs-panel__body">
+        <p class="cs-panel__kicker">Divertissement</p>
+        <h2 class="cs-panel__title">Arcade</h2>
+        <p class="cs-panel__desc">Des dizaines de jeux d'arcade dernier cri — testez vos réflexes, décrochez les meilleurs scores et défiez vos amis dans une ambiance électrique et lumineuse.</p>
+      </div>
+    </div>
+
+    <div class="cs-panel cs-panel--bowling">
+      <img
+        class="cs-panel__img"
+        src="../assets/central-3.jpg"
+        alt="Bowling — pistes Central Marrakech Garden"
+        loading="lazy"
+      />
+      <div class="cs-panel__overlay"></div>
+      <div class="cs-panel__body">
+        <p class="cs-panel__kicker">Divertissement</p>
+        <h2 class="cs-panel__title">Bowling</h2>
+        <p class="cs-panel__desc">Plusieurs pistes de bowling dans une ambiance festive et lumineuse. Le spot parfait pour défier vos amis, votre famille, ou simplement passer une soirée mémorable.</p>
+      </div>
+    </div>
+
+    <div class="cs-panel cs-panel--restaurant">
+      <img
+        class="cs-panel__img"
+        src="../assets/central-6.jpg"
+        alt="Restaurant & Burgers — Central Marrakech Garden"
+        loading="lazy"
+      />
+      <div class="cs-panel__overlay"></div>
+      <div class="cs-panel__body">
+        <p class="cs-panel__kicker">Restauration</p>
+        <h2 class="cs-panel__title">Burgers<br><em>&amp; Food</em></h2>
+        <p class="cs-panel__desc">Une cuisine généreuse et savoureuse — burgers juteux, plats à partager et cocktails, servis dans l'énergie brûlante du live. Parce que bien manger fait partie du fun.</p>
+      </div>
+    </div>
 
     <!-- ══ 5. AMBIANCE ══════════════════════════════════════════════════════ -->
     <section class="cs-section cs-wave" aria-labelledby="wave-heading">
