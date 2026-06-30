@@ -57,6 +57,15 @@ function t(key) {
 
 // ─── Mall helpers ─────────────────────────────────────────────
 function setMall(mallId) {
+  // Coming-soon malls redirect to their dedicated pages immediately
+  if (mallId === 'rabat') {
+    window.location.href = rootPath() + 'pages/rabat.html';
+    return;
+  }
+  if (mallId === 'bouskoura') {
+    window.location.href = rootPath() + 'pages/bouskoura.html';
+    return;
+  }
   MM.mall = mallId;
   localStorage.setItem('mm_mall', mallId || '');
   closeMallModal();
