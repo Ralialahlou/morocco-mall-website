@@ -6,9 +6,15 @@
 'use strict';
 
 // ─── State ───────────────────────────────────────────────────
+// Coming-soon malls must never persist as the active mall (they redirect on select).
+// Clear any stale localStorage entry from before the redirect logic was added.
+const _storedMall = localStorage.getItem('mm_mall');
+if (_storedMall === 'rabat' || _storedMall === 'bouskoura') {
+  localStorage.removeItem('mm_mall');
+}
 const MM = {
   lang: localStorage.getItem('mm_lang') || 'fr',
-  mall: localStorage.getItem('mm_mall') || null, // null = all malls
+  mall: (_storedMall && _storedMall !== 'rabat' && _storedMall !== 'bouskoura') ? _storedMall : null,
   t: null, // current translations
 };
 
